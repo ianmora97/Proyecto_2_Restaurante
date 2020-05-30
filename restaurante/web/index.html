@@ -6,11 +6,992 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Ordenar </title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>     
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<link rel="shortcut icon" type="image/x-icon" href="https://demo.tastyigniter.com/themes/tastyigniter-orange/assets/images/favicon.ico">
+<title>Menu - Demo Tasty</title>
+		<link rel="stylesheet" type="text/css" href="https://demo.tastyigniter.com/themes/tastyigniter-orange/assets/css/app.css" >
+
+
+       
     </head>
     <body>
-        <div>Hola Mundo</div>
+
+        <header class="header">
+            <nav class="navbar navbar-light navbar-top navbar-expand-md fixed-top">
+                <div class="container">
+                    <a class="navbar-brand" href="https://demo.tastyigniter.com">
+                        <img
+                            class="img-logo"
+                            alt="Demo Tasty"
+                            src="https://demo.tastyigniter.com/assets/media/uploads/tastyigniter-logo.png"
+                            >
+                    </a>
+                    <button
+                        class="navbar-toggler border-0"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#navbarMainHeader"
+                        aria-controls="navbarMainHeader"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                        ><span class="navbar-toggler-icon"></span></button>
+
+                    <div class="justify-content-end collapse navbar-collapse" id="navbarMainHeader">
+                        <ul class="nav navbar-nav">
+                            <li
+                                class="nav-item active"
+                                >
+                                <a
+                                    class="nav-link"
+                                    href="https://demo.tastyigniter.com/local/menus"
+                                    >View Menu</a>
+                            </li>
+                            <li
+                                class="nav-item"
+                                >
+                                <a
+                                    class="nav-link"
+                                    href="https://demo.tastyigniter.com/reservation"
+                                    >Reservation</a>
+                            </li>
+                            <li
+                                class="nav-item"
+                                >
+                                <a
+                                    class="nav-link"
+                                    href="https://demo.tastyigniter.com/login"
+                                    >Login</a>
+                            </li>
+                            <li
+                                class="nav-item"
+                                >
+                                <a
+                                    class="nav-link"
+                                    href="https://demo.tastyigniter.com/register"
+                                    >Register</a>
+                            </li>
+                        </ul>        </div>
+                </div>
+            </nav>    </header>
+
+        <main role="main">
+            <div id="page-wrapper">
+                <div class="container">
+                    <div class="row py-4">
+                        <div class="col-sm-2 d-none d-sm-inline-block">
+                            <div class="categories affix-categories">
+                                <div class="d-block d-sm-none">
+                                    <button
+                                        class="btn btn-light btn-block px-3 text-left"
+                                        data-toggle="collapse"
+                                        data-target="#collapseCategoriescollapse5ed18c62e98fc"
+                                        aria-expanded="false"
+                                        aria-controls="collapseCategories"
+                                        >
+                                        <i class="fa fa-bars"></i>&nbsp;&nbsp;
+                                        Categories    </button>
+                                </div>
+                                <div id="collapseCategoriescollapse5ed18c62e98fc" class="collapse d-sm-block">
+                                    <h2 class="h5 px-3 d-none d-sm-block">Categories</h2>
+                                    <nav class="nav nav-categories flex-column">
+
+                                        <a
+                                            class="nav-link"
+                                            href="https://demo.tastyigniter.com/local/menus/appetizer"
+                                            >Appetizer</a>
+
+                                        <a
+                                            class="nav-link"
+                                            href="https://demo.tastyigniter.com/local/menus/main-course"
+                                            >Main Course</a>
+
+                                        <a
+                                            class="nav-link"
+                                            href="https://demo.tastyigniter.com/local/menus/salads"
+                                            >Salads</a>
+
+                                        <a
+                                            class="nav-link"
+                                            href="https://demo.tastyigniter.com/local/menus/seafoods"
+                                            >Seafoods</a>
+
+                                        <a
+                                            class="nav-link"
+                                            href="https://demo.tastyigniter.com/local/menus/traditional"
+                                            >Traditional</a>
+
+                                        <a
+                                            class="nav-link"
+                                            href="https://demo.tastyigniter.com/local/menus/vegetarian"
+                                            >Vegetarian</a>
+
+                                        <a
+                                            class="nav-link"
+                                            href="https://demo.tastyigniter.com/local/menus/soups"
+                                            >Soups</a>
+
+                                        <a
+                                            class="nav-link"
+                                            href="https://demo.tastyigniter.com/local/menus/desserts"
+                                            >Desserts</a>
+
+                                        <a
+                                            class="nav-link"
+                                            href="https://demo.tastyigniter.com/local/menus/drinks"
+                                            >Drinks</a>
+
+                                        <a
+                                            class="nav-link"
+                                            href="https://demo.tastyigniter.com/local/menus/jungle"
+                                            >Specials</a>
+
+                                        <a
+                                            class="nav-link"
+                                            href="https://demo.tastyigniter.com/local/menus/rice-dishes"
+                                            >Rice Dishes</a>
+
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="content">
+                                <div id="local-box">
+                                    <div class="panel local-search">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-12 mb-3 mb-sm-0">
+                                                    <div
+                                                        id="local-timeslot"
+                                                        data-control="timepicker"
+                                                        data-time-slot="{&quot;dates&quot;:{&quot;2020-05-29&quot;:&quot;Fri 29&quot;,&quot;2020-05-30&quot;:&quot;Sat 30&quot;,&quot;2020-05-31&quot;:&quot;Sun 31&quot;,&quot;2020-06-01&quot;:&quot;Mon 01&quot;,&quot;2020-06-02&quot;:&quot;Tue 02&quot;,&quot;2020-06-03&quot;:&quot;Wed 03&quot;},&quot;hours&quot;:{&quot;2020-05-29&quot;:{&quot;23:45&quot;:&quot;Fri 11:45 pm&quot;},&quot;2020-05-30&quot;:{&quot;00:00&quot;:&quot;Sat 12:00 am&quot;,&quot;00:15&quot;:&quot;Sat 12:15 am&quot;,&quot;00:30&quot;:&quot;Sat 12:30 am&quot;,&quot;00:45&quot;:&quot;Sat 12:45 am&quot;,&quot;01:00&quot;:&quot;Sat 01:00 am&quot;,&quot;01:15&quot;:&quot;Sat 01:15 am&quot;,&quot;01:30&quot;:&quot;Sat 01:30 am&quot;,&quot;01:45&quot;:&quot;Sat 01:45 am&quot;,&quot;02:00&quot;:&quot;Sat 02:00 am&quot;,&quot;02:15&quot;:&quot;Sat 02:15 am&quot;,&quot;02:30&quot;:&quot;Sat 02:30 am&quot;,&quot;02:45&quot;:&quot;Sat 02:45 am&quot;,&quot;03:00&quot;:&quot;Sat 03:00 am&quot;,&quot;03:15&quot;:&quot;Sat 03:15 am&quot;,&quot;03:30&quot;:&quot;Sat 03:30 am&quot;,&quot;03:45&quot;:&quot;Sat 03:45 am&quot;,&quot;04:00&quot;:&quot;Sat 04:00 am&quot;,&quot;04:15&quot;:&quot;Sat 04:15 am&quot;,&quot;04:30&quot;:&quot;Sat 04:30 am&quot;,&quot;04:45&quot;:&quot;Sat 04:45 am&quot;,&quot;05:00&quot;:&quot;Sat 05:00 am&quot;,&quot;05:15&quot;:&quot;Sat 05:15 am&quot;,&quot;05:30&quot;:&quot;Sat 05:30 am&quot;,&quot;05:45&quot;:&quot;Sat 05:45 am&quot;,&quot;06:00&quot;:&quot;Sat 06:00 am&quot;,&quot;06:15&quot;:&quot;Sat 06:15 am&quot;,&quot;06:30&quot;:&quot;Sat 06:30 am&quot;,&quot;06:45&quot;:&quot;Sat 06:45 am&quot;,&quot;07:00&quot;:&quot;Sat 07:00 am&quot;,&quot;07:15&quot;:&quot;Sat 07:15 am&quot;,&quot;07:30&quot;:&quot;Sat 07:30 am&quot;,&quot;07:45&quot;:&quot;Sat 07:45 am&quot;,&quot;08:00&quot;:&quot;Sat 08:00 am&quot;,&quot;08:15&quot;:&quot;Sat 08:15 am&quot;,&quot;08:30&quot;:&quot;Sat 08:30 am&quot;,&quot;08:45&quot;:&quot;Sat 08:45 am&quot;,&quot;09:00&quot;:&quot;Sat 09:00 am&quot;,&quot;09:15&quot;:&quot;Sat 09:15 am&quot;,&quot;09:30&quot;:&quot;Sat 09:30 am&quot;,&quot;09:45&quot;:&quot;Sat 09:45 am&quot;,&quot;10:00&quot;:&quot;Sat 10:00 am&quot;,&quot;10:15&quot;:&quot;Sat 10:15 am&quot;,&quot;10:30&quot;:&quot;Sat 10:30 am&quot;,&quot;10:45&quot;:&quot;Sat 10:45 am&quot;,&quot;11:00&quot;:&quot;Sat 11:00 am&quot;,&quot;11:15&quot;:&quot;Sat 11:15 am&quot;,&quot;11:30&quot;:&quot;Sat 11:30 am&quot;,&quot;11:45&quot;:&quot;Sat 11:45 am&quot;,&quot;12:00&quot;:&quot;Sat 12:00 pm&quot;,&quot;12:15&quot;:&quot;Sat 12:15 pm&quot;,&quot;12:30&quot;:&quot;Sat 12:30 pm&quot;,&quot;12:45&quot;:&quot;Sat 12:45 pm&quot;,&quot;13:00&quot;:&quot;Sat 01:00 pm&quot;,&quot;13:15&quot;:&quot;Sat 01:15 pm&quot;,&quot;13:30&quot;:&quot;Sat 01:30 pm&quot;,&quot;13:45&quot;:&quot;Sat 01:45 pm&quot;,&quot;14:00&quot;:&quot;Sat 02:00 pm&quot;,&quot;14:15&quot;:&quot;Sat 02:15 pm&quot;,&quot;14:30&quot;:&quot;Sat 02:30 pm&quot;,&quot;14:45&quot;:&quot;Sat 02:45 pm&quot;,&quot;15:00&quot;:&quot;Sat 03:00 pm&quot;,&quot;15:15&quot;:&quot;Sat 03:15 pm&quot;,&quot;15:30&quot;:&quot;Sat 03:30 pm&quot;,&quot;15:45&quot;:&quot;Sat 03:45 pm&quot;,&quot;16:00&quot;:&quot;Sat 04:00 pm&quot;,&quot;16:15&quot;:&quot;Sat 04:15 pm&quot;,&quot;16:30&quot;:&quot;Sat 04:30 pm&quot;,&quot;16:45&quot;:&quot;Sat 04:45 pm&quot;,&quot;17:00&quot;:&quot;Sat 05:00 pm&quot;,&quot;17:15&quot;:&quot;Sat 05:15 pm&quot;,&quot;17:30&quot;:&quot;Sat 05:30 pm&quot;,&quot;17:45&quot;:&quot;Sat 05:45 pm&quot;,&quot;18:00&quot;:&quot;Sat 06:00 pm&quot;,&quot;18:15&quot;:&quot;Sat 06:15 pm&quot;,&quot;18:30&quot;:&quot;Sat 06:30 pm&quot;,&quot;18:45&quot;:&quot;Sat 06:45 pm&quot;,&quot;19:00&quot;:&quot;Sat 07:00 pm&quot;,&quot;19:15&quot;:&quot;Sat 07:15 pm&quot;,&quot;19:30&quot;:&quot;Sat 07:30 pm&quot;,&quot;19:45&quot;:&quot;Sat 07:45 pm&quot;,&quot;20:00&quot;:&quot;Sat 08:00 pm&quot;,&quot;20:15&quot;:&quot;Sat 08:15 pm&quot;,&quot;20:30&quot;:&quot;Sat 08:30 pm&quot;,&quot;20:45&quot;:&quot;Sat 08:45 pm&quot;,&quot;21:00&quot;:&quot;Sat 09:00 pm&quot;,&quot;21:15&quot;:&quot;Sat 09:15 pm&quot;,&quot;21:30&quot;:&quot;Sat 09:30 pm&quot;,&quot;21:45&quot;:&quot;Sat 09:45 pm&quot;,&quot;22:00&quot;:&quot;Sat 10:00 pm&quot;,&quot;22:15&quot;:&quot;Sat 10:15 pm&quot;,&quot;22:30&quot;:&quot;Sat 10:30 pm&quot;,&quot;22:45&quot;:&quot;Sat 10:45 pm&quot;,&quot;23:00&quot;:&quot;Sat 11:00 pm&quot;,&quot;23:15&quot;:&quot;Sat 11:15 pm&quot;,&quot;23:30&quot;:&quot;Sat 11:30 pm&quot;,&quot;23:45&quot;:&quot;Sat 11:45 pm&quot;},&quot;2020-05-31&quot;:{&quot;00:00&quot;:&quot;Sun 12:00 am&quot;,&quot;00:15&quot;:&quot;Sun 12:15 am&quot;,&quot;00:30&quot;:&quot;Sun 12:30 am&quot;,&quot;00:45&quot;:&quot;Sun 12:45 am&quot;,&quot;01:00&quot;:&quot;Sun 01:00 am&quot;,&quot;01:15&quot;:&quot;Sun 01:15 am&quot;,&quot;01:30&quot;:&quot;Sun 01:30 am&quot;,&quot;01:45&quot;:&quot;Sun 01:45 am&quot;,&quot;02:00&quot;:&quot;Sun 02:00 am&quot;,&quot;02:15&quot;:&quot;Sun 02:15 am&quot;,&quot;02:30&quot;:&quot;Sun 02:30 am&quot;,&quot;02:45&quot;:&quot;Sun 02:45 am&quot;,&quot;03:00&quot;:&quot;Sun 03:00 am&quot;,&quot;03:15&quot;:&quot;Sun 03:15 am&quot;,&quot;03:30&quot;:&quot;Sun 03:30 am&quot;,&quot;03:45&quot;:&quot;Sun 03:45 am&quot;,&quot;04:00&quot;:&quot;Sun 04:00 am&quot;,&quot;04:15&quot;:&quot;Sun 04:15 am&quot;,&quot;04:30&quot;:&quot;Sun 04:30 am&quot;,&quot;04:45&quot;:&quot;Sun 04:45 am&quot;,&quot;05:00&quot;:&quot;Sun 05:00 am&quot;,&quot;05:15&quot;:&quot;Sun 05:15 am&quot;,&quot;05:30&quot;:&quot;Sun 05:30 am&quot;,&quot;05:45&quot;:&quot;Sun 05:45 am&quot;,&quot;06:00&quot;:&quot;Sun 06:00 am&quot;,&quot;06:15&quot;:&quot;Sun 06:15 am&quot;,&quot;06:30&quot;:&quot;Sun 06:30 am&quot;,&quot;06:45&quot;:&quot;Sun 06:45 am&quot;,&quot;07:00&quot;:&quot;Sun 07:00 am&quot;,&quot;07:15&quot;:&quot;Sun 07:15 am&quot;,&quot;07:30&quot;:&quot;Sun 07:30 am&quot;,&quot;07:45&quot;:&quot;Sun 07:45 am&quot;,&quot;08:00&quot;:&quot;Sun 08:00 am&quot;,&quot;08:15&quot;:&quot;Sun 08:15 am&quot;,&quot;08:30&quot;:&quot;Sun 08:30 am&quot;,&quot;08:45&quot;:&quot;Sun 08:45 am&quot;,&quot;09:00&quot;:&quot;Sun 09:00 am&quot;,&quot;09:15&quot;:&quot;Sun 09:15 am&quot;,&quot;09:30&quot;:&quot;Sun 09:30 am&quot;,&quot;09:45&quot;:&quot;Sun 09:45 am&quot;,&quot;10:00&quot;:&quot;Sun 10:00 am&quot;,&quot;10:15&quot;:&quot;Sun 10:15 am&quot;,&quot;10:30&quot;:&quot;Sun 10:30 am&quot;,&quot;10:45&quot;:&quot;Sun 10:45 am&quot;,&quot;11:00&quot;:&quot;Sun 11:00 am&quot;,&quot;11:15&quot;:&quot;Sun 11:15 am&quot;,&quot;11:30&quot;:&quot;Sun 11:30 am&quot;,&quot;11:45&quot;:&quot;Sun 11:45 am&quot;,&quot;12:00&quot;:&quot;Sun 12:00 pm&quot;,&quot;12:15&quot;:&quot;Sun 12:15 pm&quot;,&quot;12:30&quot;:&quot;Sun 12:30 pm&quot;,&quot;12:45&quot;:&quot;Sun 12:45 pm&quot;,&quot;13:00&quot;:&quot;Sun 01:00 pm&quot;,&quot;13:15&quot;:&quot;Sun 01:15 pm&quot;,&quot;13:30&quot;:&quot;Sun 01:30 pm&quot;,&quot;13:45&quot;:&quot;Sun 01:45 pm&quot;,&quot;14:00&quot;:&quot;Sun 02:00 pm&quot;,&quot;14:15&quot;:&quot;Sun 02:15 pm&quot;,&quot;14:30&quot;:&quot;Sun 02:30 pm&quot;,&quot;14:45&quot;:&quot;Sun 02:45 pm&quot;,&quot;15:00&quot;:&quot;Sun 03:00 pm&quot;,&quot;15:15&quot;:&quot;Sun 03:15 pm&quot;,&quot;15:30&quot;:&quot;Sun 03:30 pm&quot;,&quot;15:45&quot;:&quot;Sun 03:45 pm&quot;,&quot;16:00&quot;:&quot;Sun 04:00 pm&quot;,&quot;16:15&quot;:&quot;Sun 04:15 pm&quot;,&quot;16:30&quot;:&quot;Sun 04:30 pm&quot;,&quot;16:45&quot;:&quot;Sun 04:45 pm&quot;,&quot;17:00&quot;:&quot;Sun 05:00 pm&quot;,&quot;17:15&quot;:&quot;Sun 05:15 pm&quot;,&quot;17:30&quot;:&quot;Sun 05:30 pm&quot;,&quot;17:45&quot;:&quot;Sun 05:45 pm&quot;,&quot;18:00&quot;:&quot;Sun 06:00 pm&quot;,&quot;18:15&quot;:&quot;Sun 06:15 pm&quot;,&quot;18:30&quot;:&quot;Sun 06:30 pm&quot;,&quot;18:45&quot;:&quot;Sun 06:45 pm&quot;,&quot;19:00&quot;:&quot;Sun 07:00 pm&quot;,&quot;19:15&quot;:&quot;Sun 07:15 pm&quot;,&quot;19:30&quot;:&quot;Sun 07:30 pm&quot;,&quot;19:45&quot;:&quot;Sun 07:45 pm&quot;,&quot;20:00&quot;:&quot;Sun 08:00 pm&quot;,&quot;20:15&quot;:&quot;Sun 08:15 pm&quot;,&quot;20:30&quot;:&quot;Sun 08:30 pm&quot;,&quot;20:45&quot;:&quot;Sun 08:45 pm&quot;,&quot;21:00&quot;:&quot;Sun 09:00 pm&quot;,&quot;21:15&quot;:&quot;Sun 09:15 pm&quot;,&quot;21:30&quot;:&quot;Sun 09:30 pm&quot;,&quot;21:45&quot;:&quot;Sun 09:45 pm&quot;,&quot;22:00&quot;:&quot;Sun 10:00 pm&quot;,&quot;22:15&quot;:&quot;Sun 10:15 pm&quot;,&quot;22:30&quot;:&quot;Sun 10:30 pm&quot;,&quot;22:45&quot;:&quot;Sun 10:45 pm&quot;,&quot;23:00&quot;:&quot;Sun 11:00 pm&quot;,&quot;23:15&quot;:&quot;Sun 11:15 pm&quot;,&quot;23:30&quot;:&quot;Sun 11:30 pm&quot;,&quot;23:45&quot;:&quot;Sun 11:45 pm&quot;},&quot;2020-06-01&quot;:{&quot;00:00&quot;:&quot;Mon 12:00 am&quot;,&quot;00:15&quot;:&quot;Mon 12:15 am&quot;,&quot;00:30&quot;:&quot;Mon 12:30 am&quot;,&quot;00:45&quot;:&quot;Mon 12:45 am&quot;,&quot;01:00&quot;:&quot;Mon 01:00 am&quot;,&quot;01:15&quot;:&quot;Mon 01:15 am&quot;,&quot;01:30&quot;:&quot;Mon 01:30 am&quot;,&quot;01:45&quot;:&quot;Mon 01:45 am&quot;,&quot;02:00&quot;:&quot;Mon 02:00 am&quot;,&quot;02:15&quot;:&quot;Mon 02:15 am&quot;,&quot;02:30&quot;:&quot;Mon 02:30 am&quot;,&quot;02:45&quot;:&quot;Mon 02:45 am&quot;,&quot;03:00&quot;:&quot;Mon 03:00 am&quot;,&quot;03:15&quot;:&quot;Mon 03:15 am&quot;,&quot;03:30&quot;:&quot;Mon 03:30 am&quot;,&quot;03:45&quot;:&quot;Mon 03:45 am&quot;,&quot;04:00&quot;:&quot;Mon 04:00 am&quot;,&quot;04:15&quot;:&quot;Mon 04:15 am&quot;,&quot;04:30&quot;:&quot;Mon 04:30 am&quot;,&quot;04:45&quot;:&quot;Mon 04:45 am&quot;,&quot;05:00&quot;:&quot;Mon 05:00 am&quot;,&quot;05:15&quot;:&quot;Mon 05:15 am&quot;,&quot;05:30&quot;:&quot;Mon 05:30 am&quot;,&quot;05:45&quot;:&quot;Mon 05:45 am&quot;,&quot;06:00&quot;:&quot;Mon 06:00 am&quot;,&quot;06:15&quot;:&quot;Mon 06:15 am&quot;,&quot;06:30&quot;:&quot;Mon 06:30 am&quot;,&quot;06:45&quot;:&quot;Mon 06:45 am&quot;,&quot;07:00&quot;:&quot;Mon 07:00 am&quot;,&quot;07:15&quot;:&quot;Mon 07:15 am&quot;,&quot;07:30&quot;:&quot;Mon 07:30 am&quot;,&quot;07:45&quot;:&quot;Mon 07:45 am&quot;,&quot;08:00&quot;:&quot;Mon 08:00 am&quot;,&quot;08:15&quot;:&quot;Mon 08:15 am&quot;,&quot;08:30&quot;:&quot;Mon 08:30 am&quot;,&quot;08:45&quot;:&quot;Mon 08:45 am&quot;,&quot;09:00&quot;:&quot;Mon 09:00 am&quot;,&quot;09:15&quot;:&quot;Mon 09:15 am&quot;,&quot;09:30&quot;:&quot;Mon 09:30 am&quot;,&quot;09:45&quot;:&quot;Mon 09:45 am&quot;,&quot;10:00&quot;:&quot;Mon 10:00 am&quot;,&quot;10:15&quot;:&quot;Mon 10:15 am&quot;,&quot;10:30&quot;:&quot;Mon 10:30 am&quot;,&quot;10:45&quot;:&quot;Mon 10:45 am&quot;,&quot;11:00&quot;:&quot;Mon 11:00 am&quot;,&quot;11:15&quot;:&quot;Mon 11:15 am&quot;,&quot;11:30&quot;:&quot;Mon 11:30 am&quot;,&quot;11:45&quot;:&quot;Mon 11:45 am&quot;,&quot;12:00&quot;:&quot;Mon 12:00 pm&quot;,&quot;12:15&quot;:&quot;Mon 12:15 pm&quot;,&quot;12:30&quot;:&quot;Mon 12:30 pm&quot;,&quot;12:45&quot;:&quot;Mon 12:45 pm&quot;,&quot;13:00&quot;:&quot;Mon 01:00 pm&quot;,&quot;13:15&quot;:&quot;Mon 01:15 pm&quot;,&quot;13:30&quot;:&quot;Mon 01:30 pm&quot;,&quot;13:45&quot;:&quot;Mon 01:45 pm&quot;,&quot;14:00&quot;:&quot;Mon 02:00 pm&quot;,&quot;14:15&quot;:&quot;Mon 02:15 pm&quot;,&quot;14:30&quot;:&quot;Mon 02:30 pm&quot;,&quot;14:45&quot;:&quot;Mon 02:45 pm&quot;,&quot;15:00&quot;:&quot;Mon 03:00 pm&quot;,&quot;15:15&quot;:&quot;Mon 03:15 pm&quot;,&quot;15:30&quot;:&quot;Mon 03:30 pm&quot;,&quot;15:45&quot;:&quot;Mon 03:45 pm&quot;,&quot;16:00&quot;:&quot;Mon 04:00 pm&quot;,&quot;16:15&quot;:&quot;Mon 04:15 pm&quot;,&quot;16:30&quot;:&quot;Mon 04:30 pm&quot;,&quot;16:45&quot;:&quot;Mon 04:45 pm&quot;,&quot;17:00&quot;:&quot;Mon 05:00 pm&quot;,&quot;17:15&quot;:&quot;Mon 05:15 pm&quot;,&quot;17:30&quot;:&quot;Mon 05:30 pm&quot;,&quot;17:45&quot;:&quot;Mon 05:45 pm&quot;,&quot;18:00&quot;:&quot;Mon 06:00 pm&quot;,&quot;18:15&quot;:&quot;Mon 06:15 pm&quot;,&quot;18:30&quot;:&quot;Mon 06:30 pm&quot;,&quot;18:45&quot;:&quot;Mon 06:45 pm&quot;,&quot;19:00&quot;:&quot;Mon 07:00 pm&quot;,&quot;19:15&quot;:&quot;Mon 07:15 pm&quot;,&quot;19:30&quot;:&quot;Mon 07:30 pm&quot;,&quot;19:45&quot;:&quot;Mon 07:45 pm&quot;,&quot;20:00&quot;:&quot;Mon 08:00 pm&quot;,&quot;20:15&quot;:&quot;Mon 08:15 pm&quot;,&quot;20:30&quot;:&quot;Mon 08:30 pm&quot;,&quot;20:45&quot;:&quot;Mon 08:45 pm&quot;,&quot;21:00&quot;:&quot;Mon 09:00 pm&quot;,&quot;21:15&quot;:&quot;Mon 09:15 pm&quot;,&quot;21:30&quot;:&quot;Mon 09:30 pm&quot;,&quot;21:45&quot;:&quot;Mon 09:45 pm&quot;,&quot;22:00&quot;:&quot;Mon 10:00 pm&quot;,&quot;22:15&quot;:&quot;Mon 10:15 pm&quot;,&quot;22:30&quot;:&quot;Mon 10:30 pm&quot;,&quot;22:45&quot;:&quot;Mon 10:45 pm&quot;,&quot;23:00&quot;:&quot;Mon 11:00 pm&quot;,&quot;23:15&quot;:&quot;Mon 11:15 pm&quot;,&quot;23:30&quot;:&quot;Mon 11:30 pm&quot;,&quot;23:45&quot;:&quot;Mon 11:45 pm&quot;},&quot;2020-06-02&quot;:{&quot;00:00&quot;:&quot;Tue 12:00 am&quot;,&quot;00:15&quot;:&quot;Tue 12:15 am&quot;,&quot;00:30&quot;:&quot;Tue 12:30 am&quot;,&quot;00:45&quot;:&quot;Tue 12:45 am&quot;,&quot;01:00&quot;:&quot;Tue 01:00 am&quot;,&quot;01:15&quot;:&quot;Tue 01:15 am&quot;,&quot;01:30&quot;:&quot;Tue 01:30 am&quot;,&quot;01:45&quot;:&quot;Tue 01:45 am&quot;,&quot;02:00&quot;:&quot;Tue 02:00 am&quot;,&quot;02:15&quot;:&quot;Tue 02:15 am&quot;,&quot;02:30&quot;:&quot;Tue 02:30 am&quot;,&quot;02:45&quot;:&quot;Tue 02:45 am&quot;,&quot;03:00&quot;:&quot;Tue 03:00 am&quot;,&quot;03:15&quot;:&quot;Tue 03:15 am&quot;,&quot;03:30&quot;:&quot;Tue 03:30 am&quot;,&quot;03:45&quot;:&quot;Tue 03:45 am&quot;,&quot;04:00&quot;:&quot;Tue 04:00 am&quot;,&quot;04:15&quot;:&quot;Tue 04:15 am&quot;,&quot;04:30&quot;:&quot;Tue 04:30 am&quot;,&quot;04:45&quot;:&quot;Tue 04:45 am&quot;,&quot;05:00&quot;:&quot;Tue 05:00 am&quot;,&quot;05:15&quot;:&quot;Tue 05:15 am&quot;,&quot;05:30&quot;:&quot;Tue 05:30 am&quot;,&quot;05:45&quot;:&quot;Tue 05:45 am&quot;,&quot;06:00&quot;:&quot;Tue 06:00 am&quot;,&quot;06:15&quot;:&quot;Tue 06:15 am&quot;,&quot;06:30&quot;:&quot;Tue 06:30 am&quot;,&quot;06:45&quot;:&quot;Tue 06:45 am&quot;,&quot;07:00&quot;:&quot;Tue 07:00 am&quot;,&quot;07:15&quot;:&quot;Tue 07:15 am&quot;,&quot;07:30&quot;:&quot;Tue 07:30 am&quot;,&quot;07:45&quot;:&quot;Tue 07:45 am&quot;,&quot;08:00&quot;:&quot;Tue 08:00 am&quot;,&quot;08:15&quot;:&quot;Tue 08:15 am&quot;,&quot;08:30&quot;:&quot;Tue 08:30 am&quot;,&quot;08:45&quot;:&quot;Tue 08:45 am&quot;,&quot;09:00&quot;:&quot;Tue 09:00 am&quot;,&quot;09:15&quot;:&quot;Tue 09:15 am&quot;,&quot;09:30&quot;:&quot;Tue 09:30 am&quot;,&quot;09:45&quot;:&quot;Tue 09:45 am&quot;,&quot;10:00&quot;:&quot;Tue 10:00 am&quot;,&quot;10:15&quot;:&quot;Tue 10:15 am&quot;,&quot;10:30&quot;:&quot;Tue 10:30 am&quot;,&quot;10:45&quot;:&quot;Tue 10:45 am&quot;,&quot;11:00&quot;:&quot;Tue 11:00 am&quot;,&quot;11:15&quot;:&quot;Tue 11:15 am&quot;,&quot;11:30&quot;:&quot;Tue 11:30 am&quot;,&quot;11:45&quot;:&quot;Tue 11:45 am&quot;,&quot;12:00&quot;:&quot;Tue 12:00 pm&quot;,&quot;12:15&quot;:&quot;Tue 12:15 pm&quot;,&quot;12:30&quot;:&quot;Tue 12:30 pm&quot;,&quot;12:45&quot;:&quot;Tue 12:45 pm&quot;,&quot;13:00&quot;:&quot;Tue 01:00 pm&quot;,&quot;13:15&quot;:&quot;Tue 01:15 pm&quot;,&quot;13:30&quot;:&quot;Tue 01:30 pm&quot;,&quot;13:45&quot;:&quot;Tue 01:45 pm&quot;,&quot;14:00&quot;:&quot;Tue 02:00 pm&quot;,&quot;14:15&quot;:&quot;Tue 02:15 pm&quot;,&quot;14:30&quot;:&quot;Tue 02:30 pm&quot;,&quot;14:45&quot;:&quot;Tue 02:45 pm&quot;,&quot;15:00&quot;:&quot;Tue 03:00 pm&quot;,&quot;15:15&quot;:&quot;Tue 03:15 pm&quot;,&quot;15:30&quot;:&quot;Tue 03:30 pm&quot;,&quot;15:45&quot;:&quot;Tue 03:45 pm&quot;,&quot;16:00&quot;:&quot;Tue 04:00 pm&quot;,&quot;16:15&quot;:&quot;Tue 04:15 pm&quot;,&quot;16:30&quot;:&quot;Tue 04:30 pm&quot;,&quot;16:45&quot;:&quot;Tue 04:45 pm&quot;,&quot;17:00&quot;:&quot;Tue 05:00 pm&quot;,&quot;17:15&quot;:&quot;Tue 05:15 pm&quot;,&quot;17:30&quot;:&quot;Tue 05:30 pm&quot;,&quot;17:45&quot;:&quot;Tue 05:45 pm&quot;,&quot;18:00&quot;:&quot;Tue 06:00 pm&quot;,&quot;18:15&quot;:&quot;Tue 06:15 pm&quot;,&quot;18:30&quot;:&quot;Tue 06:30 pm&quot;,&quot;18:45&quot;:&quot;Tue 06:45 pm&quot;,&quot;19:00&quot;:&quot;Tue 07:00 pm&quot;,&quot;19:15&quot;:&quot;Tue 07:15 pm&quot;,&quot;19:30&quot;:&quot;Tue 07:30 pm&quot;,&quot;19:45&quot;:&quot;Tue 07:45 pm&quot;,&quot;20:00&quot;:&quot;Tue 08:00 pm&quot;,&quot;20:15&quot;:&quot;Tue 08:15 pm&quot;,&quot;20:30&quot;:&quot;Tue 08:30 pm&quot;,&quot;20:45&quot;:&quot;Tue 08:45 pm&quot;,&quot;21:00&quot;:&quot;Tue 09:00 pm&quot;,&quot;21:15&quot;:&quot;Tue 09:15 pm&quot;,&quot;21:30&quot;:&quot;Tue 09:30 pm&quot;,&quot;21:45&quot;:&quot;Tue 09:45 pm&quot;,&quot;22:00&quot;:&quot;Tue 10:00 pm&quot;,&quot;22:15&quot;:&quot;Tue 10:15 pm&quot;,&quot;22:30&quot;:&quot;Tue 10:30 pm&quot;,&quot;22:45&quot;:&quot;Tue 10:45 pm&quot;,&quot;23:00&quot;:&quot;Tue 11:00 pm&quot;,&quot;23:15&quot;:&quot;Tue 11:15 pm&quot;,&quot;23:30&quot;:&quot;Tue 11:30 pm&quot;,&quot;23:45&quot;:&quot;Tue 11:45 pm&quot;},&quot;2020-06-03&quot;:{&quot;00:00&quot;:&quot;Wed 12:00 am&quot;,&quot;00:15&quot;:&quot;Wed 12:15 am&quot;,&quot;00:30&quot;:&quot;Wed 12:30 am&quot;,&quot;00:45&quot;:&quot;Wed 12:45 am&quot;,&quot;01:00&quot;:&quot;Wed 01:00 am&quot;,&quot;01:15&quot;:&quot;Wed 01:15 am&quot;,&quot;01:30&quot;:&quot;Wed 01:30 am&quot;,&quot;01:45&quot;:&quot;Wed 01:45 am&quot;,&quot;02:00&quot;:&quot;Wed 02:00 am&quot;,&quot;02:15&quot;:&quot;Wed 02:15 am&quot;,&quot;02:30&quot;:&quot;Wed 02:30 am&quot;,&quot;02:45&quot;:&quot;Wed 02:45 am&quot;,&quot;03:00&quot;:&quot;Wed 03:00 am&quot;,&quot;03:15&quot;:&quot;Wed 03:15 am&quot;,&quot;03:30&quot;:&quot;Wed 03:30 am&quot;,&quot;03:45&quot;:&quot;Wed 03:45 am&quot;,&quot;04:00&quot;:&quot;Wed 04:00 am&quot;,&quot;04:15&quot;:&quot;Wed 04:15 am&quot;,&quot;04:30&quot;:&quot;Wed 04:30 am&quot;,&quot;04:45&quot;:&quot;Wed 04:45 am&quot;,&quot;05:00&quot;:&quot;Wed 05:00 am&quot;,&quot;05:15&quot;:&quot;Wed 05:15 am&quot;,&quot;05:30&quot;:&quot;Wed 05:30 am&quot;,&quot;05:45&quot;:&quot;Wed 05:45 am&quot;,&quot;06:00&quot;:&quot;Wed 06:00 am&quot;,&quot;06:15&quot;:&quot;Wed 06:15 am&quot;,&quot;06:30&quot;:&quot;Wed 06:30 am&quot;,&quot;06:45&quot;:&quot;Wed 06:45 am&quot;,&quot;07:00&quot;:&quot;Wed 07:00 am&quot;,&quot;07:15&quot;:&quot;Wed 07:15 am&quot;,&quot;07:30&quot;:&quot;Wed 07:30 am&quot;,&quot;07:45&quot;:&quot;Wed 07:45 am&quot;,&quot;08:00&quot;:&quot;Wed 08:00 am&quot;,&quot;08:15&quot;:&quot;Wed 08:15 am&quot;,&quot;08:30&quot;:&quot;Wed 08:30 am&quot;,&quot;08:45&quot;:&quot;Wed 08:45 am&quot;,&quot;09:00&quot;:&quot;Wed 09:00 am&quot;,&quot;09:15&quot;:&quot;Wed 09:15 am&quot;,&quot;09:30&quot;:&quot;Wed 09:30 am&quot;,&quot;09:45&quot;:&quot;Wed 09:45 am&quot;,&quot;10:00&quot;:&quot;Wed 10:00 am&quot;,&quot;10:15&quot;:&quot;Wed 10:15 am&quot;,&quot;10:30&quot;:&quot;Wed 10:30 am&quot;,&quot;10:45&quot;:&quot;Wed 10:45 am&quot;,&quot;11:00&quot;:&quot;Wed 11:00 am&quot;,&quot;11:15&quot;:&quot;Wed 11:15 am&quot;,&quot;11:30&quot;:&quot;Wed 11:30 am&quot;,&quot;11:45&quot;:&quot;Wed 11:45 am&quot;,&quot;12:00&quot;:&quot;Wed 12:00 pm&quot;,&quot;12:15&quot;:&quot;Wed 12:15 pm&quot;,&quot;12:30&quot;:&quot;Wed 12:30 pm&quot;,&quot;12:45&quot;:&quot;Wed 12:45 pm&quot;,&quot;13:00&quot;:&quot;Wed 01:00 pm&quot;,&quot;13:15&quot;:&quot;Wed 01:15 pm&quot;,&quot;13:30&quot;:&quot;Wed 01:30 pm&quot;,&quot;13:45&quot;:&quot;Wed 01:45 pm&quot;,&quot;14:00&quot;:&quot;Wed 02:00 pm&quot;,&quot;14:15&quot;:&quot;Wed 02:15 pm&quot;,&quot;14:30&quot;:&quot;Wed 02:30 pm&quot;,&quot;14:45&quot;:&quot;Wed 02:45 pm&quot;,&quot;15:00&quot;:&quot;Wed 03:00 pm&quot;,&quot;15:15&quot;:&quot;Wed 03:15 pm&quot;,&quot;15:30&quot;:&quot;Wed 03:30 pm&quot;,&quot;15:45&quot;:&quot;Wed 03:45 pm&quot;,&quot;16:00&quot;:&quot;Wed 04:00 pm&quot;,&quot;16:15&quot;:&quot;Wed 04:15 pm&quot;,&quot;16:30&quot;:&quot;Wed 04:30 pm&quot;,&quot;16:45&quot;:&quot;Wed 04:45 pm&quot;,&quot;17:00&quot;:&quot;Wed 05:00 pm&quot;,&quot;17:15&quot;:&quot;Wed 05:15 pm&quot;,&quot;17:30&quot;:&quot;Wed 05:30 pm&quot;,&quot;17:45&quot;:&quot;Wed 05:45 pm&quot;,&quot;18:00&quot;:&quot;Wed 06:00 pm&quot;,&quot;18:15&quot;:&quot;Wed 06:15 pm&quot;,&quot;18:30&quot;:&quot;Wed 06:30 pm&quot;,&quot;18:45&quot;:&quot;Wed 06:45 pm&quot;,&quot;19:00&quot;:&quot;Wed 07:00 pm&quot;,&quot;19:15&quot;:&quot;Wed 07:15 pm&quot;,&quot;19:30&quot;:&quot;Wed 07:30 pm&quot;,&quot;19:45&quot;:&quot;Wed 07:45 pm&quot;,&quot;20:00&quot;:&quot;Wed 08:00 pm&quot;,&quot;20:15&quot;:&quot;Wed 08:15 pm&quot;,&quot;20:30&quot;:&quot;Wed 08:30 pm&quot;,&quot;20:45&quot;:&quot;Wed 08:45 pm&quot;,&quot;21:00&quot;:&quot;Wed 09:00 pm&quot;,&quot;21:15&quot;:&quot;Wed 09:15 pm&quot;,&quot;21:30&quot;:&quot;Wed 09:30 pm&quot;,&quot;21:45&quot;:&quot;Wed 09:45 pm&quot;,&quot;22:00&quot;:&quot;Wed 10:00 pm&quot;,&quot;22:15&quot;:&quot;Wed 10:15 pm&quot;,&quot;22:30&quot;:&quot;Wed 10:30 pm&quot;,&quot;22:45&quot;:&quot;Wed 10:45 pm&quot;,&quot;23:00&quot;:&quot;Wed 11:00 pm&quot;,&quot;23:15&quot;:&quot;Wed 11:15 pm&quot;,&quot;23:30&quot;:&quot;Wed 11:30 pm&quot;,&quot;23:45&quot;:&quot;Wed 11:45 pm&quot;}}}"
+                                                        >
+                                                        <div
+                                                            class="dropdown"
+                                                            >
+                                                            <button
+                                                                class="btn btn-light btn-timepicker btn-block dropdown-toggle text-truncate"
+                                                                type="button"
+                                                                id="orderTimePicker"
+                                                                data-toggle="dropdown"
+                                                                data-boundary="viewport"
+                                                                aria-haspopup="true"
+                                                                aria-expanded="false"
+                                                                >
+                                                                <i class="fa fa-clock-o"></i>&nbsp;&nbsp;
+                                                                <b>ASAP</b>
+                                                            </button>
+
+                                                            <div class="dropdown-menu" aria-labelledby="orderTimePicker">
+                                                                <button
+                                                                    type="button"
+                                                                    class="dropdown-item py-2"
+                                                                    data-timepicker-option="asap"
+                                                                    ><i class="fa fa-clock-o"></i>&nbsp;&nbsp;ASAP</button>
+                                                                <button
+                                                                    type="button"
+                                                                    class="dropdown-item py-2"
+                                                                    data-timepicker-option="later"
+                                                                    ><i class="fa fa-calendar"></i>&nbsp;&nbsp;Schedule Order</button>
+
+                                                                <form
+                                                                    class="dropdown-content px-4 py-3 hide"
+                                                                    role="form"
+                                                                    data-request="localBox::onSetOrderTime"
+                                                                    >
+                                                                    <input type="hidden" data-timepicker-control="type" value="asap">
+                                                                    <div class="form-group">
+                                                                        <select
+                                                                            class="form-control"
+                                                                            data-timepicker-control="date"
+                                                                            data-timepicker-label="Select a date"
+                                                                            data-timepicker-selected="2020-05-29"
+                                                                            ></select>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <select
+                                                                            class="form-control"
+                                                                            data-timepicker-control="time"
+                                                                            data-timepicker-label="Select a time"
+                                                                            data-timepicker-selected="23:42"
+                                                                            ></select>
+                                                                    </div>
+                                                                    <button
+                                                                        type="button"
+                                                                        class="btn btn-primary text-nowrap"
+                                                                        data-timepicker-submit
+                                                                        data-attach-loading
+                                                                        >
+                                                                        Set Delivery Time            </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel panel-local">
+                                        <div class="panel-body">
+                                            <div class="row boxes">
+                                                <div class="box-one col-sm-6">
+                                                    <dl class="no-spacing">
+                                                        <dd><h1 class="h3">TastyIgniter</h1></dd>
+                                                        <dd class="text-muted">
+                                                            <div class="rating rating-sm">
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star-half-o"></span>
+                                                                <span class="fa fa-star-o"></span>
+                                                                <span
+                                                                    class="small">()</span>
+                                                            </div>
+                                                        </dd>
+                                                        <dd>
+                                                            <span class="text-muted">345 Lewisham Road, London SE13 7AB, United Kingdom</span>
+                                                        </dd>
+                                                    </dl>                    </div>
+                                                <div class="box-divider d-block d-sm-none"></div>
+                                                <div class="box-two col-sm-6">
+                                                    <dl class="no-spacing">
+                                                        <dt><span class="text-success">We are open</span></dt>
+
+                                                        <dd>
+                                                            <span class="fa fa-clock"></span>&nbsp;&nbsp;
+                                                            <span>24 hours, 7 days.</span>
+                                                        </dd>
+
+                                                        <dd class="text-muted">
+                                                            Delivery and pick-up available            </dd>
+                                                        <dd class="text-muted">
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <ul id="nav-tabs" class="nav-menus nav nav-tabs">
+                                    <li> <a
+                                            class="nav-item nav-link active"
+                                            href="https://demo.tastyigniter.com/local/menus"
+                                            >Menu</a></li>
+                                    <li><a
+                                            class="nav-item nav-link "
+                                            href="https://demo.tastyigniter.com/local/reviews"
+                                            >Reviews</a> </li>
+                                    <li><a
+                                            class="nav-item nav-link "
+                                            href="https://demo.tastyigniter.com/local/info"
+                                            >Info</a> </li>
+
+
+
+                                </ul>
+                                <div class="panel">
+                                    <div class="d-block d-sm-none">
+                                        <div class="panel-body categories">
+                                            <div class="d-block d-sm-none">
+                                                <button
+                                                    class="btn btn-light btn-block px-3 text-left"
+                                                    data-toggle="collapse"
+                                                    data-target="#collapseCategoriescollapse5ed18c62e2d65"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapseCategories"
+                                                    >
+                                                    <i class="fa fa-bars"></i>&nbsp;&nbsp;
+                                                    Categories    </button>
+                                            </div>
+                                            <div id="collapseCategoriescollapse5ed18c62e2d65" class="collapse d-sm-block">
+                                                <h2 class="h5 px-3 d-none d-sm-block">Categories</h2>
+                                                <nav class="nav nav-categories flex-column">
+
+                                                    <a
+                                                        class="nav-link"
+                                                        href="https://demo.tastyigniter.com/local/menus/appetizer"
+                                                        >Appetizer</a>
+
+                                                    <a
+                                                        class="nav-link"
+                                                        href="https://demo.tastyigniter.com/local/menus/main-course"
+                                                        >Main Course</a>
+
+                                                    <a
+                                                        class="nav-link"
+                                                        href="https://demo.tastyigniter.com/local/menus/salads"
+                                                        >Salads</a>
+
+                                                    <a
+                                                        class="nav-link"
+                                                        href="https://demo.tastyigniter.com/local/menus/seafoods"
+                                                        >Seafoods</a>
+
+                                                    <a
+                                                        class="nav-link"
+                                                        href="https://demo.tastyigniter.com/local/menus/traditional"
+                                                        >Traditional</a>
+
+                                                    <a
+                                                        class="nav-link"
+                                                        href="https://demo.tastyigniter.com/local/menus/vegetarian"
+                                                        >Vegetarian</a>
+
+                                                    <a
+                                                        class="nav-link"
+                                                        href="https://demo.tastyigniter.com/local/menus/soups"
+                                                        >Soups</a>
+
+                                                    <a
+                                                        class="nav-link"
+                                                        href="https://demo.tastyigniter.com/local/menus/desserts"
+                                                        >Desserts</a>
+
+                                                    <a
+                                                        class="nav-link"
+                                                        href="https://demo.tastyigniter.com/local/menus/drinks"
+                                                        >Drinks</a>
+
+                                                    <a
+                                                        class="nav-link"
+                                                        href="https://demo.tastyigniter.com/local/menus/jungle"
+                                                        >Specials</a>
+
+                                                    <a
+                                                        class="nav-link"
+                                                        href="https://demo.tastyigniter.com/local/menus/rice-dishes"
+                                                        >Rice Dishes</a>
+
+                                                </nav>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="menu-list">
+                                        <div class="menu-group">
+                                            <div class="menu-group-item">
+                                                <div id="appetizer-heading" role="tab">
+                                                    <h4
+                                                        class="category-title cursor-pointer"
+                                                        data-toggle="collapse"
+                                                        data-target="#appetizer-collapse"
+                                                        aria-expanded="false"
+                                                        aria-controls="appetizer-heading"
+                                                        >Appetizer<span class="collapse-toggle text-muted pull-right"></span></h4>
+                                                </div>
+                                                <div
+                                                    id="appetizer-collapse"
+                                                    class="collapse show"
+                                                    role="tabpanel" aria-labelledby="appetizer"
+                                                    >
+                                                    <div class="menu-category">
+
+                                                    </div>
+
+                                                    <div class="menu-items">
+                                                        <div id="menu76" class="menu-item">
+                                                            <div class="d-flex flex-row">
+
+                                                                <div class="menu-content flex-grow-1 mr-3">
+                                                                    <h6 class="menu-name">PUFF-PUFF</h6>
+                                                                    <p class="menu-desc text-muted mb-0">
+                                                                        Traditional Nigerian donut ball, rolled in sugar            </p>
+                                                                </div>
+                                                                <div class="menu-detail align-self-start col-3 text-right p-0">
+
+                                                                    <span class="menu-price pr-sm-3">
+                                                                        <b>£4.99</b>
+                                                                    </span>
+
+                                                                    <span class="menu-button">
+                                                                        <button
+                                                                            class="btn btn-light btn-sm btn-cart"
+                                                                            data-cart-control="load-item"
+                                                                            data-menu-id="76"
+                                                                            data-quantity="1"
+                                                                            >
+                                                                            <i class="fa fa-plus"></i>
+                                                                        </button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="menu-group-item">
+                                                <div class="menu-items">
+                                                    <div id="menu77" class="menu-item">
+                                                        <div class="d-flex flex-row">
+
+                                                            <div class="menu-content flex-grow-1 mr-3">
+                                                                <h6 class="menu-name">SCOTCH EGG</h6>
+                                                                <p class="menu-desc text-muted mb-0">
+                                                                    Boiled egg wrapped in a ground meat mixture, coated in breadcrumbs, and deep-fried.            </p>
+                                                            </div>
+                                                            <div class="menu-detail align-self-start col-3 text-right p-0">
+
+                                                                <span class="menu-price pr-sm-3">
+                                                                    <b>£2.00</b>
+                                                                </span>
+
+                                                                <span class="menu-button">
+                                                                    <button
+                                                                        class="btn btn-light btn-sm btn-cart"
+                                                                        data-request="cartBox::onUpdateCart"
+                                                                        data-request-data="menuId: '77', quantity: '1'"
+                                                                        data-replace-loading="fa fa-spinner fa-spin"
+                                                                        >
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="menu78" class="menu-item">
+                                                        <div class="d-flex flex-row">
+
+                                                            <div class="menu-content flex-grow-1 mr-3">
+                                                                <h6 class="menu-name">ATA RICE</h6>
+                                                                <p class="menu-desc text-muted mb-0">
+                                                                    Small pieces of beef, goat, stipe, and tendon sautéed in crushed green Jamaican pepper.            </p>
+                                                            </div>
+                                                            <div class="menu-detail align-self-start col-3 text-right p-0">
+
+                                                                <span class="menu-price pr-sm-3">
+                                                                    <b>£12.00</b>
+                                                                </span>
+
+                                                                <span class="menu-button">
+                                                                    <button
+                                                                        class="btn btn-light btn-sm btn-cart"
+                                                                        data-cart-control="load-item"
+                                                                        data-menu-id="78"
+                                                                        data-quantity="1"
+                                                                        >
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="menu79" class="menu-item">
+                                                        <div class="d-flex flex-row">
+
+                                                            <div class="menu-content flex-grow-1 mr-3">
+                                                                <h6 class="menu-name">RICE AND DODO</h6>
+                                                                <p class="menu-desc text-muted mb-0">
+                                                                    (plantains) w/chicken, fish, beef or goat            </p>
+                                                            </div>
+                                                            <div class="menu-detail align-self-start col-3 text-right p-0">
+
+                                                                <span class="menu-price pr-sm-3">
+                                                                    <b>£11.99</b>
+                                                                </span>
+
+                                                                <span class="menu-button">
+                                                                    <button
+                                                                        class="btn btn-light btn-sm btn-cart"
+                                                                        data-cart-control="load-item"
+                                                                        data-menu-id="79"
+                                                                        data-quantity="1"
+                                                                        >
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="menu80" class="menu-item">
+                                                        <div class="d-flex flex-row">
+
+                                                            <div class="menu-content flex-grow-1 mr-3">
+                                                                <h6 class="menu-name">Special Shrimp Deluxe</h6>
+                                                                <p class="menu-desc text-muted mb-0">
+                                                                    Fresh shrimp sautéed in blended mixture of tomatoes, onion, peppers over choice of rice            </p>
+                                                            </div>
+                                                            <div class="menu-detail align-self-start col-3 text-right p-0">
+
+                                                                <span class="menu-price pr-sm-3">
+                                                                    <b>£12.99</b>
+                                                                </span>
+
+                                                                <span class="menu-button">
+                                                                    <button
+                                                                        class="btn btn-light btn-sm btn-cart"
+                                                                        data-request="cartBox::onUpdateCart"
+                                                                        data-request-data="menuId: '80', quantity: '1'"
+                                                                        data-replace-loading="fa fa-spinner fa-spin"
+                                                                        >
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="menu81" class="menu-item">
+                                                        <div class="d-flex flex-row">
+
+                                                            <div class="menu-content flex-grow-1 mr-3">
+                                                                <h6 class="menu-name">Whole catfish with rice and vegetables</h6>
+                                                                <p class="menu-desc text-muted mb-0">
+                                                                    Whole catfish slow cooked in tomatoes, pepper and onion sauce with seasoning to taste            </p>
+                                                            </div>
+                                                            <div class="menu-detail align-self-start col-3 text-right p-0">
+
+                                                                <span class="menu-price pr-sm-3">
+                                                                    <b>£13.99</b>
+                                                                </span>
+
+                                                                <span class="menu-button">
+                                                                    <button
+                                                                        class="btn btn-light btn-sm btn-cart"
+                                                                        data-cart-control="load-item"
+                                                                        data-menu-id="81"
+                                                                        data-quantity="1"
+                                                                        >
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="menu83" class="menu-item">
+                                                        <div class="d-flex flex-row">
+
+                                                            <div class="menu-content flex-grow-1 mr-3">
+                                                                <h6 class="menu-name">Seafood Salad</h6>
+                                                                <p class="menu-desc text-muted mb-0">
+                                                                    With shrimp, egg and imitation crab meat            </p>
+                                                            </div>
+                                                            <div class="menu-detail align-self-start col-3 text-right p-0">
+
+                                                                <span class="menu-price pr-sm-3">
+                                                                    <b>£5.99</b>
+                                                                </span>
+
+                                                                <span class="menu-button">
+                                                                    <button
+                                                                        class="btn btn-light btn-sm btn-cart"
+                                                                        data-request="cartBox::onUpdateCart"
+                                                                        data-request-data="menuId: '83', quantity: '1'"
+                                                                        data-replace-loading="fa fa-spinner fa-spin"
+                                                                        >
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="menu85" class="menu-item">
+                                                        <div class="d-flex flex-row">
+
+                                                            <div class="menu-content flex-grow-1 mr-3">
+                                                                <h6 class="menu-name">AMALA</h6>
+                                                                <p class="menu-desc text-muted mb-0">
+                                                                    Yam flour            </p>
+                                                            </div>
+                                                            <div class="menu-detail align-self-start col-3 text-right p-0">
+
+                                                                <span class="menu-price pr-sm-3">
+                                                                    <b>£11.99</b>
+                                                                </span>
+
+                                                                <span class="menu-button">
+                                                                    <button
+                                                                        class="btn btn-light btn-sm btn-cart"
+                                                                        data-cart-control="load-item"
+                                                                        data-menu-id="85"
+                                                                        data-quantity="1"
+                                                                        >
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="menu86" class="menu-item">
+                                                        <div class="d-flex flex-row">
+
+                                                            <div class="menu-content flex-grow-1 mr-3">
+                                                                <h6 class="menu-name">YAM PORRIDGE</h6>
+                                                                <p class="menu-desc text-muted mb-0">
+                                                                    in tomatoes sauce            </p>
+                                                            </div>
+                                                            <div class="menu-detail align-self-start col-3 text-right p-0">
+
+                                                                <span class="menu-price pr-sm-3">
+                                                                    <b>£9.99</b>
+                                                                </span>
+
+                                                                <span class="menu-button">
+                                                                    <button
+                                                                        class="btn btn-light btn-sm btn-cart"
+                                                                        data-cart-control="load-item"
+                                                                        data-menu-id="86"
+                                                                        data-quantity="1"
+                                                                        >
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="menu-group-item">
+                                                <div id="desserts-heading" role="tab">
+                                                    <h4
+                                                        class="category-title cursor-pointer"
+                                                        data-toggle="collapse"
+                                                        data-target="#desserts-collapse"
+                                                        aria-expanded="false"
+                                                        aria-controls="desserts-heading"
+                                                        >Desserts<span class="collapse-toggle text-muted pull-right"></span></h4>
+                                                </div>
+                                                <div
+                                                    id="desserts-collapse"
+                                                    class="collapse show"
+                                                    role="tabpanel" aria-labelledby="desserts"
+                                                    >
+                                                    <div class="menu-category">
+
+                                                    </div>
+
+                                                    <div class="menu-items">
+                                                        <div id="menu82" class="menu-item">
+                                                            <div class="d-flex flex-row">
+
+                                                                <div class="menu-content flex-grow-1 mr-3">
+                                                                    <h6 class="menu-name">African Salad</h6>
+                                                                    <p class="menu-desc text-muted mb-0">
+                                                                        With baked beans, egg, tuna, onion, tomatoes , green peas and carrot with your choice of dressing.            </p>
+                                                                </div>
+                                                                <div class="menu-detail align-self-start col-3 text-right p-0">
+
+                                                                    <span class="menu-price pr-sm-3">
+                                                                        <b>£8.99</b>
+                                                                    </span>
+
+                                                                    <span class="menu-button">
+                                                                        <button
+                                                                            class="btn btn-light btn-sm btn-cart"
+                                                                            data-request="cartBox::onUpdateCart"
+                                                                            data-request-data="menuId: '82', quantity: '1'"
+                                                                            data-replace-loading="fa fa-spinner fa-spin"
+                                                                            >
+                                                                            <i class="fa fa-plus"></i>
+                                                                        </button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="menu-group-item">
+                                                <div id="main-course-heading" role="tab">
+                                                    <h4
+                                                        class="category-title cursor-pointer"
+                                                        data-toggle="collapse"
+                                                        data-target="#main-course-collapse"
+                                                        aria-expanded="false"
+                                                        aria-controls="main-course-heading"
+                                                        >Main Course<span class="collapse-toggle text-muted pull-right"></span></h4>
+                                                </div>
+                                                <div
+                                                    id="main-course-collapse"
+                                                    class="collapse show"
+                                                    role="tabpanel" aria-labelledby="main-course"
+                                                    >
+                                                    <div class="menu-category">
+
+                                                    </div>
+
+                                                    <div class="menu-items">
+                                                        <div id="menu84" class="menu-item">
+                                                            <div class="d-flex flex-row">
+
+                                                                <div class="menu-content flex-grow-1 mr-3">
+                                                                    <h6 class="menu-name">EBA</h6>
+                                                                    <p class="menu-desc text-muted mb-0">
+                                                                        Grated cassava            </p>
+                                                                </div>
+                                                                <div class="menu-detail align-self-start col-3 text-right p-0">
+
+                                                                    <span class="menu-price pr-sm-3">
+                                                                        <b>£11.99</b>
+                                                                    </span>
+
+                                                                    <span class="menu-button">
+                                                                        <button
+                                                                            class="btn btn-light btn-sm btn-cart"
+                                                                            data-cart-control="load-item"
+                                                                            data-menu-id="84"
+                                                                            data-quantity="1"
+                                                                            >
+                                                                            <i class="fa fa-plus"></i>
+                                                                        </button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>    
+                                        <div class="pagination-bar text-right">
+                                            <div class="links"></div>
+                                        </div>
+                                    </div>
+                                </div>                        </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div
+                                class="affix-cart d-none d-sm-block"
+                                data-control="cart-box"
+                                data-load-item-handler="cartBox::onLoadItemPopup"
+                                data-update-item-handler="cartBox::onUpdateCart"
+                                data-apply-coupon-handler="cartBox::onApplyCoupon"
+                                data-change-order-type-handler="cartBox::onChangeOrderType"
+                                data-remove-item-handler="cartBox::onRemoveItem"
+                                data-remove-condition-handler="cartBox::onRemoveCondition"
+                                >
+                                <div id="cart-box" class="module-box">
+                                    <div class="panel panel-cart">
+                                        <div class="panel-body">
+                                            <div id="cart-control">
+                                                <div class="btn-group btn-group-toggle w-100 text-center order-type" data-toggle="buttons">
+                                                    <label
+                                                        class="btn btn-light active">
+                                                        <input
+                                                            type="radio"
+                                                            name="order_type"
+                                                            data-cart-toggle="order-type"
+                                                            value="delivery" checked="checked"                >&nbsp;&nbsp;
+                                                        <strong>Delivery</strong>
+                                                        <span
+                                                            class="small center-block">
+                                                            in 15 min                                            </span>
+                                                    </label>
+                                                    <label
+                                                        class="btn btn-light ">
+                                                        <input
+                                                            type="radio"
+                                                            name="order_type"
+                                                            data-cart-toggle="order-type"
+                                                            value="collection"                 >&nbsp;&nbsp;
+                                                        <strong>Pick-up</strong>
+                                                        <span
+                                                            class="small center-block">
+                                                            starts Sat 06:00 am                                            </span>
+                                                    </label>
+                                                </div>
+                                                <p class="text-muted text-center">
+                                                    No Min. Order Amount        </p>
+                                            </div>
+
+                                            <div id="cart-items">
+                                                <div class="panel-body"><p class="text-center">Add menu items to your cart.</p></div>
+                                            </div>
+
+                                            <div id="cart-coupon">
+                                            </div>
+
+                                            <div id="cart-totals">
+                                            </div>
+
+                                            <div id="cart-buttons" class="mt-3">
+                                                <button
+                                                    class="checkout-btn btn btn-primary  btn-block btn-lg"
+                                                    data-attach-loading="disabled"
+                                                    data-request="cartBox::onProceedToCheckout"
+                                                    data-request-data="locationId: '1'"
+                                                    >Checkout</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                id="cart-mobile-buttons"
+                                class="fixed-bottom d-block d-sm-none"
+                                >
+                                <a
+                                    class="btn btn-primary btn-block btn-lg radius-none cart-toggle text-nowrap"
+                                    href="https://demo.tastyigniter.com/cart"
+                                    >
+                                    My Order:
+                                    <span id="cart-total" class="font-weight-bold">£0.00</span>
+                                </a>
+                            </div>                    </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="pt-5">
+            <div class="footer pt-5 pb-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="footer-links">
+                                <h6 class="footer-title d-none d-sm-block">TastyIgniter</h6>
+                                <ul>
+                                    <li>
+                                        <a href="https://demo.tastyigniter.com/local/menus">View Menu</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://demo.tastyigniter.com/reservation">Reservation</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://demo.tastyigniter.com/locations">Our Locations</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="footer-links">
+                                <h6 class="footer-title d-none d-sm-block">Information</h6>
+                                <ul>
+                                    <li>
+                                        <a href="https://demo.tastyigniter.com/contact">Contact Us</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://demo.tastyigniter.com/admin">Administrator</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://demo.tastyigniter.com/about-us">About Us</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://demo.tastyigniter.com/policy">Privacy Policy</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 mt-3 mt-sm-0">
+                            <div class="social-bottom">
+                                <h6 class="footer-title">Follow us on</h6>
+                                <ul class="social-icons list-inline">
+
+                                    <li>
+                                        <a
+                                            class="p-2 fab fa-facebook"
+                                            target="_blank"
+                                            title="Facebook"
+                                            href="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="p-2 fab fa-twitter"
+                                            target="_blank"
+                                            title="Facebook"
+                                            href="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="p-2 fab fa-github"
+                                            target="_blank"
+                                            title="Facebook"
+                                            href="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="p-2 fab fa-youtube"
+                                            target="_blank"
+                                            title="Facebook"
+                                            href="">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 mt-3 mt-sm-0">
+                            <div id="newsletter-box">
+                                <h5 class="mb-4">Subscribe to our newsletter</h5>
+                                <form
+                                    id="subscribeForm"
+                                    class="subscribe-form"
+                                    method="POST" data-request="newsletter::onSubscribe">
+                                    <div class="input-group subscribe-group">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            name="subscribe_email"
+                                            >
+                                        <span class="input-group-append">
+                                            <button
+                                                id="subscribeButton"
+                                                class="btn btn-info"
+                                                ><i class="fa fa-paper-plane"></i></button>
+                                        </span>
+                                    </div>
+                                </form>                    </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <hr class="mb-3">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col p-2">
+                            &copy; 2020 Demo Tasty - <a target="_blank" href="http://tastyigniter.com">Powered by TastyIgniter</a>            </div>
+                    </div>
+                </div>
+            </div>    </footer>
+        <div id="notification">
+        </div>
+        <div
+            id="euCookieBanner"
+            data-control="cookie-banner"
+            data-active="1"
+            style="display:none;"
+            >
+            <div
+                style="background-color: #ffffff; color: #000000;"
+                >
+                <div class="container">
+                    <div class="d-flex align-items-center">
+                        <p id="eu-cookie-message" class="mb-0">
+                            <span>We use own and third party cookies to improve our services. If you continue to browse, consider accepting its use</span>
+                            <a
+                                href="https://demo.tastyigniter.com/about-us"
+                                >More Information</a>
+                        </p>
+                        <a
+                            id="eu-cookie-action"
+                            class="btn btn-secondary ml-auto"
+                            href="javascript:void(0);"
+                            >OK</a>
+                    </div>
+                </div>
+            </div>
+        </div>    
+
+
     </body>
+
 </html>
