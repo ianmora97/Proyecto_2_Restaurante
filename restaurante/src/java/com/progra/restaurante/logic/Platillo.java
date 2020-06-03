@@ -7,10 +7,14 @@ package com.progra.restaurante.logic;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.ArrayList;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -32,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Platillo.findAll", query = "SELECT p FROM Platillo p")
+    , @NamedQuery(name = "Platillo.findByIdPlatillo", query = "SELECT p FROM Platillo p WHERE p.idPlatillo = :idPlatillo")
     , @NamedQuery(name = "Platillo.findByNombrePlatillo", query = "SELECT p FROM Platillo p WHERE p.nombrePlatillo = :nombrePlatillo")
     , @NamedQuery(name = "Platillo.findByDescripcion", query = "SELECT p FROM Platillo p WHERE p.descripcion = :descripcion")
     , @NamedQuery(name = "Platillo.findByPrecio", query = "SELECT p FROM Platillo p WHERE p.precio = :precio")})
@@ -39,6 +44,10 @@ public class Platillo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_platillo")
+    private Integer idPlatillo;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -53,25 +62,34 @@ public class Platillo implements Serializable {
     @NotNull
     @Column(name = "precio")
     private double precio;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nombrePlatillo")
-    private Collection<Adicional> adicionalCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPlatillo")
+    private ArrayList<Adicional> adicionalCollection;
     @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
     @ManyToOne(optional = false)
     private Categoria idCategoria;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nombrePlatillo")
-    private Collection<Detalle> detalleCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPlatillo")
+    private ArrayList<Detalle> detalleCollection;
 
     public Platillo() {
     }
 
-    public Platillo(String nombrePlatillo) {
-        this.nombrePlatillo = nombrePlatillo;
+    public Platillo(Integer idPlatillo) {
+        this.idPlatillo = idPlatillo;
     }
 
-    public Platillo(String nombrePlatillo, String descripcion, double precio) {
+    public Platillo(Integer idPlatillo, String nombrePlatillo, String descripcion, double precio) {
+        this.idPlatillo = idPlatillo;
         this.nombrePlatillo = nombrePlatillo;
         this.descripcion = descripcion;
         this.precio = precio;
+    }
+
+    public Integer getIdPlatillo() {
+        return idPlatillo;
+    }
+
+    public void setIdPlatillo(Integer idPlatillo) {
+        this.idPlatillo = idPlatillo;
     }
 
     public String getNombrePlatillo() {
@@ -99,11 +117,11 @@ public class Platillo implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Adicional> getAdicionalCollection() {
+    public ArrayList<Adicional> getAdicionalCollection() {
         return adicionalCollection;
     }
 
-    public void setAdicionalCollection(Collection<Adicional> adicionalCollection) {
+    public void setAdicionalCollection(ArrayList<Adicional> adicionalCollection) {
         this.adicionalCollection = adicionalCollection;
     }
 
@@ -116,18 +134,18 @@ public class Platillo implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Detalle> getDetalleCollection() {
+    public ArrayList<Detalle> getDetalleCollection() {
         return detalleCollection;
     }
 
-    public void setDetalleCollection(Collection<Detalle> detalleCollection) {
+    public void setDetalleCollection(ArrayList<Detalle> detalleCollection) {
         this.detalleCollection = detalleCollection;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (nombrePlatillo != null ? nombrePlatillo.hashCode() : 0);
+        hash += (idPlatillo != null ? idPlatillo.hashCode() : 0);
         return hash;
     }
 
@@ -138,7 +156,7 @@ public class Platillo implements Serializable {
             return false;
         }
         Platillo other = (Platillo) object;
-        if ((this.nombrePlatillo == null && other.nombrePlatillo != null) || (this.nombrePlatillo != null && !this.nombrePlatillo.equals(other.nombrePlatillo))) {
+        if ((this.idPlatillo == null && other.idPlatillo != null) || (this.idPlatillo != null && !this.idPlatillo.equals(other.idPlatillo))) {
             return false;
         }
         return true;
@@ -146,7 +164,7 @@ public class Platillo implements Serializable {
 
     @Override
     public String toString() {
-        return "com.progra.restaurante.logic.Platillo[ nombrePlatillo=" + nombrePlatillo + " ]";
+        return "com.progra.restaurante.logic.Platillo[ idPlatillo=" + idPlatillo + " ]";
     }
     
 }

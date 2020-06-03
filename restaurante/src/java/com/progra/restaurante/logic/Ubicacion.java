@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -33,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Ubicacion.findAll", query = "SELECT u FROM Ubicacion u")
+    , @NamedQuery(name = "Ubicacion.findByIdUbicacion", query = "SELECT u FROM Ubicacion u WHERE u.idUbicacion = :idUbicacion")
     , @NamedQuery(name = "Ubicacion.findByDireccion", query = "SELECT u FROM Ubicacion u WHERE u.direccion = :direccion")
     , @NamedQuery(name = "Ubicacion.findByProvincia", query = "SELECT u FROM Ubicacion u WHERE u.provincia = :provincia")
     , @NamedQuery(name = "Ubicacion.findByCanton", query = "SELECT u FROM Ubicacion u WHERE u.canton = :canton")
@@ -41,6 +44,10 @@ public class Ubicacion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_ubicacion")
+    private Integer idUbicacion;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 150)
@@ -59,24 +66,33 @@ public class Ubicacion implements Serializable {
     @Column(name = "codigo_postal")
     private Integer codigoPostal;
     @JoinTable(name = "direccion_propia", joinColumns = {
-        @JoinColumn(name = "direccion", referencedColumnName = "direccion")}, inverseJoinColumns = {
+        @JoinColumn(name = "id_ubicacion", referencedColumnName = "id_ubicacion")}, inverseJoinColumns = {
         @JoinColumn(name = "usuario_correo", referencedColumnName = "usuario_correo")})
     @ManyToMany
     private Collection<Usuario> usuarioCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "direccion")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUbicacion")
     private Collection<Orden> ordenCollection;
 
     public Ubicacion() {
     }
 
-    public Ubicacion(String direccion) {
-        this.direccion = direccion;
+    public Ubicacion(Integer idUbicacion) {
+        this.idUbicacion = idUbicacion;
     }
 
-    public Ubicacion(String direccion, String provincia, String canton) {
+    public Ubicacion(Integer idUbicacion, String direccion, String provincia, String canton) {
+        this.idUbicacion = idUbicacion;
         this.direccion = direccion;
         this.provincia = provincia;
         this.canton = canton;
+    }
+
+    public Integer getIdUbicacion() {
+        return idUbicacion;
+    }
+
+    public void setIdUbicacion(Integer idUbicacion) {
+        this.idUbicacion = idUbicacion;
     }
 
     public String getDireccion() {
@@ -132,7 +148,7 @@ public class Ubicacion implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (direccion != null ? direccion.hashCode() : 0);
+        hash += (idUbicacion != null ? idUbicacion.hashCode() : 0);
         return hash;
     }
 
@@ -143,7 +159,7 @@ public class Ubicacion implements Serializable {
             return false;
         }
         Ubicacion other = (Ubicacion) object;
-        if ((this.direccion == null && other.direccion != null) || (this.direccion != null && !this.direccion.equals(other.direccion))) {
+        if ((this.idUbicacion == null && other.idUbicacion != null) || (this.idUbicacion != null && !this.idUbicacion.equals(other.idUbicacion))) {
             return false;
         }
         return true;
@@ -151,7 +167,7 @@ public class Ubicacion implements Serializable {
 
     @Override
     public String toString() {
-        return "com.progra.restaurante.logic.Ubicacion[ direccion=" + direccion + " ]";
+        return "com.progra.restaurante.logic.Ubicacion[ idUbicacion=" + idUbicacion + " ]";
     }
     
 }

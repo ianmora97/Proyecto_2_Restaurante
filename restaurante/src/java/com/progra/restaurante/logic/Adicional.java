@@ -7,6 +7,8 @@ package com.progra.restaurante.logic;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.ArrayList;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -55,10 +57,10 @@ public class Adicional implements Serializable {
     @Column(name = "tipo")
     private int tipo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAdicional")
-    private Collection<Opcion> opcionCollection;
-    @JoinColumn(name = "nombre_platillo", referencedColumnName = "nombre_platillo")
+    private ArrayList<Opcion> opcionCollection;
+    @JoinColumn(name = "id_platillo", referencedColumnName = "id_platillo")
     @ManyToOne(optional = false)
-    private Platillo nombrePlatillo;
+    private Platillo idPlatillo;
 
     public Adicional() {
     }
@@ -98,20 +100,20 @@ public class Adicional implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Opcion> getOpcionCollection() {
+    public ArrayList<Opcion> getOpcionCollection() {
         return opcionCollection;
     }
 
-    public void setOpcionCollection(Collection<Opcion> opcionCollection) {
+    public void setOpcionCollection(ArrayList<Opcion> opcionCollection) {
         this.opcionCollection = opcionCollection;
     }
 
-    public Platillo getNombrePlatillo() {
-        return nombrePlatillo;
+    public Platillo getIdPlatillo() {
+        return idPlatillo;
     }
 
-    public void setNombrePlatillo(Platillo nombrePlatillo) {
-        this.nombrePlatillo = nombrePlatillo;
+    public void setIdPlatillo(Platillo idPlatillo) {
+        this.idPlatillo = idPlatillo;
     }
 
     @Override

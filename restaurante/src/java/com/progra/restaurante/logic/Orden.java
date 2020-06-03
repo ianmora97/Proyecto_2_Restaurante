@@ -68,9 +68,9 @@ public class Orden implements Serializable {
     @NotNull
     @Column(name = "asap")
     private int asap;
-    @JoinColumn(name = "direccion", referencedColumnName = "direccion")
+    @JoinColumn(name = "id_ubicacion", referencedColumnName = "id_ubicacion")
     @ManyToOne(optional = false)
-    private Ubicacion direccion;
+    private Ubicacion idUbicacion;
     @JoinColumn(name = "usuario_correo", referencedColumnName = "usuario_correo")
     @ManyToOne(optional = false)
     private Usuario usuarioCorreo;
@@ -132,12 +132,12 @@ public class Orden implements Serializable {
         this.asap = asap;
     }
 
-    public Ubicacion getDireccion() {
-        return direccion;
+    public Ubicacion getIdUbicacion() {
+        return idUbicacion;
     }
 
-    public void setDireccion(Ubicacion direccion) {
-        this.direccion = direccion;
+    public void setIdUbicacion(Ubicacion idUbicacion) {
+        this.idUbicacion = idUbicacion;
     }
 
     public Usuario getUsuarioCorreo() {

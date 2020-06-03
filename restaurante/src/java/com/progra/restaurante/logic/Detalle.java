@@ -60,9 +60,9 @@ public class Detalle implements Serializable {
     @JoinColumn(name = "id_orden", referencedColumnName = "id_orden")
     @ManyToOne(optional = false)
     private Orden idOrden;
-    @JoinColumn(name = "nombre_platillo", referencedColumnName = "nombre_platillo")
+    @JoinColumn(name = "id_platillo", referencedColumnName = "id_platillo")
     @ManyToOne(optional = false)
-    private Platillo nombrePlatillo;
+    private Platillo idPlatillo;
 
     public Detalle() {
     }
@@ -118,12 +118,12 @@ public class Detalle implements Serializable {
         this.idOrden = idOrden;
     }
 
-    public Platillo getNombrePlatillo() {
-        return nombrePlatillo;
+    public Platillo getIdPlatillo() {
+        return idPlatillo;
     }
 
-    public void setNombrePlatillo(Platillo nombrePlatillo) {
-        this.nombrePlatillo = nombrePlatillo;
+    public void setIdPlatillo(Platillo idPlatillo) {
+        this.idPlatillo = idPlatillo;
     }
 
     @Override
