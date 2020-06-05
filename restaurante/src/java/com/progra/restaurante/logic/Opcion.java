@@ -6,23 +6,22 @@
 package com.progra.restaurante.logic;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -53,13 +52,15 @@ public class Opcion implements Serializable {
     @NotNull
     @Column(name = "precio")
     private double precio;
-    @ManyToMany(mappedBy = "opcionCollection")
-    private Collection<Detalle> detalleCollection;
     @JoinColumn(name = "id_adicional", referencedColumnName = "id_adicional")
     @ManyToOne(optional = false)
     private Adicional idAdicional;
 
     public Opcion() {
+        this.idOpcion = 0;
+        this.nombre = "";
+        this.precio = 0.0;
+        this.idAdicional = new Adicional();
     }
 
     public Opcion(Integer idOpcion) {
@@ -96,15 +97,6 @@ public class Opcion implements Serializable {
         this.precio = precio;
     }
 
-    @XmlTransient
-    public Collection<Detalle> getDetalleCollection() {
-        return detalleCollection;
-    }
-
-    public void setDetalleCollection(Collection<Detalle> detalleCollection) {
-        this.detalleCollection = detalleCollection;
-    }
-
     public Adicional getIdAdicional() {
         return idAdicional;
     }
@@ -137,5 +129,5 @@ public class Opcion implements Serializable {
     public String toString() {
         return "com.progra.restaurante.logic.Opcion[ idOpcion=" + idOpcion + " ]";
     }
-    
+
 }

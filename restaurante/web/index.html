@@ -11,14 +11,15 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="stylesheet" href="/restaurante/css/bootstrap-datetimepicker.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>     
+        <link rel="stylesheet" href="/restaurante/css/order.css">
 
         <!--bootstrap css-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"  crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"  crossorigin="anonymous">
 
 
     </head>
     <body>
+        <!--MODAL PARA LA FECHA-->
         <div class="modal" tabindex="-1" id="modal-date" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -46,13 +47,82 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
+        <!--FIN DEL MODAL--> 
+
+        <!--MODAL PARA LAS ADICIONALES-->
+        <div class="modal" tabindex="-1" role="dialog" id="modalOptions">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Aditionals</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body " id="adtionalModal" >
+                        <div class="container ">
+                            <div class="row bg-light py-2 my-2">
+                                <div class="col-9">
+                                    <h5>Adicional # 1</h5>
+                                </div>
+                                <div class="col-3 text-muted">
+                                    Required
+                                </div>
+                            </div>
+                            <div class="row justify-content-between my-1">
+                                <div class="col-8">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                        <label class="custom-control-label" for="customCheck1">Hola Mundo</label>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    $3
+                                </div>
+                            </div>
+                            <div class="row justify-content-between my-1">
+                                <div class="col-8">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" id="customRadio" name="example1" value="customEx">
+                                        <label class="custom-control-label" for="customRadio">Caja de 3</label>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    $3
+                                </div>
+                            </div>
+                            <div class="row justify-content-between my-1">
+                                <div class="col-8">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" id="customRadio2" name="example1" value="customEx">
+                                        <label class="custom-control-label" for="customRadio2">Caja de 2</label>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    $100
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--FIN DEL MODAL ADICIONALES-->
+
+
+
 
         <nav class="navbar navbar-toggleable-sm bg-primary navbar-inverse">
 
             <div class="container">
                 <div class="justify-content-start">
                     <a href="#">
-                        <img src="https://demo.tastyigniter.com/assets/media/uploads/tastyigniter-logo.png" height="40"/>
+                        <img src="/restaurante/images/logo.png" height="40"/>
                     </a>
                 </div>
                 <button class="navbar-toggler" data-toggle="collapse" data-target="#mainNav">
@@ -68,20 +138,20 @@ and open the template in the editor.
                 </div>
             </div>
         </nav>
-        <!--inicio de la primera seccion de categorias-->
+
+
         <div class="container ">
             <div class="row ">
+                <!--inicio de la primera seccion de categorias-->
 
                 <div class="col-sm-6 col-lg-3">
                     <nav class="nav justify-content-center nav-pills flex-column my-4" id="menuCategories">
                         <label id="lbCategories"> Categories</label>
-
                     </nav>
-                    <!--final de la primera parte de categorias-->
-
-                    <!--inicio de la parte intermedia de pedidos-->
-
                 </div>
+                <!--final de la primera parte de categorias-->
+
+                <!--inicio de la parte intermedia de pedidos-->
 
                 <div class="col-sm-6 col-lg-6">
 
@@ -95,21 +165,14 @@ and open the template in the editor.
                         </div>
                     </div>
 
+                    <!--El siguiente codigo es para presentar los platillos según la categoría.--> 
+                    <div class="accordion" >
+                        <div class="tab-content py-5" id="dishes">
 
-
-                    El siguiente codigo es para presentar los platillos según la categoría. 
-                    <div class="tab-content py-5">
-                        <div class="tab-pane active" id="second">
-                            <h3 class="display-3"> Primer Titulo</h3>
-                            <p class=""> Un parrafo</p>
-                        </div>
-                        <div class="tab-pane" id="id"> 
-                            <h3 class="display-3" > Segundo titulo</h3>
-                            <p class=""> Dos Parrafos</p>
                         </div>
                     </div>
-                </div>
 
+                </div>
                 <!--final de la parte inermedia de pedidos-->
 
 
@@ -184,10 +247,14 @@ and open the template in the editor.
                 $('[data-toggle="tooltip"]').tooltip();
             });
         </script>
+
+
+        <!--Scripts del programa-->
         <script>
             function loaded(event) {
                 fillCategories();
             }
+
             function fillCategories() {
                 $(document).ready(function () {
                     $.ajax({
@@ -207,103 +274,136 @@ and open the template in the editor.
                 categorias.forEach((cat) => {
                     fillListCategories(cat);
                 });
+
+
             }
             function fillListCategories(categoria) {
-                $("#menuCategories").append('<a class="nav-link " href="#id" data-toggle="tab">' + categoria.nombre + '</a>');
+                var nombre = categoria.nombre.replace(/ /g, "");
+                var targetAccordion = nombre + "Target";
+                var platilloId = nombre + "Platillo";
 
-//                $("#menu").append('<a href=\'javascript:filter(' + JSON.stringify(genre) + ')\' class="list-group-item list-group-item-action bg-dark text-white">' + genre.name + '</a>');
+                $("#menuCategories").append('<a class="nav-link " href="#' + nombre + '" data-toggle="tab">' + categoria.nombre + '</a>');
+
+
+
+                $("#dishes").append(
+                        '<div class="tab-pane" id="' + nombre + '">' +
+                        '<div class="card">' +
+                        '<div class="card-header">' +
+                        ' <h1 class="mb-0">' +
+                        '<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"' +
+                        'data-target="#' + targetAccordion + '">' + categoria.nombre + ' </button>' +
+                        ' </h1>' +
+                        ' </div>' +
+                        '<div id="' + targetAccordion + '" class="collapse show">' +
+                        '<div class="card-body" id="' + platilloId + '">' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>'
+                        );
+
+                var platillos = categoria.platilloCollection;
+                platillos.forEach((platillo) => {
+                    fillDishes(platillo, platilloId);
+                });
+
             }
-            
-//            function filter(genre) {
-//                cancel();
-//                $.ajax({
-//                    type: "POST",
-//                    url: "api/genre/getChosen",
-//                    data: genre.name,
-//                    success: function (movies) {
-//                        $("#chosenGenre").html(genre.name);
-//                        showMovies(movies);
-//                    },
-//                    error: function (status) {
-//                        alert(errorMessage(status));
-//                    }
-//                });
-//            }
-//
-//            function showMovies(movies) {
-//                console.log(movies);
-//                var tbody = document.getElementById("peliculas");
-//                tbody.innerHTML = "";
-//                if (movies !== null) {
-//                    for (i = 0; i < movies.length; i++) {
-//                        var tr = document.createElement("tr");
-//                        var td1 = document.createElement("td");
-//                        var td2 = document.createElement("td");
-//                        var td3 = document.createElement("td");
-//                        var td4 = document.createElement("td");
-//                        td1.innerHTML = movies[i].Title;
-//                        td2.innerHTML = movies[i].year;
-//                        td3.innerHTML = movies[i].Rating;
-//                        var link = '<a href=\'javascript:showEdit(' + JSON.stringify(movies[i]) + ')\' class="btn btn-info"> Edit </a>';
-//                        td4.innerHTML = link;
-//                        tr.appendChild(td1);
-//                        tr.appendChild(td2);
-//                        tr.appendChild(td3);
-//                        tr.appendChild(td4);
-//                        tbody.appendChild(tr);
-//                    }
-//                }
-//
-//            }
-//
-//            function showEdit(movie) {
-//                console.log(movie);
-//                $("#titleEdit").val(movie.Title);
-//                $("#yearEdit").val(movie.year);
-//                $("#ratingEdit").val(movie.Rating);
-//                $("#titleEdit").removeAttr("readonly");
-//                $("#yearEdit").removeAttr("readonly");
-//                $("#ratingEdit").removeAttr("readonly");
-//            }
-//
-//
-//
-//            function edit() {
-//                console.log($("#chosenGenre").html());
-//
-//                var movie = {
-//                    Title: $("#titleEdit").val(),
-//                    year: $("#yearEdit").val(),
-//                    Rating: $("#ratingEdit").val()
-//                };
-//                console.log(movie);
-//                $.ajax({
-//                    type: "POST",
-//                    url: "api/movie/edit",
-//                    data: JSON.stringify(movie)
-//                }).then($.ajax({
-//                    type: "POST",
-//                    url: "api/genre/getChosen",
-//                    data: $("#chosenGenre").html(),
-//                    success: function (movies) {
-//                        showMovies(movies);
-//                    },
-//                    error: function (status) {
-//                        alert(errorMessage(status));
-//                    }
-//                }));
-//
-//                cancel();
-//            }
-//
-//            function cancel() {
-//                $("#titleEdit").attr("readonly", "readonly");
-//                $("#yearEdit").attr("readonly", "readonly");
-//                $("#ratingEdit").attr("readonly", "readonly");
-//                $("#titleEdit").val("");
-//                $("#yearEdit").val("");
-//                $("#ratingEdit").val("");
-//            }
+            function fillDishes(platillo, platilloId) {
+                var idEvtAditional = platillo.nombrePlatillo.replace(/ /g, "") + "Adicional";
+                $("#" + platilloId).append(
+                        '<div class="d-flex flex-row mr-3 mt-3 btn-block">' +
+                        ' <div class=" flex-grow-1 " id="firstPart">' +
+                        '<h6>' + platillo.nombrePlatillo + '</h6>' +
+                        '<p class="text-muted mb-0" id="dishDescription">'
+                        + platillo.descripcion + '</p>' +
+                        ' </div>' +
+                        '<div class=" align-self-start col-3 text-right p-0" id="secondPart">' +
+                        '<span class=" pr-sm-3" id="price">' +
+                        '<b>' + platillo.precio + '</b>' +
+                        ' </span><span class="btnPlus">' +
+                        '<button type="button" class="btn btn-light btn-sm btn-cart " data-toggle="modal"' +
+                        'data-target="#modalOptions" >' +
+                        '<i class="fa fa-plus" id="' + idEvtAditional + '"></i>' +
+                        '</button>' +
+                        '</span>' +
+                        '</div>' +
+                        '</div>'
+                        );
+
+                $("#" + idEvtAditional).click(function () {
+                    getAditional(platillo.adicionalCollection);
+                });
+
+            }
+
+            function getAditional(Adicionales) {
+                console.log(Adicionales);
+                $("#adtionalModal").html(" ");
+                if (Adicionales.length !== 0) {
+                    Adicionales.forEach((adicional) => {
+                        var requerida = "Requerida";
+                        if (adicional.requerida === 0) {
+                            requerida = "Opcional";
+                        }
+                        var adicionalSinEspacios = adicional.nombre.replace(/ /g, "");
+                        $("#adtionalModal").append('<div class="container" id="' + adicionalSinEspacios + '">' +
+                                '<div class="row bg-light py-2 my-2">' +
+                                '<div class="col-9">' +
+                                '<h5>' + adicional.nombre + '</h5>' +
+                                ' </div>' +
+                                '<div class="col-3 text-muted">' +
+                                requerida +
+                                '</div>' +
+                                '</div>' +
+                                '</div>');
+                        fillOptions(adicional);
+                    });
+
+                }
+
+
+            }
+
+
+            function fillOptions(adicional) {
+                var opciones = adicional.opcionCollection;
+                var adicionalSinEspacios = adicional.nombre.replace(/ /g, "");
+
+                opciones.forEach((opcion) => {
+                    var htmlOption = " ";
+                    var opcionesSinEspacios = opcion.nombre.replace(/ /g, "");
+
+                    if (adicional.tipo === 0) {
+
+                        htmlOption = '<div class="row justify-content-between my-1">' +
+                                ' <div class="col-8">' +
+                                ' <div class="custom-control custom-radio">' +
+                                '<input type="radio" class="custom-control-input" id="' + opcionesSinEspacios + '" name="' + adicionalSinEspacios + "Id" + '" value="customEx">' +
+                                '<label class="custom-control-label" for="' + opcionesSinEspacios + '">' + opcion.nombre + '/label>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="col-3">' +
+                                opcion.precio +
+                                '</div>' +
+                                '</div>';
+                    } else {
+                        htmlOption = '<div class="row justify-content-between my-1">' +
+                                '<div class="col-8">' +
+                                '<div class="custom-control custom-checkbox">' +
+                                '<input type="checkbox" class="custom-control-input" id="' + opcionesSinEspacios + '">' +
+                                '<label class="custom-control-label" for="' + opcionesSinEspacios+ '">' + opcion.nombre + '</label>' +
+                                ' </div>' +
+                                '</div>' +
+                                '<div class="col-3">' +
+                                opcion.precio +
+                                '</div>' +
+                                '</div>';
+                    }
+                    $("#" + adicionalSinEspacios).append(htmlOption);
+                });
+            }
+
             function errorMessage(status) {
                 return "Ha ocurrido un error";
             }
@@ -316,3 +416,5 @@ and open the template in the editor.
 
 
 </html>
+
+

@@ -8,6 +8,11 @@ insert into usuario values ('ian@gmail.com','ianMora666','123',1);
 select *from usuario;
 
 -- ============================================ 
+-- UBICACION 
+-- ============================================
+insert into ubicacion (direccion,provincia,canton,codigo_postal) values('Hatillo 5 detras de los multifamiliares casa #14','San Jose','San Jose',10110);
+select * from ubicacion;
+-- ============================================ 
 -- CATEGORIA 
 -- ============================================ 
 
@@ -22,53 +27,69 @@ insert into categoria  (nombre) values  ('Desserts');
 insert into categoria  (nombre) values  ('Drinks');
 insert into categoria  (nombre) values  ('Specials');
 insert into categoria  (nombre) values  ('Rice Dishes');
-
-
-
-
 select * from categoria;
 
 -- ============================================ 
 -- Platillo 
 -- ============================================ 
+
+insert into platillo (nombre_platillo,id_categoria,descripcion,precio) values ('Tostadas con Queso',1,'Deliciosas tostadas de pan casero con mantequila de ajo y queso parmesano derretido',1800);
+insert into platillo (nombre_platillo,id_categoria,descripcion,precio) values ('Casado de Chuleta',2,'Arroz, frijoles, ensalada,un huevo frito, chuleta con cebolla, chiledulce y un fresco natural ',4000);
+insert into platillo (nombre_platillo,id_categoria,descripcion,precio) values ('Casado de pollo',2,'Arroz, frijoles, ensalada,un huevo frito, Filet de pollo a la Ranch',3800);
+
+insert into platillo (nombre_platillo,id_categoria,descripcion,precio) values ('La tres quesos',3,'Una ensalada de lechuga, tomate, chile dulce, fajitas de pollo, y queso parmezano,Roquefort y Chedar ',6500);
+insert into platillo (nombre_platillo,id_categoria,descripcion,precio) values ('Arroz con camarones',4,'Arroz conndimentado con cubito maggie de un color amarillo McDonnalds y muchos camarones carnosos y jugosos ',8000);
+insert into platillo (nombre_platillo,id_categoria,descripcion,precio) values ('Gallo pinto',5,'Arroz y frijoles revueltos con mucha salsa Lizano, maduro, salchichón, huevo (revuelto o frito) y queso frito',3000);
+insert into platillo (nombre_platillo,id_categoria,descripcion,precio) values ('Las dos Z',6,'El punto debil de todo vegetariano, un delicioso plato con Zacate y Zanahoria rallada con una salsita Ranch de acompañamiento',3000);
+insert into platillo (nombre_platillo,id_categoria,descripcion,precio) values ('Sopa Maggie',7,'Sopa de paquete para quitar cualquier gripe. Hasta el COVID-19',1000);
+
 insert into platillo (nombre_platillo,id_categoria,descripcion,precio) values ('Tres Leches',8,'Un delicioso postre con las leches mas deliciosas',1000);
-insert into platillo (nombre_platillo,id_categoria,descripcion,precio) values ('Fancito de coco',8,'Flan sabemas',600);
 insert into platillo (nombre_platillo,id_categoria,descripcion,precio) values ('Alfajor',8,'Galleta con dulce de leche y glaseado de azucar glass',1100);
-insert into platillo(nombre_platillo,id_categoria,descripcion,precio)  values ('Queue de chocolate',8,'Nada que decir, un simple queue pero de chocolate',800);
-select * from platillo order by 1;
-select * from platillo where id_platillo=1;
+insert into platillo (nombre_platillo,id_categoria,descripcion,precio) values ('Natural',9,' Piña, Guanabana, arroz con Piña, Sandia, Melon, Fresa, Maracuya',1000);
+insert into platillo (nombre_platillo,id_categoria,descripcion,precio) values ('La gordita',10,'Dos tortas de carne de res o pollo, tomate, lechuga, salsa barbacoa, queso amarillo y queso frito. ',6000);
+insert into platillo (nombre_platillo,id_categoria,descripcion,precio) values ('Arroz Chino',11,'Arroz directamente traido de China, con su pegocidad característica, acompañado de salsa Soya.',6000);
+
+select * from platillo;
+
 -- ============================================ 
--- UBICACION 
+-- ADICIONAL 
 -- ============================================
-insert into ubicacion (direccion,provincia,canton,codigo_postal) values('Hatillo 5 detras de los multifamiliares casa #14','San Jose','San Jose',10110);
-select * from ubicacion;
+insert into adicional (id_platillo,nombre,tipo,requerida) values (1,'Extras de Tostadas',1,0);
+insert into adicional (id_platillo,nombre,tipo,requerida) values (2,'Extra Ingredientes',1,0);
+insert into adicional (id_platillo,nombre,tipo,requerida) values (2,'Extra Componentes',1,0);
+
+insert into adicional (id_platillo,nombre,tipo,requerida) values (3,'Extras de Ensalada',1,0);
+insert into adicional (id_platillo,nombre,tipo,requerida) values (3,'Salsas',1,0);
+insert into adicional (id_platillo,nombre,tipo,requerida) values (3,'Qtd',1,1);
+
+insert into adicional (id_platillo,nombre,tipo,requerida) values (10,'Extras de Dulces',1,0);
+
+select * from adicional where id_platillo = 10;
+
+-- ============================================ 
+-- OPCIONES 
+-- ============================================
+insert into opcion  (id_adicional,nombre,precio)  values (7,'Más Azucar',100);
+insert into opcion  (id_adicional,nombre,precio)  values (7,'Extra Dulce de leche',500);
+insert into opcion  (id_adicional,nombre,precio)  values (3,'Queso',500);
+insert into opcion  (id_adicional,nombre,precio)  values (3,'Dos Bistec',1500);
+insert into opcion  (id_adicional,nombre,precio)  values (2,'Tomate',500);
+insert into opcion  (id_adicional,nombre,precio)  values (2,'Cebolla',500);
+insert into opcion  (id_adicional,nombre,precio)  values (2,'Ajo',500);
+
+select * from opcion;
+
+
 
 -- ============================================ 
 -- ORDEN 
 -- ============================================
-insert into orden (usuario_correo,id_ubicacion,fecha_entrega,estatus,tipo_entrega,asap) values ('david@gmail.com',1,CURDATE(),1,1,1);
-select * from orden;
 
 -- ============================================ 
 -- DETALLE 
 -- ============================================
 
--- LA CANTIDAD NO DEBERIA DE ESTAR AQUI COMO UN CAMPO EN LA TABLA SINO COMO UNA OPCION
-insert into detalle  (id_orden,id_platillo,cantidad,total) values (1,3,1,1100);
-select * from detalle;
--- ============================================ 
--- ADICIONAL 
--- ============================================
-insert into adicional (id_platillo,nombre,tipo) values (3,'Extras',1);
-select * from adicional;
--- ============================================ 
--- OPCIONES 
--- ============================================
-insert into opcion  (id_adicional,nombre,precio)  values (1,'Más Azucar',100);
-insert into opcion  (id_adicional,nombre,precio)  values (1,'Extra Dulce de leche',500);
-insert into opcion  (id_adicional,nombre,precio)  values (1,'Coma Coma pastar Roma',500);
 
-select * from opcion;
 -- ============================================ 
 -- SELECCIONADA 
 -- ============================================

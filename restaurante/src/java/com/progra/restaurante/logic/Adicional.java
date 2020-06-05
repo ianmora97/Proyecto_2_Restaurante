@@ -6,9 +6,8 @@
 package com.progra.restaurante.logic;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.ArrayList;
-
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -38,7 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Adicional.findAll", query = "SELECT a FROM Adicional a")
     , @NamedQuery(name = "Adicional.findByIdAdicional", query = "SELECT a FROM Adicional a WHERE a.idAdicional = :idAdicional")
     , @NamedQuery(name = "Adicional.findByNombre", query = "SELECT a FROM Adicional a WHERE a.nombre = :nombre")
-    , @NamedQuery(name = "Adicional.findByTipo", query = "SELECT a FROM Adicional a WHERE a.tipo = :tipo")})
+    , @NamedQuery(name = "Adicional.findByTipo", query = "SELECT a FROM Adicional a WHERE a.tipo = :tipo")
+    , @NamedQuery(name = "Adicional.findByRequerida", query = "SELECT a FROM Adicional a WHERE a.requerida = :requerida")})
 public class Adicional implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -56,6 +57,8 @@ public class Adicional implements Serializable {
     @NotNull
     @Column(name = "tipo")
     private int tipo;
+    @Column(name = "requerida")
+    private Integer requerida;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAdicional")
     private ArrayList<Opcion> opcionCollection;
     @JoinColumn(name = "id_platillo", referencedColumnName = "id_platillo")
@@ -63,6 +66,10 @@ public class Adicional implements Serializable {
     private Platillo idPlatillo;
 
     public Adicional() {
+        this.idAdicional = 0;
+        this.nombre = "";
+        this.tipo = 0;
+        this.opcionCollection = new ArrayList();
     }
 
     public Adicional(Integer idAdicional) {
@@ -73,6 +80,8 @@ public class Adicional implements Serializable {
         this.idAdicional = idAdicional;
         this.nombre = nombre;
         this.tipo = tipo;
+        this.opcionCollection = new ArrayList();
+
     }
 
     public Integer getIdAdicional() {
@@ -97,6 +106,14 @@ public class Adicional implements Serializable {
 
     public void setTipo(int tipo) {
         this.tipo = tipo;
+    }
+
+    public Integer getRequerida() {
+        return requerida;
+    }
+
+    public void setRequerida(Integer requerida) {
+        this.requerida = requerida;
     }
 
     @XmlTransient
@@ -140,5 +157,5 @@ public class Adicional implements Serializable {
     public String toString() {
         return "com.progra.restaurante.logic.Adicional[ idAdicional=" + idAdicional + " ]";
     }
-    
+
 }

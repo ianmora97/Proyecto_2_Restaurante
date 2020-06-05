@@ -88,6 +88,8 @@ public class AditionalsDao {
                 adicional.setIdAdicional(resultado.getInt("id_adicional"));
                 adicional.setNombre(resultado.getString("nombre"));
                 adicional.setTipo(resultado.getInt("tipo"));
+                adicional.setRequerida(resultado.getInt("requerida"));
+
                 ArrayList<Opcion> opciones = llenarOpciones(resultado.getInt("id_adicional"));
                 adicional.setOpcionCollection(opciones);
 
@@ -115,7 +117,7 @@ public class AditionalsDao {
 
             while (resultado.next()) {
                 adicional = new Adicional();
-                
+
                 adicional.setIdAdicional(resultado.getInt("id_adicional"));
                 adicional.setNombre(resultado.getString("nombre"));
                 adicional.setTipo(resultado.getInt("tipo"));

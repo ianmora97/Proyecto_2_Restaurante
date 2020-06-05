@@ -6,7 +6,7 @@
 package com.progra.restaurante.logic;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.ArrayList;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -48,9 +48,12 @@ public class Categoria implements Serializable {
     @Column(name = "nombre")
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCategoria")
-    private Collection<Platillo> platilloCollection;
+    private ArrayList<Platillo> platilloCollection;
 
     public Categoria() {
+        this.idCategoria = 0;
+        this.nombre = "";
+        this.platilloCollection = new ArrayList<>();
     }
 
     public Categoria(Integer idCategoria) {
@@ -60,6 +63,8 @@ public class Categoria implements Serializable {
     public Categoria(Integer idCategoria, String nombre) {
         this.idCategoria = idCategoria;
         this.nombre = nombre;
+        this.platilloCollection = new ArrayList<>();
+
     }
 
     public Integer getIdCategoria() {
@@ -79,11 +84,11 @@ public class Categoria implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Platillo> getPlatilloCollection() {
+    public ArrayList<Platillo> getPlatilloCollection() {
         return platilloCollection;
     }
 
-    public void setPlatilloCollection(Collection<Platillo> platilloCollection) {
+    public void setPlatilloCollection(ArrayList<Platillo> platilloCollection) {
         this.platilloCollection = platilloCollection;
     }
 
@@ -111,5 +116,5 @@ public class Categoria implements Serializable {
     public String toString() {
         return "com.progra.restaurante.logic.Categoria[ idCategoria=" + idCategoria + " ]";
     }
-    
+
 }

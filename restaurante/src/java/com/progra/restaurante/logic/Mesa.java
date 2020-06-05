@@ -6,6 +6,7 @@
 package com.progra.restaurante.logic;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -56,7 +57,7 @@ public class Mesa implements Serializable {
     @Column(name = "estado")
     private String estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "mesaIdMesa")
-    private Collection<Reservacion> reservacionCollection;
+    private ArrayList<Reservacion> reservacionCollection;
 
     public Mesa() {
     }
@@ -105,11 +106,11 @@ public class Mesa implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Reservacion> getReservacionCollection() {
+    public ArrayList<Reservacion> getReservacionCollection() {
         return reservacionCollection;
     }
 
-    public void setReservacionCollection(Collection<Reservacion> reservacionCollection) {
+    public void setReservacionCollection(ArrayList<Reservacion> reservacionCollection) {
         this.reservacionCollection = reservacionCollection;
     }
 

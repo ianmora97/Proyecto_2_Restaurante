@@ -57,8 +57,18 @@ public class Model {
         return opciones;
     }
 
-    public ArrayList<Adicional> getAdicionales() throws Exception {
+    public ArrayList<Adicional>  getAdicionales() throws Exception {
         return adicionales;
+    }
+
+    public Adicional getAdicionalesPorPlatillo(String nombrePlatillo) throws Exception {
+        for (int i = 0; i < platillos.size(); i++) {
+            String nombreSinEspacios = platillos.get(i).getNombrePlatillo().replace(" ", "");
+            if (nombreSinEspacios.equals(nombrePlatillo)) {
+                return adicionales.get(i);
+            }
+        }
+        return null;
     }
 
     public ArrayList<Platillo> getPlatillos() throws Exception {

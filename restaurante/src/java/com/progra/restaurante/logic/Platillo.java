@@ -6,9 +6,7 @@
 package com.progra.restaurante.logic;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.ArrayList;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -67,10 +65,13 @@ public class Platillo implements Serializable {
     @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
     @ManyToOne(optional = false)
     private Categoria idCategoria;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPlatillo")
-    private ArrayList<Detalle> detalleCollection;
 
     public Platillo() {
+        this.idPlatillo = 0;
+        this.nombrePlatillo = "";
+        this.descripcion = "";
+        this.precio = 0.0;
+        this.adicionalCollection = new ArrayList<>();
     }
 
     public Platillo(Integer idPlatillo) {
@@ -82,6 +83,7 @@ public class Platillo implements Serializable {
         this.nombrePlatillo = nombrePlatillo;
         this.descripcion = descripcion;
         this.precio = precio;
+        this.adicionalCollection = new ArrayList<>();
     }
 
     public Integer getIdPlatillo() {
@@ -133,15 +135,6 @@ public class Platillo implements Serializable {
         this.idCategoria = idCategoria;
     }
 
-    @XmlTransient
-    public ArrayList<Detalle> getDetalleCollection() {
-        return detalleCollection;
-    }
-
-    public void setDetalleCollection(ArrayList<Detalle> detalleCollection) {
-        this.detalleCollection = detalleCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -166,5 +159,5 @@ public class Platillo implements Serializable {
     public String toString() {
         return "com.progra.restaurante.logic.Platillo[ idPlatillo=" + idPlatillo + " ]";
     }
-    
+
 }

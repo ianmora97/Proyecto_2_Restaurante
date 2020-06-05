@@ -22,10 +22,16 @@ public class pruebasDavid {
     public static void main(String[] args) {
 
         try {
+
             ArrayList<Opcion> opciones = Model.instance().getOpciones();
             ArrayList<Adicional> adocionales = Model.instance().getAdicionales();
-            ArrayList<Platillo> platillos = Model.instance().getPlatillos();
+            ArrayList<Platillo> platillos = com.progra.restaurante.data.DishesDao.listarPlatillosPorCategoria(8);
+            ArrayList<Categoria> categorias = com.progra.restaurante.data.CategoriesDao.listarCategoria();
 
+//             for (int i = 0; i < categorias.size(); i++) {
+//                System.out.print(categorias.get(i).getNombre()+ ": ");
+//                System.out.print(categorias.get(i).getPlatilloCollection().size()+ ":\n");
+//             }
 //
 //            for (int i = 0; i < adocionales.size(); i++) {
 //                System.out.print(adocionales.get(i).getNombre() + ":\n");
@@ -44,7 +50,6 @@ public class pruebasDavid {
                     }
                 }
             }
-
         } catch (Exception ex) {
             Logger.getLogger(pruebasDavid.class.getName()).log(Level.SEVERE, null, ex);
         }

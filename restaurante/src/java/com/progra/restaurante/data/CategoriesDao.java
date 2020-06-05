@@ -78,6 +78,7 @@ public class CategoriesDao {
 
                 categoria.setIdCategoria(resultado.getInt("id_categoria"));
                 categoria.setNombre(resultado.getString("nombre"));
+                categoria.setPlatilloCollection(com.progra.restaurante.data.DishesDao.listarPlatillosPorCategoria(resultado.getInt("id_categoria")));
 
                 lista.add(categoria);
             }

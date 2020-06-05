@@ -137,5 +137,41 @@ public class DishesDao {
         }
 
     }
+    
+        public static ArrayList<Platillo> listarPlatillosPorCategoria(int id_categoria) throws Exception {
+        String SQL = "select * from platillo where id_categoria= ?;";
+        
+
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+            st.setInt(1, id_categoria);
+            ResultSet resultado = st.executeQuery();
+            
+            ArrayList<Platillo> lista = new ArrayList<>();
+            while (resultado.next()) {
+                Platillo platillo = new Platillo();
+                platillo.setIdPlatillo(resultado.getInt("id_platillo"));
+                platillo.setNombrePlatillo(resultado.getString("nombre_platillo"));
+                platillo.setDescripcion(resultado.getString("descripcion"));
+                platillo.setPrecio(resultado.getDouble("precio"));
+                Categoria categoria =  com.progra.restaurante.data.CategoriesDao.findCategoria(resultado.getInt("id_categoria"));
+                platillo.setIdCategoria(categoria);
+                ArrayList<Adicional> adicionales = adicionalesPlatillo(resultado.getInt("id_platillo"));
+                platillo.setAdicionalCollection(adicionales);
+                
+                lista.add(platillo);
+            }
+            con.close();
+            resultado.close();
+            st.close();
+            return lista;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+
+    }
 
 }

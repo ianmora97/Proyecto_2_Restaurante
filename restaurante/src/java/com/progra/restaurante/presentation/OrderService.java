@@ -8,6 +8,7 @@ package com.progra.restaurante.presentation;
 import com.google.gson.Gson;
 
 import com.progra.restaurante.data.Model;
+import com.progra.restaurante.logic.Adicional;
 import com.progra.restaurante.logic.Categoria;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,9 +23,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author 
+ * @author
  */
-@WebServlet(name = "OrderService", urlPatterns = {"/api/restaurante/categorias/get"})
+@WebServlet(name = "OrderService", urlPatterns = {"/api/restaurante/categorias/get", "/api/restaurante/getAdiconal"})
 public class OrderService extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -34,6 +35,31 @@ public class OrderService extends HttpServlet {
             case "/api/restaurante/categorias/get":
                 this.doCategoriaGet(request, response);
                 break;
+            case "/api/restaurante/getAdiconal":
+                this.doOpcionesGet(request, response);
+                break;
+
+        }
+    }
+
+    protected void doOpcionesGet(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
+            BufferedReader reader = request.getReader();
+            Gson gson = new Gson();
+            String nombrePlatillo = reader.readLine();
+
+            PrintWriter out = response.getWriter();
+
+            Adicional adicional = Model.instance().getAdicionalesPorPlatillo(nombrePlatillo);
+            response.setContentType("application/json; charset=UTF-8");
+            if (adicional != null) {
+                out.write(gson.toJson(adicional));
+                response.setStatus(200); // ok with content
+            }
+            response.setStatus(201);
+        } catch (Exception e) {
+            response.setStatus(status(e));
         }
     }
 
@@ -46,8 +72,9 @@ public class OrderService extends HttpServlet {
 
             ArrayList<Categoria> categorias = Model.instance().getCategories();
             response.setContentType("application/json; charset=UTF-8");
+
             out.write(gson.toJson(categorias));
-            
+
             response.setStatus(200); // ok with content
         } catch (Exception e) {
             response.setStatus(status(e));

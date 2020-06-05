@@ -6,6 +6,7 @@
 package com.progra.restaurante.logic;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -41,7 +42,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Orden.findByFechaEntrega", query = "SELECT o FROM Orden o WHERE o.fechaEntrega = :fechaEntrega")
     , @NamedQuery(name = "Orden.findByEstatus", query = "SELECT o FROM Orden o WHERE o.estatus = :estatus")
     , @NamedQuery(name = "Orden.findByTipoEntrega", query = "SELECT o FROM Orden o WHERE o.tipoEntrega = :tipoEntrega")
-    , @NamedQuery(name = "Orden.findByAsap", query = "SELECT o FROM Orden o WHERE o.asap = :asap")})
+    , @NamedQuery(name = "Orden.findByAsap", query = "SELECT o FROM Orden o WHERE o.asap = :asap")
+    , @NamedQuery(name = "Orden.findByTotal", query = "SELECT o FROM Orden o WHERE o.total = :total")})
 public class Orden implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,7 +55,7 @@ public class Orden implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "fecha_entrega")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEntrega;
     @Basic(optional = false)
     @NotNull
@@ -68,14 +70,17 @@ public class Orden implements Serializable {
     @NotNull
     @Column(name = "asap")
     private int asap;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "total")
+    private Double total;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOrden")
+    private ArrayList<Platilloseleccionado> platilloseleccionadoCollection;
     @JoinColumn(name = "id_ubicacion", referencedColumnName = "id_ubicacion")
     @ManyToOne(optional = false)
     private Ubicacion idUbicacion;
     @JoinColumn(name = "usuario_correo", referencedColumnName = "usuario_correo")
     @ManyToOne(optional = false)
     private Usuario usuarioCorreo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOrden")
-    private Collection<Detalle> detalleCollection;
 
     public Orden() {
     }
@@ -132,6 +137,23 @@ public class Orden implements Serializable {
         this.asap = asap;
     }
 
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    @XmlTransient
+    public ArrayList<Platilloseleccionado> getPlatilloseleccionadoCollection() {
+        return platilloseleccionadoCollection;
+    }
+
+    public void setPlatilloseleccionadoCollection(ArrayList<Platilloseleccionado> platilloseleccionadoCollection) {
+        this.platilloseleccionadoCollection = platilloseleccionadoCollection;
+    }
+
     public Ubicacion getIdUbicacion() {
         return idUbicacion;
     }
@@ -146,15 +168,6 @@ public class Orden implements Serializable {
 
     public void setUsuarioCorreo(Usuario usuarioCorreo) {
         this.usuarioCorreo = usuarioCorreo;
-    }
-
-    @XmlTransient
-    public Collection<Detalle> getDetalleCollection() {
-        return detalleCollection;
-    }
-
-    public void setDetalleCollection(Collection<Detalle> detalleCollection) {
-        this.detalleCollection = detalleCollection;
     }
 
     @Override
