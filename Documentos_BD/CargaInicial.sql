@@ -65,11 +65,6 @@ insert into adicional (id_platillo,nombre,tipo,requerida) values (3,'Extras de E
 insert into adicional (id_platillo,nombre,tipo,requerida) values (3,'Salsas',1,0);
 
 insert into adicional (id_platillo,nombre,tipo,requerida) values (3,'Qtd',0,1);
-
-select p.nombre_platillo,a.id_adicional, a.nombre, a.tipo, a.requerida from
-adicional a, platillo p where 
-a.id_platillo = p.id_platillo;
-
 insert into adicional (id_platillo,nombre,tipo,requerida) values (10,'Extras de Dulces',1,0);
 
 select * from adicional where id_platillo = 10;

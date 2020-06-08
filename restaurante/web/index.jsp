@@ -206,12 +206,12 @@ and open the template in the editor.
                         </div>
                     </div>
                     <!--El siguiente codigo es para presentar los platillos según la categoría.--> 
-                    
-                        <div class="accordion" >
-                            <div class="tab-content my-1" id="dishes">
 
-                            </div>
+                    <div class="accordion" >
+                        <div class="tab-content my-1" id="dishes">
+
                         </div>
+                    </div>
 
 
                 </div>
@@ -223,24 +223,26 @@ and open the template in the editor.
 
                     <div id="cart-box" class="module-box py-3 mt-2">
                         <div class="panel panel-cart ">
+                            <div class="cart-header justify-between-center">
+                                <div class="btn-group " data-toggle='buttons'>
+                                    <label class="btn btn-primary active  " >
+                                        <input type="radio" name="type" id='delivery' autocomplete='off'  style="display: none;" checked/>
+                                        <strong> Delivery <br/></strong> 
+                                        <span  class="small center-block" >
+                                            in 15 min  
+                                        </span>
+                                    </label>
+                                    <label class="btn btn-primary ">
+                                        <input type="radio" name="type" id='pickUp' autocomplete='off'  style="display: none;" />
+                                        <strong> Pick Up <br/></strong>
+                                        <span class="small center-block">
+                                            Starts 06:00 am  
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
                             <div class="panel-body  py-4 px-3 bg-white justify-content-center">
-                                <div id="cart-control">
-                                    <div class="btn-group " data-toggle='buttons'>
-                                        <label class="btn btn-primary active  " >
-                                            <input type="radio" name="type" id='delivery' autocomplete='off'  style="display: none;" checked/>
-                                            <strong> Delivery <br/></strong> 
-                                            <span  class="small center-block" >
-                                                in 15 min  
-                                            </span>
-                                        </label>
-                                        <label class="btn btn-primary ">
-                                            <input type="radio" name="type" id='pickUp' autocomplete='off'  style="display: none;" />
-                                            <strong> Pick Up <br/></strong>
-                                            <span class="small center-block">
-                                                Starts 06:00 am  
-                                            </span>
-                                        </label>
-                                    </div>
+                                <div id="cart-control" class="">
 
                                     <div class="text-center center-block">
                                         <%if (!platillos.isEmpty()) {%>
