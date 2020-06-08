@@ -6,10 +6,6 @@
 package com.progra.restaurante.data;
 
 import com.progra.restaurante.logic.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,7 +53,7 @@ public class Model {
         return opciones;
     }
 
-    public ArrayList<Adicional>  getAdicionales() throws Exception {
+    public ArrayList<Adicional> getAdicionales() throws Exception {
         return adicionales;
     }
 
@@ -89,6 +85,68 @@ public class Model {
 
     public Adicional findAdicional(int id_adicional) throws Exception {
         return com.progra.restaurante.data.AditionalsDao.findAdicional(id_adicional);
+    }
+
+    public Platillo getPlatilloToCart(ArrayList<String> opSeleccionadas, String nombrePlatillo, int Cantidad) throws Exception {
+        Platillo platillo = new Platillo();
+
+        for (int i = 0; i < platillos.size(); i++) {
+            String nombresDePlatillo = platillos.get(i).getNombrePlatillo();
+            nombresDePlatillo = nombresDePlatillo.replace(" ", "");
+            nombrePlatillo = nombrePlatillo.replace(" ", "");
+           
+            if (nombresDePlatillo.equals(nombrePlatillo)) {
+                platillo = platillos.get(i).copy(platillos.get(i));
+                break;
+            }
+        }
+        ArrayList<Opcion> opcionesList = new ArrayList<>();
+
+        for (int i = 0; i < opciones.size(); i++) {
+            for (int j = 0; j < opSeleccionadas.size(); j++) {
+                if (opciones.get(i).getNombre().equals(opSeleccionadas.get(j))) {
+                    opcionesList.add(opciones.get(i));
+                }
+            }
+        }
+
+        elminarOpciones(platillo.getAdicionalCollection());
+        agregarOpcionesSelect(platillo.getAdicionalCollection(), opcionesList);
+        eliminarAdiSinOpciones(platillo.getAdicionalCollection());
+        platillo.setCantidad(Cantidad);
+        return platillo;
+
+    }
+
+    private void elminarOpciones(ArrayList<Adicional> adicionalesSelect) {
+
+        for (int i = 0; i < adicionalesSelect.size(); i++) {
+            adicionalesSelect.get(i).setOpcionCollection(new ArrayList<Opcion>());
+        }
+    }
+
+    private void agregarOpcionesSelect(ArrayList<Adicional> adicionalesSelect, ArrayList<Opcion> opcionesList) {
+        for (int i = 0; i < opcionesList.size(); i++) {
+            boolean estaEnPlatillo = false;
+            for (int j = 0; j < adicionalesSelect.size() && estaEnPlatillo == false; j++) {
+                if (opcionesList.get(i).getIdAdicional().getIdAdicional().equals(adicionalesSelect.get(j).getIdAdicional())) {
+                    adicionalesSelect.get(j).getOpcionCollection().add(opcionesList.get(i));
+                    opcionesList.remove(i);
+                    i--;
+                    estaEnPlatillo = true;
+                }
+            }
+        }
+    }
+
+    private void eliminarAdiSinOpciones(ArrayList<Adicional> adicionalesSelect) {
+
+        for (int i = 0; i < adicionalesSelect.size(); i++) {
+            if (adicionalesSelect.get(i).getOpcionCollection().isEmpty()) {
+                adicionalesSelect.remove(i);
+                i--;
+            }
+        }
     }
 
 }

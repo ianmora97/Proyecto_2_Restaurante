@@ -122,6 +122,8 @@ public class AditionalsDao {
                 adicional.setNombre(resultado.getString("nombre"));
                 adicional.setTipo(resultado.getInt("tipo"));
                 ArrayList<Opcion> opciones = llenarOpciones(resultado.getInt("id_adicional"));
+                adicional.setRequerida(resultado.getInt("requerida"));
+
                 adicional.setOpcionCollection(opciones);
 
                 lista.add(adicional);
@@ -132,6 +134,6 @@ public class AditionalsDao {
             System.out.println(ex.toString());
             return null;
         }
-
     }
+    
 }

@@ -130,4 +130,15 @@ public class Opcion implements Serializable {
         return "com.progra.restaurante.logic.Opcion[ idOpcion=" + idOpcion + " ]";
     }
 
+    public Opcion copy(Opcion opcion) {
+        Opcion opcionCopy = new Opcion();
+
+        opcionCopy.setIdAdicional(opcion.getIdAdicional());
+        opcionCopy.setIdOpcion(opcion.getIdOpcion());
+        opcionCopy.setNombre(opcion.getNombre());
+        opcionCopy.setPrecio(opcion.getPrecio());
+
+        return opcionCopy;
+    }
+
 }

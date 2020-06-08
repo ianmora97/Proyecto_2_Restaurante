@@ -65,6 +65,7 @@ public class Platillo implements Serializable {
     @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
     @ManyToOne(optional = false)
     private Categoria idCategoria;
+    private int cantidad;
 
     public Platillo() {
         this.idPlatillo = 0;
@@ -72,6 +73,15 @@ public class Platillo implements Serializable {
         this.descripcion = "";
         this.precio = 0.0;
         this.adicionalCollection = new ArrayList<>();
+        this.cantidad = 0;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
     public Platillo(Integer idPlatillo) {
@@ -158,6 +168,26 @@ public class Platillo implements Serializable {
     @Override
     public String toString() {
         return "com.progra.restaurante.logic.Platillo[ idPlatillo=" + idPlatillo + " ]";
+    }
+
+    public Platillo copy(Platillo platillo) {
+        Platillo platilloCopy = new Platillo();
+
+        platilloCopy.setIdPlatillo(platillo.getIdPlatillo());
+        platilloCopy.setNombrePlatillo(platillo.getNombrePlatillo());
+        platilloCopy.setDescripcion(platillo.getDescripcion());
+        platilloCopy.setCantidad(platillo.getCantidad());
+        platilloCopy.setIdCategoria(platillo.getIdCategoria());
+        platilloCopy.setPrecio(platillo.getPrecio());
+
+        ArrayList<Adicional> adicionalList = new ArrayList<>();
+        for (Adicional ad : platillo.getAdicionalCollection()) {
+            Adicional adicional = ad.copy(ad);
+            adicionalList.add(adicional);
+        }
+        platilloCopy.setAdicionalCollection(adicionalList);
+
+        return platilloCopy;
     }
 
 }

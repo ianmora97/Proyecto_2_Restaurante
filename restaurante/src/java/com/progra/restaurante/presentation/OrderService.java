@@ -8,24 +8,25 @@ package com.progra.restaurante.presentation;
 import com.google.gson.Gson;
 
 import com.progra.restaurante.data.Model;
-import com.progra.restaurante.logic.Adicional;
 import com.progra.restaurante.logic.Categoria;
+import com.progra.restaurante.logic.Orden;
+import com.progra.restaurante.logic.Platillo;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author
  */
-@WebServlet(name = "OrderService", urlPatterns = {"/api/restaurante/categorias/get", "/api/restaurante/getAdiconal"})
+@WebServlet(name = "OrderService", urlPatterns = {"/api/restaurante/categorias/get", "/api/restaurante/AddToCart"})
 public class OrderService extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -35,33 +36,52 @@ public class OrderService extends HttpServlet {
             case "/api/restaurante/categorias/get":
                 this.doCategoriaGet(request, response);
                 break;
-            case "/api/restaurante/getAdiconal":
-                this.doOpcionesGet(request, response);
+            case "/api/restaurante/AddToCart":
+                this.doAddToCart(request, response);
                 break;
 
         }
     }
 
-    protected void doOpcionesGet(HttpServletRequest request,
+    protected void doAddToCart(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         try {
             BufferedReader reader = request.getReader();
             Gson gson = new Gson();
+
             String nombrePlatillo = reader.readLine();
+            String cantidadPlatillo = reader.readLine();
+            ArrayList<String> opciones = gson.fromJson(reader.readLine(), ArrayList.class);
 
-            PrintWriter out = response.getWriter();
+            Platillo platillo = com.progra.restaurante.data.Model.instance().getPlatilloToCart(opciones, nombrePlatillo, Integer.parseInt(cantidadPlatillo));
 
-            Adicional adicional = Model.instance().getAdicionalesPorPlatillo(nombrePlatillo);
-            response.setContentType("application/json; charset=UTF-8");
-            if (adicional != null) {
-                out.write(gson.toJson(adicional));
+            HttpSession session = request.getSession(true);
+            if (session.getAttribute("order") == null) {
+                session.setAttribute("order", new Orden());
+            } else {
+                //Codigo para agregar el carrito a la orden y agregarselo a la orden.
+                Orden order = (Orden) session.getAttribute("order");
+                order.getPlatilloseleccionadoCollection().add(platillo);
+                session.setAttribute("order", order);
+                //Codigo para salida de la aplicacion
+                response.setContentType("application/json; charset=UTF-8");
+                PrintWriter out = response.getWriter();
+                out.write(gson.toJson(order));
                 response.setStatus(200); // ok with content
             }
-            response.setStatus(201);
+
         } catch (Exception e) {
             response.setStatus(status(e));
         }
     }
+
+//    protected boolean searchAlreadyExists(Platillo platillo, Orden orden) {
+//        platillos = orden.getPlatilloseleccionadoCollection();
+//        for(int i =0; i< .size() ; i++){
+//        }
+//        
+//        return true;
+//    }
 
     protected void doCategoriaGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {

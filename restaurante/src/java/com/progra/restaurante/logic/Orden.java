@@ -74,7 +74,7 @@ public class Orden implements Serializable {
     @Column(name = "total")
     private Double total;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOrden")
-    private ArrayList<Platilloseleccionado> platilloseleccionadoCollection;
+    private ArrayList<Platillo> platilloseleccionadoCollection;
     @JoinColumn(name = "id_ubicacion", referencedColumnName = "id_ubicacion")
     @ManyToOne(optional = false)
     private Ubicacion idUbicacion;
@@ -83,6 +83,13 @@ public class Orden implements Serializable {
     private Usuario usuarioCorreo;
 
     public Orden() {
+        this.idOrden = 0;
+        this.fechaEntrega = new Date();
+        this.estatus = "";
+        this.tipoEntrega = 0;
+        this.asap = 0;
+        this.platilloseleccionadoCollection = new ArrayList<>();
+
     }
 
     public Orden(Integer idOrden) {
@@ -95,6 +102,7 @@ public class Orden implements Serializable {
         this.estatus = estatus;
         this.tipoEntrega = tipoEntrega;
         this.asap = asap;
+        this.platilloseleccionadoCollection = new ArrayList<>();
     }
 
     public Integer getIdOrden() {
@@ -146,11 +154,11 @@ public class Orden implements Serializable {
     }
 
     @XmlTransient
-    public ArrayList<Platilloseleccionado> getPlatilloseleccionadoCollection() {
+    public ArrayList<Platillo> getPlatilloseleccionadoCollection() {
         return platilloseleccionadoCollection;
     }
 
-    public void setPlatilloseleccionadoCollection(ArrayList<Platilloseleccionado> platilloseleccionadoCollection) {
+    public void setPlatilloseleccionadoCollection(ArrayList<Platillo> platilloseleccionadoCollection) {
         this.platilloseleccionadoCollection = platilloseleccionadoCollection;
     }
 
@@ -194,5 +202,6 @@ public class Orden implements Serializable {
     public String toString() {
         return "com.progra.restaurante.logic.Orden[ idOrden=" + idOrden + " ]";
     }
-    
+
+
 }

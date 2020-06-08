@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Adicional.findByNombre", query = "SELECT a FROM Adicional a WHERE a.nombre = :nombre")
     , @NamedQuery(name = "Adicional.findByTipo", query = "SELECT a FROM Adicional a WHERE a.tipo = :tipo")
     , @NamedQuery(name = "Adicional.findByRequerida", query = "SELECT a FROM Adicional a WHERE a.requerida = :requerida")})
-public class Adicional implements Serializable {
+public class Adicional implements Serializable  {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -156,6 +156,24 @@ public class Adicional implements Serializable {
     @Override
     public String toString() {
         return "com.progra.restaurante.logic.Adicional[ idAdicional=" + idAdicional + " ]";
+    }
+
+  public Adicional copy(Adicional adicional) {
+        Adicional adicionalCopy = new Adicional();
+
+        adicionalCopy.setIdAdicional(adicional.getIdAdicional());
+        adicionalCopy.setIdPlatillo(adicional.getIdPlatillo());
+        adicionalCopy.setNombre(adicional.getNombre());
+        adicionalCopy.setRequerida(adicional.getRequerida());
+        adicionalCopy.setTipo(adicional.getTipo());
+        
+        ArrayList<Opcion> listOpcion = new ArrayList<>();
+        for(Opcion op : adicional.getOpcionCollection()){
+            Opcion opcion = op.copy(op);
+            listOpcion.add(opcion);
+        }
+        adicionalCopy.setOpcionCollection(listOpcion);
+        return adicionalCopy;
     }
 
 }

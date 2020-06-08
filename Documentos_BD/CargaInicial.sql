@@ -5,7 +5,10 @@ use restaurante;
 -- ============================================ 
 insert into usuario values ('david@gmail.com','pulplix','123',1);
 insert into usuario values ('ian@gmail.com','ianMora666','123',1);
+
 select *from usuario;
+
+
 
 -- ============================================ 
 -- UBICACION 
@@ -60,7 +63,12 @@ insert into adicional (id_platillo,nombre,tipo,requerida) values (2,'Extra Compo
 
 insert into adicional (id_platillo,nombre,tipo,requerida) values (3,'Extras de Ensalada',1,0);
 insert into adicional (id_platillo,nombre,tipo,requerida) values (3,'Salsas',1,0);
-insert into adicional (id_platillo,nombre,tipo,requerida) values (3,'Qtd',1,1);
+
+insert into adicional (id_platillo,nombre,tipo,requerida) values (3,'Qtd',0,1);
+
+select p.nombre_platillo,a.id_adicional, a.nombre, a.tipo, a.requerida from
+adicional a, platillo p where 
+a.id_platillo = p.id_platillo;
 
 insert into adicional (id_platillo,nombre,tipo,requerida) values (10,'Extras de Dulces',1,0);
 
@@ -77,8 +85,21 @@ insert into opcion  (id_adicional,nombre,precio)  values (2,'Tomate',500);
 insert into opcion  (id_adicional,nombre,precio)  values (2,'Cebolla',500);
 insert into opcion  (id_adicional,nombre,precio)  values (2,'Ajo',500);
 
-select * from opcion;
+insert into opcion  (id_adicional,nombre,precio)  values (8,'1',4100);
+insert into opcion  (id_adicional,nombre,precio)  values (8,'2',8200);
+insert into opcion  (id_adicional,nombre,precio)  values (6,'Salsa Picante',300);
+insert into opcion  (id_adicional,nombre,precio)  values (6,'Salsa Ranch',400);
+insert into opcion  (id_adicional,nombre,precio)  values (6,'Salsa Tomate',300);
+insert into opcion  (id_adicional,nombre,precio)  values (6,'Salsa Mayonesa',300);
 
+
+SELECT DISTINCT *
+FROM adicional a
+WHERE a.id_adicional IN (
+    select o.id_adicional from opcion o where o.nombre = 'Salsa Ranch'
+);
+
+select * from opcion where nombre = 'Salsa Ranch';
 
 
 -- ============================================ 

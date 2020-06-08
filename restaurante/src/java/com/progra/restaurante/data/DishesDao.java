@@ -60,6 +60,8 @@ public class DishesDao {
                 adicional.setIdAdicional(resultado.getInt("id_adicional"));
                 adicional.setNombre(resultado.getString("nombre"));
                 adicional.setTipo(resultado.getInt("tipo"));
+                adicional.setRequerida(resultado.getInt("requerida"));
+
                 ArrayList<Opcion> opciones = llenarOpciones(resultado.getInt("id_adicional"));
                 adicional.setOpcionCollection(opciones);
 
@@ -119,11 +121,11 @@ public class DishesDao {
                 platillo.setNombrePlatillo(resultado.getString("nombre_platillo"));
                 platillo.setDescripcion(resultado.getString("descripcion"));
                 platillo.setPrecio(resultado.getDouble("precio"));
-                Categoria categoria =  com.progra.restaurante.data.CategoriesDao.findCategoria(resultado.getInt("id_categoria"));
+                Categoria categoria = com.progra.restaurante.data.CategoriesDao.findCategoria(resultado.getInt("id_categoria"));
                 platillo.setIdCategoria(categoria);
                 ArrayList<Adicional> adicionales = adicionalesPlatillo(resultado.getInt("id_platillo"));
                 platillo.setAdicionalCollection(adicionales);
-                
+
                 lista.add(platillo);
             }
             con.close();
@@ -137,17 +139,16 @@ public class DishesDao {
         }
 
     }
-    
-        public static ArrayList<Platillo> listarPlatillosPorCategoria(int id_categoria) throws Exception {
+
+    public static ArrayList<Platillo> listarPlatillosPorCategoria(int id_categoria) throws Exception {
         String SQL = "select * from platillo where id_categoria= ?;";
-        
 
         try {
             Connection con = Conn.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
             st.setInt(1, id_categoria);
             ResultSet resultado = st.executeQuery();
-            
+
             ArrayList<Platillo> lista = new ArrayList<>();
             while (resultado.next()) {
                 Platillo platillo = new Platillo();
@@ -155,11 +156,11 @@ public class DishesDao {
                 platillo.setNombrePlatillo(resultado.getString("nombre_platillo"));
                 platillo.setDescripcion(resultado.getString("descripcion"));
                 platillo.setPrecio(resultado.getDouble("precio"));
-                Categoria categoria =  com.progra.restaurante.data.CategoriesDao.findCategoria(resultado.getInt("id_categoria"));
+                Categoria categoria = com.progra.restaurante.data.CategoriesDao.findCategoria(resultado.getInt("id_categoria"));
                 platillo.setIdCategoria(categoria);
                 ArrayList<Adicional> adicionales = adicionalesPlatillo(resultado.getInt("id_platillo"));
                 platillo.setAdicionalCollection(adicionales);
-                
+
                 lista.add(platillo);
             }
             con.close();

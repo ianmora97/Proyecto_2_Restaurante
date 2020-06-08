@@ -51,10 +51,43 @@ public class OptionDao {
             ResultSet resultado = st.executeQuery();
 
             while (resultado.next()) {
+                Adicional a = new Adicional();
+                a.setIdAdicional(resultado.getInt("id_adicional"));
+                opcion.setIdAdicional(a);
                 opcion.setIdOpcion(resultado.getInt("id_opcion"));
                 opcion.setNombre(resultado.getString("nombre"));
                 opcion.setPrecio(resultado.getDouble("precio"));
 
+            }
+            con.close();
+            resultado.close();
+            st.close();
+            return opcion;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return opcion;
+        }
+    }
+
+    public static Opcion findOpcionPorNombre(int nombre) throws Exception {
+        String SQL = "select * from opcion where nombre=?;";
+        Opcion opcion = new Opcion();
+
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+
+            st.setInt(1, nombre);
+            ResultSet resultado = st.executeQuery();
+
+            while (resultado.next()) {
+                Adicional a = new Adicional();
+                a.setIdAdicional(resultado.getInt("id_adicional"));
+                opcion.setIdAdicional(a);
+                opcion.setIdOpcion(resultado.getInt("id_opcion"));
+                opcion.setNombre(resultado.getString("nombre"));
+                opcion.setPrecio(resultado.getDouble("precio"));
             }
             con.close();
             resultado.close();
@@ -79,7 +112,9 @@ public class OptionDao {
 
             while (resultado.next()) {
                 opcion = new Opcion();
-
+                Adicional a = new Adicional();
+                a.setIdAdicional(resultado.getInt("id_adicional"));
+                opcion.setIdAdicional(a);
                 opcion.setIdOpcion(resultado.getInt("id_opcion"));
                 opcion.setNombre(resultado.getString("nombre"));
                 opcion.setPrecio(resultado.getDouble("precio"));

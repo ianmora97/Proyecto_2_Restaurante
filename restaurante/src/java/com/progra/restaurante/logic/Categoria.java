@@ -117,4 +117,6 @@ public class Categoria implements Serializable {
         return "com.progra.restaurante.logic.Categoria[ idCategoria=" + idCategoria + " ]";
     }
 
+
+
 }
