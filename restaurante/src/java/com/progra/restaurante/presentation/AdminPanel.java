@@ -8,6 +8,7 @@ package com.progra.restaurante.presentation;
 import com.google.gson.Gson;
 import com.progra.restaurante.data.Model;
 import com.progra.restaurante.logic.Categoria;
+import com.progra.restaurante.logic.Platillo;
 import com.progra.restaurante.logic.Usuario;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,7 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author ianmo
  */
-@WebServlet(name = "AdminPanel", urlPatterns = {"/api/restaurante/ingresarAdmin","/api/restaurante/categoriasAdmin"})
+@WebServlet(name = "AdminPanel", urlPatterns = {"/api/restaurante/ingresarAdmin","/api/restaurante/categoriasAdmin","/api/restaurante/platosAdmin"})
 public class AdminPanel extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -37,7 +38,26 @@ public class AdminPanel extends HttpServlet {
             case "/api/restaurante/categoriasAdmin":
                 this.doCategoriaGet(request, response);
                 break;
+            case "/api/restaurante/platosAdmin":
+                this.doPlatosGet(request, response);
+                break;
 
+        }
+    }
+    protected void doPlatosGet(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
+            Gson gson = new Gson();
+            PrintWriter out = response.getWriter();
+
+            ArrayList<Platillo> platillos = Model.instance().getPlatillos();
+            response.setContentType("application/json; charset=UTF-8");
+
+            out.write(gson.toJson(platillos));
+
+            response.setStatus(200); // ok with content
+        } catch (Exception e) {
+            response.setStatus(status(e));
         }
     }
     protected void doCategoriaGet(HttpServletRequest request,

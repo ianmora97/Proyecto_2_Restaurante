@@ -37,7 +37,7 @@
                     <li class="nav-item active">
                         <a
                             class="nav-link dashboard admin"
-                            href="#"
+                            href="dashboard.html"
                             aria-expanded="true"
                             >
                             <i class="fa fa-tachometer-alt fa-fw"></i>
@@ -61,7 +61,7 @@
                             <li class="nav-item">
                                 <a
                                     class="nav-link tables"
-                                    href="https://demo.tastyigniter.com/admin/tables"
+                                    href="mesas.html"
                                     aria-expanded="false"
                                     >
 
@@ -85,7 +85,7 @@
                             <li class="nav-item">
                                 <a
                                     class="nav-link menus"
-                                    href="https://demo.tastyigniter.com/admin/menus"
+                                    href="#"
                                     aria-expanded="false"
                                     >
 
@@ -95,7 +95,7 @@
                             <li class="nav-item">
                                 <a
                                     class="nav-link categories"
-                                    href="https://demo.tastyigniter.com/admin/categories"
+                                    href="categoriasAdmin.html"
                                     aria-expanded="false"
                                     >
 
@@ -203,7 +203,8 @@
                                 <i class="fa fa-times"></i>&nbsp;&nbsp;Clear            </button>
                         </div>
                         <div class="flex-fill">
-                            <div class="filter-search"><form id="search-form"
+                            <div class="filter-search">
+                                <form id="search-form"
                                                              class="form-inline"
                                                              accept-charset="utf-8"
                                                              method="POST"
@@ -256,10 +257,31 @@
                                             data-request="list::onSort"
                                             data-request-form="#list-form"
                                             data-request-data="sort_by: 'table_name'">
-                                            Id Categoria                    <i class="fa fa-sort-ASC"></i>
+                                            Id Platillo                    <i class="fa fa-sort-ASC"></i>
                                         </a>
                                     </th>
-
+                                    <th
+                                        class="list-cell-name-table-name list-cell-type-text "
+                                        >
+                                        <a
+                                            class="sort-col"
+                                            data-request="list::onSort"
+                                            data-request-form="#list-form"
+                                            data-request-data="sort_by: 'table_name'">
+                                            Categoria                    <i class="fa fa-sort-ASC"></i>
+                                        </a>
+                                    </th>
+                                    <th
+                                        class="list-cell-name-table-name list-cell-type-text "
+                                        >
+                                        <a
+                                            class="sort-col"
+                                            data-request="list::onSort"
+                                            data-request-form="#list-form"
+                                            data-request-data="sort_by: 'table_name'">
+                                            Nombre                    <i class="fa fa-sort-ASC"></i>
+                                        </a>
+                                    </th>
                                     <th
                                         class="list-cell-name-min-capacity list-cell-type-text "
                                         >
@@ -268,10 +290,20 @@
                                             data-request="list::onSort"
                                             data-request-form="#list-form"
                                             data-request-data="sort_by: 'min_capacity'">
-                                            Nombre                    <i class="fa fa-sort-ASC"></i>
+                                            Descripccion                    <i class="fa fa-sort-ASC"></i>
                                         </a>
                                     </th>
-
+                                    <th
+                                        class="list-cell-name-min-capacity list-cell-type-text "
+                                        >
+                                        <a
+                                            class="sort-col"
+                                            data-request="list::onSort"
+                                            data-request-form="#list-form"
+                                            data-request-data="sort_by: 'min_capacity'">
+                                            Precio                    <i class="fa fa-sort-ASC"></i>
+                                        </a>
+                                    </th>
 
                                     <th class="list-setup">
                                         <button
@@ -285,8 +317,9 @@
                                             <i class="fa fa-sliders"></i>
                                         </button>
                                     </th>
-                                </tr>        </thead>
-                            <tbody id="listaCategorias">
+                                </tr>
+                            </thead>
+                            <tbody id="listaPlatillosAdmin">
                                 
                             </tbody>
                         </table>
@@ -313,15 +346,15 @@
         
         <script>
             function loaded(event) {
-                fillCategories();
+                fillPlates();
             }
-            function fillCategories() {
+            function fillPlates() {
                 $(document).ready(function () {
                     $.ajax({
                         type: "POST",
-                        url: "api/restaurante/categoriasAdmin",
-                        success: function (categorias) {
-                            showCategorias(categorias);
+                        url: "api/restaurante/platosAdmin",
+                        success: function (platos) {
+                            showPlatos(platos);
                         },
                         error: function (status) {
                             alert(errorMessage(status));
@@ -329,23 +362,30 @@
                     });
                 });
             }
-            function showCategorias(categorias) {
-                categorias.forEach((cat) => {
-                    fillCategorias(cat);
+            function showPlatos(platos) {
+                platos.forEach((pla) => {
+                    fillPlatos(pla);
                 });
             }
-            function fillCategorias(categoria) {
-                var nombre = categoria.nombre.replace(/ /g, "");
-                var id = categoria.idCategoria;
+            function fillPlatos(plato) {
+                var id = plato.idPlatillo;
+                var categoria = plato.idCategoria.nombre.replace(/ /g, "");
+                var nombre = plato.nombrePlatillo.replace(/ /g, "");
+                var descripcion = plato.descripcion;
+                var precio = plato.precio;
 
-                $("#listaCategorias").append(
+                $("#listaPlatillosAdmin").append(
                         '<tr>'+
                         '<td class="list-action">'+
                         '<div class="custom-control custom-checkbox">'+
                         '<input type="checkbox" id="checkbox-'+id+'" class="custom-control-input" value="'+id+'" name="checked[]"/>'+
                         '<label class="custom-control-label" for="checkbox-'+id+'">&nbsp;</label></div></td>'+
+
                         '<td class="list-col-index-2 list-col-name-table-name list-col-type-text ">'+id+'</td>'+
-                        '<td class="list-col-index-3 list-col-name-min-capacity list-col-type-text ">'+nombre+'</td>'+
+                        '<td class="list-col-index-3 list-col-name-min-capacity list-col-type-text ">'+categoria+'</td>'+
+                        '<td class="list-col-index-4 list-col-name-min-capacity list-col-type-text ">'+nombre+'</td>'+
+                        '<td class="list-col-index-5 list-col-name-min-capacity list-col-type-text ">'+descripcion+'</td>'+
+                        '<td class="list-col-index-6 list-col-name-min-capacity list-col-type-text ">'+precio+'</td>'+
                         '<td class="list-setup">&nbsp;</td></tr>'
                         );
                 
