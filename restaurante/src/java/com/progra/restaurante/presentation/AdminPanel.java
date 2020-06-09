@@ -6,10 +6,13 @@
 package com.progra.restaurante.presentation;
 
 import com.google.gson.Gson;
+import com.progra.restaurante.data.Model;
+import com.progra.restaurante.logic.Categoria;
 import com.progra.restaurante.logic.Usuario;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +24,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author ianmo
  */
-@WebServlet(name = "AdminPanel", urlPatterns = {"/api/restaurante/ingresarAdmin"})
+@WebServlet(name = "AdminPanel", urlPatterns = {"/api/restaurante/ingresarAdmin","/api/restaurante/categoriasAdmin"})
 public class AdminPanel extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -31,7 +34,27 @@ public class AdminPanel extends HttpServlet {
             case "/api/restaurante/ingresarAdmin":
                 this.doLoginAdmin(request, response);
                 break;
+            case "/api/restaurante/categoriasAdmin":
+                this.doCategoriaGet(request, response);
+                break;
 
+        }
+    }
+    protected void doCategoriaGet(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
+            BufferedReader reader = request.getReader();
+            Gson gson = new Gson();
+            PrintWriter out = response.getWriter();
+
+            ArrayList<Categoria> categorias = Model.instance().getCategoriesAdmin();
+            response.setContentType("application/json; charset=UTF-8");
+
+            out.write(gson.toJson(categorias));
+
+            response.setStatus(200); // ok with content
+        } catch (Exception e) {
+            response.setStatus(status(e));
         }
     }
     protected void doLoginAdmin(HttpServletRequest request,
