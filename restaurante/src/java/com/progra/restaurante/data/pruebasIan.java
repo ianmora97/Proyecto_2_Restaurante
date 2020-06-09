@@ -5,15 +5,16 @@
  */
 package com.progra.restaurante.data;
 
+import com.progra.restaurante.logic.Opcion;
+import java.util.ArrayList;
+
 /**
  *
  * @author david
  */
 public class pruebasIan {
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args) {
         // TODO code application logic here
     }

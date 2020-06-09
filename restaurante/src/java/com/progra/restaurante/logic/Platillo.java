@@ -159,10 +159,37 @@ public class Platillo implements Serializable {
             return false;
         }
         Platillo other = (Platillo) object;
-        if ((this.idPlatillo == null && other.idPlatillo != null) || (this.idPlatillo != null && !this.idPlatillo.equals(other.idPlatillo))) {
-            return false;
+        if (other.getNombrePlatillo().equals(this.nombrePlatillo)) {
+            if (other.getAdicionalCollection().size() == this.getAdicionalCollection().size()) {
+                other.getAdicionalCollection().sort(null);
+                this.getAdicionalCollection().sort(null);
+                for (int i = 0; i < other.getAdicionalCollection().size(); i++) {
+                    if (other.getAdicionalCollection().get(i).getNombre().equals(this.getAdicionalCollection().get(i))) {
+                        if (other.getAdicionalCollection().get(i).getOpcionCollection().size() == this.getAdicionalCollection().get(i).getOpcionCollection().size()) {
+                            other.getAdicionalCollection().get(i).getOpcionCollection().sort(null);
+                            this.getAdicionalCollection().get(i).getOpcionCollection().sort(null);
+                            for (int j = 0; j < other.getAdicionalCollection().get(i).getOpcionCollection().size(); j++) {
+                                if(other.getAdicionalCollection().get(i).getOpcionCollection().get(j).getNombre() == this.getAdicionalCollection().get(i).getOpcionCollection().get(j).getNombre()){
+                                    if(j == other.getAdicionalCollection().get(i).getOpcionCollection().size() -1){
+                                        return true;
+                                    }
+                                }
+                                else{
+                                    return false;
+                                }
+                            }
+                        }
+                        else{
+                            return false;
+                        }
+                    }
+                    else{
+                            return false;
+                        }
+                }
+            }
         }
-        return true;
+        return false;
     }
 
     @Override

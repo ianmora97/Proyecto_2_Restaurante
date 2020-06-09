@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author
  */
-@WebServlet(name = "OrderService", urlPatterns = {"/api/restaurante/categorias/get", "/api/restaurante/AddToCart"})
+@WebServlet(name = "OrderService", urlPatterns = {"/api/restaurante/categorias/get", "/api/restaurante/AddToCart", "api/restaurante/GetCartSession"})
 public class OrderService extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -61,7 +61,9 @@ public class OrderService extends HttpServlet {
             } else {
                 //Codigo para agregar el carrito a la orden y agregarselo a la orden.
                 Orden order = (Orden) session.getAttribute("order");
-                order.getPlatilloseleccionadoCollection().add(platillo);
+                if (!this.searchAlreadyExists(platillo, order.getPlatilloseleccionadoCollection())) {
+                    order.getPlatilloseleccionadoCollection().add(platillo);
+                }
                 session.setAttribute("order", order);
                 //Codigo para salida de la aplicacion
                 response.setContentType("application/json; charset=UTF-8");
@@ -75,13 +77,17 @@ public class OrderService extends HttpServlet {
         }
     }
 
-//    protected boolean searchAlreadyExists(Platillo platillo, Orden orden) {
-//        platillos = orden.getPlatilloseleccionadoCollection();
-//        for(int i =0; i< .size() ; i++){
-//        }
-//        
-//        return true;
-//    }
+    protected boolean searchAlreadyExists(Platillo platillo, ArrayList<Platillo> platillosOrden) {
+        for (int i = 0; i < platillosOrden.size(); i++) {
+            if (platillosOrden.get(i).
+            
+                ) {
+            return true;
+            }
+        }
+
+        return false;
+    }
 
     protected void doCategoriaGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {

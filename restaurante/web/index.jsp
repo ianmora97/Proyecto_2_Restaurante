@@ -241,331 +241,338 @@ and open the template in the editor.
                                     </label>
                                 </div>
                             </div>
-                            <div class="panel-body  py-4 px-3 bg-white justify-content-center">
+                            <div class="panel-body py-4 px-3 bg-white justify-content-center" style="overflow-y: auto;height: 250px;">
                                 <div id="cart-control" class="">
+                                    <ul id="dishSelectedList" >
 
-                                    <div class="text-center center-block">
-                                        <%if (!platillos.isEmpty()) {%>
 
-                                        <%for (Platillo p : platillos) {  %>
-
-                                        <button type="button" class="btn btn-light btn-sm btn-cart " data-toggle="modal" data-target="#modalOptions" >
-                                            <i class="fa fa-plus" id="platillo"></i> 
-                                        </button>
-
-                                        <div id="cart-items">
-                                            <div id="list-example" class="list-group">
-                                                <ul>
-                                                    <li>
-                                                        <button type="button" class="cart-btn btn btn-light btn-sm text-muted" data-request="cartBox::onRemoveItem" data-replace-loading="fa fa-spinner fa-spin" data-request-data="rowId: 'a36b23a63040e5283c15b8281761b212', menuId: '76'"><i class="fa fa-minus"></i></button>
-
-                                                        <span class="price pull-right"><% out.print(p.getPrecio());%></span>
-                                                        <a class="name-image" data-cart-control="load-item"  data-menu-id="76">
-                                                            <span class="name">
-                                                                <span class="quantity font-weight-bold">
-                                                                    <% out.print(p.getCantidad());%> x
-                                                                </span>
-                                                                <% out.print(p.getNombrePlatillo());%>  
-                                                            </span>
-                                                            <%for (Adicional a : p.getAdicionalCollection()) {  %>
-                                                            <ul class="list-unstyled small">
-                                                                <li ><% out.print(a.getNombre());%></li>
-                                                                    <%for (Opcion o : a.getOpcionCollection()) {  %>
-                                                                <li class="text-muted"><% out.print(o.getNombre());%>&nbsp;</li>
-                                                                <li >$<% out.print(o.getPrecio());%>&nbsp;
-                                                                </li>
-                                                                <%}%>
-                                                            </ul>
-                                                            <%}%>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <%}%>
-                                        <%} else {%>
-                                        <p class="text-muted text-center">
-                                            No Min. Order Amount        
-                                        </p>
-                                        <div id="cart-items">
-                                            <div class="panel-body"><p class="text-center">Add menu items to your cart.</p></div>
-                                        </div>
-                                        <%}%>
-                                    </div>
-                                </div>
-
-                                <div id="cart-totals">
+                                    </ul>
 
                                 </div>
+                            </div>
 
-                                <div id="cart-buttons" class="mt-3">
-                                    <button class="checkout-btn btn btn-primary  btn-block btn-lg">
-                                        Checkout
-                                    </button>
-                                </div>
+                            <div id="cart-totals">
+
+                            </div>
+
+                            <div id="cart-buttons" class="mt-3">
+                                <button class="checkout-btn btn btn-primary  btn-block btn-lg">
+                                    Checkout
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-                <!--final-->
             </div>
 
+
+            <!--final-->
         </div>
 
-        <!--SCRIPTS--> 
+    </div>
 
-        <!--JQUERY-->
+    <!--SCRIPTS--> 
 
-        <script src="https://code.jquery.com/jquery-3.5.1.js"  crossorigin="anonymous"></script>
+    <!--JQUERY-->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"  crossorigin="anonymous"></script>
 
 
-        <!--date picket src-->       
-        <script src="/restaurante/js/bootstrap-datetimepicker.min.js"></script>
+    <!--date picket src-->       
+    <script src="/restaurante/js/bootstrap-datetimepicker.min.js"></script>
 
-        <!--BOOTSTRAP-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"  crossorigin="anonymous"></script>       
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <!--BOOTSTRAP-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"  crossorigin="anonymous"></script>       
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
-        <script src="/restaurante/js/calendar.js"  ></script>
+    <script src="/restaurante/js/calendar.js"  ></script>
 
-        <!--Incrementar o decrementar platillo-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap-input-spinner@1.13.5/src/bootstrap-input-spinner.min.js"></script>        <script>
-            $("input[type='number']").inputSpinner();
-        </script>
+    <!--Incrementar o decrementar platillo-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-input-spinner@1.13.5/src/bootstrap-input-spinner.min.js"></script>        <script>
+        $("input[type='number']").inputSpinner();
+    </script>
 
-        <!--iconos de font awesome-->
-        <script src="https://kit.fontawesome.com/39f4ebbbea.js" crossorigin="anonymous"></script>
-        <script>
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip();
+    <!--iconos de font awesome-->
+    <script src="https://kit.fontawesome.com/39f4ebbbea.js" crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
+
+    <!--Scripts del programa-->
+    <script>
+        /*window.addEventListener('beforeunload', function (e) {
+         e.preventDefault();
+         //var e = e.toString();
+         e.returnValue = document.activeElement;
+         
+         });*/
+        var p_selected = [];
+
+        function loaded(event) {
+            fillCategories();
+            events();
+        }
+
+        function fillCategories() {
+            $(document).ready(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "api/restaurante/categorias/get",
+                    success: function (categorias) {
+                        showCategorias(categorias);
+                    },
+                    error: function (status) {
+                        alert(errorMessage(status));
+                    }
+                });
             });
-        </script>
+
+        }
+        function showCategorias(categorias) {
+            categorias.forEach((cat) => {
+                fillListCategories(cat);
+            });
 
 
-        <!--Scripts del programa-->
-        <script>
-            function loaded(event) {
-                fillCategories();
-                events();
-            }
+        }
+        function fillListCategories(categoria) {
+            var nombre = categoria.nombre.replace(/ /g, "");
+            var targetAccordion = nombre + "Target";
+            var platilloId = nombre + "Platillo";
 
-            function fillCategories() {
-                $(document).ready(function () {
-                    $.ajax({
-                        type: "POST",
-                        url: "api/restaurante/categorias/get",
-                        success: function (categorias) {
-                            showCategorias(categorias);
-                        },
-                        error: function (status) {
-                            alert(errorMessage(status));
-                        }
-                    });
-                });
-
-            }
-            function showCategorias(categorias) {
-                categorias.forEach((cat) => {
-                    fillListCategories(cat);
-                });
-
-
-            }
-            function fillListCategories(categoria) {
-                var nombre = categoria.nombre.replace(/ /g, "");
-                var targetAccordion = nombre + "Target";
-                var platilloId = nombre + "Platillo";
-
-                $("#menuCategories").append('<a class="nav-link " href="#' + nombre + '" data-toggle="tab">' + categoria.nombre + '</a>');
+            $("#menuCategories").append('<a class="nav-link " href="#' + nombre + '" data-toggle="tab">' + categoria.nombre + '</a>');
 
 
 
-                $("#dishes").append(
-                        '<div class="tab-pane bg-white" id="' + nombre + '">' +
-                        '<div class="card">' +
-                        '<div class="card-header">' +
-                        ' <h1 class="mb-0">' +
-                        '<button class="btn btn-link btn-block text-left " type="button" data-toggle="collapse"' +
-                        'data-target="#' + targetAccordion + '">' + categoria.nombre + ' </button>' +
-                        ' </h1>' +
-                        ' </div>' +
-                        '<div id="' + targetAccordion + '" class="collapse show">' +
-                        '<div class="card-body" id="' + platilloId + '">' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>'
-                        );
+            $("#dishes").append(
+                    '<div class="tab-pane bg-white" id="' + nombre + '">' +
+                    '<div class="card">' +
+                    '<div class="card-header">' +
+                    ' <h1 class="mb-0">' +
+                    '<button class="btn btn-link btn-block text-left " type="button" data-toggle="collapse"' +
+                    'data-target="#' + targetAccordion + '">' + categoria.nombre + ' </button>' +
+                    ' </h1>' +
+                    ' </div>' +
+                    '<div id="' + targetAccordion + '" class="collapse show">' +
+                    '<div class="card-body" id="' + platilloId + '">' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>'
+                    );
 
-                var platillos = categoria.platilloCollection;
-                platillos.forEach((platillo) => {
-                    fillDishes(platillo, platilloId);
-                });
+            var platillos = categoria.platilloCollection;
+            platillos.forEach((platillo) => {
+                fillDishes(platillo, platilloId);
+            });
 
-            }
-            function fillDishes(platillo, platilloId) {
-                var idEvtAditional = platillo.nombrePlatillo.replace(/ /g, "") + "Adicional";
-                $("#" + platilloId).append(
-                        '<div class="d-flex flex-row mr-3 mt-3 btn-block">' +
-                        ' <div class=" flex-grow-1 " id="firstPart">' +
-                        '<h6>' + platillo.nombrePlatillo + '</h6>' +
-                        '<p class="text-muted mb-0" id="dishDescription">'
-                        + platillo.descripcion + '</p>' +
-                        ' </div>' +
-                        '<div class=" align-self-start col-3 text-right p-0" id="secondPart">' +
-                        '<span class=" pr-sm-3" id="price">' +
-                        '<b>' + platillo.precio + '</b>' +
-                        ' </span><span class="btnPlus">' +
-                        '<button type="button" class="btn btn-light btn-sm btn-cart " data-toggle="modal"' +
-                        'data-target="#modalOptions" >' +
-                        '<i class="fa fa-plus" id="' + idEvtAditional + '"></i>' +
-                        '</button>' +
-                        '</span>' +
-                        '</div>' +
-                        '</div>'
-                        );
+        }
+        function fillDishes(platillo, platilloId) {
+            var idEvtAditional = platillo.nombrePlatillo.replace(/ /g, "") + "Adicional";
+            $("#" + platilloId).append(
+                    '<div class="d-flex flex-row mr-3 mt-3 btn-block">' +
+                    ' <div class=" flex-grow-1 " id="firstPart">' +
+                    '<h6>' + platillo.nombrePlatillo + '</h6>' +
+                    '<p class="text-muted mb-0" id="dishDescription">'
+                    + platillo.descripcion + '</p>' +
+                    ' </div>' +
+                    '<div class=" align-self-start col-3 text-right p-0" id="secondPart">' +
+                    '<span class=" pr-sm-3" id="price">' +
+                    '<b>' + platillo.precio + '</b>' +
+                    ' </span><span class="btnPlus">' +
+                    '<button type="button" class="btn btn-light btn-sm btn-cart " data-toggle="modal"' +
+                    'data-target="#modalOptions" id="' + idEvtAditional + '" >' +
+                    '<i class="fa fa-plus"></i>' +
+                    '</button>' +
+                    '</span>' +
+                    '</div>' +
+                    '</div>'
+                    );
 
-                $("#" + idEvtAditional).click(function () {
-                    getAditional(platillo);
-                });
+            $("#" + idEvtAditional).click(function () {
+                getAditional(platillo);
+            });
 
-            }
+        }
 
-            function getAditional(platillo) {
-                var Adicionales = platillo.adicionalCollection;
+        function getAditional(platillo) {
+            var Adicionales = platillo.adicionalCollection;
 
-                $("#adtionalModal").html(" ");
-                $("#nombrePlatilloModal").html(" ");
-                $("#descPlatilloModal").html(" ");
-                $("#priceModal").html(" ");
+            $("#adtionalModal").html(" ");
+            $("#nombrePlatilloModal").html(" ");
+            $("#descPlatilloModal").html(" ");
+            $("#priceModal").html(" ");
 
-                $("#nombrePlatilloModal").append(platillo.nombrePlatillo);
-                $("#descPlatilloModal").append(platillo.descripcion);
-                $("#priceModal").append("$ " + platillo.precio);
-
-
-                if (Adicionales.length !== 0) {
-                    Adicionales.forEach((adicional) => {
-                        var requerida = "Requerida";
-                        if (adicional.requerida === 0) {
-                            requerida = "Opcional";
-                        }
-                        var adicionalSinEspacios = adicional.nombre.replace(/ /g, "");
-                        $("#adtionalModal").append('<div class="container " id="' + adicionalSinEspacios + '">' +
-                                '<div class="row bg-light py-2 my-2">' +
-                                '<div class="col-9">' +
-                                '<h5>' + adicional.nombre + '</h5>' +
-                                ' </div>' +
-                                '<div class="col-3 text-muted">' +
-                                requerida +
-                                '</div>' +
-                                '</div>' +
-                                '</div>');
-                        fillOptions(adicional);
-                    });
-
-                }
+            $("#nombrePlatilloModal").append(platillo.nombrePlatillo);
+            $("#descPlatilloModal").append(platillo.descripcion);
+            $("#priceModal").append("$ " + platillo.precio);
 
 
-            }
-
-
-            function fillOptions(adicional) {
-                var opciones = adicional.opcionCollection;
-                var adicionalSinEspacios = adicional.nombre.replace(/ /g, "");
-
-                opciones.forEach((opcion) => {
-                    var htmlOption = " ";
-                    var opcionesSinEspacios = opcion.nombre.replace(/ /g, "");
-
-                    if (adicional.tipo === 0) {
-                        htmlOption = '<div class="row justify-content-between my-1">' +
-                                ' <div class="col-8">' +
-                                ' <div class="custom-control custom-radio">' +
-                                '<input type="radio" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '" name="' + adicionalSinEspacios + "Name" + '" value="customEx">' +
-                                '<label class="custom-control-label" for="' + opcionesSinEspacios + "OpId" + '" id="' + opcionesSinEspacios + "OpIdLabel" + '">' + opcion.nombre + '</label>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="col-3">' +
-                                opcion.precio +
-                                '</div>' +
-                                '</div>';
-                    } else {
-                        htmlOption = '<div class="row justify-content-between my-1">' +
-                                '<div class="col-8">' +
-                                '<div class="custom-control custom-checkbox">' +
-                                '<input type="checkbox" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '">' +
-                                '<label class="custom-control-label" for="' + opcionesSinEspacios + "OpId" + '" id="' + opcionesSinEspacios + "OpIdLabel" + '">' + opcion.nombre + '</label>' +
-                                ' </div>' +
-                                '</div>' +
-                                '<div class="col-3">' +
-                                opcion.precio +
-                                '</div>' +
-                                '</div>';
+            if (Adicionales.length !== 0) {
+                Adicionales.forEach((adicional) => {
+                    var requerida = "Requerida";
+                    if (adicional.requerida === 0) {
+                        requerida = "Opcional";
                     }
-                    $("#" + adicionalSinEspacios).append(htmlOption);
+                    var adicionalSinEspacios = adicional.nombre.replace(/ /g, "");
+                    $("#adtionalModal").append('<div class="container " id="' + adicionalSinEspacios + '">' +
+                            '<div class="row bg-light py-2 my-2">' +
+                            '<div class="col-9">' +
+                            '<h5>' + adicional.nombre + '</h5>' +
+                            ' </div>' +
+                            '<div class="col-3 text-muted">' +
+                            requerida +
+                            '</div>' +
+                            '</div>' +
+                            '</div>');
+                    fillOptions(adicional);
                 });
+
             }
 
-            function events() {
-                //                Evento de fecha y ASAP
-                $("#ASAP").click(function () {
+
+        }
+
+
+        function fillOptions(adicional) {
+            var opciones = adicional.opcionCollection;
+            var adicionalSinEspacios = adicional.nombre.replace(/ /g, "");
+
+            opciones.forEach((opcion) => {
+                var htmlOption = " ";
+                var opcionesSinEspacios = opcion.nombre.replace(/ /g, "");
+
+                if (adicional.tipo === 0) {
+                    htmlOption = '<div class="row justify-content-between my-1">' +
+                            ' <div class="col-8">' +
+                            ' <div class="custom-control custom-radio">' +
+                            '<input type="radio" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '" name="' + adicionalSinEspacios + "Name" + '" value="customEx">' +
+                            '<label class="custom-control-label" for="' + opcionesSinEspacios + "OpId" + '" id="' + opcionesSinEspacios + "OpIdLabel" + '">' + opcion.nombre + '</label>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="col-3">' +
+                            opcion.precio +
+                            '</div>' +
+                            '</div>';
+                } else {
+                    htmlOption = '<div class="row justify-content-between my-1">' +
+                            '<div class="col-8">' +
+                            '<div class="custom-control custom-checkbox">' +
+                            '<input type="checkbox" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '">' +
+                            '<label class="custom-control-label" for="' + opcionesSinEspacios + "OpId" + '" id="' + opcionesSinEspacios + "OpIdLabel" + '">' + opcion.nombre + '</label>' +
+                            ' </div>' +
+                            '</div>' +
+                            '<div class="col-3">' +
+                            opcion.precio +
+                            '</div>' +
+                            '</div>';
+                }
+                $("#" + adicionalSinEspacios).append(htmlOption);
+            });
+        }
+
+        function events() {
+            //                Evento de fecha y ASAP
+            $("#ASAP").click(function () {
+                $("#dropdownMenuFecha").html(" ");
+                $("#dropdownMenuFecha").append($("#ASAP").html());
+            });
+            $("#saveDate").click(function () {
+                if ($("#dateText").val() !== "") {
                     $("#dropdownMenuFecha").html(" ");
-                    $("#dropdownMenuFecha").append($("#ASAP").html());
-                });
-                $("#saveDate").click(function () {
-                    if ($("#dateText").val() !== "") {
-                        $("#dropdownMenuFecha").html(" ");
-                        $("#dropdownMenuFecha").append($("#dateText").val());
+                    $("#dropdownMenuFecha").append($("#dateText").val());
+                }
+            }
+            );
+            //                Evento de guardar el platillo en el carrito.
+
+            keepDishInOrder();
+
+        }
+
+        function keepDishInOrder(status) {
+            $("#saveDish").click(function () {
+                var Options = $("[id*=OpId]");
+                var OpSelected = [];
+                for (let i = 0; i < Options.length; i++) {
+                    if (Options[i].checked) {
+                        OpSelected.push($("#" + Options[i].id + "Label").text());
                     }
                 }
-                );
-                //                Evento de guardar el platillo en el carrito.
+                var nombre = $("#nombrePlatilloModal").text();
+                var cantidad = $("#quantityModal").val();
+                var OptionsSelected = JSON.stringify(OpSelected);
 
-                keepDishInOrder();
-
-            }
-            function keepDishInOrder(status) {
-                $("#saveDish").click(function () {
-                    var Options = $("[id*=OpId]");
-                    var OpSelected = [];
-                    for (let i = 0; i < Options.length; i++) {
-                        if (Options[i].checked) {
-                            OpSelected.push($("#" + Options[i].id + "Label").text());
-                        }
+                var sendData = nombre + "\n" + cantidad + "\n" + OptionsSelected;
+                console.log(JSON.stringify(OpSelected));
+                $.ajax({
+                    type: "POST",
+                    url: "api/restaurante/AddToCart",
+                    data: sendData,
+                    success: function (orden) {
+                        p_selected = orden.platilloseleccionadoCollection;
+                        fillCart(p_selected);
+                    },
+                    error: function (status) {
+                        alert(errorMessage(status));
                     }
-                    var nombre = $("#nombrePlatilloModal").text();
-                    var cantidad = $("#quantityModal").val();
-                    var OptionsSelected = JSON.stringify(OpSelected);
-
-                    var sendData = nombre + "\n" + cantidad + "\n" + OptionsSelected;
-                    console.log(JSON.stringify(OpSelected));
-                    $.ajax({
-                        type: "POST",
-                        url: "api/restaurante/AddToCart",
-                        data: sendData,
-                        success: function (orden) {
-                            alert("PLATILLO AGREGADO A LA ORDEN");
-                            console.log(orden);
-                        },
-                        error: function (status) {
-                            alert(errorMessage(status));
-                        }
-                    });
                 });
-            }
+            });
+        }
 
-            function errorMessage(status) {
-                return "Ha ocurrido un error";
-            }
+        function getOrder() {
+            $.ajax({
+                    type: "POST",
+                    url: "api/restaurante/GetCartSession",
+                    data: sendData,
+                    success: function (orden) {
+                        p_selected = orden.platilloseleccionadoCollection;
+                        fillCart(p_selected);
+                    },
+                    error: function (status) {
+                        alert(errorMessage(status));
+                    }
+                });
+        }
+        function fillCart(platillos) {
+        platillos.forEach((platillo) => {
+        $("#dishSelectedList").append(
+                '<li>' +
+                '<button style="position: relative; top: -40px; " type="button" class="cart-btn btn btn-light btn-sm text-muted">' +
+                '<i class="fa fa-minus"></i>' +
+                '</button>' +
+                '<button style="width: 80%;background-color: white; border:none;" type="button" id="platilloModal" class="btn btn-light btn-sm btn-cart " data-toggle="modal" data-target="#modalOptions">' +
+                '<span  style="float:left; font-size: 15px; font-weight: bold;"> Arroz chino</span> <span style="float:right;">$11.50</span>' +
+                '<br><br>' +
+                '<div id="' + platillo.nombre_platillo + 'PlatilloCart' + '" class="text-muted" style="display: block;">' +
+                '</div>' +
+                '</button>' +
+                '</li>'
+        });
+                var adicionales = platillo.adicionalCollection;
+                $('#' + platillo.nombre + 'PlatilloCart').append(
+                adicionales.forEach((adi) => {
+                '<div id="' + adi.nombbre + 'AdicionalCart' + '" class="text-muted" style="display: block;">' +
+                        '<span  style="float:left;">' + adi.nombre + '</span> <br>' +
+                        adi.opcionCollection.forEach((op) => {
+                        '<span  style="float:left;">' + op.nombre + ' ' + op.precio + '</span><br>' + );
+                        });
+                        '</div>'
+                });
+                );
+        }
+        function errorMessage(status) {
+        return "Ha ocurrido un error";
+        }
 
-            document.addEventListener("DOMContentLoaded", loaded);
+        document.addEventListener("DOMContentLoaded", loaded);
 
-        </script>
-    </body>
+    </script>
+</body>
 </html>
 
 

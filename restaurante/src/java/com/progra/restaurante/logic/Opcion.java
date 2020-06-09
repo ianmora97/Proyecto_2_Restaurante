@@ -119,7 +119,7 @@ public class Opcion implements Serializable {
             return false;
         }
         Opcion other = (Opcion) object;
-        if ((this.idOpcion == null && other.idOpcion != null) || (this.idOpcion != null && !this.idOpcion.equals(other.idOpcion))) {
+        if (this.nombre.equals(other.nombre)) {
             return false;
         }
         return true;
