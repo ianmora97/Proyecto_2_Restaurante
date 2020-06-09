@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="Content-type" content="text/html; charset=utf-8" type="equiv">
+        <meta name="X-UA-Compatible" content="IE=edge" type="equiv">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" type="name">
+        <link rel="shortcut icon" type="image/x-icon" href="https://demo.tastyigniter.com/app/admin/assets/images/favicon.ico">
+        <title>Dashboard</title>
+        <link rel="stylesheet" type="text/css" href="https://demo.tastyigniter.com/app/system/assets/ui/flame.css" name="flame-css">
+
+        <link rel="stylesheet" type="text/css" href="https://demo.tastyigniter.com/app/admin/assets/css/admin.css" name="admin-css">
+
+        <link rel="stylesheet" type="text/css" href="https://demo.tastyigniter.com/app/admin/widgets/dashboardcontainer/assets/css/dashboardcontainer.css">
+
+        <link rel="stylesheet" type="text/css" href="https://demo.tastyigniter.com/app/admin/dashboardwidgets/statistics/assets/css/statistics.css" name="statistics-css">
+
+        <link rel="stylesheet" type="text/css" href="https://demo.tastyigniter.com/app/admin/dashboardwidgets/charts/assets/vendor/daterange/daterangepicker.css" name="daterangepicker-css">
+
+        <link rel="stylesheet" type="text/css" href="https://demo.tastyigniter.com/app/admin/dashboardwidgets/charts/assets/css/charts.css" name="charts-css">
+
+    </head>
+    <body class="page ">
+
+        <nav class="navbar navbar-top navbar-expand navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-brand">
+                    <a class="logo" href="https://demo.tastyigniter.com/admin/dashboard">
+                        <i class="logo-icon icon-ti-logo"></i>
+                    </a>
+                </div>
+
+                <div class="page-title">
+                    <span>Dashboard</span>
+                </div>
+
+                <div class="navbar navbar-right">
+                    <button
+                        type="button"
+                        class="navbar-toggler"
+                        data-toggle="collapse"
+                        data-target="#navSidebar"
+                        aria-controls="navSidebar"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                        >
+                        <span class="fa fa-bars"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="sidebar" role="navigation">
+            <div id="navSidebar" class="nav-sidebar">
+                <ul  id="side-nav-menu" class="nav">
+                    <li class="nav-item active">
+                        <a
+                            class="nav-link dashboard admin"
+                            href="#"
+                            aria-expanded="true"
+                            >
+                            <i class="fa fa-tachometer-alt fa-fw"></i>
+
+                            <span class="content">Dashboard</span>
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            class="nav-link restaurant has-arrow"
+                            href="#"
+                            aria-expanded="false"
+                            >
+                            <i class="fa fa-store fa-fw"></i>
+
+                            <span class="content">Restaurante</span>
+                        </a>
+
+                        <ul  class="nav collapse" aria-expanded="false">
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link tables"
+                                    href="https://demo.tastyigniter.com/admin/tables"
+                                    aria-expanded="false"
+                                    >
+
+                                    Mesas                            </a>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            class="nav-link kitchen has-arrow"
+                            href="#"
+                            aria-expanded="false"
+                            >
+                            <i class="fa fa-utensils fa-fw"></i>
+
+                            <span class="content">Cocina</span>
+                        </a>
+
+                        <ul  class="nav collapse" aria-expanded="false">
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link menus"
+                                    href="https://demo.tastyigniter.com/admin/menus"
+                                    aria-expanded="false"
+                                    >
+
+                                    Menu de Platos                            </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link categories"
+                                    href="https://demo.tastyigniter.com/admin/categories"
+                                    aria-expanded="false"
+                                    >
+
+                                    Categorias                            </a>
+
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            class="nav-link sales has-arrow"
+                            href="#"
+                            aria-expanded="false"
+                            >
+                            <i class="fa fa-chart-bar fa-fw"></i>
+
+                            <span class="content">Ventas</span>
+                        </a>
+
+                        <ul  class="nav collapse" aria-expanded="false">
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link orders"
+                                    href="https://demo.tastyigniter.com/admin/orders"
+                                    aria-expanded="false"
+                                    >
+
+                                    Ordenes                            </a>
+
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link users has-arrow"
+                            href="#"
+                            aria-expanded="false"
+                            >
+                            <i class="fa fa-user fa-fw"></i>
+
+                            <span class="content">Usuarios</span>
+                        </a>
+
+                        <ul  class="nav collapse" aria-expanded="false">
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link customers"
+                                    href="https://demo.tastyigniter.com/admin/customers"
+                                    aria-expanded="false"
+                                    >
+
+                                    Clientes                            </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link staffs"
+                                    href="https://demo.tastyigniter.com/admin/staffs"
+                                    aria-expanded="false"
+                                    >
+
+                                    Empleados                            </a>
+
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="page-wrapper">
+            <div class="row-fluid">
+                <div
+                    data-control="dashboard-container"
+                    data-alias="dashboardContainer"
+                    >
+
+
+                    <div id="dashboardcontainer-container-toolbar" class="toolbar dashboard-toolbar btn-toolbar"
+                         data-container-toolbar>
+                        <div class="modal slideInDown fade"
+                             id="newWidgetModal"
+                             tabindex="-1"
+                             role="dialog"
+                             aria-labelledby="newWidgetModalTitle"
+                             aria-hidden="true"
+                             >
+                            <div class="modal-dialog" role="document">
+                                <div id="dashboardcontainer-new-widget-modal-content" class="modal-content">
+                                    <div class="modal-body">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="toolbar-action">
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+        <script charset="utf-8" type="text/javascript" src="https://demo.tastyigniter.com/app/system/assets/ui/flame.js" name="flame-js"></script>
+
+        <script charset="utf-8" type="text/javascript" src="https://demo.tastyigniter.com/app/admin/assets/js/admin.js" name="admin-js"></script>
+
+        <script charset="utf-8" type="text/javascript" src="https://demo.tastyigniter.com/app/admin/widgets/menu/assets/js/mainmenu.js" name="mainmenu-js"></script>
+
+        <script charset="utf-8" type="text/javascript" src="https://demo.tastyigniter.com/app/admin/widgets/dashboardcontainer/assets/js/dashboardcontainer.js"></script>
+
+    </body>
+</html>

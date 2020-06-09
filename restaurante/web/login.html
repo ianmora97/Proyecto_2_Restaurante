@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="Content-type" content="text/html; charset=utf-8" type="equiv">
+        <meta name="X-UA-Compatible" content="IE=edge" type="equiv">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" type="name">
+        <link rel="shortcut icon" type="image/x-icon" href="https://demo.tastyigniter.com/app/admin/assets/images/favicon.ico">
+        <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="https://demo.tastyigniter.com/app/system/assets/ui/flame.css" name="flame-css">
+
+        <link rel="stylesheet" type="text/css" href="https://demo.tastyigniter.com/app/admin/assets/css/admin.css" name="admin-css">
+
+    </head>
+    <body class="page page-login">
+
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <div class="login-container">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="input-user"
+                                       class="control-label">Username: <b>demo</b></label>
+                                <input name="user" type="text" id="input-user" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-password"
+                                       class="control-label">Password: <b>demoadmin</b></label>
+                                <input name="password" type="password" id="input-password" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary btn-lg pull-right"
+                                    id="sendLogin"
+                                    ><i class="fa fa-sign-in fa-fw"></i>&nbsp;&nbsp;&nbsp;Login</button>
+                                
+                            </div>
+           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.js"  crossorigin="anonymous"></script>
+       
+        <script>
+            function loaded(event) {
+                events();
+            }
+            function events() {
+                ingresar();
+            }
+            function ingresar(status) {
+                $("#sendLogin").click(function () {
+                    var username = $("#input-user").val();
+                    var clave = $("#input-password").val();
+
+                    var sendData = username + "\n" + clave;
+                    $.ajax({
+                        type: "POST",
+                        url: "api/restaurante/ingresarAdmin",
+                        data: sendData,
+                        success: function (orden) {
+                            location.href ="dashboard.html";
+                        },
+                        error: function (status) {
+                            alert(errorMessage(status));
+                        }
+                    });
+                });
+            }
+            document.addEventListener("DOMContentLoaded", loaded);
+        </script>
+        
+    </body>
+</html>

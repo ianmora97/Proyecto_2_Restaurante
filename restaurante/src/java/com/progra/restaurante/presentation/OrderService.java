@@ -11,6 +11,7 @@ import com.progra.restaurante.data.Model;
 import com.progra.restaurante.logic.Categoria;
 import com.progra.restaurante.logic.Orden;
 import com.progra.restaurante.logic.Platillo;
+import com.progra.restaurante.logic.Usuario;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -52,7 +53,7 @@ public class OrderService extends HttpServlet {
         try {
             BufferedReader reader = request.getReader();
             Gson gson = new Gson();
-            
+
             if (session.getAttribute("order") == null) {
                 session.setAttribute("order", new Orden());
             } else {
