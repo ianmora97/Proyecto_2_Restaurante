@@ -169,25 +169,21 @@ public class Platillo implements Serializable {
                             other.getAdicionalCollection().get(i).getOpcionCollection().sort(null);
                             this.getAdicionalCollection().get(i).getOpcionCollection().sort(null);
                             for (int j = 0; j < other.getAdicionalCollection().get(i).getOpcionCollection().size(); j++) {
-                                if(other.getAdicionalCollection().get(i).getOpcionCollection().get(j).getNombre() == this.getAdicionalCollection().get(i).getOpcionCollection().get(j).getNombre()){
-                                    if(j == other.getAdicionalCollection().get(i).getOpcionCollection().size() -1){
+                                if (other.getAdicionalCollection().get(i).getOpcionCollection().get(j).getNombre() == this.getAdicionalCollection().get(i).getOpcionCollection().get(j).getNombre()) {
+                                    if (j == other.getAdicionalCollection().get(i).getOpcionCollection().size() - 1) {
                                         return true;
                                     }
-                                }
-                                else{
+                                } else {
                                     return false;
                                 }
                             }
-                        }
-                        else{
+                        } 
                             return false;
-                        }
                     }
-                    else{
-                            return false;
-                        }
+                    return false;
                 }
             }
+            return false;
         }
         return false;
     }

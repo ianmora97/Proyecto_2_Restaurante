@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author
  */
-@WebServlet(name = "OrderService", urlPatterns = {"/api/restaurante/categorias/get", "/api/restaurante/AddToCart", "api/restaurante/GetCartSession"})
+@WebServlet(name = "OrderService", urlPatterns = {"/api/restaurante/categorias/get", "/api/restaurante/AddToCart", "/api/restaurante/GetCartSession"})
 public class OrderService extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -39,7 +39,34 @@ public class OrderService extends HttpServlet {
             case "/api/restaurante/AddToCart":
                 this.doAddToCart(request, response);
                 break;
+            case "/api/restaurante/GetCartSession":
+                this.doGetCart(request, response);
+                break;
 
+        }
+    }
+
+    protected void doGetCart(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(true);
+        try {
+            BufferedReader reader = request.getReader();
+            Gson gson = new Gson();
+            
+            if (session.getAttribute("order") == null) {
+                session.setAttribute("order", new Orden());
+            } else {
+                //Codigo para agregar el carrito a la orden y agregarselo a la orden.
+                Orden order = (Orden) session.getAttribute("order");
+                session.setAttribute("order", order);
+                //Codigo para salida de la aplicacion
+                response.setContentType("application/json; charset=UTF-8");
+                PrintWriter out = response.getWriter();
+                out.write(gson.toJson(order));
+                response.setStatus(200); // ok with content
+            }
+        } catch (Exception e) {
+            response.setStatus(status(e));
         }
     }
 
@@ -78,14 +105,13 @@ public class OrderService extends HttpServlet {
     }
 
     protected boolean searchAlreadyExists(Platillo platillo, ArrayList<Platillo> platillosOrden) {
+
         for (int i = 0; i < platillosOrden.size(); i++) {
-            if (platillosOrden.get(i).
-            
-                ) {
-            return true;
+            if (platillosOrden.get(i).equals(i)) {
+                platillosOrden.get(i).setCantidad(platillosOrden.get(i).getCantidad() + 1);
+                return true;
             }
         }
-
         return false;
     }
 

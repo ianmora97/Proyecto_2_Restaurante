@@ -311,7 +311,6 @@ and open the template in the editor.
          
          });*/
         var p_selected = [];
-
         function loaded(event) {
             fillCategories();
             events();
@@ -330,24 +329,17 @@ and open the template in the editor.
                     }
                 });
             });
-
         }
         function showCategorias(categorias) {
             categorias.forEach((cat) => {
                 fillListCategories(cat);
             });
-
-
         }
         function fillListCategories(categoria) {
             var nombre = categoria.nombre.replace(/ /g, "");
             var targetAccordion = nombre + "Target";
             var platilloId = nombre + "Platillo";
-
             $("#menuCategories").append('<a class="nav-link " href="#' + nombre + '" data-toggle="tab">' + categoria.nombre + '</a>');
-
-
-
             $("#dishes").append(
                     '<div class="tab-pane bg-white" id="' + nombre + '">' +
                     '<div class="card">' +
@@ -364,12 +356,10 @@ and open the template in the editor.
                     '</div>' +
                     '</div>'
                     );
-
             var platillos = categoria.platilloCollection;
             platillos.forEach((platillo) => {
                 fillDishes(platillo, platilloId);
             });
-
         }
         function fillDishes(platillo, platilloId) {
             var idEvtAditional = platillo.nombrePlatillo.replace(/ /g, "") + "Adicional";
@@ -392,26 +382,20 @@ and open the template in the editor.
                     '</div>' +
                     '</div>'
                     );
-
             $("#" + idEvtAditional).click(function () {
                 getAditional(platillo);
             });
-
         }
 
         function getAditional(platillo) {
             var Adicionales = platillo.adicionalCollection;
-
             $("#adtionalModal").html(" ");
             $("#nombrePlatilloModal").html(" ");
             $("#descPlatilloModal").html(" ");
             $("#priceModal").html(" ");
-
             $("#nombrePlatilloModal").append(platillo.nombrePlatillo);
             $("#descPlatilloModal").append(platillo.descripcion);
             $("#priceModal").append("$ " + platillo.precio);
-
-
             if (Adicionales.length !== 0) {
                 Adicionales.forEach((adicional) => {
                     var requerida = "Requerida";
@@ -431,7 +415,6 @@ and open the template in the editor.
                             '</div>');
                     fillOptions(adicional);
                 });
-
             }
 
 
@@ -441,11 +424,9 @@ and open the template in the editor.
         function fillOptions(adicional) {
             var opciones = adicional.opcionCollection;
             var adicionalSinEspacios = adicional.nombre.replace(/ /g, "");
-
             opciones.forEach((opcion) => {
                 var htmlOption = " ";
                 var opcionesSinEspacios = opcion.nombre.replace(/ /g, "");
-
                 if (adicional.tipo === 0) {
                     htmlOption = '<div class="row justify-content-between my-1">' +
                             ' <div class="col-8">' +
@@ -491,7 +472,6 @@ and open the template in the editor.
             //                Evento de guardar el platillo en el carrito.
 
             keepDishInOrder();
-
         }
 
         function keepDishInOrder(status) {
@@ -506,7 +486,6 @@ and open the template in the editor.
                 var nombre = $("#nombrePlatilloModal").text();
                 var cantidad = $("#quantityModal").val();
                 var OptionsSelected = JSON.stringify(OpSelected);
-
                 var sendData = nombre + "\n" + cantidad + "\n" + OptionsSelected;
                 console.log(JSON.stringify(OpSelected));
                 $.ajax({
@@ -526,50 +505,45 @@ and open the template in the editor.
 
         function getOrder() {
             $.ajax({
-                    type: "POST",
-                    url: "api/restaurante/GetCartSession",
-                    data: sendData,
-                    success: function (orden) {
-                        p_selected = orden.platilloseleccionadoCollection;
-                        fillCart(p_selected);
-                    },
-                    error: function (status) {
-                        alert(errorMessage(status));
-                    }
-                });
-        }
-        function fillCart(platillos) {
-        platillos.forEach((platillo) => {
-        $("#dishSelectedList").append(
-                '<li>' +
-                '<button style="position: relative; top: -40px; " type="button" class="cart-btn btn btn-light btn-sm text-muted">' +
-                '<i class="fa fa-minus"></i>' +
-                '</button>' +
-                '<button style="width: 80%;background-color: white; border:none;" type="button" id="platilloModal" class="btn btn-light btn-sm btn-cart " data-toggle="modal" data-target="#modalOptions">' +
-                '<span  style="float:left; font-size: 15px; font-weight: bold;"> Arroz chino</span> <span style="float:right;">$11.50</span>' +
-                '<br><br>' +
-                '<div id="' + platillo.nombre_platillo + 'PlatilloCart' + '" class="text-muted" style="display: block;">' +
-                '</div>' +
-                '</button>' +
-                '</li>'
-        });
-                var adicionales = platillo.adicionalCollection;
-                $('#' + platillo.nombre + 'PlatilloCart').append(
-                adicionales.forEach((adi) => {
-                '<div id="' + adi.nombbre + 'AdicionalCart' + '" class="text-muted" style="display: block;">' +
-                        '<span  style="float:left;">' + adi.nombre + '</span> <br>' +
-                        adi.opcionCollection.forEach((op) => {
-                        '<span  style="float:left;">' + op.nombre + ' ' + op.precio + '</span><br>' + );
-                        });
-                        '</div>'
-                });
-                );
-        }
-        function errorMessage(status) {
-        return "Ha ocurrido un error";
+                type: "POST",
+                url: "api/restaurante/GetCartSession",
+                data: sendData,
+                success: function (orden) {
+                    p_selected = orden.platilloseleccionadoCollection;
+                    fillCart(p_selected);
+                },
+                error: function (status) {
+                    alert(errorMessage(status));
+                }
+            });
         }
 
-        document.addEventListener("DOMContentLoaded", loaded);
+        function fillCart(platillos) {
+        console.log(platillos);
+                platillos.forEach((platillo) => {
+                $("#dishSelectedList").append(
+                        '<li>' +
+                        '<button style="position: relative; top: -40px; " type="button" class="cart-btn btn btn-light btn-sm text-muted">' +
+                        '<i class="fa fa-minus"></i>' +
+                        '</button>' +
+                        '<button style="width: 80%;background-color: white; border:none;" type="button" id="platilloModal" class="btn btn-light btn-sm btn-cart " data-toggle="modal" data-target="#modalOptions">' +
+                        '<span  style="float:left; font-size: 15px; font-weight: bold;"> ' + platillo.nombrePlatillo + '</span> <span style="float:right;">' + platillo.precio + '</span>' +
+                        '<br><br>' +
+                        '<div id="' + platillo.nombrePlatillo + 'PlatilloCart' + '" class="text-muted" style="display: block;">' +
+                        '</div>' +
+                        '</button>' +
+                        '</li>'
+                        );
+                
+                        var adicionales = platillo.adicionalCollection;
+                        console.log(adicionales);
+                });
+                }
+                function errorMessage(status) {
+                return "Ha ocurrido un error";
+                }
+
+                document.addEventListener("DOMContentLoaded", loaded);
 
     </script>
 </body>
