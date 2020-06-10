@@ -8,6 +8,7 @@ package com.progra.restaurante.presentation;
 import com.google.gson.Gson;
 
 import com.progra.restaurante.data.Model;
+import com.progra.restaurante.logic.Adicional;
 import com.progra.restaurante.logic.Categoria;
 import com.progra.restaurante.logic.Orden;
 import com.progra.restaurante.logic.Platillo;
@@ -26,7 +27,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author
  */
-@WebServlet(name = "OrderService", urlPatterns = {"/api/restaurante/categorias/get", "/api/restaurante/AddToCart", "/api/restaurante/GetCartSession"})
+@WebServlet(name = "OrderService", urlPatterns = {"/api/restaurante/categorias/get", "/api/restaurante/AddToCart",
+    "/api/restaurante/GetCartSession", "/api/restaurante/decreseQuant", "/api/restaurante/getDishInCart"})
 public class OrderService extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -42,17 +44,49 @@ public class OrderService extends HttpServlet {
             case "/api/restaurante/GetCartSession":
                 this.doGetCart(request, response);
                 break;
+            case "/api/restaurante/decreseQuant":
+                this.doDecreaseQuantDish(request, response);
+                break;
+            case "/api/restaurante/getDishInCart":
+                this.doGetDishInCart(request, response);
+                break;
 
         }
     }
 
+    protected void doGetDishInCart(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(true);
+        try {
+            BufferedReader reader = request.getReader();
+            Gson gson = new Gson();
+//Se parsea en un int la posicion del platillo que se desea modificar. 
+            int index = Integer.parseInt(reader.readLine());
+//            Se trae la orden de la sesion
+            Orden order = (Orden) session.getAttribute("order");
+//Se trae el platillo con respecto al que se encuentra dentro de la peticion 
+            String nombrePlatillo = order.getPlatilloseleccionadoCollection().get(index).getNombrePlatillo();
+
+            Platillo platillo = com.progra.restaurante.data.Model.instance().findPlatillo(nombrePlatillo);
+            
+            response.setContentType("application/json; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.write(gson.toJson(platillo));
+            response.setStatus(200); // ok with content
+
+        } catch (Exception e) {
+            response.setStatus(status(e));
+        }
+    }
+
+//esta funcion no ha sido terminada por lo cual tiene problemitaas de programacion
     protected void doGetCart(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         try {
             BufferedReader reader = request.getReader();
             Gson gson = new Gson();
-            
+
             if (session.getAttribute("order") == null) {
                 session.setAttribute("order", new Orden());
             } else {
@@ -88,8 +122,9 @@ public class OrderService extends HttpServlet {
             } else {
                 //Codigo para agregar el carrito a la orden y agregarselo a la orden.
                 Orden order = (Orden) session.getAttribute("order");
-                if (!this.searchAlreadyExists(platillo, order.getPlatilloseleccionadoCollection())) {
+                if (!this.searchAlreadyExists(platillo, order)) {
                     order.getPlatilloseleccionadoCollection().add(platillo);
+                    order.calculateTotal();
                 }
                 session.setAttribute("order", order);
                 //Codigo para salida de la aplicacion
@@ -104,15 +139,51 @@ public class OrderService extends HttpServlet {
         }
     }
 
-    protected boolean searchAlreadyExists(Platillo platillo, ArrayList<Platillo> platillosOrden) {
+    protected boolean searchAlreadyExists(Platillo platillo, Orden order) {
+        ArrayList<Platillo> platillosOrden = order.getPlatilloseleccionadoCollection();
 
         for (int i = 0; i < platillosOrden.size(); i++) {
-            if (platillosOrden.get(i).equals(i)) {
-                platillosOrden.get(i).setCantidad(platillosOrden.get(i).getCantidad() + 1);
+            if (platillosOrden.get(i).equals(platillo)) {
+                platillosOrden.get(i).setCantidad(platillosOrden.get(i).getCantidad() + platillo.getCantidad());
+                order.calculateTotal();
                 return true;
             }
         }
         return false;
+    }
+
+    protected void doDecreaseQuantDish(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
+            BufferedReader reader = request.getReader();
+            Gson gson = new Gson();
+            HttpSession session = request.getSession(true);
+
+            Platillo platillo = gson.fromJson(reader.readLine(), Platillo.class);
+
+            Orden order = (Orden) session.getAttribute("order");
+
+            for (int i = 0; i < order.getPlatilloseleccionadoCollection().size(); i++) {
+                if (order.getPlatilloseleccionadoCollection().get(i).equals(platillo)) {
+                    order.getPlatilloseleccionadoCollection().get(i).setCantidad(order.getPlatilloseleccionadoCollection().get(i).getCantidad() - 1);
+                    if (order.getPlatilloseleccionadoCollection().get(i).getCantidad() == 0) {
+                        order.getPlatilloseleccionadoCollection().remove(i);
+                    }
+                    order.calculateTotal();
+                    break;
+                }
+            }
+
+            session.setAttribute("order", order);
+            //Codigo para salida de la aplicacion
+            response.setContentType("application/json; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.write(gson.toJson(order));
+            response.setStatus(200); // ok with content
+
+        } catch (Exception e) {
+            response.setStatus(status(e));
+        }
     }
 
     protected void doCategoriaGet(HttpServletRequest request,

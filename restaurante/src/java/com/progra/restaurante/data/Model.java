@@ -71,8 +71,13 @@ public class Model {
         return platillos;
     }
 
-    public Platillo findPlatillo(int id_platillo) throws Exception {
-        return com.progra.restaurante.data.DishesDao.findPlatillo(id_platillo);
+    public Platillo findPlatillo(String nombrePlatillo) throws Exception {
+        for(Platillo platillo: platillos){
+            if(platillo.getNombrePlatillo().equals(nombrePlatillo)){
+                return platillo;
+            }
+        }
+       return null;
     }
 
     public Categoria findCategoria(int id_categoria) throws Exception {

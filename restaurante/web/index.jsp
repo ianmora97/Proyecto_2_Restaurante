@@ -11,15 +11,12 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 
-
 <%
-    if (session.getAttribute("order") == null) {
+    if (session.getAttribute("order") != null) {
         session.setAttribute("order", new Orden());
     }
-
-    Orden order = (Orden) session.getAttribute("order");
-    ArrayList<Platillo> platillos = order.getPlatilloseleccionadoCollection();
 %>
+
 <html>
     <head>
         <title>Dely Restaurant </title>
@@ -251,8 +248,9 @@ and open the template in the editor.
                                 </div>
                             </div>
 
-                            <div id="cart-totals">
-
+                            <div  style="width: 80%; margin: 0 auto; border-top: 1px solid #999; " >
+                                <span class="text-muted "  style="float: left; ">Total:</span>
+                                <span  style="float: right; font-weight: bold;" id="cart-totals"> </span>
                             </div>
 
                             <div id="cart-buttons" class="mt-3">
@@ -310,7 +308,10 @@ and open the template in the editor.
          e.returnValue = document.activeElement;
          
          });*/
+    
+//         VARIABLE GLOBAL DE PLATILLOS EN LA ORDEN
         var p_selected = [];
+        
         function loaded(event) {
             fillCategories();
             events();
@@ -471,10 +472,11 @@ and open the template in the editor.
             );
             //                Evento de guardar el platillo en el carrito.
 
-            keepDishInOrder();
+            keepDishInOrder(-1);
         }
 
-        function keepDishInOrder(status) {
+        function keepDishInOrder( idPlatilloInDish) {
+            console.log(idPlatilloInDish);
             $("#saveDish").click(function () {
                 var Options = $("[id*=OpId]");
                 var OpSelected = [];
@@ -487,7 +489,6 @@ and open the template in the editor.
                 var cantidad = $("#quantityModal").val();
                 var OptionsSelected = JSON.stringify(OpSelected);
                 var sendData = nombre + "\n" + cantidad + "\n" + OptionsSelected;
-                console.log(JSON.stringify(OpSelected));
                 $.ajax({
                     type: "POST",
                     url: "api/restaurante/AddToCart",
@@ -495,6 +496,8 @@ and open the template in the editor.
                     success: function (orden) {
                         p_selected = orden.platilloseleccionadoCollection;
                         fillCart(p_selected);
+                        $("#cart-totals").html(" ");
+                        $("#cart-totals").append(orden.total);
                     },
                     error: function (status) {
                         alert(errorMessage(status));
@@ -511,6 +514,8 @@ and open the template in the editor.
                 success: function (orden) {
                     p_selected = orden.platilloseleccionadoCollection;
                     fillCart(p_selected);
+                    $("#cart-totals").html(" ");
+                    $("#cart-totals").append("$ "+orden.total);
                 },
                 error: function (status) {
                     alert(errorMessage(status));
@@ -519,31 +524,103 @@ and open the template in the editor.
         }
 
         function fillCart(platillos) {
-        console.log(platillos);
-                platillos.forEach((platillo) => {
+            $("#dishSelectedList").html(" ");
+            var cuenta = 0;
+
+            platillos.forEach((platillo) => {
+                var precio = 0;
+                var platilloSinEspacios = platillo.nombrePlatillo.replace(/ /g, "");
+
                 $("#dishSelectedList").append(
                         '<li>' +
-                        '<button style="position: relative; top: -40px; " type="button" class="cart-btn btn btn-light btn-sm text-muted">' +
+                        '<button style="position: relative; top: -15px; " type="button" class="cart-btn btn btn-light btn-sm text-muted" id="' + platilloSinEspacios + 'Menos' + cuenta + '">' +
                         '<i class="fa fa-minus"></i>' +
                         '</button>' +
-                        '<button style="width: 80%;background-color: white; border:none;" type="button" id="platilloModal" class="btn btn-light btn-sm btn-cart " data-toggle="modal" data-target="#modalOptions">' +
-                        '<span  style="float:left; font-size: 15px; font-weight: bold;"> ' + platillo.nombrePlatillo + '</span> <span style="float:right;">' + platillo.precio + '</span>' +
+                        '<button style="width: 80%;background-color: white; border:none;" type="button" id="'+platilloSinEspacios+cuenta+'" class="btn btn-light btn-sm btn-cart " data-toggle="modal" data-target="#modalOptions">' +
+                        '<span  style="float:left; font-size: 15px; font-weight: bold;"> ' + platillo.cantidad + 'x ' + platillo.nombrePlatillo + '</span> <span style="float:right;" id="' + platilloSinEspacios + 'PlatilloCartPrecio' + cuenta + '"></span>' +
                         '<br><br>' +
-                        '<div id="' + platillo.nombrePlatillo + 'PlatilloCart' + '" class="text-muted" style="display: block;">' +
+                        '<div id="' + platilloSinEspacios + 'PlatilloCart' + cuenta + '" class="text-muted" style="display: block;">' +
                         '</div>' +
                         '</button>' +
                         '</li>'
                         );
-                
-                        var adicionales = platillo.adicionalCollection;
-                        console.log(adicionales);
-                });
-                }
-                function errorMessage(status) {
-                return "Ha ocurrido un error";
-                }
 
-                document.addEventListener("DOMContentLoaded", loaded);
+                var adicionales = platillo.adicionalCollection;
+                adicionales.forEach((adi) => {
+                    var adicionalSinEspacios = adi.nombre.replace(/ /g, "");
+
+                    $('#' + platilloSinEspacios + 'PlatilloCart' + cuenta).append(
+                            '<div id="' + adicionalSinEspacios + 'AdicionalCart' + cuenta + '" class="text-muted" style="display: block;">' +
+                            '<span  style="float:left;">' + adi.nombre + '</span> <br>' +
+                            '</div>'
+                            );
+                    adi.opcionCollection.forEach((op) => {
+                        $('#' + adicionalSinEspacios + 'AdicionalCart' + cuenta).append('<span  style="float:left;">' + op.nombre + ' ' + op.precio + '</span><br>');
+                        precio += op.precio;
+                    });
+                });
+                precio += platillo.precio;
+                precio = precio * platillo.cantidad;
+                $("#" + platilloSinEspacios + 'PlatilloCartPrecio' + cuenta).append('$'+precio);
+
+                console.log(platilloSinEspacios + 'Menos' + cuenta);
+                $("#" + platilloSinEspacios + 'Menos' + cuenta).click(function () {
+                    decreseDish(platillo);
+                });
+                $("#" + platilloSinEspacios+cuenta).click(function () {
+                    getDishInOrder(cuenta);
+                });
+                cuenta++;
+
+//        CIERRA EL FOR DE PLATILLOS
+            });
+
+            function decreseDish(platillo) {
+                $.ajax({
+                    type: "POST",
+                    url: "api/restaurante/decreseQuant",
+                    data: JSON.stringify(platillo),
+                    contentType: "application/json",
+                    success: function (orden) {
+                        console.log(orden);
+                        p_selected = orden.platilloseleccionadoCollection;
+                        fillCart(p_selected);
+                        $("#cart-totals").html(" ");
+                        $("#cart-totals").append(orden.total);
+                    },
+                    error: function (status) {
+                        alert(errorMessage(status));
+                    }
+                });
+            }
+
+            function getDishInOrder(posDishInCart) {
+                
+                
+                $.ajax({
+                    type: "POST",
+                    url: "api/restaurante/getDishInCart",
+                    data: posDishInCart,
+                    contentType: "application/json",
+                    success: function (orden) {
+                        console.log(orden);
+                        p_selected = orden.platilloseleccionadoCollection;
+                        fillCart(p_selected);
+                        $("#cart-totals").html(" ");
+                        $("#cart-totals").append(orden.total);
+                    },
+                    error: function (status) {
+                        alert(errorMessage(status));
+                    }
+                });
+            }
+
+        }
+        function errorMessage(status) {
+            return "Ha ocurrido un error";
+        }
+
+        document.addEventListener("DOMContentLoaded", loaded);
 
     </script>
 </body>

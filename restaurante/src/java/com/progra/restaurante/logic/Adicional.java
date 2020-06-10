@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Adicional.findByNombre", query = "SELECT a FROM Adicional a WHERE a.nombre = :nombre")
     , @NamedQuery(name = "Adicional.findByTipo", query = "SELECT a FROM Adicional a WHERE a.tipo = :tipo")
     , @NamedQuery(name = "Adicional.findByRequerida", query = "SELECT a FROM Adicional a WHERE a.requerida = :requerida")})
-public class Adicional implements Serializable  {
+public class Adicional implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -132,7 +132,14 @@ public class Adicional implements Serializable  {
     public void setIdPlatillo(Platillo idPlatillo) {
         this.idPlatillo = idPlatillo;
     }
-
+        
+    public double getPrecioOpciones(){
+        double precio = 0;
+        for(int i=0; i< opcionCollection.size(); i++){
+           precio+= opcionCollection.get(i).getPrecio();
+        }
+        return precio;
+    }
     @Override
     public int hashCode() {
         int hash = 0;
@@ -150,6 +157,15 @@ public class Adicional implements Serializable  {
         if ((this.idAdicional == null && other.idAdicional != null) || (this.idAdicional != null && !this.idAdicional.equals(other.idAdicional))) {
             return false;
         }
+        if (opcionCollection.size() != other.getOpcionCollection().size()) {
+            return false;
+        }
+        for (int i = 0; i < opcionCollection.size(); i++) {
+            if (!opcionCollection.get(i).equals(other.getOpcionCollection().get(i))) {
+                return false;
+            }
+
+        }
         return true;
     }
 
@@ -158,7 +174,7 @@ public class Adicional implements Serializable  {
         return "com.progra.restaurante.logic.Adicional[ idAdicional=" + idAdicional + " ]";
     }
 
-  public Adicional copy(Adicional adicional) {
+    public Adicional copy(Adicional adicional) {
         Adicional adicionalCopy = new Adicional();
 
         adicionalCopy.setIdAdicional(adicional.getIdAdicional());
@@ -166,9 +182,9 @@ public class Adicional implements Serializable  {
         adicionalCopy.setNombre(adicional.getNombre());
         adicionalCopy.setRequerida(adicional.getRequerida());
         adicionalCopy.setTipo(adicional.getTipo());
-        
+
         ArrayList<Opcion> listOpcion = new ArrayList<>();
-        for(Opcion op : adicional.getOpcionCollection()){
+        for (Opcion op : adicional.getOpcionCollection()) {
             Opcion opcion = op.copy(op);
             listOpcion.add(opcion);
         }

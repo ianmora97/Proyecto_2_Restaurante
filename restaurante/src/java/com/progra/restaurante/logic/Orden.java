@@ -89,6 +89,7 @@ public class Orden implements Serializable {
         this.tipoEntrega = 0;
         this.asap = 0;
         this.platilloseleccionadoCollection = new ArrayList<>();
+        this.total = 0.0;
 
     }
 
@@ -153,6 +154,14 @@ public class Orden implements Serializable {
         this.total = total;
     }
 
+    public void calculateTotal() {
+        this.total = 0.0;
+        for (Platillo platillo : platilloseleccionadoCollection) {
+            this.total += platillo.getCalcularTotal();
+        }
+
+    }
+
     @XmlTransient
     public ArrayList<Platillo> getPlatilloseleccionadoCollection() {
         return platilloseleccionadoCollection;
@@ -202,6 +211,5 @@ public class Orden implements Serializable {
     public String toString() {
         return "com.progra.restaurante.logic.Orden[ idOrden=" + idOrden + " ]";
     }
-
 
 }

@@ -119,10 +119,7 @@ public class Opcion implements Serializable {
             return false;
         }
         Opcion other = (Opcion) object;
-        if (this.nombre.equals(other.nombre)) {
-            return false;
-        }
-        return true;
+        return this.nombre.equals(other.nombre);
     }
 
     @Override
