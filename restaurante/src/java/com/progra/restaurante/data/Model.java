@@ -70,7 +70,10 @@ public class Model {
         }
         return null;
     }
-
+    public ArrayList<Platillo> getPlatosEO() throws Exception {
+        return com.progra.restaurante.data.DishesDao.listarPlatillos();
+    }
+    
     public ArrayList<Platillo> getPlatillos() throws Exception {
         return platillos;
     }

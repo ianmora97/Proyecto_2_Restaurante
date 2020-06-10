@@ -13,7 +13,28 @@
 
     </head>
     <body class="page ">
-
+        <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">A&ntilde;adir Categoria</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="editarBody">
+                        <div class="form-group">
+                            <label>Nombre de la Categoria</label>
+                            <input class="form-control" type="text" id="nombreCategoria" placeholder="Nombre">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" id="sendLogin" class="btn btn-primary btn-lg pull-right">Agregar</button>
+                    </div>   
+                </div>
+            </div>
+        </div>
         <nav class="navbar navbar-top navbar-expand navbar-fixed-top" style="height: 62px;" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-brand">
@@ -179,7 +200,10 @@
                     >
                     <div class="toolbar-action">
                         <div class="progress-indicator-container">
-                            <a class="btn btn-primary" href="https://demo.tastyigniter.com/admin/tables/create" tabindex="0"><i class="fa fa-plus"></i> New</a>
+
+                            <div class="btn btn-primary" data-toggle="modal" data-target="#modalAdd">
+                                <i class="fa fa-plus"></i>New</div>
+
                             <a class="btn btn-danger" data-attach-loading="" data-request="onDelete" data-request-form="#list-form" data-request-data="_method:&#039;DELETE&#039;" data-request-confirm="This cannot be undone! Are you sure you want to do this?" tabindex="0"><i class="fa fa-trash-o"></i> Delete</a>
                             <a class="btn btn-default btn-filter" data-toggle="list-filter" data-target=".list-filter" tabindex="0"><i class="fa fa-filter"></i></a>            </div>
                     </div>
@@ -311,80 +335,6 @@
 
         <script charset="utf-8" type="text/javascript" src="https://demo.tastyigniter.com/app/admin/widgets/lists/assets/js/lists.js" name="lists-js"></script>
 
-        <script>
-            function loaded(event) {
-                fillCategories();
-            }
-            function fillCategories() {
-                $(document).ready(function () {
-                    $.ajax({
-                        type: "POST",
-                        url: "api/restaurante/categoriasAdmin",
-                        success: function (categorias) {
-                            showCategorias(categorias);
-                        },
-                        error: function (status) {
-                            alert(errorMessage(status));
-                        }
-                    });
-                });
-            }
-            function showCategorias(categorias) {
-                categorias.forEach((cat) => {
-                    fillCategorias(cat);
-                });
-            }
-            function fillCategorias(categoria) {
-                var nombre = categoria.nombre.replace(/ /g, "");
-                var id = categoria.idCategoria;
-                var event = nombre + id;
-                $("#listaCategorias").append(
-                        '<tr>' +
-                        '<td class="list-action">' +
-                        '<div class="custom-control custom-checkbox">' +
-                        '<input type="checkbox" id="checkbox-' + id + '" class="custom-control-input" value="' + id + '" name="checked[]"/>' +
-                        '<label class="custom-control-label" for="checkbox-' + id + '">&nbsp;</label></div></td>' +
-                        '<td class="list-col-index-2 list-col-name-table-name list-col-type-text ">' + id + '</td>' +
-                        '<td class="list-col-index-3 list-col-name-min-capacity list-col-type-text ">' + nombre + '</td>' +
-                        '<td class="list-setup">&nbsp;</td></tr>'
-                        );
-                $("#" + event).click(function () {
-                    editCategoria(categoria);
-                });
-            }
-            function editCategoria(categoria) {
-                //var Adicionales = categoria.adicionalCollection;
-                $("#adtionalModal").html(" ");
-                $("#nombrePlatilloModal").html(" ");
-                $("#descPlatilloModal").html(" ");
-                $("#priceModal").html(" ");
-                $("#nombrePlatilloModal").append(platillo.nombrePlatillo);
-                $("#descPlatilloModal").append(platillo.descripcion);
-                $("#priceModal").append("$ " + platillo.precio);
-                if (Adicionales.length !== 0) {
-                    Adicionales.forEach((adicional) => {
-                        var requerida = "Requerida";
-                        if (adicional.requerida === 0) {
-                            requerida = "Opcional";
-                        }
-                        var adicionalSinEspacios = adicional.nombre.replace(/ /g, "");
-                        $("#adtionalModal").append('<div class="container " id="' + adicionalSinEspacios + '">' +
-                                '<div class="row bg-light py-2 my-2">' +
-                                '<div class="col-9">' +
-                                '<h5>' + adicional.nombre + '</h5>' +
-                                ' </div>' +
-                                '<div class="col-3 text-muted">' +
-                                requerida +
-                                '</div>' +
-                                '</div>' +
-                                '</div>');
-                        fillOptions(adicional);
-                    });
-                }
-
-
-            }
-            document.addEventListener("DOMContentLoaded", loaded);
-        </script>
+        <script charset="utf-8" type="text/javascript" src="/restaurante/js/categorias_admin.js"></script>
     </body>
 </html>

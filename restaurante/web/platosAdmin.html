@@ -12,8 +12,33 @@
         <link rel="stylesheet" type="text/css" href="https://demo.tastyigniter.com/app/admin/assets/css/admin.css" name="admin-css">
 
     </head>
-    <body class="page ">
 
+
+    <body class="page ">
+        <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">A&ntilde;adir Platillo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="editarBody">
+                        <div class="inputs">
+                            <span>t</span>
+                            <input type="text">
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <nav class="navbar navbar-top navbar-expand navbar-fixed-top" style="height: 62px;" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-brand">
@@ -179,7 +204,10 @@
                     >
                     <div class="toolbar-action">
                         <div class="progress-indicator-container">
-                            <a class="btn btn-primary" href="https://demo.tastyigniter.com/admin/tables/create" tabindex="0"><i class="fa fa-plus"></i> New</a>
+
+                            <div class="btn btn-primary" data-toggle="modal" data-target="#modalAdd">
+                                <i class="fa fa-plus"></i>New</div>
+                            
                             <a class="btn btn-danger" data-attach-loading="" data-request="onDelete" data-request-form="#list-form" data-request-data="_method:&#039;DELETE&#039;" data-request-confirm="This cannot be undone! Are you sure you want to do this?" tabindex="0"><i class="fa fa-trash-o"></i> Delete</a>
                             <a class="btn btn-default btn-filter" data-toggle="list-filter" data-target=".list-filter" tabindex="0"><i class="fa fa-filter"></i></a>            </div>
                     </div>
@@ -205,11 +233,11 @@
                         <div class="flex-fill">
                             <div class="filter-search">
                                 <form id="search-form"
-                                                             class="form-inline"
-                                                             accept-charset="utf-8"
-                                                             method="POST"
-                                                             action="https://demo.tastyigniter.com/admin/tables"
-                                                             role="form">
+                                         class="form-inline"
+                                         accept-charset="utf-8"
+                                         method="POST"
+                                         action="https://demo.tastyigniter.com/admin/tables"
+                                         role="form">
                                     <input type="hidden" name="_handler" value="list_filter_search::onSubmit">
                                     <div class="input-group flex-fill">
                                         <input
@@ -343,54 +371,7 @@
         <script charset="utf-8" type="text/javascript" src="https://demo.tastyigniter.com/app/admin/formwidgets/repeater/assets/js/jquery-sortable.js" name="jquery-sortable-js"></script>
 
         <script charset="utf-8" type="text/javascript" src="https://demo.tastyigniter.com/app/admin/widgets/lists/assets/js/lists.js" name="lists-js"></script>
-        
-        <script>
-            function loaded(event) {
-                fillPlates();
-            }
-            function fillPlates() {
-                $(document).ready(function () {
-                    $.ajax({
-                        type: "POST",
-                        url: "api/restaurante/platosAdmin",
-                        success: function (platos) {
-                            showPlatos(platos);
-                        },
-                        error: function (status) {
-                            alert(errorMessage(status));
-                        }
-                    });
-                });
-            }
-            function showPlatos(platos) {
-                platos.forEach((pla) => {
-                    fillPlatos(pla);
-                });
-            }
-            function fillPlatos(plato) {
-                var id = plato.idPlatillo;
-                var categoria = plato.idCategoria.nombre.replace(/ /g, "");
-                var nombre = plato.nombrePlatillo.replace(/ /g, "");
-                var descripcion = plato.descripcion;
-                var precio = plato.precio;
 
-                $("#listaPlatillosAdmin").append(
-                        '<tr>'+
-                        '<td class="list-action">'+
-                        '<div class="custom-control custom-checkbox">'+
-                        '<input type="checkbox" id="checkbox-'+id+'" class="custom-control-input" value="'+id+'" name="checked[]"/>'+
-                        '<label class="custom-control-label" for="checkbox-'+id+'">&nbsp;</label></div></td>'+
-
-                        '<td class="list-col-index-2 list-col-name-table-name list-col-type-text ">'+id+'</td>'+
-                        '<td class="list-col-index-3 list-col-name-min-capacity list-col-type-text ">'+categoria+'</td>'+
-                        '<td class="list-col-index-4 list-col-name-min-capacity list-col-type-text ">'+nombre+'</td>'+
-                        '<td class="list-col-index-5 list-col-name-min-capacity list-col-type-text ">'+descripcion+'</td>'+
-                        '<td class="list-col-index-6 list-col-name-min-capacity list-col-type-text ">'+precio+'</td>'+
-                        '<td class="list-setup">&nbsp;</td></tr>'
-                        );
-                
-            }
-            document.addEventListener("DOMContentLoaded", loaded);
-        </script>
+        <script charset="utf-8" type="text/javascript" src="/restaurante/js/platos-admin.js"></script>
     </body>
 </html>

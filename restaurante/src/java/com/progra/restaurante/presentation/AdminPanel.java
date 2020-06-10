@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author ianmo
  */
-@WebServlet(name = "AdminPanel", urlPatterns = {"/api/restaurante/ingresarAdmin","/api/restaurante/categoriasAdmin","/api/restaurante/platosAdmin"})
+@WebServlet(name = "AdminPanel", urlPatterns = {"/api/restaurante/ingresarAdmin","/api/restaurante/categoriasAdmin","/api/restaurante/platosAdmin","/api/restaurante/addCategoria"})
 public class AdminPanel extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -41,7 +41,22 @@ public class AdminPanel extends HttpServlet {
             case "/api/restaurante/platosAdmin":
                 this.doPlatosGet(request, response);
                 break;
-
+            case "/api/restaurante/addCategoria":
+                this.doAddCategoria(request, response);
+                break;
+                
+        }
+    }
+    protected void doAddCategoria(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
+            BufferedReader reader = request.getReader();       
+            String nombre = reader.readLine();         
+            com.progra.restaurante.data.CategoriesDao.registrarCategoria(new Categoria(0, nombre));
+            response.setContentType("application/json; charset=UTF-8");
+            response.setStatus(200); // ok with content
+        } catch (Exception e) {
+            response.setStatus(status(e));
         }
     }
     protected void doPlatosGet(HttpServletRequest request,
@@ -63,7 +78,6 @@ public class AdminPanel extends HttpServlet {
     protected void doCategoriaGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         try {
-            BufferedReader reader = request.getReader();
             Gson gson = new Gson();
             PrintWriter out = response.getWriter();
 
