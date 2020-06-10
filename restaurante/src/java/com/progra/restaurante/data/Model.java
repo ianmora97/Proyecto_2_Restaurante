@@ -44,11 +44,15 @@ public class Model {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    public Usuario getUsuario(String u, String c) throws Exception {
+        return com.progra.restaurante.data.UsuarioDao.getUsuario(u,c);
+    }
     public ArrayList<Categoria> getCategories() throws Exception {
         return categorias;
     }
-
+    public ArrayList<Categoria> getCategoriesAdmin() throws Exception {
+        return com.progra.restaurante.data.CategoriesDao.getListaCategorias();
+    }
     public ArrayList<Opcion> getOpciones() throws Exception {
         return opciones;
     }

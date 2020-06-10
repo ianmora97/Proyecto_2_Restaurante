@@ -12,6 +12,7 @@ import com.progra.restaurante.logic.Adicional;
 import com.progra.restaurante.logic.Categoria;
 import com.progra.restaurante.logic.Orden;
 import com.progra.restaurante.logic.Platillo;
+import com.progra.restaurante.logic.Usuario;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;

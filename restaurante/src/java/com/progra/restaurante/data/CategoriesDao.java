@@ -62,7 +62,36 @@ public class CategoriesDao {
             return categoria;
         }
     }
+    
+    public static ArrayList<Categoria> getListaCategorias() throws Exception {
+        String SQL = "select * from categoria;";
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+            ResultSet resultado = st.executeQuery();
 
+            ArrayList<Categoria> lista = new ArrayList<>();
+            Categoria categoria;
+
+            while (resultado.next()) {
+                categoria = new Categoria();
+                categoria.setIdCategoria(resultado.getInt("id_categoria"));
+                categoria.setNombre(resultado.getString("nombre"));
+                lista.add(categoria);
+            }
+
+            con.close();
+            resultado.close();
+            st.close();
+            
+            return lista;
+
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+            return null;
+        }
+
+    }       
     public static ArrayList<Categoria> listarCategoria() throws Exception {
         String SQL = "select * from categoria;";
         try {

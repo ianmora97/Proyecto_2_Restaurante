@@ -1,0 +1,390 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="Content-type" content="text/html; charset=utf-8" type="equiv">
+        <meta name="X-UA-Compatible" content="IE=edge" type="equiv">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" type="name">
+        <link rel="shortcut icon" type="image/x-icon" href="https://demo.tastyigniter.com/app/admin/assets/images/favicon.ico">
+        <title>Tables - Administrator Panel - Demo Tasty</title>
+        <link rel="stylesheet" type="text/css" href="https://demo.tastyigniter.com/app/system/assets/ui/flame.css" name="flame-css">
+
+        <link rel="stylesheet" type="text/css" href="https://demo.tastyigniter.com/app/admin/assets/css/admin.css" name="admin-css">
+
+    </head>
+    <body class="page ">
+
+        <nav class="navbar navbar-top navbar-expand navbar-fixed-top" style="height: 62px;" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-brand">
+                    <a class="logo" href="https://demo.tastyigniter.com/admin/dashboard">
+                        <i class="logo-icon icon-ti-logo"></i>
+                    </a>
+                </div>
+
+                <div class="page-title">
+                    <span>Tables</span>
+                </div>
+
+                <div class="navbar navbar-right">
+                </div>
+            </div>
+        </nav>
+
+        <div class="sidebar" role="navigation">
+            <div id="navSidebar" class="nav-sidebar">
+                <ul  id="side-nav-menu" class="nav">
+                    <li class="nav-item active">
+                        <a
+                            class="nav-link dashboard admin"
+                            href="#"
+                            aria-expanded="true"
+                            >
+                            <i class="fa fa-tachometer-alt fa-fw"></i>
+
+                            <span class="content">Dashboard</span>
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            class="nav-link restaurant has-arrow"
+                            href="#"
+                            aria-expanded="false"
+                            >
+                            <i class="fa fa-store fa-fw"></i>
+
+                            <span class="content">Restaurante</span>
+                        </a>
+
+                        <ul  class="nav collapse" aria-expanded="false">
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link tables"
+                                    href="https://demo.tastyigniter.com/admin/tables"
+                                    aria-expanded="false"
+                                    >
+
+                                    Mesas                            </a>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            class="nav-link kitchen has-arrow"
+                            href="#"
+                            aria-expanded="false"
+                            >
+                            <i class="fa fa-utensils fa-fw"></i>
+
+                            <span class="content">Cocina</span>
+                        </a>
+
+                        <ul  class="nav collapse" aria-expanded="false">
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link menus"
+                                    href="platosAdmin.html"
+                                    aria-expanded="false"
+                                    >
+
+                                    Menu de Platos                            </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link categories"
+                                    href="#"
+                                    aria-expanded="false"
+                                    >
+
+                                    Categorias                            </a>
+
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            class="nav-link sales has-arrow"
+                            href="#"
+                            aria-expanded="false"
+                            >
+                            <i class="fa fa-chart-bar fa-fw"></i>
+
+                            <span class="content">Ventas</span>
+                        </a>
+
+                        <ul  class="nav collapse" aria-expanded="false">
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link orders"
+                                    href="https://demo.tastyigniter.com/admin/orders"
+                                    aria-expanded="false"
+                                    >
+
+                                    Ordenes                            </a>
+
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link users has-arrow"
+                            href="#"
+                            aria-expanded="false"
+                            >
+                            <i class="fa fa-user fa-fw"></i>
+
+                            <span class="content">Usuarios</span>
+                        </a>
+
+                        <ul  class="nav collapse" aria-expanded="false">
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link customers"
+                                    href="https://demo.tastyigniter.com/admin/customers"
+                                    aria-expanded="false"
+                                    >
+
+                                    Clientes                            </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link staffs"
+                                    href="https://demo.tastyigniter.com/admin/staffs"
+                                    aria-expanded="false"
+                                    >
+
+                                    Empleados                            </a>
+
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="page-wrapper">
+            <div class="row-fluid">
+                <div
+                    id="toolbar"
+                    class="toolbar btn-toolbar "
+                    >
+                    <div class="toolbar-action">
+                        <div class="progress-indicator-container">
+                            <a class="btn btn-primary" href="https://demo.tastyigniter.com/admin/tables/create" tabindex="0"><i class="fa fa-plus"></i> New</a>
+                            <a class="btn btn-danger" data-attach-loading="" data-request="onDelete" data-request-form="#list-form" data-request-data="_method:&#039;DELETE&#039;" data-request-confirm="This cannot be undone! Are you sure you want to do this?" tabindex="0"><i class="fa fa-trash-o"></i> Delete</a>
+                            <a class="btn btn-default btn-filter" data-toggle="list-filter" data-target=".list-filter" tabindex="0"><i class="fa fa-filter"></i></a>            </div>
+                    </div>
+                </div>
+
+                <div
+                    id="filter-list-filter"
+                    class="list-filter "
+                    data-store-name="ti_displayListFilter"
+                    style="display:none">
+
+
+                    <div class="d-flex mt-3">
+                        <div class="mr-3">
+                            <button
+                                class="btn btn-outline-danger"
+                                type="button"
+                                data-request="list_filter::onClear"
+                                data-attach-loading
+                                >
+                                <i class="fa fa-times"></i>&nbsp;&nbsp;Clear            </button>
+                        </div>
+                        <div class="flex-fill">
+                            <div class="filter-search"><form id="search-form"
+                                                             class="form-inline"
+                                                             accept-charset="utf-8"
+                                                             method="POST"
+                                                             action="https://demo.tastyigniter.com/admin/tables"
+                                                             role="form">
+                                    <input type="hidden" name="_handler" value="list_filter_search::onSubmit">
+                                    <div class="input-group flex-fill">
+                                        <input
+                                            type="text"
+                                            name="list_filter_search"
+                                            class="form-control "
+                                            value=""
+                                            placeholder="Search by name or capacity."
+                                            autocomplete="off"
+                                            />
+                                        <span class="input-group-prepend">
+                                            <button class="btn btn-outline-default" type="submit">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form method="POST" action="https://demo.tastyigniter.com/admin/tables" accept-charset="UTF-8" id="list-form" role="form"><input name="_token" type="hidden" value="rTc0lOefCdWOzURrKtoNqshfOpPNrPFJojqIYW0Y">
+                    <div class="list-table table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+
+                                    <th class="list-action">
+                                        <div class="custom-control custom-checkbox">
+                                            <input
+                                                type="checkbox" id="checkboxAll-lists"
+                                                class="custom-control-input" onclick="$('input[name*=\'checked\']').prop('checked', this.checked)"/>
+                                            <label class="custom-control-label" for="checkboxAll-lists">&nbsp;</label>
+                                        </div>
+                                    </th>
+
+
+
+                                    <th
+                                        class="list-cell-name-table-name list-cell-type-text "
+                                        >
+                                        <a
+                                            class="sort-col"
+                                            data-request="list::onSort"
+                                            data-request-form="#list-form"
+                                            data-request-data="sort_by: 'table_name'">
+                                            Id Categoria                    <i class="fa fa-sort-ASC"></i>
+                                        </a>
+                                    </th>
+
+                                    <th
+                                        class="list-cell-name-min-capacity list-cell-type-text "
+                                        >
+                                        <a
+                                            class="sort-col"
+                                            data-request="list::onSort"
+                                            data-request-form="#list-form"
+                                            data-request-data="sort_by: 'min_capacity'">
+                                            Nombre                    <i class="fa fa-sort-ASC"></i>
+                                        </a>
+                                    </th>
+
+
+                                    <th class="list-setup">
+                                        <button
+                                            type="button"
+                                            class="btn btn-outline-default btn-sm border-none"
+                                            title="Setup"
+                                            data-toggle="modal"
+                                            data-target="#lists-setup-modal"
+                                            data-request="list::onLoadSetup"
+                                            >
+                                            <i class="fa fa-sliders"></i>
+                                        </button>
+                                    </th>
+                                </tr>        </thead>
+                            <tbody id="listaCategorias">
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </form>
+                <nav class="pagination-bar clearfix">
+                </nav>
+
+
+            </div>
+
+        </div>
+
+        <script charset="utf-8" type="text/javascript" src="https://demo.tastyigniter.com/app/system/assets/ui/flame.js" name="flame-js"></script>
+
+        <script charset="utf-8" type="text/javascript" src="https://demo.tastyigniter.com/app/admin/assets/js/admin.js" name="admin-js"></script>
+
+        <script charset="utf-8" type="text/javascript" src="https://demo.tastyigniter.com/app/admin/widgets/menu/assets/js/mainmenu.js" name="mainmenu-js"></script>
+
+        <script charset="utf-8" type="text/javascript" src="https://demo.tastyigniter.com/app/admin/formwidgets/repeater/assets/js/jquery-sortable.js" name="jquery-sortable-js"></script>
+
+        <script charset="utf-8" type="text/javascript" src="https://demo.tastyigniter.com/app/admin/widgets/lists/assets/js/lists.js" name="lists-js"></script>
+
+        <script>
+            function loaded(event) {
+                fillCategories();
+            }
+            function fillCategories() {
+                $(document).ready(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "api/restaurante/categoriasAdmin",
+                        success: function (categorias) {
+                            showCategorias(categorias);
+                        },
+                        error: function (status) {
+                            alert(errorMessage(status));
+                        }
+                    });
+                });
+            }
+            function showCategorias(categorias) {
+                categorias.forEach((cat) => {
+                    fillCategorias(cat);
+                });
+            }
+            function fillCategorias(categoria) {
+                var nombre = categoria.nombre.replace(/ /g, "");
+                var id = categoria.idCategoria;
+                var event = nombre + id;
+                $("#listaCategorias").append(
+                        '<tr>' +
+                        '<td class="list-action">' +
+                        '<div class="custom-control custom-checkbox">' +
+                        '<input type="checkbox" id="checkbox-' + id + '" class="custom-control-input" value="' + id + '" name="checked[]"/>' +
+                        '<label class="custom-control-label" for="checkbox-' + id + '">&nbsp;</label></div></td>' +
+                        '<td class="list-col-index-2 list-col-name-table-name list-col-type-text ">' + id + '</td>' +
+                        '<td class="list-col-index-3 list-col-name-min-capacity list-col-type-text ">' + nombre + '</td>' +
+                        '<td class="list-setup">&nbsp;</td></tr>'
+                        );
+                $("#" + event).click(function () {
+                    editCategoria(categoria);
+                });
+            }
+            function editCategoria(categoria) {
+                //var Adicionales = categoria.adicionalCollection;
+                $("#adtionalModal").html(" ");
+                $("#nombrePlatilloModal").html(" ");
+                $("#descPlatilloModal").html(" ");
+                $("#priceModal").html(" ");
+                $("#nombrePlatilloModal").append(platillo.nombrePlatillo);
+                $("#descPlatilloModal").append(platillo.descripcion);
+                $("#priceModal").append("$ " + platillo.precio);
+                if (Adicionales.length !== 0) {
+                    Adicionales.forEach((adicional) => {
+                        var requerida = "Requerida";
+                        if (adicional.requerida === 0) {
+                            requerida = "Opcional";
+                        }
+                        var adicionalSinEspacios = adicional.nombre.replace(/ /g, "");
+                        $("#adtionalModal").append('<div class="container " id="' + adicionalSinEspacios + '">' +
+                                '<div class="row bg-light py-2 my-2">' +
+                                '<div class="col-9">' +
+                                '<h5>' + adicional.nombre + '</h5>' +
+                                ' </div>' +
+                                '<div class="col-3 text-muted">' +
+                                requerida +
+                                '</div>' +
+                                '</div>' +
+                                '</div>');
+                        fillOptions(adicional);
+                    });
+                }
+
+
+            }
+            document.addEventListener("DOMContentLoaded", loaded);
+        </script>
+    </body>
+</html>
