@@ -20,17 +20,32 @@ import com.progra.restaurante.data.Conn;
 public class CategoriesDao {
 
     public static boolean registrarCategoria(Categoria categoria) throws Exception {
-        String SQL = "insert into categoria (nombre) "
-                + "values (?);";
+        String SQL = "insert into categoria (nombre) values (?);";
         try {
             Connection con = Conn.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
 
             st.setString(1, categoria.getNombre());
-
+            int r = st.executeUpdate();
             con.close();
             st.close();
-            return st.executeUpdate() != 0;
+            return r != 0;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return false;
+        }
+    }
+    public static boolean deleteCategoria(int id) throws Exception {
+        String SQL = "DELETE FROM categoria WHERE id_categoria = ?;";
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+
+            st.setInt(1, id);
+            int r = st.executeUpdate();
+            con.close();
+            st.close();
+            return r != 0;
         } catch (SQLException ex) {
             System.out.println(ex);
             return false;
@@ -64,7 +79,7 @@ public class CategoriesDao {
     }
     
     public static ArrayList<Categoria> getListaCategorias() throws Exception {
-        String SQL = "select * from categoria;";
+        String SQL = "select * from categoria order by 1;";
         try {
             Connection con = Conn.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
