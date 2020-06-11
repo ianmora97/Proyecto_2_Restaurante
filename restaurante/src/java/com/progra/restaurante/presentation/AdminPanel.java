@@ -27,7 +27,8 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "AdminPanel", urlPatterns = {"/api/restaurante/ingresarAdmin", "/api/restaurante/categoriasAdmin",
     "/api/restaurante/platosAdmin", "/api/restaurante/addCategoria",
-    "/api/restaurante/deleteCate"})
+    "/api/restaurante/deleteCate",
+    "/api/restaurante/editCate"})
 public class AdminPanel extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -49,7 +50,23 @@ public class AdminPanel extends HttpServlet {
             case "/api/restaurante/deleteCate":
                 this.doDeleteCategoria(request, response);
                 break;
+            case "/api/restaurante/editCate":
+                this.doEditCategoria(request, response);
+                break;
+        }
+    }
 
+    protected void doEditCategoria(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
+            Gson gson = new Gson();
+            BufferedReader reader = request.getReader();
+            String nombreO = reader.readLine();
+            String nombreN = reader.readLine();
+            com.progra.restaurante.data.CategoriesDao.editCategoria(nombreO, nombreN);
+            response.setStatus(201);
+        } catch (Exception e) {
+            response.setStatus(status(e));
         }
     }
 

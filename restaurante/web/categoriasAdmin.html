@@ -44,7 +44,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">A&ntilde;adir Categoria</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Editar Categoria</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -52,12 +52,13 @@
                     <div class="modal-body" id="editarBody">
                         <div class="form-group">
                             <label>Nombre de la Categoria</label>
-                            <input class="form-control" type="text" id="nombreCategoria" placeholder="Nombre">
+                            <input class="form-control" type="text" id="nombreCategoriaO" placeholder="Nombre" style="display: none;" readonly>
+                            <input class="form-control" type="text" id="nombreCategoriaN" placeholder="Nombre">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" id="sendLogin" data-dismiss="modal" class="btn btn-primary btn-lg pull-right">Agregar</button>
+                        <button type="submit" id="editModalCat" data-dismiss="modal" class="btn btn-primary btn-lg pull-right">Editar</button>
                     </div>   
                 </div>
             </div>
@@ -232,8 +233,6 @@
                                 <i class="fa fa-plus"></i>New</div>
 
                             <button class="btn btn-danger" data-attach-loading="" id="eliminarCat"><i class="fa fa-trash-o"></i> Delete</button>
-                            <div class="btn btn-primary" data-toggle="modal" data-target="#modalEdit">
-                                <i class="fa fa-plus"></i>Edit</div>
 
                             <a class="btn btn-default btn-filter" data-toggle="list-filter" data-target=".list-filter" tabindex="0"><i class="fa fa-filter"></i></a></div>
                     </div>

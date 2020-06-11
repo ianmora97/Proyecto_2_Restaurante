@@ -3,6 +3,7 @@ function loaded(event) {
     ingresar();
     deleteCategorias();
     editCategoria();
+    editCategoriaSend();
 }
 function fillCategories() {
     $(document).ready(function () {
@@ -61,9 +62,28 @@ function editCategoria(categoria){
         var recipient = button.data('whatever');
         
         var modal = $(this);
-        modal.find('.modal-title').text('Modificar' + recipient);
+        modal.find('.modal-title').text('Modificar ' + recipient);
         modal.find('.modal-body input').val(recipient);
     })
+}
+function editCategoriaSend() {
+    $("#editModalCat").click(function () {
+        var nombreO = $("#nombreCategoriaO").val();
+        var nombreN = $("#nombreCategoriaN").val();
+        var concat = nombreO+'\n'+nombreN;
+        $.ajax({
+            type: "POST",
+            url: "api/restaurante/editCate",
+            data: concat,
+            success: function () {
+                location.href ="categoriasAdmin.html";
+            },
+            error: function (status) {
+                alert(errorMessage(status));
+            }
+        });
+        
+    });
 }
 function deleteCategorias() {
     $("#eliminarCat").click(function () {
