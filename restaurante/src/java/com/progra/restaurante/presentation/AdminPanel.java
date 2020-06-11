@@ -7,6 +7,7 @@ package com.progra.restaurante.presentation;
 
 import com.google.gson.Gson;
 import com.progra.restaurante.data.Model;
+import com.progra.restaurante.logic.Adicional;
 import com.progra.restaurante.logic.Categoria;
 import com.progra.restaurante.logic.Platillo;
 import com.progra.restaurante.logic.Usuario;
@@ -28,7 +29,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "AdminPanel", urlPatterns = {"/api/restaurante/ingresarAdmin", "/api/restaurante/categoriasAdmin",
     "/api/restaurante/platosAdmin", "/api/restaurante/addCategoria",
     "/api/restaurante/deleteCate",
-    "/api/restaurante/editCate"})
+    "/api/restaurante/editCate",
+    "/api/restaurante/fillAdicionalesAdmin"})
 public class AdminPanel extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -53,9 +55,27 @@ public class AdminPanel extends HttpServlet {
             case "/api/restaurante/editCate":
                 this.doEditCategoria(request, response);
                 break;
+            case "/api/restaurante/fillAdicionalesAdmin":
+                this.dofillAdicionales(request, response);
+                break;
         }
     }
+    protected void dofillAdicionales(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
+            Gson gson = new Gson();
+            PrintWriter out = response.getWriter();
 
+            ArrayList<Adicional> adicionales = com.progra.restaurante.data.AditionalsDao.listarAdicional();
+            response.setContentType("application/json; charset=UTF-8");
+
+            out.write(gson.toJson(adicionales));
+
+            response.setStatus(200); // ok with content
+        } catch (Exception e) {
+            response.setStatus(status(e));
+        }
+    }
     protected void doEditCategoria(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         try {
