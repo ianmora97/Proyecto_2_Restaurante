@@ -122,8 +122,8 @@ and open the template in the editor.
                     <div class="navbar-nav">
                         <a class="nav nav-link active "  href="#" > View Menu </a>
                         <a class="nav-item nav-link"  href="#"> Reservation</a>
-                        <a class="nav-item nav-link"  href="#"> Login</a>
-                        <a class="nav-item nav-link"  href="#"> Register</a>
+                        <a class="nav-item nav-link"  href="presentacionCliente/loginCliente.html"> Login</a>
+                        <a class="nav-item nav-link"  href="presentacionCliente/register.html"> Register</a>
                     </div>
                 </div>
             </div>
@@ -254,7 +254,7 @@ and open the template in the editor.
                             </div>
 
                             <div id="cart-buttons" class="mt-3">
-                                <button class="checkout-btn btn btn-primary  btn-block btn-lg">
+                                <button class="checkout-btn btn btn-primary  btn-block btn-lg"  style="width: 80%; margin: 15px auto;">
                                     Checkout
                                 </button>
                             </div>
@@ -267,314 +267,348 @@ and open the template in the editor.
             <!--final-->
         </div>
 
-    </div>
+        <!--SCRIPTS--> 
 
-    <!--SCRIPTS--> 
-
-    <!--JQUERY-->
-
-    <script src="https://code.jquery.com/jquery-3.5.1.js"  crossorigin="anonymous"></script>
+        <!--JQUERY-->
+        <script src="https://code.jquery.com/jquery-3.5.1.js"  crossorigin="anonymous"></script>
 
 
-    <!--date picket src-->       
-    <script src="/restaurante/js/bootstrap-datetimepicker.min.js"></script>
+        <!--date picket src-->       
+        <script src="/restaurante/js/bootstrap-datetimepicker.min.js"></script>
 
-    <!--BOOTSTRAP-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"  crossorigin="anonymous"></script>       
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
+        <!--BOOTSTRAP-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"  crossorigin="anonymous"></script>       
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
-    <script src="/restaurante/js/calendar.js"  ></script>
+        <script src="/restaurante/js/calendar.js"  ></script>
 
-    <!--Incrementar o decrementar platillo-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-input-spinner@1.13.5/src/bootstrap-input-spinner.min.js"></script>        <script>
-        $("input[type='number']").inputSpinner();
-    </script>
+        <!--Incrementar o decrementar platillo-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-input-spinner@1.13.5/src/bootstrap-input-spinner.min.js"></script>        <script>
+            $("input[type='number']").inputSpinner();
+        </script>
 
-    <!--iconos de font awesome-->
-    <script src="https://kit.fontawesome.com/39f4ebbbea.js" crossorigin="anonymous"></script>
-    <script>
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-    </script>
+        <!--iconos de font awesome-->
+        <script src="https://kit.fontawesome.com/39f4ebbbea.js" crossorigin="anonymous"></script>
+        <script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
 
 
-    <!--Scripts del programa-->
-    <script>
-        /*window.addEventListener('beforeunload', function (e) {
-         e.preventDefault();
-         //var e = e.toString();
-         e.returnValue = document.activeElement;
-         
-         });*/
-    
-//         VARIABLE GLOBAL DE PLATILLOS EN LA ORDEN
-        var p_selected = [];
-        
-        function loaded(event) {
-            fillCategories();
-            events();
-        }
+        <!--Scripts del programa-->
+        <script>
+            /*window.addEventListener('beforeunload', function (e) {
+             e.preventDefault();
+             //var e = e.toString();
+             e.returnValue = document.activeElement;
+             
+             });*/
 
-        function fillCategories() {
-            $(document).ready(function () {
-                $.ajax({
-                    type: "POST",
-                    url: "api/restaurante/categorias/get",
-                    success: function (categorias) {
-                        showCategorias(categorias);
-                    },
-                    error: function (status) {
-                        alert(errorMessage(status));
-                    }
+            //         VARIABLE GLOBAL DE PLATILLOS EN LA ORDEN
+            var p_selected = [];
+            function loaded(event) {
+                fillCategories();
+                events();
+            }
+
+            function fillCategories() {
+                $(document).ready(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "api/restaurante/categorias/get",
+                        success: function (categorias) {
+                            showCategorias(categorias);
+                        },
+                        error: function (status) {
+                            alert(errorMessage(status));
+                        }
+                    });
                 });
-            });
-        }
-        function showCategorias(categorias) {
-            categorias.forEach((cat) => {
-                fillListCategories(cat);
-            });
-        }
-        function fillListCategories(categoria) {
-            var nombre = categoria.nombre.replace(/ /g, "");
-            var targetAccordion = nombre + "Target";
-            var platilloId = nombre + "Platillo";
-            $("#menuCategories").append('<a class="nav-link " href="#' + nombre + '" data-toggle="tab">' + categoria.nombre + '</a>');
-            $("#dishes").append(
-                    '<div class="tab-pane bg-white" id="' + nombre + '">' +
-                    '<div class="card">' +
-                    '<div class="card-header">' +
-                    ' <h1 class="mb-0">' +
-                    '<button class="btn btn-link btn-block text-left " type="button" data-toggle="collapse"' +
-                    'data-target="#' + targetAccordion + '">' + categoria.nombre + ' </button>' +
-                    ' </h1>' +
-                    ' </div>' +
-                    '<div id="' + targetAccordion + '" class="collapse show">' +
-                    '<div class="card-body" id="' + platilloId + '">' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>'
-                    );
-            var platillos = categoria.platilloCollection;
-            platillos.forEach((platillo) => {
-                fillDishes(platillo, platilloId);
-            });
-        }
-        function fillDishes(platillo, platilloId) {
-            var idEvtAditional = platillo.nombrePlatillo.replace(/ /g, "") + "Adicional";
-            $("#" + platilloId).append(
-                    '<div class="d-flex flex-row mr-3 mt-3 btn-block">' +
-                    ' <div class=" flex-grow-1 " id="firstPart">' +
-                    '<h6>' + platillo.nombrePlatillo + '</h6>' +
-                    '<p class="text-muted mb-0" id="dishDescription">'
-                    + platillo.descripcion + '</p>' +
-                    ' </div>' +
-                    '<div class=" align-self-start col-3 text-right p-0" id="secondPart">' +
-                    '<span class=" pr-sm-3" id="price">' +
-                    '<b>' + platillo.precio + '</b>' +
-                    ' </span><span class="btnPlus">' +
-                    '<button type="button" class="btn btn-light btn-sm btn-cart " data-toggle="modal"' +
-                    'data-target="#modalOptions" id="' + idEvtAditional + '" >' +
-                    '<i class="fa fa-plus"></i>' +
-                    '</button>' +
-                    '</span>' +
-                    '</div>' +
-                    '</div>'
-                    );
-            $("#" + idEvtAditional).click(function () {
-                getAditional(platillo);
-            });
-        }
-
-        function getAditional(platillo) {
-            var Adicionales = platillo.adicionalCollection;
-            $("#adtionalModal").html(" ");
-            $("#nombrePlatilloModal").html(" ");
-            $("#descPlatilloModal").html(" ");
-            $("#priceModal").html(" ");
-            $("#nombrePlatilloModal").append(platillo.nombrePlatillo);
-            $("#descPlatilloModal").append(platillo.descripcion);
-            $("#priceModal").append("$ " + platillo.precio);
-            if (Adicionales.length !== 0) {
-                Adicionales.forEach((adicional) => {
-                    var requerida = "Requerida";
-                    if (adicional.requerida === 0) {
-                        requerida = "Opcional";
-                    }
-                    var adicionalSinEspacios = adicional.nombre.replace(/ /g, "");
-                    $("#adtionalModal").append('<div class="container " id="' + adicionalSinEspacios + '">' +
-                            '<div class="row bg-light py-2 my-2">' +
-                            '<div class="col-9">' +
-                            '<h5>' + adicional.nombre + '</h5>' +
-                            ' </div>' +
-                            '<div class="col-3 text-muted">' +
-                            requerida +
-                            '</div>' +
-                            '</div>' +
-                            '</div>');
-                    fillOptions(adicional);
+            }
+            function showCategorias(categorias) {
+                categorias.forEach((cat) => {
+                    fillListCategories(cat);
                 });
+            }
+            function fillListCategories(categoria) {
+                var nombre = categoria.nombre.replace(/ /g, "");
+                var targetAccordion = nombre + "Target";
+                var platilloId = nombre + "Platillo";
+                $("#menuCategories").append('<a class="nav-link " href="#' + nombre + '" data-toggle="tab">' + categoria.nombre + '</a>');
+                $("#dishes").append(
+                        '<div class="tab-pane bg-white" id="' + nombre + '">' +
+                        '<div class="card">' +
+                        '<div class="card-header">' +
+                        ' <h1 class="mb-0">' +
+                        '<button class="btn btn-link btn-block text-left " type="button" data-toggle="collapse"' +
+                        'data-target="#' + targetAccordion + '">' + categoria.nombre + ' </button>' +
+                        ' </h1>' +
+                        ' </div>' +
+                        '<div id="' + targetAccordion + '" class="collapse show">' +
+                        '<div class="card-body" id="' + platilloId + '">' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>'
+                        );
+                var platillos = categoria.platilloCollection;
+                platillos.forEach((platillo) => {
+                    fillDishes(platillo, platilloId);
+                });
+            }
+            function fillDishes(platillo, platilloId) {
+                var idEvtAditional = platillo.nombrePlatillo.replace(/ /g, "") + "Adicional";
+                $("#" + platilloId).append(
+                        '<div class="d-flex flex-row mr-3 mt-3 btn-block">' +
+                        ' <div class=" flex-grow-1 " id="firstPart">' +
+                        '<h6>' + platillo.nombrePlatillo + '</h6>' +
+                        '<p class="text-muted mb-0" id="dishDescription">'
+                        + platillo.descripcion + '</p>' +
+                        ' </div>' +
+                        '<div class=" align-self-start col-3 text-right p-0" id="secondPart">' +
+                        '<span class=" pr-sm-3" id="price">' +
+                        '<b>' + platillo.precio + '</b>' +
+                        ' </span><span class="btnPlus">' +
+                        '<button type="button" class="btn btn-light btn-sm btn-cart " data-toggle="modal"' +
+                        'data-target="#modalOptions" id="' + idEvtAditional + '" >' +
+                        '<i class="fa fa-plus"></i>' +
+                        '</button>' +
+                        '</span>' +
+                        '</div>' +
+                        '</div>'
+                        );
+                $("#" + idEvtAditional).click(function () {
+                    keepDishInOrder(null);
+                    getAditional(platillo, null);
+                });
+            }
+            function getAditional(platillo, platilloOrder) {
+                var Adicionales = platillo.adicionalCollection;
+                var AdicionalesOrden = null;
+                if (platilloOrder !== null) {
+                    AdicionalesOrden = platilloOrder.adicionalCollection;
+                }
+
+                $("#adtionalModal").html(" ");
+                $("#nombrePlatilloModal").html(" ");
+                $("#descPlatilloModal").html(" ");
+                $("#priceModal").html(" ");
+                $("#nombrePlatilloModal").append(platillo.nombrePlatillo);
+                $("#descPlatilloModal").append(platillo.descripcion);
+                $("#priceModal").append("$ " + platillo.precio);
+                var index = 0;
+                if (Adicionales.length !== 0) {
+                    Adicionales.forEach((adicional) => {
+                        var requerida = "Requerida";
+                        if (adicional.requerida === 0) {
+                            requerida = "Opcional";
+                        }
+                        var adicionalSinEspacios = adicional.nombre.replace(/ /g, "");
+                        $("#adtionalModal").append('<div class="container " id="' + adicionalSinEspacios + '">' +
+                                '<div class="row bg-light py-2 my-2">' +
+                                '<div class="col-9">' +
+                                '<h5>' + adicional.nombre + '</h5>' +
+                                ' </div>' +
+                                '<div class="col-3 text-muted">' +
+                                requerida +
+                                '</div>' +
+                                '</div>' +
+                                '</div>');
+
+                        if (AdicionalesOrden !== null) {
+                            var bandera = false;
+                            for (let i = 0; i < AdicionalesOrden.length; i++) {
+                                var adicionalOrder = AdicionalesOrden[i].nombre.replace(/ /g, "");
+                                if (adicionalOrder === adicionalSinEspacios) {
+                                    fillOptions(adicional, AdicionalesOrden[i]);
+                                    bandera = true;
+                                }
+                            }
+                            if (!bandera) {
+                                fillOptions(adicional, null);
+                            }
+                        } else {
+                            fillOptions(adicional, null);
+                        }
+
+                        index++;
+                    });
+                }
+
+
             }
 
 
-        }
+            function fillOptions(adicional, adicionalOrder) {
 
-
-        function fillOptions(adicional) {
-            var opciones = adicional.opcionCollection;
-            var adicionalSinEspacios = adicional.nombre.replace(/ /g, "");
-            opciones.forEach((opcion) => {
-                var htmlOption = " ";
-                var opcionesSinEspacios = opcion.nombre.replace(/ /g, "");
-                if (adicional.tipo === 0) {
-                    htmlOption = '<div class="row justify-content-between my-1">' +
-                            ' <div class="col-8">' +
-                            ' <div class="custom-control custom-radio">' +
-                            '<input type="radio" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '" name="' + adicionalSinEspacios + "Name" + '" value="customEx">' +
-                            '<label class="custom-control-label" for="' + opcionesSinEspacios + "OpId" + '" id="' + opcionesSinEspacios + "OpIdLabel" + '">' + opcion.nombre + '</label>' +
-                            '</div>' +
-                            '</div>' +
-                            '<div class="col-3">' +
-                            opcion.precio +
-                            '</div>' +
-                            '</div>';
-                } else {
-                    htmlOption = '<div class="row justify-content-between my-1">' +
-                            '<div class="col-8">' +
-                            '<div class="custom-control custom-checkbox">' +
-                            '<input type="checkbox" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '">' +
-                            '<label class="custom-control-label" for="' + opcionesSinEspacios + "OpId" + '" id="' + opcionesSinEspacios + "OpIdLabel" + '">' + opcion.nombre + '</label>' +
-                            ' </div>' +
-                            '</div>' +
-                            '<div class="col-3">' +
-                            opcion.precio +
-                            '</div>' +
-                            '</div>';
+                var opciones = adicional.opcionCollection;
+                var opcionesOrden = null;
+                if (adicionalOrder !== null) {
+                    opcionesOrden = adicionalOrder.opcionCollection;
                 }
-                $("#" + adicionalSinEspacios).append(htmlOption);
-            });
-        }
 
-        function events() {
-            //                Evento de fecha y ASAP
-            $("#ASAP").click(function () {
-                $("#dropdownMenuFecha").html(" ");
-                $("#dropdownMenuFecha").append($("#ASAP").html());
-            });
-            $("#saveDate").click(function () {
-                if ($("#dateText").val() !== "") {
+                var adicionalSinEspacios = adicional.nombre.replace(/ /g, "");
+                var index = 0;
+                opciones.forEach((opcion) => {
+                    var htmlOption = " ";
+                    var opcionesSinEspacios = opcion.nombre.replace(/ /g, "");
+                    if (adicional.tipo === 0) {
+                        htmlOption = '<div class="row justify-content-between my-1">' +
+                                ' <div class="col-8">' +
+                                ' <div class="custom-control custom-radio">' +
+                                '<input type="radio" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '" name="' + adicionalSinEspacios + "Name" + '" value="customEx">' +
+                                '<label class="custom-control-label" for="' + opcionesSinEspacios + "OpId" + '" id="' + opcionesSinEspacios + "OpIdLabel" + '">' + opcion.nombre + '</label>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="col-3">' +
+                                opcion.precio +
+                                '</div>' +
+                                '</div>';
+                    } else {
+                        htmlOption = '<div class="row justify-content-between my-1">' +
+                                '<div class="col-8">' +
+                                '<div class="custom-control custom-checkbox">' +
+                                '<input type="checkbox" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '">' +
+                                '<label class="custom-control-label" for="' + opcionesSinEspacios + "OpId" + '" id="' + opcionesSinEspacios + "OpIdLabel" + '">' + opcion.nombre + '</label>' +
+                                ' </div>' +
+                                '</div>' +
+                                '<div class="col-3">' +
+                                opcion.precio +
+                                '</div>' +
+                                '</div>';
+                    }
+                    $("#" + adicionalSinEspacios).append(htmlOption);
+
+                    if (opcionesOrden !== null) {
+                        for (let i = 0; i < opcionesOrden.length; i++) {
+                            var opSinEspOrder = opcionesOrden[i].nombre.replace(/ /g, "");
+                            if (opcionesSinEspacios === opSinEspOrder) {
+                                console.log(opcionesSinEspacios);
+                                $("#" + opcionesSinEspacios + "OpId").attr("checked", "checked");
+                            }
+                        }
+                    }
+
+                    index++;
+                });
+            }
+
+            function events() {
+                //                Evento de fecha y ASAP
+                $("#ASAP").click(function () {
                     $("#dropdownMenuFecha").html(" ");
-                    $("#dropdownMenuFecha").append($("#dateText").val());
-                }
-            }
-            );
-            //                Evento de guardar el platillo en el carrito.
-
-            keepDishInOrder(-1);
-        }
-
-        function keepDishInOrder( idPlatilloInDish) {
-            console.log(idPlatilloInDish);
-            $("#saveDish").click(function () {
-                var Options = $("[id*=OpId]");
-                var OpSelected = [];
-                for (let i = 0; i < Options.length; i++) {
-                    if (Options[i].checked) {
-                        OpSelected.push($("#" + Options[i].id + "Label").text());
+                    $("#dropdownMenuFecha").append($("#ASAP").html());
+                });
+                $("#saveDate").click(function () {
+                    if ($("#dateText").val() !== "") {
+                        $("#dropdownMenuFecha").html(" ");
+                        $("#dropdownMenuFecha").append($("#dateText").val());
                     }
                 }
-                var nombre = $("#nombrePlatilloModal").text();
-                var cantidad = $("#quantityModal").val();
-                var OptionsSelected = JSON.stringify(OpSelected);
-                var sendData = nombre + "\n" + cantidad + "\n" + OptionsSelected;
+                );
+                //  Evento de guardar el platillo en el carrito.
+
+            }
+
+            function keepDishInOrder(platilloInOrder) {
+                
+                $("#saveDish").off();
+
+                $("#saveDish").click(function () {
+                    var Options = $("[id*=OpId]");
+                    var OpSelected = [];
+                    for (let i = 0; i < Options.length; i++) {
+                        if (Options[i].checked) {
+                            OpSelected.push($("#" + Options[i].id + "Label").text());
+                        }
+                    }
+                    var nombre = $("#nombrePlatilloModal").text();
+                    var cantidad = $("#quantityModal").val();
+                    var OptionsSelected = JSON.stringify(OpSelected);
+                    var platilloOrder = JSON.stringify(platilloInOrder);
+                    console.log(platilloOrder);
+                    var sendData = nombre + "\n" + cantidad + "\n" + OptionsSelected + "\n" + platilloOrder;
+                    $.ajax({
+                        type: "POST",
+                        url: "api/restaurante/AddToCart",
+                        data: sendData,
+                        success: function (orden) {
+                            p_selected = orden.platilloseleccionadoCollection;
+                            fillCart(p_selected);
+                            $("#cart-totals").html(" ");
+                            $("#cart-totals").append(orden.total);
+                        },
+                        error: function (status) {
+                            alert(errorMessage(status));
+                        }
+                    });
+                });
+            }
+
+            function getOrder() {
                 $.ajax({
                     type: "POST",
-                    url: "api/restaurante/AddToCart",
+                    url: "api/restaurante/GetCartSession",
                     data: sendData,
                     success: function (orden) {
                         p_selected = orden.platilloseleccionadoCollection;
                         fillCart(p_selected);
                         $("#cart-totals").html(" ");
-                        $("#cart-totals").append(orden.total);
+                        $("#cart-totals").append("$ " + orden.total);
                     },
                     error: function (status) {
                         alert(errorMessage(status));
                     }
                 });
-            });
-        }
+            }
 
-        function getOrder() {
-            $.ajax({
-                type: "POST",
-                url: "api/restaurante/GetCartSession",
-                data: sendData,
-                success: function (orden) {
-                    p_selected = orden.platilloseleccionadoCollection;
-                    fillCart(p_selected);
-                    $("#cart-totals").html(" ");
-                    $("#cart-totals").append("$ "+orden.total);
-                },
-                error: function (status) {
-                    alert(errorMessage(status));
-                }
-            });
-        }
-
-        function fillCart(platillos) {
-            $("#dishSelectedList").html(" ");
-            var cuenta = 0;
-
-            platillos.forEach((platillo) => {
-                var precio = 0;
-                var platilloSinEspacios = platillo.nombrePlatillo.replace(/ /g, "");
-
-                $("#dishSelectedList").append(
-                        '<li>' +
-                        '<button style="position: relative; top: -15px; " type="button" class="cart-btn btn btn-light btn-sm text-muted" id="' + platilloSinEspacios + 'Menos' + cuenta + '">' +
-                        '<i class="fa fa-minus"></i>' +
-                        '</button>' +
-                        '<button style="width: 80%;background-color: white; border:none;" type="button" id="'+platilloSinEspacios+cuenta+'" class="btn btn-light btn-sm btn-cart " data-toggle="modal" data-target="#modalOptions">' +
-                        '<span  style="float:left; font-size: 15px; font-weight: bold;"> ' + platillo.cantidad + 'x ' + platillo.nombrePlatillo + '</span> <span style="float:right;" id="' + platilloSinEspacios + 'PlatilloCartPrecio' + cuenta + '"></span>' +
-                        '<br><br>' +
-                        '<div id="' + platilloSinEspacios + 'PlatilloCart' + cuenta + '" class="text-muted" style="display: block;">' +
-                        '</div>' +
-                        '</button>' +
-                        '</li>'
-                        );
-
-                var adicionales = platillo.adicionalCollection;
-                adicionales.forEach((adi) => {
-                    var adicionalSinEspacios = adi.nombre.replace(/ /g, "");
-
-                    $('#' + platilloSinEspacios + 'PlatilloCart' + cuenta).append(
-                            '<div id="' + adicionalSinEspacios + 'AdicionalCart' + cuenta + '" class="text-muted" style="display: block;">' +
-                            '<span  style="float:left;">' + adi.nombre + '</span> <br>' +
-                            '</div>'
+            function fillCart(platillos) {
+                $("#dishSelectedList").html(" ");
+                var cuenta = 0;
+                platillos.forEach((platillo) => {
+                    var precio = 0;
+                    var platilloSinEspacios = platillo.nombrePlatillo.replace(/ /g, "");
+                    $("#dishSelectedList").append(
+                            '<li>' +
+                            '<button style="position: relative; top: -15px; " type="button" class="cart-btn btn btn-light btn-sm text-muted" id="' + platilloSinEspacios + 'Menos' + cuenta + '">' +
+                            '<i class="fa fa-minus"></i>' +
+                            '</button>' +
+                            '<button style="width: 80%;background-color: white; border:none;" type="button" id="' + platilloSinEspacios + cuenta + '" class="btn btn-light btn-sm btn-cart " data-toggle="modal" data-target="#modalOptions">' +
+                            '<span  style="float:left; font-size: 15px; font-weight: bold;"> ' + platillo.cantidad + 'x ' + platillo.nombrePlatillo + '</span> <span style="float:right;" id="' + platilloSinEspacios + 'PlatilloCartPrecio' + cuenta + '"></span>' +
+                            '<br><br>' +
+                            '<div id="' + platilloSinEspacios + 'PlatilloCart' + cuenta + '" class="text-muted" style="display: block;">' +
+                            '</div>' +
+                            '</button>' +
+                            '</li>'
                             );
-                    adi.opcionCollection.forEach((op) => {
-                        $('#' + adicionalSinEspacios + 'AdicionalCart' + cuenta).append('<span  style="float:left;">' + op.nombre + ' ' + op.precio + '</span><br>');
-                        precio += op.precio;
+                    var adicionales = platillo.adicionalCollection;
+                    adicionales.forEach((adi) => {
+                        var adicionalSinEspacios = adi.nombre.replace(/ /g, "");
+                        $('#' + platilloSinEspacios + 'PlatilloCart' + cuenta).append(
+                                '<div id="' + adicionalSinEspacios + 'AdicionalCart' + cuenta + '" class="text-muted" style="display: block;">' +
+                                '<span  style="float:left;">' + adi.nombre + '</span> <br>' +
+                                '</div>'
+                                );
+                        adi.opcionCollection.forEach((op) => {
+                            $('#' + adicionalSinEspacios + 'AdicionalCart' + cuenta).append('<span  style="float:left;">' + op.nombre + ' ' + op.precio + '</span><br>');
+                            precio += op.precio;
+                        });
                     });
+                    precio += platillo.precio;
+                    precio = precio * platillo.cantidad;
+                    $("#" + platilloSinEspacios + 'PlatilloCartPrecio' + cuenta).append('$' + precio);
+                    $("#" + platilloSinEspacios + 'Menos' + cuenta).click(function () {
+                        decreseDish(platillo);
+                    });
+                    $("#" + platilloSinEspacios + cuenta).click(function () {
+                        getDishInOrder(platillo);
+                    });
+                    cuenta++;
+                    //        CIERRA EL FOR DE PLATILLOS
                 });
-                precio += platillo.precio;
-                precio = precio * platillo.cantidad;
-                $("#" + platilloSinEspacios + 'PlatilloCartPrecio' + cuenta).append('$'+precio);
-
-                console.log(platilloSinEspacios + 'Menos' + cuenta);
-                $("#" + platilloSinEspacios + 'Menos' + cuenta).click(function () {
-                    decreseDish(platillo);
-                });
-                $("#" + platilloSinEspacios+cuenta).click(function () {
-                    getDishInOrder(cuenta);
-                });
-                cuenta++;
-
-//        CIERRA EL FOR DE PLATILLOS
-            });
-
+            }
             function decreseDish(platillo) {
                 $.ajax({
                     type: "POST",
@@ -594,20 +628,16 @@ and open the template in the editor.
                 });
             }
 
-            function getDishInOrder(posDishInCart) {
-                
-                
+            function getDishInOrder(platilloOrder) {
                 $.ajax({
                     type: "POST",
                     url: "api/restaurante/getDishInCart",
-                    data: posDishInCart,
+                    data: JSON.stringify(platilloOrder),
                     contentType: "application/json",
-                    success: function (orden) {
-                        console.log(orden);
-                        p_selected = orden.platilloseleccionadoCollection;
-                        fillCart(p_selected);
-                        $("#cart-totals").html(" ");
-                        $("#cart-totals").append(orden.total);
+                    success: function (platilloCompleto) {
+                        getAditional(platilloCompleto, platilloOrder);
+
+                        keepDishInOrder(platilloOrder);
                     },
                     error: function (status) {
                         alert(errorMessage(status));
@@ -615,15 +645,15 @@ and open the template in the editor.
                 });
             }
 
-        }
-        function errorMessage(status) {
-            return "Ha ocurrido un error";
-        }
 
-        document.addEventListener("DOMContentLoaded", loaded);
+            function errorMessage(status) {
+                return "Ha ocurrido un error";
+            }
 
-    </script>
-</body>
+            document.addEventListener("DOMContentLoaded", loaded);
+
+        </script>
+    </body>
 </html>
 
 

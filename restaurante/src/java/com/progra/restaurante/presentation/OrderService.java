@@ -62,14 +62,13 @@ public class OrderService extends HttpServlet {
             BufferedReader reader = request.getReader();
             Gson gson = new Gson();
 //Se parsea en un int la posicion del platillo que se desea modificar. 
-            int index = Integer.parseInt(reader.readLine());
+            Platillo platilloAux = gson.fromJson(reader.readLine(), Platillo.class);
 //            Se trae la orden de la sesion
             Orden order = (Orden) session.getAttribute("order");
 //Se trae el platillo con respecto al que se encuentra dentro de la peticion 
-            String nombrePlatillo = order.getPlatilloseleccionadoCollection().get(index).getNombrePlatillo();
 
-            Platillo platillo = com.progra.restaurante.data.Model.instance().findPlatillo(nombrePlatillo);
-            
+            Platillo platillo = com.progra.restaurante.data.Model.instance().findPlatillo(platilloAux.getNombrePlatillo());
+
             response.setContentType("application/json; charset=UTF-8");
             PrintWriter out = response.getWriter();
             out.write(gson.toJson(platillo));
@@ -114,26 +113,35 @@ public class OrderService extends HttpServlet {
             String nombrePlatillo = reader.readLine();
             String cantidadPlatillo = reader.readLine();
             ArrayList<String> opciones = gson.fromJson(reader.readLine(), ArrayList.class);
+            Platillo platilloInOrder = gson.fromJson(reader.readLine(), Platillo.class);
 
             Platillo platillo = com.progra.restaurante.data.Model.instance().getPlatilloToCart(opciones, nombrePlatillo, Integer.parseInt(cantidadPlatillo));
 
             HttpSession session = request.getSession(true);
             if (session.getAttribute("order") == null) {
                 session.setAttribute("order", new Orden());
-            } else {
-                //Codigo para agregar el carrito a la orden y agregarselo a la orden.
-                Orden order = (Orden) session.getAttribute("order");
-                if (!this.searchAlreadyExists(platillo, order)) {
-                    order.getPlatilloseleccionadoCollection().add(platillo);
-                    order.calculateTotal();
-                }
-                session.setAttribute("order", order);
-                //Codigo para salida de la aplicacion
-                response.setContentType("application/json; charset=UTF-8");
-                PrintWriter out = response.getWriter();
-                out.write(gson.toJson(order));
-                response.setStatus(200); // ok with content
             }
+            //Codigo para agregar el carrito a la orden y agregarselo a la orden.
+            Orden order = (Orden) session.getAttribute("order");
+            if (platilloInOrder != null && !platillo.equals(platilloInOrder)) {
+                ArrayList<Platillo> platillosOrden = order.getPlatilloseleccionadoCollection();
+                for (int i = 0; i < platillosOrden.size(); i++) {
+                    if (platillosOrden.get(i).equals(platilloInOrder)) {
+                        order.getPlatilloseleccionadoCollection().get(i).setCantidad(order.getPlatilloseleccionadoCollection().get(i).getCantidad() - platillo.getCantidad());
+                        this.removeDishByQuantity(order.getPlatilloseleccionadoCollection(), i);
+                    }
+                }
+            }
+            if (!this.searchAlreadyExists(platillo, order)) {
+                order.getPlatilloseleccionadoCollection().add(platillo);
+                order.calculateTotal();
+            }
+            session.setAttribute("order", order);
+            //Codigo para salida de la aplicacion
+            response.setContentType("application/json; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.write(gson.toJson(order));
+            response.setStatus(200); // ok with content
 
         } catch (Exception e) {
             response.setStatus(status(e));
@@ -167,9 +175,7 @@ public class OrderService extends HttpServlet {
             for (int i = 0; i < order.getPlatilloseleccionadoCollection().size(); i++) {
                 if (order.getPlatilloseleccionadoCollection().get(i).equals(platillo)) {
                     order.getPlatilloseleccionadoCollection().get(i).setCantidad(order.getPlatilloseleccionadoCollection().get(i).getCantidad() - 1);
-                    if (order.getPlatilloseleccionadoCollection().get(i).getCantidad() == 0) {
-                        order.getPlatilloseleccionadoCollection().remove(i);
-                    }
+                    this.removeDishByQuantity(order.getPlatilloseleccionadoCollection(), i);
                     order.calculateTotal();
                     break;
                 }
@@ -184,6 +190,12 @@ public class OrderService extends HttpServlet {
 
         } catch (Exception e) {
             response.setStatus(status(e));
+        }
+    }
+
+    protected void removeDishByQuantity(ArrayList<Platillo> platillos, int pos) {
+        if (platillos.get(pos).getCantidad() <= 0) {
+            platillos.remove(pos);
         }
     }
 
