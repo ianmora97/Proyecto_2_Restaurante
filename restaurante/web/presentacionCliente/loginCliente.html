@@ -12,9 +12,12 @@ and open the template in the editor.
         <link rel="shortcut icon" type="image/x-icon" href="/restaurante/images/logo.png" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"  crossorigin="anonymous">
         <link rel="stylesheet" href="/restaurante/css/footer.css">
+        <link rel="stylesheet" href="/restaurante/css/general.css">
 
     </head>
-    <body class="bg-light">
+
+    <body  style="background-color: #EEEDED;">
+
         <!--Barra de navegación principal superior-->
         <nav class="navbar navbar-expand-sm bg-white  navbar-inverse">
             <div class="container">
@@ -26,16 +29,17 @@ and open the template in the editor.
                 <button class="navbar-toggler" data-toggle="collapse" data-target="#mainNav">
                     <span class="fas fa-align-justify"></span>
                 </button>
-                <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+                <div class="collapse navbar-collapse justify-content-end navbar-expand-sm" id="mainNav">
                     <div class="navbar-nav">
-                        <a class="nav nav-link active "  href="#" > View Menu </a>
+                        <a class="nav nav-link  "  href="/restaurante/index.jsp" > View Menu </a>
                         <a class="nav-item nav-link"  href="#"> Reservation</a>
-                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/loginCliente.html"> Login</a>
+                        <a class="nav-item nav-link active"  href="/restaurante/presentacionCliente/loginCliente.html"> Login</a>
                         <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/register.html"> Register</a>
                     </div>
                 </div>
             </div>
         </nav>
+
         <div id="page-wrapper">
             <div class="container">
                 <div class="row">
@@ -45,32 +49,33 @@ and open the template in the editor.
                                 <h1 class="card-title h4 mb-4 font-weight-normal">
                                     Log In                    </h1>
 
-                                <form method="POST" action="https://demo.tastyigniter.com/login" accept-charset="UTF-8" role="form" data-request="account::onLogin">
-                                    <div class="form-group">
-                                        <div class="input-group my-3">
-                                            <input type="text" name="email" id="login-email" class="form-control input-lg" placeholder="Email Address" autofocus="" required="" data-kwimpalastatus="alive" data-kwimpalaid="1591858099307-2">
-                                            <span class="input-group-addon">
-                                                <span class="input-group-text">@</span>
-                                            </span>
-                                        </div>
+                                <div class="form-group">
+                                    <div class="input-group my-3">
+                                        <input type="text" name="email" id="input-user" class="form-control input-lg" placeholder="Email Address" autofocus="" required>
+                                        <span class="input-group-addon">
+                                            <span class="input-group-text">@</span>
+                                        </span>
+                                    </div>
 
-                                        <div class="input-group my-3">
-                                            <input type="password" name="password" id="login-password" class="form-control input-lg" placeholder="New Password" required="" data-kwimpalastatus="alive" data-kwimpalaid="1591858099307-1">
-                                            <span class="input-group-addon">
-                                                <span class="input-group-text" style="padding-bottom: 10px; padding-top: 13px;"><i class="fa fa-lock"> </i></span>
-                                            </span>
-                                        </div>
+                                    <div class="input-group my-3">
+                                        <input type="password" name="password" id="input-password" class="form-control input-lg" placeholder="New Password"  required>
+                                        <span class="input-group-addon">
+                                            <span class="input-group-text" style="padding-bottom: 10px; padding-top: 13px;"><i class="fa fa-lock"> </i></span>
+                                        </span>
+                                    </div>
 
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <button type="submit" class="btn btn-primary btn-block btn-lg">Login</button>
-                                            </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <button type="submit" class="btn orange btn-block btn-lg" id='sendLogin'>Login</button>
                                         </div>
                                     </div>
-                                </form>
+                                    <div id="incorrect" class="alert alert-danger" role="alert" >
+                                        <strong>Incorrect</strong> usarname or Password!
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-sm-7">
-                                        <a class="btn btn-outline-default btn-block btn-lg" href="presentacionCliente/register.html">Register </a>
+                                        <a class="btn btn-outline-dark btn-block btn-lg" href="presentacionCliente/register.html">Register </a>
                                     </div>
                                 </div>
                             </div>
@@ -78,101 +83,147 @@ and open the template in the editor.
                     </div>
                 </div>
             </div>
+        </div>
 
-            <footer class="pt-5">
-                <div class="footer pt-5 pb-5">
-                    <div class="container text-white">
+        <footer class="pt-5">
+            <div class="footer pt-5 pb-5">
+                <div class="container text-white">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="footer-links">
+                                <h6 class="footer-title d-none d-sm-block">Proyecto de Programacion 4</h6>
+                                <ul>
+                                    <li>
+                                        <a href="#">David Aguilar Rojas</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Ian Mora Rodriguez</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="footer-links">
+                                <h6 class="footer-title d-none d-sm-block">Information</h6>
+                                <ul>
+                                    <li>
+                                        <a href="#">Profesor: Jose Sanchez</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 mt-3 mt-sm-0">
+                            <div class="social-bottom">
+                                <h6 class="footer-title" style="display: inline-block;">Follow us on</h6>
+                                <ul class="social-icons list-inline" >
+                                    <li>
+                                        <a class="p-2 fab fa-facebook" target="_blank" title="Facebook" href="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="p-2 fab fa-twitter" target="_blank" title="Facebook" href="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="p-2 fab fa-github" target="_blank" title="Facebook" href="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="p-2 fab fa-youtube" target="_blank" title="Facebook" href="">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 mt-3 mt-sm-0">
+                            <div id="newsletter-box">
+                                <h5 class="mb-4">Subscribe to our newsletter</h5>
+                                <form id="subscribeForm" class="subscribe-form" method="POST" >
+                                    <div class="input-group subscribe-group">
+                                        <input type="text" class="form-control" name="subscribe_email" data-kwimpalastatus="alive" readonly>
+                                        <span class="input-group-append">
+                                            <button id="subscribeButton" class="btn btn-info"><i class="fa fa-paper-plane"></i></button>
+                                        </span>
+                                    </div>
+                                </form>                    
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container">
                         <div class="row">
-                            <div class="col-sm-3">
-                                <div class="footer-links">
-                                    <h6 class="footer-title d-none d-sm-block">Proyecto de Programacion 4</h6>
-                                    <ul>
-                                        <li>
-                                            <a href="#">David Aguilar Rojas</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Ian Mora Rodriguez</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="footer-links">
-                                    <h6 class="footer-title d-none d-sm-block">Information</h6>
-                                    <ul>
-                                        <li>
-                                            <a href="#">Profesor: Jose Sanchez</a>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-3 mt-3 mt-sm-0">
-                                <div class="social-bottom">
-                                    <h6 class="footer-title" style="display: inline-block;">Follow us on</h6>
-                                    <ul class="social-icons list-inline" >
-                                        <li>
-                                            <a class="p-2 fab fa-facebook" target="_blank" title="Facebook" href="">
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="p-2 fab fa-twitter" target="_blank" title="Facebook" href="">
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="p-2 fab fa-github" target="_blank" title="Facebook" href="">
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="p-2 fab fa-youtube" target="_blank" title="Facebook" href="">
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-3 mt-3 mt-sm-0">
-                                <div id="newsletter-box">
-                                    <h5 class="mb-4">Subscribe to our newsletter</h5>
-                                    <form id="subscribeForm" class="subscribe-form" method="POST" >
-                                        <div class="input-group subscribe-group">
-                                            <input type="text" class="form-control" name="subscribe_email" data-kwimpalastatus="alive" readonly>
-                                            <span class="input-group-append">
-                                                <button id="subscribeButton" class="btn btn-info"><i class="fa fa-paper-plane"></i></button>
-                                            </span>
-                                        </div>
-                                    </form>                    
-                                </div>
+                            <div class="col">
+                                <hr class="mb-3">
                             </div>
                         </div>
+                    </div>
 
-                        <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    <hr class="mb-3">
-                                </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col p-2">
+                                © 2020 Proyecto Progra 4, Inspirado en: - <a target="_blank" href="http://tastyigniter.com">Powered by TastyIgniter</a>      
                             </div>
                         </div>
+                    </div>
+                </div>    
+            </div>
 
-                        <div class="container">
-                            <div class="row">
-                                <div class="col p-2">
-                                    © 2020 Proyecto Progra 4, Inspirado en: - <a target="_blank" href="http://tastyigniter.com">Powered by TastyIgniter</a>            </div>
-                            </div>
-                        </div>
-                    </div>    
-                </div>
+        </footer>
+        <!--JQUERY-->
+        <script src="https://code.jquery.com/jquery-3.5.1.js"  crossorigin="anonymous"></script>
 
-            </footer>
-            <!--JQUERY-->
-            <script src="https://code.jquery.com/jquery-3.5.1.js"  crossorigin="anonymous"></script>
+        <!--BOOTSTRAP-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"  crossorigin="anonymous"></script>       
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
+        <!--iconos de font awesome-->
+        <script src="https://kit.fontawesome.com/39f4ebbbea.js" crossorigin="anonymous"></script>
 
-            <!--BOOTSTRAP-->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"  crossorigin="anonymous"></script>       
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
-            <!--iconos de font awesome-->
-            <script src="https://kit.fontawesome.com/39f4ebbbea.js" crossorigin="anonymous"></script>
+        <script>
+            function loaded(event) {
+                $("#incorrect").hide();
+                events();
+            }
+            function events() {
+                ingresar();
+            }
+            function ingresar(status) {
+                $("#sendLogin").click(function () {
+                    var username = $("#input-user").val();
+                    var clave = $("#input-password").val();
+                    if (clave.length <= 0 || username.length <= 0) {
+                        $("#input-user").addClass("error");
+                        $("#input-password").addClass("error");
+                        $("#incorrect").fadeTo(2000, 300).slideUp(200, function () {
+                            $("#incorrect").slideUp(200);
+                        });
+                        console.log("entro");
+                    } else {
+                        var sendData = username + "\n" + clave;
+                        console.log(username + clave);
+                        $.ajax({
+                            type: "POST",
+                            url: "/restaurante/api/restaurante/login",
+                            data: sendData,
+                            success: function (usuario) {
+                                location.href = "/restaurante/index.jsp";
+                            },
+                            error: function () {
+                                $("#input-user").addClass("error");
+                                $("#input-password").addClass("error");
+                                $("#incorrect").fadeTo(2000, 500).slideUp(500, function () {
+                                    $("#incorrect").slideUp(500);
+                                });
+                            }
+                        });
+                    }
+                });
+
+            }
+            document.addEventListener("DOMContentLoaded", loaded);
+        </script>
     </body>
 </html>

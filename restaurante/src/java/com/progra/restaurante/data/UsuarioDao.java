@@ -16,9 +16,10 @@ import java.sql.SQLException;
  * @author ianmo
  */
 public class UsuarioDao {
+
     public static Usuario getUsuario(String user, String clave) throws Exception {
         String SQL = "select * from usuario where username=? and contrasena=?;";
-        Usuario usuario = new Usuario();
+        Usuario usuario = null;
 
         try {
             Connection con = Conn.conectar();
@@ -29,6 +30,7 @@ public class UsuarioDao {
             ResultSet resultado = st.executeQuery();
 
             while (resultado.next()) {
+                usuario = new Usuario();
                 usuario.setUsuarioCorreo(resultado.getString("usuario_correo"));
                 usuario.setUsername(resultado.getString("username"));
                 usuario.setContrasena(resultado.getString("contrasena"));
@@ -37,11 +39,37 @@ public class UsuarioDao {
             con.close();
             resultado.close();
             st.close();
+
             return usuario;
 
         } catch (SQLException ex) {
             System.out.println(ex);
-            return usuario;
+            return null;
+        }
+    }
+
+    public static boolean insertUser(Usuario usuario) throws Exception {
+        String SQL = "insert into usuario values (?,?,?,?);";
+
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+
+            st.setString(1, usuario.getUsuarioCorreo());
+            st.setString(2, usuario.getUsername());
+            st.setString(3, usuario.getContrasena());
+            st.setInt(4, usuario.getRol());
+
+            int resultado = st.executeUpdate();
+
+            con.close();
+            st.close();
+            
+            return resultado != 0;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return false;
         }
     }
 }

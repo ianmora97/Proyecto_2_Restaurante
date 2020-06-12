@@ -7,8 +7,13 @@ insert into usuario values ('david@gmail.com','pulplix','123',1);
 insert into usuario values ('ian@gmail.com','ianMora666','123',1);
 
 select *from usuario;
+delete from usuario where usuario_correo = 'juan@gmail.com';
+-- ============================================ 
+-- Cliente 
+-- ============================================ 
+insert into cliente values ('david@gmail.com','David','Aguilar','22546789');
 
-
+select *from cliente;
 
 -- ============================================ 
 -- UBICACION 

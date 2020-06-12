@@ -8,15 +8,18 @@ package com.progra.restaurante.presentation;
 import com.google.gson.Gson;
 
 import com.progra.restaurante.data.Model;
-import com.progra.restaurante.logic.Adicional;
 import com.progra.restaurante.logic.Categoria;
+import com.progra.restaurante.logic.Cliente;
 import com.progra.restaurante.logic.Orden;
 import com.progra.restaurante.logic.Platillo;
 import com.progra.restaurante.logic.Usuario;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,7 +32,8 @@ import javax.servlet.http.HttpSession;
  * @author
  */
 @WebServlet(name = "OrderService", urlPatterns = {"/api/restaurante/categorias/get", "/api/restaurante/AddToCart",
-    "/api/restaurante/GetCartSession", "/api/restaurante/decreseQuant", "/api/restaurante/getDishInCart"})
+    "/api/restaurante/GetCartSession", "/api/restaurante/decreseQuant", "/api/restaurante/getDishInCart",
+    "/api/restaurante/login", "/api/restaurante/register", "/api/restaurante/updateCart"})
 public class OrderService extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -51,7 +55,97 @@ public class OrderService extends HttpServlet {
             case "/api/restaurante/getDishInCart":
                 this.doGetDishInCart(request, response);
                 break;
+            case "/api/restaurante/register":
+                this.doRegisterAction(request, response);
+                break;
+            case "/api/restaurante/updateCart":
+                this.doUpdateOptions(request, response);
 
+        }
+    }
+
+    protected void doUpdateOptions(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
+            BufferedReader reader = request.getReader();
+
+            String tipo_entrega = reader.readLine();
+            String fecha = reader.readLine();
+
+            HttpSession session = request.getSession(true);
+            Orden order = (Orden) session.getAttribute("order");
+            order.setTipoEntrega(Integer.parseInt(tipo_entrega));
+
+            if (fecha.equals("ASAP")) {
+                order.setAsap(1);
+            } else {
+                order.setAsap(0);
+//                String fecha = "19-06-2020 19:55";
+                SimpleDateFormat formatDMA = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                Date sameDate = formatDMA.parse(fecha);
+
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(sameDate);
+                order.setFechaEntrega(sameDate);
+            }
+            response.setStatus(201);
+
+        } catch (Exception e) {
+            response.setStatus(status(e));
+        }
+    }
+
+    protected void doRegisterAction(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
+            BufferedReader reader = request.getReader();
+
+            String firstName = reader.readLine();
+            String lastName = reader.readLine();
+            String email = reader.readLine();
+            String password = reader.readLine();
+            String confirmPass = reader.readLine();
+            String telephone = reader.readLine();
+
+            Usuario usuario = new Usuario(email, firstName, password, 0);
+            if (com.progra.restaurante.data.Model.instance().insertUser(usuario) == true) {
+                Cliente cliente = new Cliente(email, firstName, lastName, telephone);
+                if (com.progra.restaurante.data.Model.instance().insertCliente(cliente) == false) {
+                    throw new Exception("Error");
+                }
+            }
+
+            response.setStatus(201);
+
+        } catch (Exception e) {
+            response.setStatus(status(e));
+        }
+    }
+
+    protected void doLoginAction(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
+            BufferedReader reader = request.getReader();
+            Gson gson = new Gson();
+
+            String username = reader.readLine();
+            String clave = reader.readLine();
+
+            HttpSession session = request.getSession(true);
+            Usuario real = com.progra.restaurante.data.Model.instance().getUsuario(username, clave);
+            if (real == null) {
+                throw new Exception("Usuario no encontrado");
+            }
+            session.setAttribute("usuario", real);
+
+            response.setContentType("application/json; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.write(gson.toJson(real));
+
+            response.setStatus(200);
+
+        } catch (Exception e) {
+            response.setStatus(status(e));
         }
     }
 
@@ -89,16 +183,15 @@ public class OrderService extends HttpServlet {
 
             if (session.getAttribute("order") == null) {
                 session.setAttribute("order", new Orden());
-            } else {
-                //Codigo para agregar el carrito a la orden y agregarselo a la orden.
-                Orden order = (Orden) session.getAttribute("order");
-                session.setAttribute("order", order);
-                //Codigo para salida de la aplicacion
-                response.setContentType("application/json; charset=UTF-8");
-                PrintWriter out = response.getWriter();
-                out.write(gson.toJson(order));
-                response.setStatus(200); // ok with content
             }
+            Orden order = (Orden) session.getAttribute("order");
+
+            //Salida de la aplicacion
+            response.setContentType("application/json; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.write(gson.toJson(order));
+            response.setStatus(200); // ok with content
+
         } catch (Exception e) {
             response.setStatus(status(e));
         }

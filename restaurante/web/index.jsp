@@ -25,15 +25,17 @@ and open the template in the editor.
         <link rel="shortcut icon" type="image/x-icon" href="/restaurante/images/logo.png" />
 
         <link rel="stylesheet" href="/restaurante/css/bootstrap-datetimepicker.min.css">
+        <!--css local-->
         <link rel="stylesheet" href="/restaurante/css/order.css">
+        <link rel="stylesheet" href="/restaurante/css/general.css">
 
         <!--bootstrap css-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"  crossorigin="anonymous">
         <!--Link del css de la página original-->
-        <link rel="stylesheet" type="text/css" href="https://demo.tastyigniter.com/themes/tastyigniter-orange/assets/css/app.css" name="app-css">
+        <link rel="stylesheet" type="text/css" href="https://demo.tastyigniter.com/themes/tastyigniter-orange/assets/css/app.css" >
 
     </head>
-    <body class="bg-light">
+    <body style="background-color: #EEEDED;">
         <!--MODAL PARA LA FECHA-->
         <div class="modal fade" tabindex="-1" id="modal-date" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -108,7 +110,6 @@ and open the template in the editor.
 
         <!--Barra de navegación principal superior-->
         <nav class="navbar navbar-expand-sm bg-white  navbar-inverse">
-
             <div class="container">
                 <div class="justify-content-start">
                     <a href="#">
@@ -120,10 +121,10 @@ and open the template in the editor.
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="mainNav">
                     <div class="navbar-nav">
-                        <a class="nav nav-link active "  href="#" > View Menu </a>
+                        <a class="nav nav-link active "  href="/restaurante/index.jsp" > View Menu </a>
                         <a class="nav-item nav-link"  href="#"> Reservation</a>
-                        <a class="nav-item nav-link"  href="presentacionCliente/loginCliente.html"> Login</a>
-                        <a class="nav-item nav-link"  href="presentacionCliente/register.html"> Register</a>
+                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/loginCliente.html"> Login</a>
+                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/register.html"> Register</a>
                     </div>
                 </div>
             </div>
@@ -254,7 +255,7 @@ and open the template in the editor.
                             </div>
 
                             <div id="cart-buttons" class="mt-3">
-                                <button class="checkout-btn btn btn-primary  btn-block btn-lg"  style="width: 80%; margin: 15px auto;">
+                                <button class="checkout-btn btn btn-primary  btn-block btn-lg" id="checkoutBtn" style="width: 80%; margin: 15px auto;">
                                     Checkout
                                 </button>
                             </div>
@@ -266,7 +267,92 @@ and open the template in the editor.
 
             <!--final-->
         </div>
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        <footer class="pt-5 my-5">
+            <div class="footer pt-5 pb-5">
+                <div class="container text-white">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="footer-links">
+                                <h6 class="footer-title d-none d-sm-block">Proyecto de Programacion 4</h6>
+                                <ul>
+                                    <li>
+                                        <a href="#">David Aguilar Rojas</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Ian Mora Rodriguez</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="footer-links">
+                                <h6 class="footer-title d-none d-sm-block">Information</h6>
+                                <ul>
+                                    <li>
+                                        <a href="#">Profesor: Jose Sanchez</a>
+                                    </li>
 
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 mt-3 mt-sm-0">
+                            <div class="social-bottom">
+                                <h6 class="footer-title" style="display: inline-block;">Follow us on</h6>
+                                <ul class="social-icons list-inline" >
+                                    <li>
+                                        <a class="p-2 fab fa-facebook" target="_blank" title="Facebook" href="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="p-2 fab fa-twitter" target="_blank" title="Facebook" href="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="p-2 fab fa-github" target="_blank" title="Facebook" href="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="p-2 fab fa-youtube" target="_blank" title="Facebook" href="">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 mt-3 mt-sm-0">
+                            <div id="newsletter-box">
+                                <h5 class="mb-4">Subscribe to our newsletter</h5>
+                                <form id="subscribeForm" class="subscribe-form" method="POST" >
+                                    <div class="input-group subscribe-group">
+                                        <input type="text" class="form-control" name="subscribe_email" data-kwimpalastatus="alive" readonly>
+                                        <span class="input-group-append">
+                                            <button id="subscribeButton" class="btn btn-info"><i class="fa fa-paper-plane"></i></button>
+                                        </span>
+                                    </div>
+                                </form>                    
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <hr class="mb-3">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col p-2">
+                                © 2020 Proyecto Progra 4, Inspirado en: - <a target="_blank" href="http://tastyigniter.com">Powered by TastyIgniter</a>            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </footer>
         <!--SCRIPTS--> 
 
         <!--JQUERY-->
@@ -290,11 +376,6 @@ and open the template in the editor.
 
         <!--iconos de font awesome-->
         <script src="https://kit.fontawesome.com/39f4ebbbea.js" crossorigin="anonymous"></script>
-        <script>
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-        </script>
 
 
         <!--Scripts del programa-->
@@ -311,6 +392,7 @@ and open the template in the editor.
             function loaded(event) {
                 fillCategories();
                 events();
+                getOrder();
             }
 
             function fillCategories() {
@@ -343,7 +425,7 @@ and open the template in the editor.
                         '<div class="card-header">' +
                         ' <h1 class="mb-0">' +
                         '<button class="btn btn-link btn-block text-left " type="button" data-toggle="collapse"' +
-                        'data-target="#' + targetAccordion + '">' + categoria.nombre + ' </button>' +
+                        'data-target="#' + targetAccordion + '" style="font-size: 18px;"> <b> &nbsp&nbsp&nbsp&nbsp&nbsp' + categoria.nombre + ' </b></button>' +
                         ' </h1>' +
                         ' </div>' +
                         '<div id="' + targetAccordion + '" class="collapse show">' +
@@ -363,12 +445,12 @@ and open the template in the editor.
                 $("#" + platilloId).append(
                         '<div class="d-flex flex-row mr-3 mt-3 btn-block">' +
                         ' <div class=" flex-grow-1 " id="firstPart">' +
-                        '<h6>' + platillo.nombrePlatillo + '</h6>' +
+                        '<h6 style="color:black;">' + platillo.nombrePlatillo + '</h6>' +
                         '<p class="text-muted mb-0" id="dishDescription">'
                         + platillo.descripcion + '</p>' +
                         ' </div>' +
                         '<div class=" align-self-start col-3 text-right p-0" id="secondPart">' +
-                        '<span class=" pr-sm-3" id="price">' +
+                        '<span class=" pr-sm-3" id="price" style="color:black;">' +
                         '<b>' + platillo.precio + '</b>' +
                         ' </span><span class="btnPlus">' +
                         '<button type="button" class="btn btn-light btn-sm btn-cart " data-toggle="modal"' +
@@ -416,7 +498,6 @@ and open the template in the editor.
                                 '</div>' +
                                 '</div>' +
                                 '</div>');
-
                         if (AdicionalesOrden !== null) {
                             var bandera = false;
                             for (let i = 0; i < AdicionalesOrden.length; i++) {
@@ -480,12 +561,10 @@ and open the template in the editor.
                                 '</div>';
                     }
                     $("#" + adicionalSinEspacios).append(htmlOption);
-
                     if (opcionesOrden !== null) {
                         for (let i = 0; i < opcionesOrden.length; i++) {
                             var opSinEspOrder = opcionesOrden[i].nombre.replace(/ /g, "");
                             if (opcionesSinEspacios === opSinEspOrder) {
-                                console.log(opcionesSinEspacios);
                                 $("#" + opcionesSinEspacios + "OpId").attr("checked", "checked");
                             }
                         }
@@ -508,14 +587,35 @@ and open the template in the editor.
                     }
                 }
                 );
-                //  Evento de guardar el platillo en el carrito.
-
+                checkout();
+            }
+            function checkout() {
+                $("#checkoutBtn").click(function () {
+                    var seleccionada;
+                    if ($("#delivery").prop("checked")) {
+                        seleccionada = 1;
+                    } else {
+                        seleccionada = 2;
+                    }
+                    var ASAP = $("#dropdownMenuFecha").text();
+                    var sendData = seleccionada + "\n" + ASAP;
+                    console.log(sendData);
+                    $.ajax({
+                        type: "POST",
+                        url: "api/restaurante/updateCart",
+                        data: sendData,
+                        success: function () {
+                            location.href = "/restaurante/presentacionCliente/checkout.html";
+                        },
+                        error: function (status) {
+                            alert(errorMessage(status));
+                        }
+                    });
+                });
             }
 
             function keepDishInOrder(platilloInOrder) {
-                
                 $("#saveDish").off();
-
                 $("#saveDish").click(function () {
                     var Options = $("[id*=OpId]");
                     var OpSelected = [];
@@ -528,7 +628,6 @@ and open the template in the editor.
                     var cantidad = $("#quantityModal").val();
                     var OptionsSelected = JSON.stringify(OpSelected);
                     var platilloOrder = JSON.stringify(platilloInOrder);
-                    console.log(platilloOrder);
                     var sendData = nombre + "\n" + cantidad + "\n" + OptionsSelected + "\n" + platilloOrder;
                     $.ajax({
                         type: "POST",
@@ -550,8 +649,7 @@ and open the template in the editor.
             function getOrder() {
                 $.ajax({
                     type: "POST",
-                    url: "api/restaurante/GetCartSession",
-                    data: sendData,
+                    url: "/restaurante/api/restaurante/GetCartSession",
                     success: function (orden) {
                         p_selected = orden.platilloseleccionadoCollection;
                         fillCart(p_selected);
@@ -616,7 +714,6 @@ and open the template in the editor.
                     data: JSON.stringify(platillo),
                     contentType: "application/json",
                     success: function (orden) {
-                        console.log(orden);
                         p_selected = orden.platilloseleccionadoCollection;
                         fillCart(p_selected);
                         $("#cart-totals").html(" ");
@@ -636,7 +733,6 @@ and open the template in the editor.
                     contentType: "application/json",
                     success: function (platilloCompleto) {
                         getAditional(platilloCompleto, platilloOrder);
-
                         keepDishInOrder(platilloOrder);
                     },
                     error: function (status) {

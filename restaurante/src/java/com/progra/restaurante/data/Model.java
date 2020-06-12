@@ -44,15 +44,27 @@ public class Model {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     public Usuario getUsuario(String u, String c) throws Exception {
-        return com.progra.restaurante.data.UsuarioDao.getUsuario(u,c);
+        return com.progra.restaurante.data.UsuarioDao.getUsuario(u, c);
     }
+
+    public boolean insertUser(Usuario usuario) throws Exception {
+        return com.progra.restaurante.data.UsuarioDao.insertUser(usuario);
+    }
+
+    public boolean insertCliente(Cliente cliente) throws Exception {
+        return com.progra.restaurante.data.ClienteDao.insertClient(cliente);
+    }
+
     public ArrayList<Categoria> getCategories() throws Exception {
         return categorias;
     }
+
     public ArrayList<Categoria> getCategoriesAdmin() throws Exception {
         return com.progra.restaurante.data.CategoriesDao.getListaCategorias();
     }
+
     public ArrayList<Opcion> getOpciones() throws Exception {
         return opciones;
     }
@@ -70,21 +82,22 @@ public class Model {
         }
         return null;
     }
+
     public ArrayList<Platillo> getPlatosEO() throws Exception {
         return com.progra.restaurante.data.DishesDao.listarPlatillos();
     }
-    
+
     public ArrayList<Platillo> getPlatillos() throws Exception {
         return platillos;
     }
 
     public Platillo findPlatillo(String nombrePlatillo) throws Exception {
-        for(Platillo platillo: platillos){
-            if(platillo.getNombrePlatillo().equals(nombrePlatillo)){
+        for (Platillo platillo : platillos) {
+            if (platillo.getNombrePlatillo().equals(nombrePlatillo)) {
                 return platillo;
             }
         }
-       return null;
+        return null;
     }
 
     public Categoria findCategoria(int id_categoria) throws Exception {
@@ -106,7 +119,7 @@ public class Model {
             String nombresDePlatillo = platillos.get(i).getNombrePlatillo();
             nombresDePlatillo = nombresDePlatillo.replace(" ", "");
             nombrePlatillo = nombrePlatillo.replace(" ", "");
-           
+
             if (nombresDePlatillo.equals(nombrePlatillo)) {
                 platillo = platillos.get(i).copy(platillos.get(i));
                 break;

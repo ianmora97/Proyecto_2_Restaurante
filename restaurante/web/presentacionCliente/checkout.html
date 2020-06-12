@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Checkout - Order</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" type="image/x-icon" href="/restaurante/images/logo.png" />
+
+        <!--bootstrap css-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"  crossorigin="anonymous">
+        <!--css local-->
+        <link rel="stylesheet" href="/restaurante/css/footer.css">
+        <link rel="stylesheet" href="/restaurante/css/order.css">
+        <link rel="stylesheet" href="/restaurante/css/general.css">
+    </head>
+    <body style="background-color: #EEEDED;">
+        <!--MODAL PARA LAS ADICIONALES-->
+        <div class="modal" tabindex="-1" role="dialog" id="modalOptions">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="nombrePlatilloModal"> </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-muted text-center" id="descPlatilloModal"></p>
+
+                    </div>
+
+                    <div class="modal-body " id="adtionalModal" >
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="row no-gutters w-100">
+                            <div class="col-sm-5 pb-3 pb-sm-0">
+                                <input type="number" value="1" min="1" max="30" step="1" id="quantityModal"/>
+                            </div>
+                            <div class="col-sm-7 pl-sm-2">
+                                <button type="submit" class="btn btn-primary btn-block" data-attach-loading="" id="saveDish">
+                                    ADD TO ORDER              
+                                    <span class="pull-right" id="priceModal"> </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar navbar-expand-sm bg-white  navbar-inverse">
+            <div class="container">
+                <div class="justify-content-start">
+                    <a href="#">
+                        <img src="/restaurante/images/logo.png" height="40"/>
+                    </a>
+                </div>
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#mainNav">
+                    <span class="fas fa-align-justify"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link  "  href="/restaurante/index.jsp" > View Menu </a>
+                        <a class="nav-item nav-link "  href="#"> Reservation</a>
+                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/loginCliente.html"> Login</a>
+                        <a class="nav-item nav-link "  href="/restaurante/presentacionCliente/register.html"> Register</a>
+                    </div> 
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row py-4">
+                <div class="col col-sm-8">
+                    <div id="local-box">
+                        <div class="panel local-search">
+                            <div class="panel-body">
+                                <div class="row mb-1 mx-auto p-3" style="background: white;">
+                                    <div class="col-sm-4 mb-3 mb-sm-0">
+                                        <div id="local-timeslot" data-control="timepicker" data-time-slot="{&quot;dates&quot;:{&quot;2020-06-12&quot;:&quot;Fri 12&quot;,&quot;2020-06-13&quot;:&quot;Sat 13&quot;,&quot;2020-06-14&quot;:&quot;Sun 14&quot;,&quot;2020-06-15&quot;:&quot;Mon 15&quot;,&quot;2020-06-16&quot;:&quot;Tue 16&quot;,&quot;2020-06-17&quot;:&quot;Wed 17&quot;},&quot;hours&quot;:{&quot;2020-06-12&quot;:{&quot;06:00&quot;:&quot;Fri 06:00 am&quot;,&quot;06:15&quot;:&quot;Fri 06:15 am&quot;,&quot;06:30&quot;:&quot;Fri 06:30 am&quot;,&quot;06:45&quot;:&quot;Fri 06:45 am&quot;,&quot;07:00&quot;:&quot;Fri 07:00 am&quot;,&quot;07:15&quot;:&quot;Fri 07:15 am&quot;,&quot;07:30&quot;:&quot;Fri 07:30 am&quot;,&quot;07:45&quot;:&quot;Fri 07:45 am&quot;,&quot;08:00&quot;:&quot;Fri 08:00 am&quot;,&quot;08:15&quot;:&quot;Fri 08:15 am&quot;,&quot;08:30&quot;:&quot;Fri 08:30 am&quot;,&quot;08:45&quot;:&quot;Fri 08:45 am&quot;,&quot;09:00&quot;:&quot;Fri 09:00 am&quot;,&quot;09:15&quot;:&quot;Fri 09:15 am&quot;,&quot;09:30&quot;:&quot;Fri 09:30 am&quot;,&quot;09:45&quot;:&quot;Fri 09:45 am&quot;,&quot;10:00&quot;:&quot;Fri 10:00 am&quot;,&quot;10:15&quot;:&quot;Fri 10:15 am&quot;,&quot;10:30&quot;:&quot;Fri 10:30 am&quot;,&quot;10:45&quot;:&quot;Fri 10:45 am&quot;,&quot;11:00&quot;:&quot;Fri 11:00 am&quot;,&quot;11:15&quot;:&quot;Fri 11:15 am&quot;,&quot;11:30&quot;:&quot;Fri 11:30 am&quot;,&quot;11:45&quot;:&quot;Fri 11:45 am&quot;,&quot;12:00&quot;:&quot;Fri 12:00 pm&quot;,&quot;12:15&quot;:&quot;Fri 12:15 pm&quot;,&quot;12:30&quot;:&quot;Fri 12:30 pm&quot;,&quot;12:45&quot;:&quot;Fri 12:45 pm&quot;,&quot;13:00&quot;:&quot;Fri 01:00 pm&quot;,&quot;13:15&quot;:&quot;Fri 01:15 pm&quot;,&quot;13:30&quot;:&quot;Fri 01:30 pm&quot;,&quot;13:45&quot;:&quot;Fri 01:45 pm&quot;,&quot;14:00&quot;:&quot;Fri 02:00 pm&quot;,&quot;14:15&quot;:&quot;Fri 02:15 pm&quot;,&quot;14:30&quot;:&quot;Fri 02:30 pm&quot;,&quot;14:45&quot;:&quot;Fri 02:45 pm&quot;,&quot;15:00&quot;:&quot;Fri 03:00 pm&quot;,&quot;15:15&quot;:&quot;Fri 03:15 pm&quot;,&quot;15:30&quot;:&quot;Fri 03:30 pm&quot;,&quot;15:45&quot;:&quot;Fri 03:45 pm&quot;,&quot;16:00&quot;:&quot;Fri 04:00 pm&quot;,&quot;16:15&quot;:&quot;Fri 04:15 pm&quot;,&quot;16:30&quot;:&quot;Fri 04:30 pm&quot;,&quot;16:45&quot;:&quot;Fri 04:45 pm&quot;,&quot;17:00&quot;:&quot;Fri 05:00 pm&quot;,&quot;17:15&quot;:&quot;Fri 05:15 pm&quot;,&quot;17:30&quot;:&quot;Fri 05:30 pm&quot;,&quot;17:45&quot;:&quot;Fri 05:45 pm&quot;,&quot;18:00&quot;:&quot;Fri 06:00 pm&quot;,&quot;18:15&quot;:&quot;Fri 06:15 pm&quot;,&quot;18:30&quot;:&quot;Fri 06:30 pm&quot;,&quot;18:45&quot;:&quot;Fri 06:45 pm&quot;,&quot;19:00&quot;:&quot;Fri 07:00 pm&quot;,&quot;19:15&quot;:&quot;Fri 07:15 pm&quot;,&quot;19:30&quot;:&quot;Fri 07:30 pm&quot;,&quot;19:45&quot;:&quot;Fri 07:45 pm&quot;,&quot;20:00&quot;:&quot;Fri 08:00 pm&quot;,&quot;20:15&quot;:&quot;Fri 08:15 pm&quot;,&quot;20:30&quot;:&quot;Fri 08:30 pm&quot;,&quot;20:45&quot;:&quot;Fri 08:45 pm&quot;,&quot;21:00&quot;:&quot;Fri 09:00 pm&quot;,&quot;21:15&quot;:&quot;Fri 09:15 pm&quot;,&quot;21:30&quot;:&quot;Fri 09:30 pm&quot;,&quot;21:45&quot;:&quot;Fri 09:45 pm&quot;,&quot;22:00&quot;:&quot;Fri 10:00 pm&quot;,&quot;22:15&quot;:&quot;Fri 10:15 pm&quot;,&quot;22:30&quot;:&quot;Fri 10:30 pm&quot;,&quot;22:45&quot;:&quot;Fri 10:45 pm&quot;},&quot;2020-06-13&quot;:{&quot;06:00&quot;:&quot;Sat 06:00 am&quot;,&quot;06:15&quot;:&quot;Sat 06:15 am&quot;,&quot;06:30&quot;:&quot;Sat 06:30 am&quot;,&quot;06:45&quot;:&quot;Sat 06:45 am&quot;,&quot;07:00&quot;:&quot;Sat 07:00 am&quot;,&quot;07:15&quot;:&quot;Sat 07:15 am&quot;,&quot;07:30&quot;:&quot;Sat 07:30 am&quot;,&quot;07:45&quot;:&quot;Sat 07:45 am&quot;,&quot;08:00&quot;:&quot;Sat 08:00 am&quot;,&quot;08:15&quot;:&quot;Sat 08:15 am&quot;,&quot;08:30&quot;:&quot;Sat 08:30 am&quot;,&quot;08:45&quot;:&quot;Sat 08:45 am&quot;,&quot;09:00&quot;:&quot;Sat 09:00 am&quot;,&quot;09:15&quot;:&quot;Sat 09:15 am&quot;,&quot;09:30&quot;:&quot;Sat 09:30 am&quot;,&quot;09:45&quot;:&quot;Sat 09:45 am&quot;,&quot;10:00&quot;:&quot;Sat 10:00 am&quot;,&quot;10:15&quot;:&quot;Sat 10:15 am&quot;,&quot;10:30&quot;:&quot;Sat 10:30 am&quot;,&quot;10:45&quot;:&quot;Sat 10:45 am&quot;,&quot;11:00&quot;:&quot;Sat 11:00 am&quot;,&quot;11:15&quot;:&quot;Sat 11:15 am&quot;,&quot;11:30&quot;:&quot;Sat 11:30 am&quot;,&quot;11:45&quot;:&quot;Sat 11:45 am&quot;,&quot;12:00&quot;:&quot;Sat 12:00 pm&quot;,&quot;12:15&quot;:&quot;Sat 12:15 pm&quot;,&quot;12:30&quot;:&quot;Sat 12:30 pm&quot;,&quot;12:45&quot;:&quot;Sat 12:45 pm&quot;,&quot;13:00&quot;:&quot;Sat 01:00 pm&quot;,&quot;13:15&quot;:&quot;Sat 01:15 pm&quot;,&quot;13:30&quot;:&quot;Sat 01:30 pm&quot;,&quot;13:45&quot;:&quot;Sat 01:45 pm&quot;,&quot;14:00&quot;:&quot;Sat 02:00 pm&quot;,&quot;14:15&quot;:&quot;Sat 02:15 pm&quot;,&quot;14:30&quot;:&quot;Sat 02:30 pm&quot;,&quot;14:45&quot;:&quot;Sat 02:45 pm&quot;,&quot;15:00&quot;:&quot;Sat 03:00 pm&quot;,&quot;15:15&quot;:&quot;Sat 03:15 pm&quot;,&quot;15:30&quot;:&quot;Sat 03:30 pm&quot;,&quot;15:45&quot;:&quot;Sat 03:45 pm&quot;,&quot;16:00&quot;:&quot;Sat 04:00 pm&quot;,&quot;16:15&quot;:&quot;Sat 04:15 pm&quot;,&quot;16:30&quot;:&quot;Sat 04:30 pm&quot;,&quot;16:45&quot;:&quot;Sat 04:45 pm&quot;,&quot;17:00&quot;:&quot;Sat 05:00 pm&quot;,&quot;17:15&quot;:&quot;Sat 05:15 pm&quot;,&quot;17:30&quot;:&quot;Sat 05:30 pm&quot;,&quot;17:45&quot;:&quot;Sat 05:45 pm&quot;,&quot;18:00&quot;:&quot;Sat 06:00 pm&quot;,&quot;18:15&quot;:&quot;Sat 06:15 pm&quot;,&quot;18:30&quot;:&quot;Sat 06:30 pm&quot;,&quot;18:45&quot;:&quot;Sat 06:45 pm&quot;,&quot;19:00&quot;:&quot;Sat 07:00 pm&quot;,&quot;19:15&quot;:&quot;Sat 07:15 pm&quot;,&quot;19:30&quot;:&quot;Sat 07:30 pm&quot;,&quot;19:45&quot;:&quot;Sat 07:45 pm&quot;,&quot;20:00&quot;:&quot;Sat 08:00 pm&quot;,&quot;20:15&quot;:&quot;Sat 08:15 pm&quot;,&quot;20:30&quot;:&quot;Sat 08:30 pm&quot;,&quot;20:45&quot;:&quot;Sat 08:45 pm&quot;,&quot;21:00&quot;:&quot;Sat 09:00 pm&quot;,&quot;21:15&quot;:&quot;Sat 09:15 pm&quot;,&quot;21:30&quot;:&quot;Sat 09:30 pm&quot;,&quot;21:45&quot;:&quot;Sat 09:45 pm&quot;,&quot;22:00&quot;:&quot;Sat 10:00 pm&quot;,&quot;22:15&quot;:&quot;Sat 10:15 pm&quot;,&quot;22:30&quot;:&quot;Sat 10:30 pm&quot;,&quot;22:45&quot;:&quot;Sat 10:45 pm&quot;},&quot;2020-06-14&quot;:{&quot;06:00&quot;:&quot;Sun 06:00 am&quot;,&quot;06:15&quot;:&quot;Sun 06:15 am&quot;,&quot;06:30&quot;:&quot;Sun 06:30 am&quot;,&quot;06:45&quot;:&quot;Sun 06:45 am&quot;,&quot;07:00&quot;:&quot;Sun 07:00 am&quot;,&quot;07:15&quot;:&quot;Sun 07:15 am&quot;,&quot;07:30&quot;:&quot;Sun 07:30 am&quot;,&quot;07:45&quot;:&quot;Sun 07:45 am&quot;,&quot;08:00&quot;:&quot;Sun 08:00 am&quot;,&quot;08:15&quot;:&quot;Sun 08:15 am&quot;,&quot;08:30&quot;:&quot;Sun 08:30 am&quot;,&quot;08:45&quot;:&quot;Sun 08:45 am&quot;,&quot;09:00&quot;:&quot;Sun 09:00 am&quot;,&quot;09:15&quot;:&quot;Sun 09:15 am&quot;,&quot;09:30&quot;:&quot;Sun 09:30 am&quot;,&quot;09:45&quot;:&quot;Sun 09:45 am&quot;,&quot;10:00&quot;:&quot;Sun 10:00 am&quot;,&quot;10:15&quot;:&quot;Sun 10:15 am&quot;,&quot;10:30&quot;:&quot;Sun 10:30 am&quot;,&quot;10:45&quot;:&quot;Sun 10:45 am&quot;,&quot;11:00&quot;:&quot;Sun 11:00 am&quot;,&quot;11:15&quot;:&quot;Sun 11:15 am&quot;,&quot;11:30&quot;:&quot;Sun 11:30 am&quot;,&quot;11:45&quot;:&quot;Sun 11:45 am&quot;,&quot;12:00&quot;:&quot;Sun 12:00 pm&quot;,&quot;12:15&quot;:&quot;Sun 12:15 pm&quot;,&quot;12:30&quot;:&quot;Sun 12:30 pm&quot;,&quot;12:45&quot;:&quot;Sun 12:45 pm&quot;,&quot;13:00&quot;:&quot;Sun 01:00 pm&quot;,&quot;13:15&quot;:&quot;Sun 01:15 pm&quot;,&quot;13:30&quot;:&quot;Sun 01:30 pm&quot;,&quot;13:45&quot;:&quot;Sun 01:45 pm&quot;,&quot;14:00&quot;:&quot;Sun 02:00 pm&quot;,&quot;14:15&quot;:&quot;Sun 02:15 pm&quot;,&quot;14:30&quot;:&quot;Sun 02:30 pm&quot;,&quot;14:45&quot;:&quot;Sun 02:45 pm&quot;,&quot;15:00&quot;:&quot;Sun 03:00 pm&quot;,&quot;15:15&quot;:&quot;Sun 03:15 pm&quot;,&quot;15:30&quot;:&quot;Sun 03:30 pm&quot;,&quot;15:45&quot;:&quot;Sun 03:45 pm&quot;,&quot;16:00&quot;:&quot;Sun 04:00 pm&quot;,&quot;16:15&quot;:&quot;Sun 04:15 pm&quot;,&quot;16:30&quot;:&quot;Sun 04:30 pm&quot;,&quot;16:45&quot;:&quot;Sun 04:45 pm&quot;,&quot;17:00&quot;:&quot;Sun 05:00 pm&quot;,&quot;17:15&quot;:&quot;Sun 05:15 pm&quot;,&quot;17:30&quot;:&quot;Sun 05:30 pm&quot;,&quot;17:45&quot;:&quot;Sun 05:45 pm&quot;,&quot;18:00&quot;:&quot;Sun 06:00 pm&quot;,&quot;18:15&quot;:&quot;Sun 06:15 pm&quot;,&quot;18:30&quot;:&quot;Sun 06:30 pm&quot;,&quot;18:45&quot;:&quot;Sun 06:45 pm&quot;,&quot;19:00&quot;:&quot;Sun 07:00 pm&quot;,&quot;19:15&quot;:&quot;Sun 07:15 pm&quot;,&quot;19:30&quot;:&quot;Sun 07:30 pm&quot;,&quot;19:45&quot;:&quot;Sun 07:45 pm&quot;,&quot;20:00&quot;:&quot;Sun 08:00 pm&quot;,&quot;20:15&quot;:&quot;Sun 08:15 pm&quot;,&quot;20:30&quot;:&quot;Sun 08:30 pm&quot;,&quot;20:45&quot;:&quot;Sun 08:45 pm&quot;,&quot;21:00&quot;:&quot;Sun 09:00 pm&quot;,&quot;21:15&quot;:&quot;Sun 09:15 pm&quot;,&quot;21:30&quot;:&quot;Sun 09:30 pm&quot;,&quot;21:45&quot;:&quot;Sun 09:45 pm&quot;,&quot;22:00&quot;:&quot;Sun 10:00 pm&quot;,&quot;22:15&quot;:&quot;Sun 10:15 pm&quot;,&quot;22:30&quot;:&quot;Sun 10:30 pm&quot;,&quot;22:45&quot;:&quot;Sun 10:45 pm&quot;},&quot;2020-06-15&quot;:{&quot;06:00&quot;:&quot;Mon 06:00 am&quot;,&quot;06:15&quot;:&quot;Mon 06:15 am&quot;,&quot;06:30&quot;:&quot;Mon 06:30 am&quot;,&quot;06:45&quot;:&quot;Mon 06:45 am&quot;,&quot;07:00&quot;:&quot;Mon 07:00 am&quot;,&quot;07:15&quot;:&quot;Mon 07:15 am&quot;,&quot;07:30&quot;:&quot;Mon 07:30 am&quot;,&quot;07:45&quot;:&quot;Mon 07:45 am&quot;,&quot;08:00&quot;:&quot;Mon 08:00 am&quot;,&quot;08:15&quot;:&quot;Mon 08:15 am&quot;,&quot;08:30&quot;:&quot;Mon 08:30 am&quot;,&quot;08:45&quot;:&quot;Mon 08:45 am&quot;,&quot;09:00&quot;:&quot;Mon 09:00 am&quot;,&quot;09:15&quot;:&quot;Mon 09:15 am&quot;,&quot;09:30&quot;:&quot;Mon 09:30 am&quot;,&quot;09:45&quot;:&quot;Mon 09:45 am&quot;,&quot;10:00&quot;:&quot;Mon 10:00 am&quot;,&quot;10:15&quot;:&quot;Mon 10:15 am&quot;,&quot;10:30&quot;:&quot;Mon 10:30 am&quot;,&quot;10:45&quot;:&quot;Mon 10:45 am&quot;,&quot;11:00&quot;:&quot;Mon 11:00 am&quot;,&quot;11:15&quot;:&quot;Mon 11:15 am&quot;,&quot;11:30&quot;:&quot;Mon 11:30 am&quot;,&quot;11:45&quot;:&quot;Mon 11:45 am&quot;,&quot;12:00&quot;:&quot;Mon 12:00 pm&quot;,&quot;12:15&quot;:&quot;Mon 12:15 pm&quot;,&quot;12:30&quot;:&quot;Mon 12:30 pm&quot;,&quot;12:45&quot;:&quot;Mon 12:45 pm&quot;,&quot;13:00&quot;:&quot;Mon 01:00 pm&quot;,&quot;13:15&quot;:&quot;Mon 01:15 pm&quot;,&quot;13:30&quot;:&quot;Mon 01:30 pm&quot;,&quot;13:45&quot;:&quot;Mon 01:45 pm&quot;,&quot;14:00&quot;:&quot;Mon 02:00 pm&quot;,&quot;14:15&quot;:&quot;Mon 02:15 pm&quot;,&quot;14:30&quot;:&quot;Mon 02:30 pm&quot;,&quot;14:45&quot;:&quot;Mon 02:45 pm&quot;,&quot;15:00&quot;:&quot;Mon 03:00 pm&quot;,&quot;15:15&quot;:&quot;Mon 03:15 pm&quot;,&quot;15:30&quot;:&quot;Mon 03:30 pm&quot;,&quot;15:45&quot;:&quot;Mon 03:45 pm&quot;,&quot;16:00&quot;:&quot;Mon 04:00 pm&quot;,&quot;16:15&quot;:&quot;Mon 04:15 pm&quot;,&quot;16:30&quot;:&quot;Mon 04:30 pm&quot;,&quot;16:45&quot;:&quot;Mon 04:45 pm&quot;,&quot;17:00&quot;:&quot;Mon 05:00 pm&quot;,&quot;17:15&quot;:&quot;Mon 05:15 pm&quot;,&quot;17:30&quot;:&quot;Mon 05:30 pm&quot;,&quot;17:45&quot;:&quot;Mon 05:45 pm&quot;,&quot;18:00&quot;:&quot;Mon 06:00 pm&quot;,&quot;18:15&quot;:&quot;Mon 06:15 pm&quot;,&quot;18:30&quot;:&quot;Mon 06:30 pm&quot;,&quot;18:45&quot;:&quot;Mon 06:45 pm&quot;,&quot;19:00&quot;:&quot;Mon 07:00 pm&quot;,&quot;19:15&quot;:&quot;Mon 07:15 pm&quot;,&quot;19:30&quot;:&quot;Mon 07:30 pm&quot;,&quot;19:45&quot;:&quot;Mon 07:45 pm&quot;,&quot;20:00&quot;:&quot;Mon 08:00 pm&quot;,&quot;20:15&quot;:&quot;Mon 08:15 pm&quot;,&quot;20:30&quot;:&quot;Mon 08:30 pm&quot;,&quot;20:45&quot;:&quot;Mon 08:45 pm&quot;,&quot;21:00&quot;:&quot;Mon 09:00 pm&quot;,&quot;21:15&quot;:&quot;Mon 09:15 pm&quot;,&quot;21:30&quot;:&quot;Mon 09:30 pm&quot;,&quot;21:45&quot;:&quot;Mon 09:45 pm&quot;,&quot;22:00&quot;:&quot;Mon 10:00 pm&quot;,&quot;22:15&quot;:&quot;Mon 10:15 pm&quot;,&quot;22:30&quot;:&quot;Mon 10:30 pm&quot;,&quot;22:45&quot;:&quot;Mon 10:45 pm&quot;},&quot;2020-06-16&quot;:{&quot;06:00&quot;:&quot;Tue 06:00 am&quot;,&quot;06:15&quot;:&quot;Tue 06:15 am&quot;,&quot;06:30&quot;:&quot;Tue 06:30 am&quot;,&quot;06:45&quot;:&quot;Tue 06:45 am&quot;,&quot;07:00&quot;:&quot;Tue 07:00 am&quot;,&quot;07:15&quot;:&quot;Tue 07:15 am&quot;,&quot;07:30&quot;:&quot;Tue 07:30 am&quot;,&quot;07:45&quot;:&quot;Tue 07:45 am&quot;,&quot;08:00&quot;:&quot;Tue 08:00 am&quot;,&quot;08:15&quot;:&quot;Tue 08:15 am&quot;,&quot;08:30&quot;:&quot;Tue 08:30 am&quot;,&quot;08:45&quot;:&quot;Tue 08:45 am&quot;,&quot;09:00&quot;:&quot;Tue 09:00 am&quot;,&quot;09:15&quot;:&quot;Tue 09:15 am&quot;,&quot;09:30&quot;:&quot;Tue 09:30 am&quot;,&quot;09:45&quot;:&quot;Tue 09:45 am&quot;,&quot;10:00&quot;:&quot;Tue 10:00 am&quot;,&quot;10:15&quot;:&quot;Tue 10:15 am&quot;,&quot;10:30&quot;:&quot;Tue 10:30 am&quot;,&quot;10:45&quot;:&quot;Tue 10:45 am&quot;,&quot;11:00&quot;:&quot;Tue 11:00 am&quot;,&quot;11:15&quot;:&quot;Tue 11:15 am&quot;,&quot;11:30&quot;:&quot;Tue 11:30 am&quot;,&quot;11:45&quot;:&quot;Tue 11:45 am&quot;,&quot;12:00&quot;:&quot;Tue 12:00 pm&quot;,&quot;12:15&quot;:&quot;Tue 12:15 pm&quot;,&quot;12:30&quot;:&quot;Tue 12:30 pm&quot;,&quot;12:45&quot;:&quot;Tue 12:45 pm&quot;,&quot;13:00&quot;:&quot;Tue 01:00 pm&quot;,&quot;13:15&quot;:&quot;Tue 01:15 pm&quot;,&quot;13:30&quot;:&quot;Tue 01:30 pm&quot;,&quot;13:45&quot;:&quot;Tue 01:45 pm&quot;,&quot;14:00&quot;:&quot;Tue 02:00 pm&quot;,&quot;14:15&quot;:&quot;Tue 02:15 pm&quot;,&quot;14:30&quot;:&quot;Tue 02:30 pm&quot;,&quot;14:45&quot;:&quot;Tue 02:45 pm&quot;,&quot;15:00&quot;:&quot;Tue 03:00 pm&quot;,&quot;15:15&quot;:&quot;Tue 03:15 pm&quot;,&quot;15:30&quot;:&quot;Tue 03:30 pm&quot;,&quot;15:45&quot;:&quot;Tue 03:45 pm&quot;,&quot;16:00&quot;:&quot;Tue 04:00 pm&quot;,&quot;16:15&quot;:&quot;Tue 04:15 pm&quot;,&quot;16:30&quot;:&quot;Tue 04:30 pm&quot;,&quot;16:45&quot;:&quot;Tue 04:45 pm&quot;,&quot;17:00&quot;:&quot;Tue 05:00 pm&quot;,&quot;17:15&quot;:&quot;Tue 05:15 pm&quot;,&quot;17:30&quot;:&quot;Tue 05:30 pm&quot;,&quot;17:45&quot;:&quot;Tue 05:45 pm&quot;,&quot;18:00&quot;:&quot;Tue 06:00 pm&quot;,&quot;18:15&quot;:&quot;Tue 06:15 pm&quot;,&quot;18:30&quot;:&quot;Tue 06:30 pm&quot;,&quot;18:45&quot;:&quot;Tue 06:45 pm&quot;,&quot;19:00&quot;:&quot;Tue 07:00 pm&quot;,&quot;19:15&quot;:&quot;Tue 07:15 pm&quot;,&quot;19:30&quot;:&quot;Tue 07:30 pm&quot;,&quot;19:45&quot;:&quot;Tue 07:45 pm&quot;,&quot;20:00&quot;:&quot;Tue 08:00 pm&quot;,&quot;20:15&quot;:&quot;Tue 08:15 pm&quot;,&quot;20:30&quot;:&quot;Tue 08:30 pm&quot;,&quot;20:45&quot;:&quot;Tue 08:45 pm&quot;,&quot;21:00&quot;:&quot;Tue 09:00 pm&quot;,&quot;21:15&quot;:&quot;Tue 09:15 pm&quot;,&quot;21:30&quot;:&quot;Tue 09:30 pm&quot;,&quot;21:45&quot;:&quot;Tue 09:45 pm&quot;,&quot;22:00&quot;:&quot;Tue 10:00 pm&quot;,&quot;22:15&quot;:&quot;Tue 10:15 pm&quot;,&quot;22:30&quot;:&quot;Tue 10:30 pm&quot;,&quot;22:45&quot;:&quot;Tue 10:45 pm&quot;},&quot;2020-06-17&quot;:{&quot;06:00&quot;:&quot;Wed 06:00 am&quot;,&quot;06:15&quot;:&quot;Wed 06:15 am&quot;,&quot;06:30&quot;:&quot;Wed 06:30 am&quot;,&quot;06:45&quot;:&quot;Wed 06:45 am&quot;,&quot;07:00&quot;:&quot;Wed 07:00 am&quot;,&quot;07:15&quot;:&quot;Wed 07:15 am&quot;,&quot;07:30&quot;:&quot;Wed 07:30 am&quot;,&quot;07:45&quot;:&quot;Wed 07:45 am&quot;,&quot;08:00&quot;:&quot;Wed 08:00 am&quot;,&quot;08:15&quot;:&quot;Wed 08:15 am&quot;,&quot;08:30&quot;:&quot;Wed 08:30 am&quot;,&quot;08:45&quot;:&quot;Wed 08:45 am&quot;,&quot;09:00&quot;:&quot;Wed 09:00 am&quot;,&quot;09:15&quot;:&quot;Wed 09:15 am&quot;,&quot;09:30&quot;:&quot;Wed 09:30 am&quot;,&quot;09:45&quot;:&quot;Wed 09:45 am&quot;,&quot;10:00&quot;:&quot;Wed 10:00 am&quot;,&quot;10:15&quot;:&quot;Wed 10:15 am&quot;,&quot;10:30&quot;:&quot;Wed 10:30 am&quot;,&quot;10:45&quot;:&quot;Wed 10:45 am&quot;,&quot;11:00&quot;:&quot;Wed 11:00 am&quot;,&quot;11:15&quot;:&quot;Wed 11:15 am&quot;,&quot;11:30&quot;:&quot;Wed 11:30 am&quot;,&quot;11:45&quot;:&quot;Wed 11:45 am&quot;,&quot;12:00&quot;:&quot;Wed 12:00 pm&quot;,&quot;12:15&quot;:&quot;Wed 12:15 pm&quot;,&quot;12:30&quot;:&quot;Wed 12:30 pm&quot;,&quot;12:45&quot;:&quot;Wed 12:45 pm&quot;,&quot;13:00&quot;:&quot;Wed 01:00 pm&quot;,&quot;13:15&quot;:&quot;Wed 01:15 pm&quot;,&quot;13:30&quot;:&quot;Wed 01:30 pm&quot;,&quot;13:45&quot;:&quot;Wed 01:45 pm&quot;,&quot;14:00&quot;:&quot;Wed 02:00 pm&quot;,&quot;14:15&quot;:&quot;Wed 02:15 pm&quot;,&quot;14:30&quot;:&quot;Wed 02:30 pm&quot;,&quot;14:45&quot;:&quot;Wed 02:45 pm&quot;,&quot;15:00&quot;:&quot;Wed 03:00 pm&quot;,&quot;15:15&quot;:&quot;Wed 03:15 pm&quot;,&quot;15:30&quot;:&quot;Wed 03:30 pm&quot;,&quot;15:45&quot;:&quot;Wed 03:45 pm&quot;,&quot;16:00&quot;:&quot;Wed 04:00 pm&quot;,&quot;16:15&quot;:&quot;Wed 04:15 pm&quot;,&quot;16:30&quot;:&quot;Wed 04:30 pm&quot;,&quot;16:45&quot;:&quot;Wed 04:45 pm&quot;,&quot;17:00&quot;:&quot;Wed 05:00 pm&quot;,&quot;17:15&quot;:&quot;Wed 05:15 pm&quot;,&quot;17:30&quot;:&quot;Wed 05:30 pm&quot;,&quot;17:45&quot;:&quot;Wed 05:45 pm&quot;,&quot;18:00&quot;:&quot;Wed 06:00 pm&quot;,&quot;18:15&quot;:&quot;Wed 06:15 pm&quot;,&quot;18:30&quot;:&quot;Wed 06:30 pm&quot;,&quot;18:45&quot;:&quot;Wed 06:45 pm&quot;,&quot;19:00&quot;:&quot;Wed 07:00 pm&quot;,&quot;19:15&quot;:&quot;Wed 07:15 pm&quot;,&quot;19:30&quot;:&quot;Wed 07:30 pm&quot;,&quot;19:45&quot;:&quot;Wed 07:45 pm&quot;,&quot;20:00&quot;:&quot;Wed 08:00 pm&quot;,&quot;20:15&quot;:&quot;Wed 08:15 pm&quot;,&quot;20:30&quot;:&quot;Wed 08:30 pm&quot;,&quot;20:45&quot;:&quot;Wed 08:45 pm&quot;,&quot;21:00&quot;:&quot;Wed 09:00 pm&quot;,&quot;21:15&quot;:&quot;Wed 09:15 pm&quot;,&quot;21:30&quot;:&quot;Wed 09:30 pm&quot;,&quot;21:45&quot;:&quot;Wed 09:45 pm&quot;,&quot;22:00&quot;:&quot;Wed 10:00 pm&quot;,&quot;22:15&quot;:&quot;Wed 10:15 pm&quot;,&quot;22:30&quot;:&quot;Wed 10:30 pm&quot;,&quot;22:45&quot;:&quot;Wed 10:45 pm&quot;}}}">
+                                            <div class="dropdown ">
+                                                <button style="background: #EEEDED;" class="btn btn-light btn-timepicker btn-block dropdown-toggle text-truncate pr-2" type="button" id="orderTimePicker" data-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-clock-o"></i>&nbsp;&nbsp;
+                                                    <b>Fri 12 06:45 am</b>
+                                                </button>
+
+                                                <div class="dropdown-menu" aria-labelledby="orderTimePicker">
+                                                    <button type="button" class="dropdown-item py-2" data-timepicker-option="asap"><i class="fa fa-clock-o"></i>&nbsp;&nbsp;ASAP</button>
+                                                    <button type="button" class="dropdown-item py-2 active" data-timepicker-option="later"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Schedule Order</button>
+
+                                                    <form class="dropdown-content px-4 py-3" role="form" data-request="localBox::onSetOrderTime">
+                                                        <input type="hidden" data-timepicker-control="type" value="later">
+                                                        <div class="form-group" data-children-count="1">
+                                                            <select class="form-control" data-timepicker-control="date" data-timepicker-label="Select a date" data-timepicker-selected="2020-06-12"><option value="2020-06-12">Fri 12</option><option value="2020-06-13">Sat 13</option><option value="2020-06-14">Sun 14</option><option value="2020-06-15">Mon 15</option><option value="2020-06-16">Tue 16</option><option value="2020-06-17">Wed 17</option></select>
+                                                        </div>
+                                                        <div class="form-group" data-children-count="1">
+                                                            <select class="form-control" data-timepicker-control="time" data-timepicker-label="Select a time" data-timepicker-selected="06:45"><option value="">Select a time</option><option value="06:00">Fri 06:00 am</option><option value="06:15">Fri 06:15 am</option><option value="06:30">Fri 06:30 am</option><option value="06:45">Fri 06:45 am</option><option value="07:00">Fri 07:00 am</option><option value="07:15">Fri 07:15 am</option><option value="07:30">Fri 07:30 am</option><option value="07:45">Fri 07:45 am</option><option value="08:00">Fri 08:00 am</option><option value="08:15">Fri 08:15 am</option><option value="08:30">Fri 08:30 am</option><option value="08:45">Fri 08:45 am</option><option value="09:00">Fri 09:00 am</option><option value="09:15">Fri 09:15 am</option><option value="09:30">Fri 09:30 am</option><option value="09:45">Fri 09:45 am</option><option value="10:00">Fri 10:00 am</option><option value="10:15">Fri 10:15 am</option><option value="10:30">Fri 10:30 am</option><option value="10:45">Fri 10:45 am</option><option value="11:00">Fri 11:00 am</option><option value="11:15">Fri 11:15 am</option><option value="11:30">Fri 11:30 am</option><option value="11:45">Fri 11:45 am</option><option value="12:00">Fri 12:00 pm</option><option value="12:15">Fri 12:15 pm</option><option value="12:30">Fri 12:30 pm</option><option value="12:45">Fri 12:45 pm</option><option value="13:00">Fri 01:00 pm</option><option value="13:15">Fri 01:15 pm</option><option value="13:30">Fri 01:30 pm</option><option value="13:45">Fri 01:45 pm</option><option value="14:00">Fri 02:00 pm</option><option value="14:15">Fri 02:15 pm</option><option value="14:30">Fri 02:30 pm</option><option value="14:45">Fri 02:45 pm</option><option value="15:00">Fri 03:00 pm</option><option value="15:15">Fri 03:15 pm</option><option value="15:30">Fri 03:30 pm</option><option value="15:45">Fri 03:45 pm</option><option value="16:00">Fri 04:00 pm</option><option value="16:15">Fri 04:15 pm</option><option value="16:30">Fri 04:30 pm</option><option value="16:45">Fri 04:45 pm</option><option value="17:00">Fri 05:00 pm</option><option value="17:15">Fri 05:15 pm</option><option value="17:30">Fri 05:30 pm</option><option value="17:45">Fri 05:45 pm</option><option value="18:00">Fri 06:00 pm</option><option value="18:15">Fri 06:15 pm</option><option value="18:30">Fri 06:30 pm</option><option value="18:45">Fri 06:45 pm</option><option value="19:00">Fri 07:00 pm</option><option value="19:15">Fri 07:15 pm</option><option value="19:30">Fri 07:30 pm</option><option value="19:45">Fri 07:45 pm</option><option value="20:00">Fri 08:00 pm</option><option value="20:15">Fri 08:15 pm</option><option value="20:30">Fri 08:30 pm</option><option value="20:45">Fri 08:45 pm</option><option value="21:00">Fri 09:00 pm</option><option value="21:15">Fri 09:15 pm</option><option value="21:30">Fri 09:30 pm</option><option value="21:45">Fri 09:45 pm</option><option value="22:00">Fri 10:00 pm</option><option value="22:15">Fri 10:15 pm</option><option value="22:30">Fri 10:30 pm</option><option value="22:45">Fri 10:45 pm</option></select>
+                                                        </div>
+                                                        <button type="button" class="btn btn-primary text-nowrap" data-timepicker-submit="" data-attach-loading="">
+                                                            Set Pick-up Time            
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-map-marker"></i></span>
+                                            </div>
+                                            <input type="text" id="search-query" class="form-control text-center" name="search_query" placeholder="Enter your address/postcode to order" value="" data-kwimpalastatus="alive" data-kwimpalaid="1591929914302-1">
+                                            <div class="input-group-append">
+                                                <button type="button" class="btn btn-light ml-1" data-control="search-local" data-replace-loading="fa fa-spinner fa-spin" style="background: #EEEDED;"><i class="fa fa-check"></i></button>
+                                            </div>
+                                            <span style="animation: initial; transition: initial; color: initial; color-scheme: initial; font: initial; font-feature-settings: initial; font-kerning: initial; font-optical-sizing: initial; font-variation-settings: initial; text-orientation: initial; text-rendering: initial; -webkit-font-smoothing: initial; -webkit-locale: initial; -webkit-text-orientation: initial; -webkit-writing-mode: initial; writing-mode: initial; zoom: initial; place-content: initial; place-items: initial; place-self: initial; alignment-baseline: initial; backdrop-filter: initial; backface-visibility: initial; background-blend-mode: initial; baseline-shift: initial; block-size: initial; border-block-end: initial; border-block-start: initial; border: none; border-radius: initial; border-collapse: initial; border-inline-end: initial; border-inline-start: initial; bottom: initial; box-shadow: initial; box-sizing: initial; break-after: initial; break-before: initial; break-inside: initial; buffered-rendering: initial; caption-side: initial; caret-color: initial; clear: initial; clip: initial; clip-path: initial; clip-rule: initial; color-interpolation: initial; color-interpolation-filters: initial; color-rendering: initial; columns: initial; column-fill: initial; gap: initial; column-rule: initial; column-span: initial; contain: initial; contain-intrinsic-size: initial; content: initial; counter-increment: initial; counter-reset: initial; cursor: initial; cx: initial; cy: initial; d: initial; display: inline; dominant-baseline: initial; empty-cells: initial; fill: initial; fill-opacity: initial; fill-rule: initial; filter: initial; flex: initial; flex-flow: initial; float: initial; flood-color: initial; flood-opacity: initial; grid: initial; grid-area: initial; height: 16px; hyphens: initial; image-orientation: initial; image-rendering: initial; inline-size: initial; isolation: initial; left: 382.8px; letter-spacing: initial; lighting-color: initial; line-break: initial; list-style: initial; margin-block-end: initial; margin-block-start: initial; margin: initial; margin-inline-end: initial; margin-inline-start: initial; marker: initial; mask: initial; mask-type: initial; max-block-size: initial; max-height: initial; max-inline-size: initial; max-width: initial; min-block-size: initial; min-height: initial; min-inline-size: initial; min-width: 16px; mix-blend-mode: initial; object-fit: initial; object-position: initial; offset: initial; opacity: 1; order: initial; origin-trial-test-property: initial; orphans: initial; outline: initial; outline-offset: initial; overflow-anchor: initial; overflow-wrap: initial; overflow: initial; overscroll-behavior-block: initial; overscroll-behavior-inline: initial; overscroll-behavior: initial; padding-block-end: initial; padding-block-start: initial; padding: initial; padding-inline-end: initial; padding-inline-start: initial; paint-order: initial; perspective: initial; perspective-origin: initial; pointer-events: initial; position: absolute; quotes: initial; r: initial; resize: initial; right: initial; rx: initial; ry: initial; scroll-behavior: initial; scroll-margin-block: initial; scroll-margin: initial; scroll-margin-inline: initial; scroll-padding-block: initial; scroll-padding: initial; scroll-padding-inline: initial; scroll-snap-align: initial; scroll-snap-stop: initial; scroll-snap-type: initial; shape-image-threshold: initial; shape-margin: initial; shape-outside: initial; shape-rendering: initial; size: initial; speak: initial; stop-color: initial; stop-opacity: initial; stroke: initial; stroke-dasharray: initial; stroke-dashoffset: initial; stroke-linecap: initial; stroke-linejoin: initial; stroke-miterlimit: initial; stroke-opacity: initial; stroke-width: initial; tab-size: initial; table-layout: initial; text-align: initial; text-align-last: initial; text-anchor: initial; text-combine-upright: initial; text-decoration: initial; text-decoration-skip-ink: initial; text-indent: initial; text-overflow: initial; text-shadow: initial; text-size-adjust: initial; text-transform: initial; text-underline-position: initial; top: 11.5px; touch-action: initial; transform: initial; transform-box: initial; transform-origin: initial; transform-style: initial; user-select: initial; vector-effect: initial; vertical-align: initial; visibility: visible; -webkit-app-region: initial; -webkit-appearance: initial; border-spacing: initial; -webkit-border-image: initial; -webkit-box-align: initial; -webkit-box-decoration-break: initial; -webkit-box-direction: initial; -webkit-box-flex: initial; -webkit-box-ordinal-group: initial; -webkit-box-orient: initial; -webkit-box-pack: initial; -webkit-box-reflect: initial; -webkit-font-size-delta: initial; -webkit-highlight: initial; -webkit-hyphenate-character: initial; -webkit-line-break: initial; -webkit-line-clamp: initial; -webkit-mask-box-image: initial; -webkit-mask: initial; -webkit-mask-composite: initial; -webkit-perspective-origin-x: initial; -webkit-perspective-origin-y: initial; -webkit-print-color-adjust: initial; -webkit-rtl-ordering: initial; -webkit-ruby-position: initial; -webkit-tap-highlight-color: initial; -webkit-text-combine: initial; -webkit-text-decorations-in-effect: initial; -webkit-text-emphasis: initial; -webkit-text-emphasis-position: initial; -webkit-text-fill-color: initial; -webkit-text-security: initial; -webkit-text-stroke: initial; -webkit-transform-origin-x: initial; -webkit-transform-origin-y: initial; -webkit-transform-origin-z: initial; -webkit-user-drag: initial; -webkit-user-modify: initial; white-space: initial; widows: initial; width: 16px; will-change: initial; word-break: initial; word-spacing: initial; x: initial; y: initial; z-index: auto;"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-local bg-white p-3" >
+                            <div class="panel-body">
+                                <div class="row boxes ">
+                                    <div class="box-one col-sm-6">
+                                        <dl class="no-spacing">
+                                            <dd><h1 class="h3">TastyIgniter</h1></dd>
+                                            <dd class="text-muted">
+                                                <div class="rating rating-sm">
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star-half-o"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                    <span class="small">()</span>
+                                                </div>
+                                            </dd>
+                                            <dd>
+                                                <span class="text-muted">345 Lewisham Road, London SE13 7AB, United Kingdom</span>
+                                            </dd>
+                                        </dl>                    </div>
+                                    <div class="box-divider d-block d-sm-none"></div>
+                                    <div class="box-two col-sm-6">
+                                        <dl class="no-spacing">
+                                            <dt class="text-muted"><span class="text-close text-danger">Opening Fri 06:00 am</span></dt>
+
+                                            <dd>
+                                                <span class="fa fa-clock-o"></span>&nbsp;
+                                                <span>
+                                                    06:00 am                -
+                                                    11:00 pm                </span>
+                                            </dd>
+
+                                            <dd class="text-muted">
+                                                Delivery and pick-up available            </dd>
+                                            <dd class="text-muted">
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card my-1" >
+                        <div class="card-body bg-white">
+                            Already have an account? <a href="/restaurante/presentacionCliente/loginCliente.html">Login Here</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body bg-white">
+                            <div data-control="checkout" data-choose-payment-handler="checkout::onChoosePayment" data-partial="checkoutForm">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="first-name">First Name</label>
+                                            <input type="text" name="first_name" id="first-name" class="form-control" value="" data-kwimpalastatus="alive" data-kwimpalaid="1591929914302-2">
+                                            <span style="animation: initial; transition: initial; color: initial; color-scheme: initial; font: initial; font-feature-settings: initial; font-kerning: initial; font-optical-sizing: initial; font-variation-settings: initial; text-orientation: initial; text-rendering: initial; -webkit-font-smoothing: initial; -webkit-locale: initial; -webkit-text-orientation: initial; -webkit-writing-mode: initial; writing-mode: initial; zoom: initial; place-content: initial; place-items: initial; place-self: initial; alignment-baseline: initial; backdrop-filter: initial; backface-visibility: initial; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEzLjUgNS4yODgxMUMxMy41IDUuMTkzNzYgMTMuNDA1NyA1LjA5OTQxIDEzLjI3MzYgNS4wNjE2NkwxMS42ODg2IDQuNDc2NjZDMTEuNDI0NCA0LjM2MzQxIDExLjEyMjUgNC40OTU1MSAxMS4xMjI1IDQuNjg0MjZWMTEuNTgxN0MxMS4xMjk5IDExLjYzNTUgMTEuMTUxMiAxMS42ODY0IDExLjE4NDMgMTEuNzI5NEMxMS4yMTc0IDExLjc3MjQgMTEuMjYxMSAxMS44MDYxIDExLjMxMTIgMTEuODI3MUwxMi45MzQxIDEyLjQxMjFDMTMuMTc5NCAxMi41MDY0IDEzLjUwMDIgMTIuMzc0MyAxMy41MDAyIDEyLjE2NjdMMTMuNSA1LjI4ODExWk05LjQ3OTQyIDEwLjU0MzdDOS40Nzk0MiAxMC40NDk0IDkuMzg1MDcgMTAuMzU1IDkuMjUyOTcgMTAuMzE3M0w3LjY2Nzk3IDkuNzMyMjZDNy40MDM4MiA5LjYxOTAxIDcuMTAxODcgOS43NTExMSA3LjEwMTg3IDkuOTM5ODFWMTQuMjQyNEM3LjEwOTMxIDE0LjI5NjEgNy4xMzA2MiAxNC4zNDcgNy4xNjM3MSAxNC4zOUM3LjE5NjggMTQuNDMzMSA3LjI0MDUyIDE0LjQ2NjcgNy4yOTA1NyAxNC40ODc3TDguOTEzNDcgMTUuMDcyN0M5LjE1ODc3IDE1LjE2NzEgOS40Nzk1NyAxNS4wMzUgOS40Nzk1NyAxNC44Mjc0TDkuNDc5NDIgMTAuNTQzN1pNOS40Nzk0MiAxLjc0OTc2QzkuNDc5NDIgMS42NTU0MSA5LjM4NTA3IDEuNTYxMDYgOS4yNTI5NyAxLjUyMzMxTDcuNjY3OTcgMC45MzgzMTFDNy40MDM4MiAwLjgyNTA2MSA3LjEwMTg3IDAuOTU3MTYxIDcuMTAxODcgMS4xNDU4NlY1LjQ0ODQxQzcuMTA5MzEgNS41MDIxNyA3LjEzMDYyIDUuNTUzMDcgNy4xNjM3MSA1LjU5NjA5QzcuMTk2OCA1LjYzOTEyIDcuMjQwNTIgNS42NzI3OCA3LjI5MDU3IDUuNjkzNzZMOC45MTM0NyA2LjI3ODc2QzkuMTU4NzcgNi4zNzMxMSA5LjQ3OTU3IDYuMjQxMDEgOS40Nzk1NyA2LjAzMzQxTDkuNDc5NDIgMS43NDk3NlpNNS40NzkxNyAxLjQxOTc2QzUuNDc5MTcgMS4zMjUzNiA1LjM4NDgyIDEuMjMxMDEgNS4yNTI3MiAxLjE5MzMxTDMuNjY3NzIgMC42MDgzMTFDMy40MDM1NyAwLjQ5NTA2MSAzLjEwMTYyIDAuNjI3MTYxIDMuMTAxNjIgMC44MTU4NjFWMTQuNTkxNEMzLjEwOTA1IDE0LjY0NTIgMy4xMzAzNiAxNC42OTYxIDMuMTYzNDUgMTQuNzM5MUMzLjE5NjU0IDE0Ljc4MjEgMy4yNDAyNyAxNC44MTU3IDMuMjkwMzIgMTQuODM2N0w0LjkxMzIyIDE1LjQyMTdDNS4xNTg1MiAxNS41MTYxIDUuNDc5MzIgMTUuMzg0IDUuNDc5MzIgMTUuMTc2NEw1LjQ3OTE3IDEuNDE5NzZaIiBmaWxsPSIjMEU2NDc2Ii8+Cjwvc3ZnPgo=&quot;) center center / contain no-repeat; background-blend-mode: initial; baseline-shift: initial; block-size: initial; border-block-end: initial; border-block-start: initial; border: none; border-radius: initial; border-collapse: initial; border-inline-end: initial; border-inline-start: initial; bottom: initial; box-shadow: initial; box-sizing: initial; break-after: initial; break-before: initial; break-inside: initial; buffered-rendering: initial; caption-side: initial; caret-color: initial; clear: initial; clip: initial; clip-path: initial; clip-rule: initial; color-interpolation: initial; color-interpolation-filters: initial; color-rendering: initial; columns: initial; column-fill: initial; gap: initial; column-rule: initial; column-span: initial; contain: initial; contain-intrinsic-size: initial; content: initial; counter-increment: initial; counter-reset: initial; cursor: initial; cx: initial; cy: initial; d: initial; display: inline; dominant-baseline: initial; empty-cells: initial; fill: initial; fill-opacity: initial; fill-rule: initial; filter: initial; flex: initial; flex-flow: initial; float: initial; flood-color: initial; flood-opacity: initial; grid: initial; grid-area: initial; height: 16px; hyphens: initial; image-orientation: initial; image-rendering: initial; inline-size: initial; isolation: initial; left: 323px; letter-spacing: initial; lighting-color: initial; line-break: initial; list-style: initial; margin-block-end: initial; margin-block-start: initial; margin: initial; margin-inline-end: initial; margin-inline-start: initial; marker: initial; mask: initial; mask-type: initial; max-block-size: initial; max-height: initial; max-inline-size: initial; max-width: initial; min-block-size: initial; min-height: initial; min-inline-size: initial; min-width: 16px; mix-blend-mode: initial; object-fit: initial; object-position: initial; offset: initial; opacity: 1; order: initial; origin-trial-test-property: initial; orphans: initial; outline: initial; outline-offset: initial; overflow-anchor: initial; overflow-wrap: initial; overflow: initial; overscroll-behavior-block: initial; overscroll-behavior-inline: initial; overscroll-behavior: initial; padding-block-end: initial; padding-block-start: initial; padding: initial; padding-inline-end: initial; padding-inline-start: initial; paint-order: initial; perspective: initial; perspective-origin: initial; pointer-events: initial; position: absolute; quotes: initial; r: initial; resize: initial; right: initial; rx: initial; ry: initial; scroll-behavior: initial; scroll-margin-block: initial; scroll-margin: initial; scroll-margin-inline: initial; scroll-padding-block: initial; scroll-padding: initial; scroll-padding-inline: initial; scroll-snap-align: initial; scroll-snap-stop: initial; scroll-snap-type: initial; shape-image-threshold: initial; shape-margin: initial; shape-outside: initial; shape-rendering: initial; size: initial; speak: initial; stop-color: initial; stop-opacity: initial; stroke: initial; stroke-dasharray: initial; stroke-dashoffset: initial; stroke-linecap: initial; stroke-linejoin: initial; stroke-miterlimit: initial; stroke-opacity: initial; stroke-width: initial; tab-size: initial; table-layout: initial; text-align: initial; text-align-last: initial; text-anchor: initial; text-combine-upright: initial; text-decoration: initial; text-decoration-skip-ink: initial; text-indent: initial; text-overflow: initial; text-shadow: initial; text-size-adjust: initial; text-transform: initial; text-underline-position: initial; top: 44.0636px; touch-action: initial; transform: initial; transform-box: initial; transform-origin: initial; transform-style: initial; user-select: initial; vector-effect: initial; vertical-align: initial; visibility: visible; -webkit-app-region: initial; -webkit-appearance: initial; border-spacing: initial; -webkit-border-image: initial; -webkit-box-align: initial; -webkit-box-decoration-break: initial; -webkit-box-direction: initial; -webkit-box-flex: initial; -webkit-box-ordinal-group: initial; -webkit-box-orient: initial; -webkit-box-pack: initial; -webkit-box-reflect: initial; -webkit-font-size-delta: initial; -webkit-highlight: initial; -webkit-hyphenate-character: initial; -webkit-line-break: initial; -webkit-line-clamp: initial; -webkit-mask-box-image: initial; -webkit-mask: initial; -webkit-mask-composite: initial; -webkit-perspective-origin-x: initial; -webkit-perspective-origin-y: initial; -webkit-print-color-adjust: initial; -webkit-rtl-ordering: initial; -webkit-ruby-position: initial; -webkit-tap-highlight-color: initial; -webkit-text-combine: initial; -webkit-text-decorations-in-effect: initial; -webkit-text-emphasis: initial; -webkit-text-emphasis-position: initial; -webkit-text-fill-color: initial; -webkit-text-security: initial; -webkit-text-stroke: initial; -webkit-transform-origin-x: initial; -webkit-transform-origin-y: initial; -webkit-transform-origin-z: initial; -webkit-user-drag: initial; -webkit-user-modify: initial; white-space: initial; widows: initial; width: 16px; will-change: initial; word-break: initial; word-spacing: initial; x: initial; y: initial; z-index: auto;"></span></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="last-name">Last Name</label>
+                                            <input type="text" name="last_name" id="last-name" class="form-control" value="" data-kwimpalastatus="alive" data-kwimpalaid="1591929914302-3">
+                                            <span style="animation: initial; transition: initial; color: initial; color-scheme: initial; font: initial; font-feature-settings: initial; font-kerning: initial; font-optical-sizing: initial; font-variation-settings: initial; text-orientation: initial; text-rendering: initial; -webkit-font-smoothing: initial; -webkit-locale: initial; -webkit-text-orientation: initial; -webkit-writing-mode: initial; writing-mode: initial; zoom: initial; place-content: initial; place-items: initial; place-self: initial; alignment-baseline: initial; backdrop-filter: initial; backface-visibility: initial; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEzLjUgNS4yODgxMUMxMy41IDUuMTkzNzYgMTMuNDA1NyA1LjA5OTQxIDEzLjI3MzYgNS4wNjE2NkwxMS42ODg2IDQuNDc2NjZDMTEuNDI0NCA0LjM2MzQxIDExLjEyMjUgNC40OTU1MSAxMS4xMjI1IDQuNjg0MjZWMTEuNTgxN0MxMS4xMjk5IDExLjYzNTUgMTEuMTUxMiAxMS42ODY0IDExLjE4NDMgMTEuNzI5NEMxMS4yMTc0IDExLjc3MjQgMTEuMjYxMSAxMS44MDYxIDExLjMxMTIgMTEuODI3MUwxMi45MzQxIDEyLjQxMjFDMTMuMTc5NCAxMi41MDY0IDEzLjUwMDIgMTIuMzc0MyAxMy41MDAyIDEyLjE2NjdMMTMuNSA1LjI4ODExWk05LjQ3OTQyIDEwLjU0MzdDOS40Nzk0MiAxMC40NDk0IDkuMzg1MDcgMTAuMzU1IDkuMjUyOTcgMTAuMzE3M0w3LjY2Nzk3IDkuNzMyMjZDNy40MDM4MiA5LjYxOTAxIDcuMTAxODcgOS43NTExMSA3LjEwMTg3IDkuOTM5ODFWMTQuMjQyNEM3LjEwOTMxIDE0LjI5NjEgNy4xMzA2MiAxNC4zNDcgNy4xNjM3MSAxNC4zOUM3LjE5NjggMTQuNDMzMSA3LjI0MDUyIDE0LjQ2NjcgNy4yOTA1NyAxNC40ODc3TDguOTEzNDcgMTUuMDcyN0M5LjE1ODc3IDE1LjE2NzEgOS40Nzk1NyAxNS4wMzUgOS40Nzk1NyAxNC44Mjc0TDkuNDc5NDIgMTAuNTQzN1pNOS40Nzk0MiAxLjc0OTc2QzkuNDc5NDIgMS42NTU0MSA5LjM4NTA3IDEuNTYxMDYgOS4yNTI5NyAxLjUyMzMxTDcuNjY3OTcgMC45MzgzMTFDNy40MDM4MiAwLjgyNTA2MSA3LjEwMTg3IDAuOTU3MTYxIDcuMTAxODcgMS4xNDU4NlY1LjQ0ODQxQzcuMTA5MzEgNS41MDIxNyA3LjEzMDYyIDUuNTUzMDcgNy4xNjM3MSA1LjU5NjA5QzcuMTk2OCA1LjYzOTEyIDcuMjQwNTIgNS42NzI3OCA3LjI5MDU3IDUuNjkzNzZMOC45MTM0NyA2LjI3ODc2QzkuMTU4NzcgNi4zNzMxMSA5LjQ3OTU3IDYuMjQxMDEgOS40Nzk1NyA2LjAzMzQxTDkuNDc5NDIgMS43NDk3NlpNNS40NzkxNyAxLjQxOTc2QzUuNDc5MTcgMS4zMjUzNiA1LjM4NDgyIDEuMjMxMDEgNS4yNTI3MiAxLjE5MzMxTDMuNjY3NzIgMC42MDgzMTFDMy40MDM1NyAwLjQ5NTA2MSAzLjEwMTYyIDAuNjI3MTYxIDMuMTAxNjIgMC44MTU4NjFWMTQuNTkxNEMzLjEwOTA1IDE0LjY0NTIgMy4xMzAzNiAxNC42OTYxIDMuMTYzNDUgMTQuNzM5MUMzLjE5NjU0IDE0Ljc4MjEgMy4yNDAyNyAxNC44MTU3IDMuMjkwMzIgMTQuODM2N0w0LjkxMzIyIDE1LjQyMTdDNS4xNTg1MiAxNS41MTYxIDUuNDc5MzIgMTUuMzg0IDUuNDc5MzIgMTUuMTc2NEw1LjQ3OTE3IDEuNDE5NzZaIiBmaWxsPSIjMEU2NDc2Ii8+Cjwvc3ZnPgo=&quot;) center center / contain no-repeat; background-blend-mode: initial; baseline-shift: initial; block-size: initial; border-block-end: initial; border-block-start: initial; border: none; border-radius: initial; border-collapse: initial; border-inline-end: initial; border-inline-start: initial; bottom: initial; box-shadow: initial; box-sizing: initial; break-after: initial; break-before: initial; break-inside: initial; buffered-rendering: initial; caption-side: initial; caret-color: initial; clear: initial; clip: initial; clip-path: initial; clip-rule: initial; color-interpolation: initial; color-interpolation-filters: initial; color-rendering: initial; columns: initial; column-fill: initial; gap: initial; column-rule: initial; column-span: initial; contain: initial; contain-intrinsic-size: initial; content: initial; counter-increment: initial; counter-reset: initial; cursor: initial; cx: initial; cy: initial; d: initial; display: inline; dominant-baseline: initial; empty-cells: initial; fill: initial; fill-opacity: initial; fill-rule: initial; filter: initial; flex: initial; flex-flow: initial; float: initial; flood-color: initial; flood-opacity: initial; grid: initial; grid-area: initial; height: 16px; hyphens: initial; image-orientation: initial; image-rendering: initial; inline-size: initial; isolation: initial; left: 323px; letter-spacing: initial; lighting-color: initial; line-break: initial; list-style: initial; margin-block-end: initial; margin-block-start: initial; margin: initial; margin-inline-end: initial; margin-inline-start: initial; marker: initial; mask: initial; mask-type: initial; max-block-size: initial; max-height: initial; max-inline-size: initial; max-width: initial; min-block-size: initial; min-height: initial; min-inline-size: initial; min-width: 16px; mix-blend-mode: initial; object-fit: initial; object-position: initial; offset: initial; opacity: 1; order: initial; origin-trial-test-property: initial; orphans: initial; outline: initial; outline-offset: initial; overflow-anchor: initial; overflow-wrap: initial; overflow: initial; overscroll-behavior-block: initial; overscroll-behavior-inline: initial; overscroll-behavior: initial; padding-block-end: initial; padding-block-start: initial; padding: initial; padding-inline-end: initial; padding-inline-start: initial; paint-order: initial; perspective: initial; perspective-origin: initial; pointer-events: initial; position: absolute; quotes: initial; r: initial; resize: initial; right: initial; rx: initial; ry: initial; scroll-behavior: initial; scroll-margin-block: initial; scroll-margin: initial; scroll-margin-inline: initial; scroll-padding-block: initial; scroll-padding: initial; scroll-padding-inline: initial; scroll-snap-align: initial; scroll-snap-stop: initial; scroll-snap-type: initial; shape-image-threshold: initial; shape-margin: initial; shape-outside: initial; shape-rendering: initial; size: initial; speak: initial; stop-color: initial; stop-opacity: initial; stroke: initial; stroke-dasharray: initial; stroke-dashoffset: initial; stroke-linecap: initial; stroke-linejoin: initial; stroke-miterlimit: initial; stroke-opacity: initial; stroke-width: initial; tab-size: initial; table-layout: initial; text-align: initial; text-align-last: initial; text-anchor: initial; text-combine-upright: initial; text-decoration: initial; text-decoration-skip-ink: initial; text-indent: initial; text-overflow: initial; text-shadow: initial; text-size-adjust: initial; text-transform: initial; text-underline-position: initial; top: 44.0636px; touch-action: initial; transform: initial; transform-box: initial; transform-origin: initial; transform-style: initial; user-select: initial; vector-effect: initial; vertical-align: initial; visibility: visible; -webkit-app-region: initial; -webkit-appearance: initial; border-spacing: initial; -webkit-border-image: initial; -webkit-box-align: initial; -webkit-box-decoration-break: initial; -webkit-box-direction: initial; -webkit-box-flex: initial; -webkit-box-ordinal-group: initial; -webkit-box-orient: initial; -webkit-box-pack: initial; -webkit-box-reflect: initial; -webkit-font-size-delta: initial; -webkit-highlight: initial; -webkit-hyphenate-character: initial; -webkit-line-break: initial; -webkit-line-clamp: initial; -webkit-mask-box-image: initial; -webkit-mask: initial; -webkit-mask-composite: initial; -webkit-perspective-origin-x: initial; -webkit-perspective-origin-y: initial; -webkit-print-color-adjust: initial; -webkit-rtl-ordering: initial; -webkit-ruby-position: initial; -webkit-tap-highlight-color: initial; -webkit-text-combine: initial; -webkit-text-decorations-in-effect: initial; -webkit-text-emphasis: initial; -webkit-text-emphasis-position: initial; -webkit-text-fill-color: initial; -webkit-text-security: initial; -webkit-text-stroke: initial; -webkit-transform-origin-x: initial; -webkit-transform-origin-y: initial; -webkit-transform-origin-z: initial; -webkit-user-drag: initial; -webkit-user-modify: initial; white-space: initial; widows: initial; width: 16px; will-change: initial; word-break: initial; word-spacing: initial; x: initial; y: initial; z-index: auto;"></span></div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="text" name="email" id="email" class="form-control" value="" data-kwimpalastatus="alive" data-kwimpalaid="1591929914302-4">
+                                            <span style="animation: initial; transition: initial; color: initial; color-scheme: initial; font: initial; font-feature-settings: initial; font-kerning: initial; font-optical-sizing: initial; font-variation-settings: initial; text-orientation: initial; text-rendering: initial; -webkit-font-smoothing: initial; -webkit-locale: initial; -webkit-text-orientation: initial; -webkit-writing-mode: initial; writing-mode: initial; zoom: initial; place-content: initial; place-items: initial; place-self: initial; alignment-baseline: initial; backdrop-filter: initial; backface-visibility: initial; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEzLjUgNS4yODgxMUMxMy41IDUuMTkzNzYgMTMuNDA1NyA1LjA5OTQxIDEzLjI3MzYgNS4wNjE2NkwxMS42ODg2IDQuNDc2NjZDMTEuNDI0NCA0LjM2MzQxIDExLjEyMjUgNC40OTU1MSAxMS4xMjI1IDQuNjg0MjZWMTEuNTgxN0MxMS4xMjk5IDExLjYzNTUgMTEuMTUxMiAxMS42ODY0IDExLjE4NDMgMTEuNzI5NEMxMS4yMTc0IDExLjc3MjQgMTEuMjYxMSAxMS44MDYxIDExLjMxMTIgMTEuODI3MUwxMi45MzQxIDEyLjQxMjFDMTMuMTc5NCAxMi41MDY0IDEzLjUwMDIgMTIuMzc0MyAxMy41MDAyIDEyLjE2NjdMMTMuNSA1LjI4ODExWk05LjQ3OTQyIDEwLjU0MzdDOS40Nzk0MiAxMC40NDk0IDkuMzg1MDcgMTAuMzU1IDkuMjUyOTcgMTAuMzE3M0w3LjY2Nzk3IDkuNzMyMjZDNy40MDM4MiA5LjYxOTAxIDcuMTAxODcgOS43NTExMSA3LjEwMTg3IDkuOTM5ODFWMTQuMjQyNEM3LjEwOTMxIDE0LjI5NjEgNy4xMzA2MiAxNC4zNDcgNy4xNjM3MSAxNC4zOUM3LjE5NjggMTQuNDMzMSA3LjI0MDUyIDE0LjQ2NjcgNy4yOTA1NyAxNC40ODc3TDguOTEzNDcgMTUuMDcyN0M5LjE1ODc3IDE1LjE2NzEgOS40Nzk1NyAxNS4wMzUgOS40Nzk1NyAxNC44Mjc0TDkuNDc5NDIgMTAuNTQzN1pNOS40Nzk0MiAxLjc0OTc2QzkuNDc5NDIgMS42NTU0MSA5LjM4NTA3IDEuNTYxMDYgOS4yNTI5NyAxLjUyMzMxTDcuNjY3OTcgMC45MzgzMTFDNy40MDM4MiAwLjgyNTA2MSA3LjEwMTg3IDAuOTU3MTYxIDcuMTAxODcgMS4xNDU4NlY1LjQ0ODQxQzcuMTA5MzEgNS41MDIxNyA3LjEzMDYyIDUuNTUzMDcgNy4xNjM3MSA1LjU5NjA5QzcuMTk2OCA1LjYzOTEyIDcuMjQwNTIgNS42NzI3OCA3LjI5MDU3IDUuNjkzNzZMOC45MTM0NyA2LjI3ODc2QzkuMTU4NzcgNi4zNzMxMSA5LjQ3OTU3IDYuMjQxMDEgOS40Nzk1NyA2LjAzMzQxTDkuNDc5NDIgMS43NDk3NlpNNS40NzkxNyAxLjQxOTc2QzUuNDc5MTcgMS4zMjUzNiA1LjM4NDgyIDEuMjMxMDEgNS4yNTI3MiAxLjE5MzMxTDMuNjY3NzIgMC42MDgzMTFDMy40MDM1NyAwLjQ5NTA2MSAzLjEwMTYyIDAuNjI3MTYxIDMuMTAxNjIgMC44MTU4NjFWMTQuNTkxNEMzLjEwOTA1IDE0LjY0NTIgMy4xMzAzNiAxNC42OTYxIDMuMTYzNDUgMTQuNzM5MUMzLjE5NjU0IDE0Ljc4MjEgMy4yNDAyNyAxNC44MTU3IDMuMjkwMzIgMTQuODM2N0w0LjkxMzIyIDE1LjQyMTdDNS4xNTg1MiAxNS41MTYxIDUuNDc5MzIgMTUuMzg0IDUuNDc5MzIgMTUuMTc2NEw1LjQ3OTE3IDEuNDE5NzZaIiBmaWxsPSIjMEU2NDc2Ii8+Cjwvc3ZnPgo=&quot;) center center / contain no-repeat; background-blend-mode: initial; baseline-shift: initial; block-size: initial; border-block-end: initial; border-block-start: initial; border: none; border-radius: initial; border-collapse: initial; border-inline-end: initial; border-inline-start: initial; bottom: initial; box-shadow: initial; box-sizing: initial; break-after: initial; break-before: initial; break-inside: initial; buffered-rendering: initial; caption-side: initial; caret-color: initial; clear: initial; clip: initial; clip-path: initial; clip-rule: initial; color-interpolation: initial; color-interpolation-filters: initial; color-rendering: initial; columns: initial; column-fill: initial; gap: initial; column-rule: initial; column-span: initial; contain: initial; contain-intrinsic-size: initial; content: initial; counter-increment: initial; counter-reset: initial; cursor: initial; cx: initial; cy: initial; d: initial; display: inline; dominant-baseline: initial; empty-cells: initial; fill: initial; fill-opacity: initial; fill-rule: initial; filter: initial; flex: initial; flex-flow: initial; float: initial; flood-color: initial; flood-opacity: initial; grid: initial; grid-area: initial; height: 16px; hyphens: initial; image-orientation: initial; image-rendering: initial; inline-size: initial; isolation: initial; left: 323px; letter-spacing: initial; lighting-color: initial; line-break: initial; list-style: initial; margin-block-end: initial; margin-block-start: initial; margin: initial; margin-inline-end: initial; margin-inline-start: initial; marker: initial; mask: initial; mask-type: initial; max-block-size: initial; max-height: initial; max-inline-size: initial; max-width: initial; min-block-size: initial; min-height: initial; min-inline-size: initial; min-width: 16px; mix-blend-mode: initial; object-fit: initial; object-position: initial; offset: initial; opacity: 1; order: initial; origin-trial-test-property: initial; orphans: initial; outline: initial; outline-offset: initial; overflow-anchor: initial; overflow-wrap: initial; overflow: initial; overscroll-behavior-block: initial; overscroll-behavior-inline: initial; overscroll-behavior: initial; padding-block-end: initial; padding-block-start: initial; padding: initial; padding-inline-end: initial; padding-inline-start: initial; paint-order: initial; perspective: initial; perspective-origin: initial; pointer-events: initial; position: absolute; quotes: initial; r: initial; resize: initial; right: initial; rx: initial; ry: initial; scroll-behavior: initial; scroll-margin-block: initial; scroll-margin: initial; scroll-margin-inline: initial; scroll-padding-block: initial; scroll-padding: initial; scroll-padding-inline: initial; scroll-snap-align: initial; scroll-snap-stop: initial; scroll-snap-type: initial; shape-image-threshold: initial; shape-margin: initial; shape-outside: initial; shape-rendering: initial; size: initial; speak: initial; stop-color: initial; stop-opacity: initial; stroke: initial; stroke-dasharray: initial; stroke-dashoffset: initial; stroke-linecap: initial; stroke-linejoin: initial; stroke-miterlimit: initial; stroke-opacity: initial; stroke-width: initial; tab-size: initial; table-layout: initial; text-align: initial; text-align-last: initial; text-anchor: initial; text-combine-upright: initial; text-decoration: initial; text-decoration-skip-ink: initial; text-indent: initial; text-overflow: initial; text-shadow: initial; text-size-adjust: initial; text-transform: initial; text-underline-position: initial; top: 44.0637px; touch-action: initial; transform: initial; transform-box: initial; transform-origin: initial; transform-style: initial; user-select: initial; vector-effect: initial; vertical-align: initial; visibility: visible; -webkit-app-region: initial; -webkit-appearance: initial; border-spacing: initial; -webkit-border-image: initial; -webkit-box-align: initial; -webkit-box-decoration-break: initial; -webkit-box-direction: initial; -webkit-box-flex: initial; -webkit-box-ordinal-group: initial; -webkit-box-orient: initial; -webkit-box-pack: initial; -webkit-box-reflect: initial; -webkit-font-size-delta: initial; -webkit-highlight: initial; -webkit-hyphenate-character: initial; -webkit-line-break: initial; -webkit-line-clamp: initial; -webkit-mask-box-image: initial; -webkit-mask: initial; -webkit-mask-composite: initial; -webkit-perspective-origin-x: initial; -webkit-perspective-origin-y: initial; -webkit-print-color-adjust: initial; -webkit-rtl-ordering: initial; -webkit-ruby-position: initial; -webkit-tap-highlight-color: initial; -webkit-text-combine: initial; -webkit-text-decorations-in-effect: initial; -webkit-text-emphasis: initial; -webkit-text-emphasis-position: initial; -webkit-text-fill-color: initial; -webkit-text-security: initial; -webkit-text-stroke: initial; -webkit-transform-origin-x: initial; -webkit-transform-origin-y: initial; -webkit-transform-origin-z: initial; -webkit-user-drag: initial; -webkit-user-modify: initial; white-space: initial; widows: initial; width: 16px; will-change: initial; word-break: initial; word-spacing: initial; x: initial; y: initial; z-index: auto;"></span></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="telephone">Telephone</label>
+                                            <input type="text" name="telephone" id="telephone" class="form-control" value="" data-kwimpalastatus="alive" data-kwimpalaid="1591929914302-5">
+                                            <span style="animation: initial; transition: initial; color: initial; color-scheme: initial; font: initial; font-feature-settings: initial; font-kerning: initial; font-optical-sizing: initial; font-variation-settings: initial; text-orientation: initial; text-rendering: initial; -webkit-font-smoothing: initial; -webkit-locale: initial; -webkit-text-orientation: initial; -webkit-writing-mode: initial; writing-mode: initial; zoom: initial; place-content: initial; place-items: initial; place-self: initial; alignment-baseline: initial; backdrop-filter: initial; backface-visibility: initial; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEzLjUgNS4yODgxMUMxMy41IDUuMTkzNzYgMTMuNDA1NiA1LjA5OTQxIDEzLjI3MzUgNS4wNjE2NkwxMS42ODg1IDQuNDc2NjZDMTEuNDI0MyA0LjM2MzQxIDExLjEyMjQgNC40OTU1MSAxMS4xMjI0IDQuNjg0MjZWMTEuNTgxN0MxMS4xMjk4IDExLjYzNTUgMTEuMTUxMSAxMS42ODY0IDExLjE4NDIgMTEuNzI5NEMxMS4yMTczIDExLjc3MjQgMTEuMjYxMSAxMS44MDYxIDExLjMxMTEgMTEuODI3MUwxMi45MzQgMTIuNDEyMUMxMy4xNzkzIDEyLjUwNjQgMTMuNTAwMSAxMi4zNzQzIDEzLjUwMDEgMTIuMTY2N0wxMy41IDUuMjg4MTFaTTkuNDc5MzYgMTAuNTQzN0M5LjQ3OTM2IDEwLjQ0OTQgOS4zODUwMSAxMC4zNTUgOS4yNTI5MSAxMC4zMTczTDcuNjY3OTEgOS43MzIyNkM3LjQwMzc2IDkuNjE5MDEgNy4xMDE4MSA5Ljc1MTExIDcuMTAxODEgOS45Mzk4MVYxNC4yNDI0QzcuMTA5MjUgMTQuMjk2MSA3LjEzMDU2IDE0LjM0NyA3LjE2MzY1IDE0LjM5QzcuMTk2NzMgMTQuNDMzMSA3LjI0MDQ2IDE0LjQ2NjcgNy4yOTA1MSAxNC40ODc3TDguOTEzNDEgMTUuMDcyN0M5LjE1ODcxIDE1LjE2NzEgOS40Nzk1MSAxNS4wMzUgOS40Nzk1MSAxNC44Mjc0TDkuNDc5MzYgMTAuNTQzN1pNOS40NzkzNiAxLjc0OTc2QzkuNDc5MzYgMS42NTU0MSA5LjM4NTAxIDEuNTYxMDYgOS4yNTI5MSAxLjUyMzMxTDcuNjY3OTEgMC45MzgzMTFDNy40MDM3NiAwLjgyNTA2MSA3LjEwMTgxIDAuOTU3MTYxIDcuMTAxODEgMS4xNDU4NlY1LjQ0ODQxQzcuMTA5MjUgNS41MDIxNyA3LjEzMDU2IDUuNTUzMDcgNy4xNjM2NSA1LjU5NjA5QzcuMTk2NzMgNS42MzkxMiA3LjI0MDQ2IDUuNjcyNzggNy4yOTA1MSA1LjY5Mzc2TDguOTEzNDEgNi4yNzg3NkM5LjE1ODcxIDYuMzczMTEgOS40Nzk1MSA2LjI0MTAxIDkuNDc5NTEgNi4wMzM0MUw5LjQ3OTM2IDEuNzQ5NzZaTTUuNDc5MTEgMS40MTk3NkM1LjQ3OTExIDEuMzI1MzYgNS4zODQ3NiAxLjIzMTAxIDUuMjUyNjYgMS4xOTMzMUwzLjY2NzY2IDAuNjA4MzExQzMuNDAzNTEgMC40OTUwNjEgMy4xMDE1NiAwLjYyNzE2MSAzLjEwMTU2IDAuODE1ODYxVjE0LjU5MTRDMy4xMDg5OSAxNC42NDUyIDMuMTMwMyAxNC42OTYxIDMuMTYzMzkgMTQuNzM5MUMzLjE5NjQ4IDE0Ljc4MjEgMy4yNDAyMSAxNC44MTU3IDMuMjkwMjYgMTQuODM2N0w0LjkxMzE2IDE1LjQyMTdDNS4xNTg0NiAxNS41MTYxIDUuNDc5MjYgMTUuMzg0IDUuNDc5MjYgMTUuMTc2NEw1LjQ3OTExIDEuNDE5NzZaIiBmaWxsPSIjOTk5NTkyIi8+Cjwvc3ZnPgo=&quot;) center center / contain no-repeat; background-blend-mode: initial; baseline-shift: initial; block-size: initial; border-block-end: initial; border-block-start: initial; border: none; border-radius: initial; border-collapse: initial; border-inline-end: initial; border-inline-start: initial; bottom: initial; box-shadow: initial; box-sizing: initial; break-after: initial; break-before: initial; break-inside: initial; buffered-rendering: initial; caption-side: initial; caret-color: initial; clear: initial; clip: initial; clip-path: initial; clip-rule: initial; color-interpolation: initial; color-interpolation-filters: initial; color-rendering: initial; columns: initial; column-fill: initial; gap: initial; column-rule: initial; column-span: initial; contain: initial; contain-intrinsic-size: initial; content: initial; counter-increment: initial; counter-reset: initial; cursor: initial; cx: initial; cy: initial; d: initial; display: inline; dominant-baseline: initial; empty-cells: initial; fill: initial; fill-opacity: initial; fill-rule: initial; filter: initial; flex: initial; flex-flow: initial; float: initial; flood-color: initial; flood-opacity: initial; grid: initial; grid-area: initial; height: 16px; hyphens: initial; image-orientation: initial; image-rendering: initial; inline-size: initial; isolation: initial; left: 323px; letter-spacing: initial; lighting-color: initial; line-break: initial; list-style: initial; margin-block-end: initial; margin-block-start: initial; margin: initial; margin-inline-end: initial; margin-inline-start: initial; marker: initial; mask: initial; mask-type: initial; max-block-size: initial; max-height: initial; max-inline-size: initial; max-width: initial; min-block-size: initial; min-height: initial; min-inline-size: initial; min-width: 16px; mix-blend-mode: initial; object-fit: initial; object-position: initial; offset: initial; opacity: 1; order: initial; origin-trial-test-property: initial; orphans: initial; outline: initial; outline-offset: initial; overflow-anchor: initial; overflow-wrap: initial; overflow: initial; overscroll-behavior-block: initial; overscroll-behavior-inline: initial; overscroll-behavior: initial; padding-block-end: initial; padding-block-start: initial; padding: initial; padding-inline-end: initial; padding-inline-start: initial; paint-order: initial; perspective: initial; perspective-origin: initial; pointer-events: initial; position: absolute; quotes: initial; r: initial; resize: initial; right: initial; rx: initial; ry: initial; scroll-behavior: initial; scroll-margin-block: initial; scroll-margin: initial; scroll-margin-inline: initial; scroll-padding-block: initial; scroll-padding: initial; scroll-padding-inline: initial; scroll-snap-align: initial; scroll-snap-stop: initial; scroll-snap-type: initial; shape-image-threshold: initial; shape-margin: initial; shape-outside: initial; shape-rendering: initial; size: initial; speak: initial; stop-color: initial; stop-opacity: initial; stroke: initial; stroke-dasharray: initial; stroke-dashoffset: initial; stroke-linecap: initial; stroke-linejoin: initial; stroke-miterlimit: initial; stroke-opacity: initial; stroke-width: initial; tab-size: initial; table-layout: initial; text-align: initial; text-align-last: initial; text-anchor: initial; text-combine-upright: initial; text-decoration: initial; text-decoration-skip-ink: initial; text-indent: initial; text-overflow: initial; text-shadow: initial; text-size-adjust: initial; text-transform: initial; text-underline-position: initial; top: 44.0637px; touch-action: initial; transform: initial; transform-box: initial; transform-origin: initial; transform-style: initial; user-select: initial; vector-effect: initial; vertical-align: initial; visibility: visible; -webkit-app-region: initial; -webkit-appearance: initial; border-spacing: initial; -webkit-border-image: initial; -webkit-box-align: initial; -webkit-box-decoration-break: initial; -webkit-box-direction: initial; -webkit-box-flex: initial; -webkit-box-ordinal-group: initial; -webkit-box-orient: initial; -webkit-box-pack: initial; -webkit-box-reflect: initial; -webkit-font-size-delta: initial; -webkit-highlight: initial; -webkit-hyphenate-character: initial; -webkit-line-break: initial; -webkit-line-clamp: initial; -webkit-mask-box-image: initial; -webkit-mask: initial; -webkit-mask-composite: initial; -webkit-perspective-origin-x: initial; -webkit-perspective-origin-y: initial; -webkit-print-color-adjust: initial; -webkit-rtl-ordering: initial; -webkit-ruby-position: initial; -webkit-tap-highlight-color: initial; -webkit-text-combine: initial; -webkit-text-decorations-in-effect: initial; -webkit-text-emphasis: initial; -webkit-text-emphasis-position: initial; -webkit-text-fill-color: initial; -webkit-text-security: initial; -webkit-text-stroke: initial; -webkit-transform-origin-x: initial; -webkit-transform-origin-y: initial; -webkit-transform-origin-z: initial; -webkit-user-drag: initial; -webkit-user-modify: initial; white-space: initial; widows: initial; width: 16px; will-change: initial; word-break: initial; word-spacing: initial; x: initial; y: initial; z-index: auto;"></span></div>
+                                    </div>
+                                </div>
+                                <div data-partial="checkoutPayments">
+                                    <div class="row">
+
+                                    </div>
+                                </div>
+                            </div>               
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-lm-4" >
+                    <div id="cart-box" class="module-box py-3 bg-white">
+                        <div class="panel panel-cart ">
+                            <div class="cart-header justify-between-center">
+                                <div class="btn-group " data-toggle='buttons'>
+                                    <label class="btn btn-orange active" >
+                                        <input type="radio" name="type" id='delivery' autocomplete='off'  style="display: none;" checked/>
+                                        <strong> Delivery <br/></strong> 
+                                        <span  class="small center-block" >
+                                            in 15 min  
+                                        </span>
+                                    </label>
+                                    <label class="btn btn-orange">
+                                        <input type="radio" name="type" id='pickUp' autocomplete='off'  style="display: none;" />
+                                        <strong> Pick Up <br/></strong>
+                                        <span class="small center-block">
+                                            Starts 06:00 am  
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="panel-body py-4 px-3 bg-white justify-content-center" style="overflow-y: auto;height: 250px;">
+                                <div id="cart-control" class="">
+                                    <ul id="dishSelectedList" >
+
+
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                            <div  style="width: 80%; margin: 0 auto; border-top: 1px solid #999; " >
+                                <span class="text-muted "  style="float: left; ">Total:</span>
+                                <span  style="float: right; font-weight: bold;" id="cart-totals"> </span>
+                            </div>
+
+                            <div id="cart-buttons" class="mt-3">
+                                <button class="checkout-btn btn orange btn-block btn-lg"  style="width: 80%; margin: 15px auto;">
+                                    Checkout
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="pt-5">
+            <div class="footer pt-5 pb-5">
+                <div class="container text-white">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="footer-links">
+                                <h6 class="footer-title d-none d-sm-block">Proyecto de Programacion 4</h6>
+                                <ul>
+                                    <li>
+                                        <a href="#">David Aguilar Rojas</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Ian Mora Rodriguez</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="footer-links">
+                                <h6 class="footer-title d-none d-sm-block">Information</h6>
+                                <ul>
+                                    <li>
+                                        <a href="#">Profesor: Jose Sanchez</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 mt-3 mt-sm-0">
+                            <div class="social-bottom">
+                                <h6 class="footer-title" style="display: inline-block;">Follow us on</h6>
+                                <ul class="social-icons list-inline" >
+                                    <li>
+                                        <a class="p-2 fab fa-facebook" target="_blank" title="Facebook" href="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="p-2 fab fa-twitter" target="_blank" title="Facebook" href="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="p-2 fab fa-github" target="_blank" title="Facebook" href="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="p-2 fab fa-youtube" target="_blank" title="Facebook" href="">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 mt-3 mt-sm-0">
+                            <div id="newsletter-box">
+                                <h5 class="mb-4">Subscribe to our newsletter</h5>
+                                <form id="subscribeForm" class="subscribe-form" method="POST" >
+                                    <div class="input-group subscribe-group">
+                                        <input type="text" class="form-control" name="subscribe_email" data-kwimpalastatus="alive" readonly>
+                                        <span class="input-group-append">
+                                            <button id="subscribeButton" class="btn btn-info"><i class="fa fa-paper-plane"></i></button>
+                                        </span>
+                                    </div>
+                                </form>                    
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <hr class="mb-3">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col p-2">
+                                © 2020 Proyecto Progra 4, Inspirado en: - <a target="_blank" href="http://tastyigniter.com">Powered by TastyIgniter</a>      
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+
+        </footer>
+        <!--JQUERY-->
+        <script src="https://code.jquery.com/jquery-3.5.1.js"  crossorigin="anonymous"></script>
+
+        <!--BOOTSTRAP-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"  crossorigin="anonymous"></script>       
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
+        <!--iconos de font awesome-->
+        <script src="https://kit.fontawesome.com/39f4ebbbea.js" crossorigin="anonymous"></script>
+
+        <script>
+            var p_selected = [];
+            function loaded(event) {
+                getOrder();
+                events();
+            }
+
+            function events() {
+                //                Evento de fecha y ASAP
+                $("#ASAP").click(function () {
+                    $("#dropdownMenuFecha").html(" ");
+                    $("#dropdownMenuFecha").append($("#ASAP").html());
+                });
+                $("#saveDate").click(function () {
+                    if ($("#dateText").val() !== "") {
+                        $("#dropdownMenuFecha").html(" ");
+                        $("#dropdownMenuFecha").append($("#dateText").val());
+                    }
+                }
+                );
+            }
+            function fillCart(platillos) {
+                $("#dishSelectedList").html(" ");
+                var cuenta = 0;
+                platillos.forEach((platillo) => {
+                    var precio = 0;
+                    var platilloSinEspacios = platillo.nombrePlatillo.replace(/ /g, "");
+                    $("#dishSelectedList").append(
+                            '<li>' +
+                            '<button style="position: relative; top: -15px; " type="button" class="cart-btn btn btn-light btn-sm text-muted" id="' + platilloSinEspacios + 'Menos' + cuenta + '">' +
+                            '<i class="fa fa-minus"></i>' +
+                            '</button>' +
+                            '<button style="width: 80%;background-color: white; border:none;" type="button" id="' + platilloSinEspacios + cuenta + '" class="btn btn-light btn-sm btn-cart " data-toggle="modal" data-target="#modalOptions">' +
+                            '<span  style="float:left; font-size: 15px; font-weight: bold;"> ' + platillo.cantidad + 'x ' + platillo.nombrePlatillo + '</span> <span style="float:right;" id="' + platilloSinEspacios + 'PlatilloCartPrecio' + cuenta + '"></span>' +
+                            '<br><br>' +
+                            '<div id="' + platilloSinEspacios + 'PlatilloCart' + cuenta + '" class="text-muted" style="display: block;">' +
+                            '</div>' +
+                            '</button>' +
+                            '</li>'
+                            );
+                    var adicionales = platillo.adicionalCollection;
+                    adicionales.forEach((adi) => {
+                        var adicionalSinEspacios = adi.nombre.replace(/ /g, "");
+                        $('#' + platilloSinEspacios + 'PlatilloCart' + cuenta).append(
+                                '<div id="' + adicionalSinEspacios + 'AdicionalCart' + cuenta + '" class="text-muted" style="display: block;">' +
+                                '<span  style="float:left;">' + adi.nombre + '</span> <br>' +
+                                '</div>'
+                                );
+                        adi.opcionCollection.forEach((op) => {
+                            $('#' + adicionalSinEspacios + 'AdicionalCart' + cuenta).append('<span  style="float:left;">' + op.nombre + ' ' + op.precio + '</span><br>');
+                            precio += op.precio;
+                        });
+                    });
+                    precio += platillo.precio;
+                    precio = precio * platillo.cantidad;
+                    $("#" + platilloSinEspacios + 'PlatilloCartPrecio' + cuenta).append('$' + precio);
+                    $("#" + platilloSinEspacios + 'Menos' + cuenta).click(function () {
+                        decreseDish(platillo);
+                    });
+                    $("#" + platilloSinEspacios + cuenta).click(function () {
+                        getDishInOrder(platillo);
+                    });
+                    cuenta++;
+                    //        CIERRA EL FOR DE PLATILLOS
+                });
+            }
+            function decreseDish(platillo) {
+                $.ajax({
+                    type: "POST",
+                    url: "/restaurante/api/restaurante/decreseQuant",
+                    data: JSON.stringify(platillo),
+                    contentType: "application/json",
+                    success: function (orden) {
+                        console.log(orden);
+                        p_selected = orden.platilloseleccionadoCollection;
+                        fillCart(p_selected);
+                        $("#cart-totals").html(" ");
+                        $("#cart-totals").append(orden.total);
+                    },
+                    error: function (status) {
+                        alert(errorMessage(status));
+                    }
+                });
+            }
+            function keepDishInOrder(platilloInOrder) {
+                $("#saveDish").off();
+
+                $("#saveDish").click(function () {
+                    var Options = $("[id*=OpId]");
+                    var OpSelected = [];
+                    for (let i = 0; i < Options.length; i++) {
+                        if (Options[i].checked) {
+                            OpSelected.push($("#" + Options[i].id + "Label").text());
+                        }
+                    }
+                    var nombre = $("#nombrePlatilloModal").text();
+                    var cantidad = $("#quantityModal").val();
+                    var OptionsSelected = JSON.stringify(OpSelected);
+                    var platilloOrder = JSON.stringify(platilloInOrder);
+                    console.log(platilloOrder);
+                    var sendData = nombre + "\n" + cantidad + "\n" + OptionsSelected + "\n" + platilloOrder;
+                    $.ajax({
+                        type: "POST",
+                        url: "/restaurante/api/restaurante/AddToCart",
+                        data: sendData,
+                        success: function (orden) {
+                            p_selected = orden.platilloseleccionadoCollection;
+                            fillCart(p_selected);
+                            $("#cart-totals").html(" ");
+                            $("#cart-totals").append(orden.total);
+                        },
+                        error: function (status) {
+                            alert(errorMessage(status));
+                        }
+                    });
+                });
+            }
+            function getDishInOrder(platilloOrder) {
+                $.ajax({
+                    type: "POST",
+                    url: "/restaurante/api/restaurante/getDishInCart",
+                    data: JSON.stringify(platilloOrder),
+                    contentType: "application/json",
+                    success: function (platilloCompleto) {
+                        getAditional(platilloCompleto, platilloOrder);
+
+                        keepDishInOrder(platilloOrder);
+                    },
+                    error: function (status) {
+                        alert(errorMessage(status));
+                    }
+                });
+            }
+            function getAditional(platillo, platilloOrder) {
+                var Adicionales = platillo.adicionalCollection;
+                var AdicionalesOrden = null;
+                if (platilloOrder !== null) {
+                    AdicionalesOrden = platilloOrder.adicionalCollection;
+                }
+
+                $("#adtionalModal").html(" ");
+                $("#nombrePlatilloModal").html(" ");
+                $("#descPlatilloModal").html(" ");
+                $("#priceModal").html(" ");
+                $("#nombrePlatilloModal").append(platillo.nombrePlatillo);
+                $("#descPlatilloModal").append(platillo.descripcion);
+                $("#priceModal").append("$ " + platillo.precio);
+                var index = 0;
+                if (Adicionales.length !== 0) {
+                    Adicionales.forEach((adicional) => {
+                        var requerida = "Requerida";
+                        if (adicional.requerida === 0) {
+                            requerida = "Opcional";
+                        }
+                        var adicionalSinEspacios = adicional.nombre.replace(/ /g, "");
+                        $("#adtionalModal").append('<div class="container " id="' + adicionalSinEspacios + '">' +
+                                '<div class="row bg-light py-2 my-2">' +
+                                '<div class="col-9">' +
+                                '<h5>' + adicional.nombre + '</h5>' +
+                                ' </div>' +
+                                '<div class="col-3 text-muted">' +
+                                requerida +
+                                '</div>' +
+                                '</div>' +
+                                '</div>');
+
+                        if (AdicionalesOrden !== null) {
+                            var bandera = false;
+                            for (let i = 0; i < AdicionalesOrden.length; i++) {
+                                var adicionalOrder = AdicionalesOrden[i].nombre.replace(/ /g, "");
+                                if (adicionalOrder === adicionalSinEspacios) {
+                                    fillOptions(adicional, AdicionalesOrden[i]);
+                                    bandera = true;
+                                }
+                            }
+                            if (!bandera) {
+                                fillOptions(adicional, null);
+                            }
+                        } else {
+                            fillOptions(adicional, null);
+                        }
+
+                        index++;
+                    });
+                }
+
+
+            }
+           
+    function getOrder() {
+                $.ajax({
+                    type: "POST",
+                    url: "/restaurante/api/restaurante/GetCartSession",
+                    success: function (orden) {
+                        p_selected = orden.platilloseleccionadoCollection;
+                        fillCart(p_selected);
+                        $("#cart-totals").html(" ");
+                        $("#cart-totals").append("$ " + orden.total);
+                    },
+                    error: function (status) {
+                        alert(errorMessage(status));
+                    }
+                });
+            }
+
+            function fillOptions(adicional, adicionalOrder) {
+
+                var opciones = adicional.opcionCollection;
+                var opcionesOrden = null;
+                if (adicionalOrder !== null) {
+                    opcionesOrden = adicionalOrder.opcionCollection;
+                }
+
+                var adicionalSinEspacios = adicional.nombre.replace(/ /g, "");
+                var index = 0;
+                opciones.forEach((opcion) => {
+                    var htmlOption = " ";
+                    var opcionesSinEspacios = opcion.nombre.replace(/ /g, "");
+                    if (adicional.tipo === 0) {
+                        htmlOption = '<div class="row justify-content-between my-1">' +
+                                ' <div class="col-8">' +
+                                ' <div class="custom-control custom-radio">' +
+                                '<input type="radio" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '" name="' + adicionalSinEspacios + "Name" + '" value="customEx">' +
+                                '<label class="custom-control-label" for="' + opcionesSinEspacios + "OpId" + '" id="' + opcionesSinEspacios + "OpIdLabel" + '">' + opcion.nombre + '</label>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="col-3">' +
+                                opcion.precio +
+                                '</div>' +
+                                '</div>';
+                    } else {
+                        htmlOption = '<div class="row justify-content-between my-1">' +
+                                '<div class="col-8">' +
+                                '<div class="custom-control custom-checkbox">' +
+                                '<input type="checkbox" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '">' +
+                                '<label class="custom-control-label" for="' + opcionesSinEspacios + "OpId" + '" id="' + opcionesSinEspacios + "OpIdLabel" + '">' + opcion.nombre + '</label>' +
+                                ' </div>' +
+                                '</div>' +
+                                '<div class="col-3">' +
+                                opcion.precio +
+                                '</div>' +
+                                '</div>';
+                    }
+                    $("#" + adicionalSinEspacios).append(htmlOption);
+
+                    if (opcionesOrden !== null) {
+                        for (let i = 0; i < opcionesOrden.length; i++) {
+                            var opSinEspOrder = opcionesOrden[i].nombre.replace(/ /g, "");
+                            if (opcionesSinEspacios === opSinEspOrder) {
+                                console.log(opcionesSinEspacios);
+                                $("#" + opcionesSinEspacios + "OpId").attr("checked", "checked");
+                            }
+                        }
+                    }
+
+                    index++;
+                });
+            }
+
+            function errorMessage(status) {
+                return "Ha ocurrido un error";
+            }
+
+
+            document.addEventListener("DOMContentLoaded", loaded);
+
+        </script>
+    </body>
+</html>
