@@ -32,8 +32,8 @@ import javax.servlet.http.HttpSession;
  * @author
  */
 @WebServlet(name = "OrderService", urlPatterns = {"/api/restaurante/categorias/get", "/api/restaurante/AddToCart",
-    "/api/restaurante/GetCartSession", "/api/restaurante/decreseQuant", "/api/restaurante/getDishInCart",
-    "/api/restaurante/login", "/api/restaurante/register", "/api/restaurante/updateCart"})
+    "/api/restaurante/GetCartSession", "/api/restaurante/decreseQuant",
+    "/api/restaurante/getDishInCart", "/api/restaurante/updateCart"})
 public class OrderService extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -55,11 +55,9 @@ public class OrderService extends HttpServlet {
             case "/api/restaurante/getDishInCart":
                 this.doGetDishInCart(request, response);
                 break;
-            case "/api/restaurante/register":
-                this.doRegisterAction(request, response);
-                break;
             case "/api/restaurante/updateCart":
                 this.doUpdateOptions(request, response);
+                break;
 
         }
     }
@@ -73,14 +71,16 @@ public class OrderService extends HttpServlet {
             String fecha = reader.readLine();
 
             HttpSession session = request.getSession(true);
+            
             Orden order = (Orden) session.getAttribute("order");
             order.setTipoEntrega(Integer.parseInt(tipo_entrega));
-
+            if (order.getPlatilloseleccionadoCollection().size() <= 0) {
+                throw new Exception("Error");
+            }
             if (fecha.equals("ASAP")) {
                 order.setAsap(1);
             } else {
                 order.setAsap(0);
-//                String fecha = "19-06-2020 19:55";
                 SimpleDateFormat formatDMA = new SimpleDateFormat("dd-MM-yyyy HH:mm");
                 Date sameDate = formatDMA.parse(fecha);
 
@@ -89,60 +89,6 @@ public class OrderService extends HttpServlet {
                 order.setFechaEntrega(sameDate);
             }
             response.setStatus(201);
-
-        } catch (Exception e) {
-            response.setStatus(status(e));
-        }
-    }
-
-    protected void doRegisterAction(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
-        try {
-            BufferedReader reader = request.getReader();
-
-            String firstName = reader.readLine();
-            String lastName = reader.readLine();
-            String email = reader.readLine();
-            String password = reader.readLine();
-            String confirmPass = reader.readLine();
-            String telephone = reader.readLine();
-
-            Usuario usuario = new Usuario(email, firstName, password, 0);
-            if (com.progra.restaurante.data.Model.instance().insertUser(usuario) == true) {
-                Cliente cliente = new Cliente(email, firstName, lastName, telephone);
-                if (com.progra.restaurante.data.Model.instance().insertCliente(cliente) == false) {
-                    throw new Exception("Error");
-                }
-            }
-
-            response.setStatus(201);
-
-        } catch (Exception e) {
-            response.setStatus(status(e));
-        }
-    }
-
-    protected void doLoginAction(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
-        try {
-            BufferedReader reader = request.getReader();
-            Gson gson = new Gson();
-
-            String username = reader.readLine();
-            String clave = reader.readLine();
-
-            HttpSession session = request.getSession(true);
-            Usuario real = com.progra.restaurante.data.Model.instance().getUsuario(username, clave);
-            if (real == null) {
-                throw new Exception("Usuario no encontrado");
-            }
-            session.setAttribute("usuario", real);
-
-            response.setContentType("application/json; charset=UTF-8");
-            PrintWriter out = response.getWriter();
-            out.write(gson.toJson(real));
-
-            response.setStatus(200);
 
         } catch (Exception e) {
             response.setStatus(status(e));
@@ -158,6 +104,9 @@ public class OrderService extends HttpServlet {
 //Se parsea en un int la posicion del platillo que se desea modificar. 
             Platillo platilloAux = gson.fromJson(reader.readLine(), Platillo.class);
 //            Se trae la orden de la sesion
+            if (session.getAttribute("order") == null) {
+                session.setAttribute("order", new Orden());
+            }
             Orden order = (Orden) session.getAttribute("order");
 //Se trae el platillo con respecto al que se encuentra dentro de la peticion 
 
@@ -297,6 +246,7 @@ public class OrderService extends HttpServlet {
         try {
             BufferedReader reader = request.getReader();
             Gson gson = new Gson();
+            
             PrintWriter out = response.getWriter();
 
             ArrayList<Categoria> categorias = Model.instance().getCategories();

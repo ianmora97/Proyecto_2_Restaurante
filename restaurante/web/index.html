@@ -1,22 +1,12 @@
-
-
-<%@page import="java.util.ArrayList"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="com.progra.restaurante.logic.*"%>
-
 <!DOCTYPE html>
 <!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
+UNIVERSIDAD NACIONAL DE COSTA RICA
+Proyecto de programacion 4 
+Integrantes:
+David Aguilar Rojas
+Ian Mora Rodriguez
+I Ciclo lectivo 2020 
 -->
-
-<%
-    if (session.getAttribute("order") != null) {
-        session.setAttribute("order", new Orden());
-    }
-%>
-
 <html>
     <head>
         <title>Dely Restaurant </title>
@@ -24,6 +14,7 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" type="image/x-icon" href="/restaurante/images/logo.png" />
 
+        <!--CSS DEL DATE-->
         <link rel="stylesheet" href="/restaurante/css/bootstrap-datetimepicker.min.css">
         <!--css local-->
         <link rel="stylesheet" href="/restaurante/css/order.css">
@@ -33,7 +24,6 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"  crossorigin="anonymous">
         <!--Link del css de la página original-->
         <link rel="stylesheet" type="text/css" href="https://demo.tastyigniter.com/themes/tastyigniter-orange/assets/css/app.css" >
-
     </head>
     <body style="background-color: #EEEDED;">
         <!--MODAL PARA LA FECHA-->
@@ -121,16 +111,27 @@ and open the template in the editor.
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="mainNav">
                     <div class="navbar-nav">
-                        <a class="nav nav-link active "  href="/restaurante/index.jsp" > View Menu </a>
+                        <a class="nav nav-link active "  href="/restaurante/index.html" > View Menu </a>
                         <a class="nav-item nav-link"  href="#"> Reservation</a>
-                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/loginCliente.html"> Login</a>
-                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/register.html"> Register</a>
+                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/loginCliente.html" id="loginAnchor"> Login</a>
+                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/register.html" id="registerAnchor"> Register</a>
+                        <a class="nav-item nav-link"  href="#" id="logOutAnchor"> Log Out</a>
+
                     </div>
                 </div>
             </div>
         </nav>
 
         <!--Fin de la barra de navegación principal superior-->
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div id="emptyCart" class="alert alert-danger text-center" role="alert" >
+                        <strong> <i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;The shopping cart is empty</strong> 
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="container ">
             <div class="row ">
@@ -150,7 +151,7 @@ and open the template in the editor.
                         <div class="container bg-white  py-4 mb-1" >
                             <div class="dropdown show ">
                                 <a class="btn btn-light dropdown-toggle btn-block" href="#" role="button" id="dropdownMenuFecha" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-clock"></i> &nbsp ASAP
+                                    <i class="fas fa-clock"></i> &nbsp; ASAP
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -358,16 +359,15 @@ and open the template in the editor.
         <!--JQUERY-->
         <script src="https://code.jquery.com/jquery-3.5.1.js"  crossorigin="anonymous"></script>
 
-
         <!--date picket src-->       
         <script src="/restaurante/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="/restaurante/js/calendar.js"  ></script>
 
         <!--BOOTSTRAP-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"  crossorigin="anonymous"></script>       
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
-        <script src="/restaurante/js/calendar.js"  ></script>
 
         <!--Incrementar o decrementar platillo-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap-input-spinner@1.13.5/src/bootstrap-input-spinner.min.js"></script>        <script>
@@ -390,9 +390,9 @@ and open the template in the editor.
             //         VARIABLE GLOBAL DE PLATILLOS EN LA ORDEN
             var p_selected = [];
             function loaded(event) {
-                fillCategories();
                 events();
-                getOrder();
+                fillCategories();
+
             }
 
             function fillCategories() {
@@ -520,8 +520,6 @@ and open the template in the editor.
 
 
             }
-
-
             function fillOptions(adicional, adicionalOrder) {
 
                 var opciones = adicional.opcionCollection;
@@ -575,6 +573,7 @@ and open the template in the editor.
             }
 
             function events() {
+                $("#emptyCart").hide();
                 //                Evento de fecha y ASAP
                 $("#ASAP").click(function () {
                     $("#dropdownMenuFecha").html(" ");
@@ -588,18 +587,59 @@ and open the template in the editor.
                 }
                 );
                 checkout();
+                getOrder();
+                logOut();
+                getUserInSession();
+            }
+            function logOut() {
+                $("#logOutAnchor").click(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "/restaurante/api/restaurante/logOut",
+                        success: function () {
+                            location.href = "/restaurante/index.html";
+                        },
+                        error: function (status) {
+                            alert(errorMessage(status));
+                        }
+                    });
+                });
+            }
+            function getUserInSession() {
+                $.ajax({
+                    type: "POST",
+                    url: "/restaurante/api/restaurante/getUser",
+                    success: function (usuario) {
+                        if (usuario !== null) {
+                            $("#registerAnchor").hide();
+                            $("#loginAnchor").hide();
+                            $("#logOutAnchor").show();
+                            console.log(usuario);
+
+                        } else {
+                            console.log(usuario);
+                            $("#registerAnchor").show();
+                            $("#loginAnchor").show();
+                            $("#logOutAnchor").hide();
+                        }
+                    },
+                    error: function (status) {
+                        alert(errorMessage(status));
+                    }
+                });
             }
             function checkout() {
                 $("#checkoutBtn").click(function () {
-                    var seleccionada;
+
+                    var seleccionada = 2;
                     if ($("#delivery").prop("checked")) {
                         seleccionada = 1;
-                    } else {
-                        seleccionada = 2;
                     }
                     var ASAP = $("#dropdownMenuFecha").text();
+                    if (ASAP.includes("ASAP")) {
+                        ASAP = "ASAP";
+                    }
                     var sendData = seleccionada + "\n" + ASAP;
-                    console.log(sendData);
                     $.ajax({
                         type: "POST",
                         url: "api/restaurante/updateCart",
@@ -608,12 +648,13 @@ and open the template in the editor.
                             location.href = "/restaurante/presentacionCliente/checkout.html";
                         },
                         error: function (status) {
-                            alert(errorMessage(status));
+                            $("#emptyCart").fadeTo(2000, 500).slideUp(500, function () {
+                                $("#emptyCart").slideUp(500);
+                            });
                         }
                     });
                 });
             }
-
             function keepDishInOrder(platilloInOrder) {
                 $("#saveDish").off();
                 $("#saveDish").click(function () {
@@ -645,7 +686,6 @@ and open the template in the editor.
                     });
                 });
             }
-
             function getOrder() {
                 $.ajax({
                     type: "POST",
@@ -661,7 +701,6 @@ and open the template in the editor.
                     }
                 });
             }
-
             function fillCart(platillos) {
                 $("#dishSelectedList").html(" ");
                 var cuenta = 0;
@@ -724,7 +763,6 @@ and open the template in the editor.
                     }
                 });
             }
-
             function getDishInOrder(platilloOrder) {
                 $.ajax({
                     type: "POST",
@@ -740,7 +778,6 @@ and open the template in the editor.
                     }
                 });
             }
-
 
             function errorMessage(status) {
                 return "Ha ocurrido un error";

@@ -65,13 +65,7 @@ public class Ubicacion implements Serializable {
     private String canton;
     @Column(name = "codigo_postal")
     private Integer codigoPostal;
-    @JoinTable(name = "direccion_propia", joinColumns = {
-        @JoinColumn(name = "id_ubicacion", referencedColumnName = "id_ubicacion")}, inverseJoinColumns = {
-        @JoinColumn(name = "usuario_correo", referencedColumnName = "usuario_correo")})
-    @ManyToMany
-    private Collection<Usuario> usuarioCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUbicacion")
-    private Collection<Orden> ordenCollection;
+
 
     public Ubicacion() {
     }
@@ -125,24 +119,6 @@ public class Ubicacion implements Serializable {
 
     public void setCodigoPostal(Integer codigoPostal) {
         this.codigoPostal = codigoPostal;
-    }
-
-    @XmlTransient
-    public Collection<Usuario> getUsuarioCollection() {
-        return usuarioCollection;
-    }
-
-    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
-        this.usuarioCollection = usuarioCollection;
-    }
-
-    @XmlTransient
-    public Collection<Orden> getOrdenCollection() {
-        return ordenCollection;
-    }
-
-    public void setOrdenCollection(Collection<Orden> ordenCollection) {
-        this.ordenCollection = ordenCollection;
     }
 
     @Override

@@ -31,7 +31,7 @@ and open the template in the editor.
                 </button>
                 <div class="collapse navbar-collapse justify-content-end navbar-expand-sm" id="mainNav">
                     <div class="navbar-nav">
-                        <a class="nav nav-link  "  href="/restaurante/index.jsp" > View Menu </a>
+                        <a class="nav nav-link  "  href="/restaurante/index.html" > View Menu </a>
                         <a class="nav-item nav-link"  href="#"> Reservation</a>
                         <a class="nav-item nav-link active"  href="/restaurante/presentacionCliente/loginCliente.html"> Login</a>
                         <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/register.html"> Register</a>
@@ -200,16 +200,14 @@ and open the template in the editor.
                         $("#incorrect").fadeTo(2000, 300).slideUp(200, function () {
                             $("#incorrect").slideUp(200);
                         });
-                        console.log("entro");
                     } else {
                         var sendData = username + "\n" + clave;
-                        console.log(username + clave);
                         $.ajax({
                             type: "POST",
                             url: "/restaurante/api/restaurante/login",
                             data: sendData,
                             success: function (usuario) {
-                                location.href = "/restaurante/index.jsp";
+                                location.href = "/restaurante/index.html";
                             },
                             error: function () {
                                 $("#input-user").addClass("error");

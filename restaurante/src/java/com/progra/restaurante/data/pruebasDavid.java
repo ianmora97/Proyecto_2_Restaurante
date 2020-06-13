@@ -5,9 +5,7 @@
  */
 package com.progra.restaurante.data;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import com.progra.restaurante.logic.Usuario;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,16 +51,16 @@ public class pruebasDavid {
             //                    System.out.print(platillo.getAdicionalCollection().get(j).getOpcionCollection().get(x).getNombre());
             //                }
             //            }
+//
+//            String fecha = "19-06-2020 19:55";
+//            SimpleDateFormat diaMesAnio = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+//            Date sameDate = diaMesAnio.parse(fecha);
+//
+//            Calendar cal = Calendar.getInstance();
+//            cal.setTime(sameDate);
+                Usuario usuario = com.progra.restaurante.data.Model.instance().getUsuario("pulplix", "123");
 
-            String fecha = "19-06-2020 19:55";
-            SimpleDateFormat diaMesAnio = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-            Date sameDate = diaMesAnio.parse(fecha);
-
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(sameDate);
-
-
-            System.out.println("Some Date : " + cal.getTime());
+            System.out.println(usuario.getCliente().getNombre());
 
         } catch (Exception ex) {
             Logger.getLogger(pruebasDavid.class.getName()).log(Level.SEVERE, null, ex);

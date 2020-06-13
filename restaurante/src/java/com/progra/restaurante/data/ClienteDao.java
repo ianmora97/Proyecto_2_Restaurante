@@ -8,6 +8,7 @@ package com.progra.restaurante.data;
 import com.progra.restaurante.logic.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -26,7 +27,7 @@ public class ClienteDao {
             st.setString(2, cliente.getNombre());
             st.setString(3, cliente.getApellidos());
             st.setString(4, cliente.getTelefono());
-            
+
             int resultado = st.executeUpdate();
             con.close();
             st.close();
@@ -37,4 +38,29 @@ public class ClienteDao {
         }
     }
 
+    public static Cliente createClient(String usuarioCorreo) throws Exception {
+        String SQL = "select *from cliente where usuario_correo = ?;";
+        Cliente cliente = new Cliente();
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+            st.setString(1, usuarioCorreo);
+            ResultSet result = st.executeQuery();
+
+            while (result.next()) {
+                cliente.setNombre(result.getString("nombre"));
+                cliente.setApellidos(result.getString("apellidos"));
+                cliente.setTelefono(result.getString("telefono"));
+                cliente.setUsuarioCorreo(result.getString("usuario_correo"));
+            }
+            result.close();
+            con.close();
+            st.close();
+            return cliente;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
 }

@@ -35,6 +35,8 @@ public class UsuarioDao {
                 usuario.setUsername(resultado.getString("username"));
                 usuario.setContrasena(resultado.getString("contrasena"));
                 usuario.setRol(resultado.getInt("rol"));
+                usuario.setCliente(com.progra.restaurante.data.ClienteDao.createClient(resultado.getString("usuario_correo")));
+                
             }
             con.close();
             resultado.close();
