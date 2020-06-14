@@ -10,8 +10,10 @@ import com.google.gson.Gson;
 import com.progra.restaurante.data.Model;
 import com.progra.restaurante.logic.Categoria;
 import com.progra.restaurante.logic.Cliente;
+import com.progra.restaurante.logic.MetodosPago;
 import com.progra.restaurante.logic.Orden;
 import com.progra.restaurante.logic.Platillo;
+import com.progra.restaurante.logic.Ubicacion;
 import com.progra.restaurante.logic.Usuario;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,8 +34,8 @@ import javax.servlet.http.HttpSession;
  * @author
  */
 @WebServlet(name = "OrderService", urlPatterns = {"/api/restaurante/categorias/get", "/api/restaurante/AddToCart",
-    "/api/restaurante/GetCartSession", "/api/restaurante/decreseQuant",
-    "/api/restaurante/getDishInCart", "/api/restaurante/updateCart"})
+    "/api/restaurante/GetCartSession", "/api/restaurante/decreseQuant", "/api/restaurante/saveOrder",
+    "/api/restaurante/getDishInCart", "/api/restaurante/updateCart", "/api/restaurante/getPaymentMethods"})
 public class OrderService extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -58,7 +60,98 @@ public class OrderService extends HttpServlet {
             case "/api/restaurante/updateCart":
                 this.doUpdateOptions(request, response);
                 break;
+            case "/api/restaurante/getPaymentMethods":
+                this.doGetPaymentMethods(request, response);
+                break;
+            case "/api/restaurante/saveOrder":
+                this.doSaveOrder(request, response);
+                break;
+        }
+    }
 
+    protected void doSaveOrder(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
+            HttpSession session = request.getSession(true);
+            Orden order = (Orden) session.getAttribute("order");
+
+            if (order.getPlatilloseleccionadoCollection().size() <= 0) {
+                throw new Exception("Error");
+            }
+            BufferedReader reader = request.getReader();
+            String firstName = reader.readLine();
+            String lastName = reader.readLine();
+            String email = reader.readLine();
+            String telephone = reader.readLine();
+            String OpSelected = reader.readLine();
+
+            String tipo_entrega = reader.readLine();
+            String fecha = reader.readLine();
+            String postCode = reader.readLine();
+            
+            Ubicacion ubicacion = com.progra.restaurante.data.Model.instance().getUbicion(Integer.parseInt(postCode));
+            order.setIdUbicacion(ubicacion);
+            if(ubicacion == null){
+            throw new Exception("UBICACION NO ENCONTRADA");
+            }
+            Usuario real = com.progra.restaurante.data.Model.instance().getUsuarioByEmail(email);
+            if (real == null) {
+                real = new Usuario();
+                real.setUsuarioCorreo(email);
+                real.setUsername(firstName);
+                real.setContrasena(lastName);
+                real.setCliente(new Cliente());
+                real.getCliente().setUsuarioCorreo(email);
+                real.getCliente().setNombre(firstName);
+                real.getCliente().setApellidos(lastName);
+                real.getCliente().setTelefono(lastName);
+                real.setRol(1);
+
+                if (com.progra.restaurante.data.Model.instance().insertUser(real)) {
+                    com.progra.restaurante.data.Model.instance().insertCliente(real.getCliente());
+                }
+            }
+
+            MetodosPago metodo = com.progra.restaurante.data.Model.instance().getMetodoPago(OpSelected);
+            order.setUsuarioCorreo(real);
+            order.setMetodoPago(metodo);
+            order.setTipoEntrega(Integer.parseInt(tipo_entrega));
+            
+            if (fecha.equals("ASAP")) {
+                order.setAsap(1);
+            } else {
+                order.setAsap(0);
+                SimpleDateFormat formatDMA = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                Date sameDate = formatDMA.parse(fecha);
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(sameDate);
+                order.setFechaEntrega(sameDate);
+            }
+            
+            com.progra.restaurante.data.Model.instance().insertOrder(order);
+            response.setStatus(201);
+
+        } catch (Exception e) {
+            response.setStatus(status(e));
+        }
+    }
+
+    protected void doGetPaymentMethods(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(true);
+        try {
+            BufferedReader reader = request.getReader();
+            Gson gson = new Gson();
+
+            ArrayList<MetodosPago> metodos = com.progra.restaurante.data.Model.instance().getMetodosPago();
+            //Salida de la aplicacion
+            response.setContentType("application/json; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.write(gson.toJson(metodos));
+            response.setStatus(201); // ok with content
+
+        } catch (Exception e) {
+            response.setStatus(status(e));
         }
     }
 
@@ -71,7 +164,7 @@ public class OrderService extends HttpServlet {
             String fecha = reader.readLine();
 
             HttpSession session = request.getSession(true);
-            
+
             Orden order = (Orden) session.getAttribute("order");
             order.setTipoEntrega(Integer.parseInt(tipo_entrega));
             if (order.getPlatilloseleccionadoCollection().size() <= 0) {
@@ -246,7 +339,7 @@ public class OrderService extends HttpServlet {
         try {
             BufferedReader reader = request.getReader();
             Gson gson = new Gson();
-            
+
             PrintWriter out = response.getWriter();
 
             ArrayList<Categoria> categorias = Model.instance().getCategories();

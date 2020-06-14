@@ -36,7 +36,7 @@ public class UsuarioDao {
                 usuario.setContrasena(resultado.getString("contrasena"));
                 usuario.setRol(resultado.getInt("rol"));
                 usuario.setCliente(com.progra.restaurante.data.ClienteDao.createClient(resultado.getString("usuario_correo")));
-                
+
             }
             con.close();
             resultado.close();
@@ -66,12 +66,43 @@ public class UsuarioDao {
 
             con.close();
             st.close();
-            
+
             return resultado != 0;
 
         } catch (SQLException ex) {
             System.out.println(ex);
             return false;
+        }
+    }
+
+    public static Usuario getUsuarioByEmail(String correo) throws Exception {
+        String SQL = "select *from usuario where usuario_correo = ?;";
+        Usuario usuario = null;
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+
+            st.setString(1, correo);
+            ResultSet resultado = st.executeQuery();
+
+            while (resultado.next()) {
+                usuario = new Usuario();
+                usuario.setUsuarioCorreo(resultado.getString("usuario_correo"));
+                usuario.setUsername(resultado.getString("username"));
+                usuario.setContrasena(resultado.getString("contrasena"));
+                usuario.setRol(resultado.getInt("rol"));
+                usuario.setCliente(com.progra.restaurante.data.ClienteDao.createClient(resultado.getString("usuario_correo")));
+            }
+
+            con.close();
+            st.close();
+            resultado.close();
+            
+            return usuario;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return usuario;
         }
     }
 }

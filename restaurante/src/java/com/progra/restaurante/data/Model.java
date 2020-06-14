@@ -49,12 +49,24 @@ public class Model {
         return com.progra.restaurante.data.UsuarioDao.getUsuario(u, c);
     }
 
+    public Usuario getUsuarioByEmail(String correo) throws Exception {
+        return com.progra.restaurante.data.UsuarioDao.getUsuarioByEmail(correo);
+    }
+
     public boolean insertUser(Usuario usuario) throws Exception {
         return com.progra.restaurante.data.UsuarioDao.insertUser(usuario);
     }
 
     public boolean insertCliente(Cliente cliente) throws Exception {
         return com.progra.restaurante.data.ClienteDao.insertClient(cliente);
+    }
+
+    public MetodosPago getMetodoPago(String nombre) throws Exception {
+        return com.progra.restaurante.data.MetodosPagoDao.getMetodoPago(nombre);
+    }
+
+    public ArrayList<MetodosPago> getMetodosPago() throws Exception {
+        return com.progra.restaurante.data.MetodosPagoDao.getMetodosPago();
     }
 
     public ArrayList<Categoria> getCategories() throws Exception {
@@ -172,6 +184,14 @@ public class Model {
                 i--;
             }
         }
+    }
+
+    public Ubicacion getUbicion(int postCode) throws Exception {
+        return com.progra.restaurante.data.UbicacionDao.getUbicion(postCode);
+    }
+
+    public boolean insertOrder(Orden order) throws Exception {
+        return com.progra.restaurante.data.OrderDao.registerOrder(order);
     }
 
 }

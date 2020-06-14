@@ -7,19 +7,33 @@ insert into usuario values ('david@gmail.com','pulplix','123',1);
 insert into usuario values ('ian@gmail.com','ianMora666','123',1);
 
 select *from usuario;
-delete from usuario where usuario_correo = 'juan@gmail.com';
+delete from usuario where usuario_correo = 'asda@gmail.com';
 -- ============================================ 
 -- Cliente 
 -- ============================================ 
 insert into cliente values ('david@gmail.com','David','Aguilar','22546789');
-
 select *from cliente;
 
 -- ============================================ 
 -- UBICACION 
 -- ============================================
-insert into ubicacion (direccion,provincia,canton,codigo_postal) values('Hatillo 5 detras de los multifamiliares casa #14','San Jose','San Jose',10110);
+insert into ubicacion (direccion,provincia,canton,codigo_postal) values('Hatillo 5 detras de los multifamiliares casa #14','San Jose','San Jose',500);
+insert into ubicacion (direccion,provincia,canton,codigo_postal) values('Escazu','San Jose','San Jose',300);
+insert into ubicacion (direccion,provincia,canton,codigo_postal) values('Santa Ana','San Jose','San Jose',200);
+insert into ubicacion (direccion,provincia,canton,codigo_postal) values('San Pedro','San Jose','San Jose',100);
+insert into ubicacion (direccion,provincia,canton,codigo_postal) values('Desamparados','San Jose','San Jose',400);
+insert into ubicacion (direccion,provincia,canton,codigo_postal) values('La Carpio','Barrios Bajos','San Jose',1);
+insert into ubicacion (direccion,provincia,canton,codigo_postal) values('Sagrada Familia','Barrios Bajos','San Jose',2);
 select * from ubicacion;
+-- ============================================ 
+-- Metodos de Pago 
+-- ============================================
+insert into metodos_pago (nombre) values('Cash');
+insert into metodos_pago (nombre) values('Credit Card');
+insert into metodos_pago (nombre) values('Paypal');
+delete from metodos_pago where nombre = 'Credit Cart';
+select * from metodos_pago;
+
 -- ============================================ 
 -- CATEGORIA 
 -- ============================================ 
@@ -66,7 +80,7 @@ insert into adicional (id_platillo,nombre,tipo,requerida) values (1,'Extras de T
 insert into adicional (id_platillo,nombre,tipo,requerida) values (2,'Extra Ingredientes',1,0);
 insert into adicional (id_platillo,nombre,tipo,requerida) values (2,'Extra Componentes',1,0);
 
-insert into adicional (id_platillo,nombre,tipo,requerida) values (3,'Extras de Ensalada',1,0);
+insert into adicional (id_platillo,nombre,tipo,requerida) values (6,'Extras de Ensalada',1,0);
 insert into adicional (id_platillo,nombre,tipo,requerida) values (3,'Salsas',1,0);
 
 insert into adicional (id_platillo,nombre,tipo,requerida) values (3,'Qtd',0,1);
@@ -81,56 +95,35 @@ insert into opcion  (id_adicional,nombre,precio)  values (7,'Más Azucar',100);
 insert into opcion  (id_adicional,nombre,precio)  values (7,'Extra Dulce de leche',500);
 insert into opcion  (id_adicional,nombre,precio)  values (3,'Queso',500);
 insert into opcion  (id_adicional,nombre,precio)  values (3,'Dos Bistec',1500);
+
 insert into opcion  (id_adicional,nombre,precio)  values (2,'Tomate',500);
 insert into opcion  (id_adicional,nombre,precio)  values (2,'Cebolla',500);
 insert into opcion  (id_adicional,nombre,precio)  values (2,'Ajo',500);
+insert into opcion  (id_adicional,nombre,precio)  values (4,'1',4100);
 
-insert into opcion  (id_adicional,nombre,precio)  values (8,'1',4100);
-insert into opcion  (id_adicional,nombre,precio)  values (8,'2',8200);
-insert into opcion  (id_adicional,nombre,precio)  values (6,'Salsa Picante',300);
-insert into opcion  (id_adicional,nombre,precio)  values (6,'Salsa Ranch',400);
-insert into opcion  (id_adicional,nombre,precio)  values (6,'Salsa Tomate',300);
-insert into opcion  (id_adicional,nombre,precio)  values (6,'Salsa Mayonesa',300);
+insert into opcion  (id_adicional,nombre,precio)  values (6,'1',4100);
+insert into opcion  (id_adicional,nombre,precio)  values (6,'2',8200);
+insert into opcion  (id_adicional,nombre,precio)  values (5,'Salsa Picante',300);
+insert into opcion  (id_adicional,nombre,precio)  values (5,'Salsa Ranch',400);
 
+insert into opcion  (id_adicional,nombre,precio)  values (5,'Salsa Tomate',300);
+insert into opcion  (id_adicional,nombre,precio)  values (5,'Salsa Mayonesa',300);
 
-SELECT DISTINCT *
-FROM adicional a
-WHERE a.id_adicional IN (
-    select o.id_adicional from opcion o where o.nombre = 'Salsa Ranch'
-);
 
 select * from opcion where nombre = 'Salsa Ranch';
-
 
 -- ============================================ 
 -- ORDEN 
 -- ============================================
+insert into orden (usuario_correo,id_metodo_pago,id_ubicacion,fecha_entrega,estatus,tipo_entrega,asap,total) values ();
+delete from orden where id_orden= 6; 
+select max(id_orden) id_orden from orden;
+select * from platilloSeleccionado;
+select id_platilloSeleccionado, a.nombre from adicional_seleccionada adS, adicional a
+where adS.id_adicional = a.id_adicional;
+
+select * from opcionesSeleccionadas;
 
 -- ============================================ 
 -- DETALLE 
--- ============================================
-
-
 -- ============================================ 
--- SELECCIONADA 
--- ============================================
-insert into seleccionada values (1,1);
-insert into seleccionada values (1,2);
-select * from seleccionada;
-
-
--- ============================================ 
--- Select casi completo de una Orden 
--- ============================================
--- SE DEBDE DE ARREGLAR DEBIDO AL CAMBIO REALIZADADO EL 02/06/2020
-select us.username Usuario, u.provincia Provincia, od.id_orden Num_Orden, c.nombre Categoria, p.nombre_platillo Platillo, ad.nombre Adicional, o.nombre Opcion from 
-seleccionada s, opcion o, detalle d, orden od, ubicacion u, platillo p, categoria c, usuario us, adicional ad
-where  s.id_opcion = o.id_opcion and
-ad.id_adicional = o.id_adicional and
-s.id_detalle = d.id_detalle and
-d.nombre_platillo = p.nombre_platillo and
-p.id_categoria = c.id_categoria and
-d.id_orden = od.id_orden and
-od.direccion = u.direccion and
-od.usuario_correo = us.usuario_correo;
-
