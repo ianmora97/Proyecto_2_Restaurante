@@ -69,7 +69,7 @@ public class OrderService extends HttpServlet {
             String nombrePlatillo = order.getPlatilloseleccionadoCollection().get(index).getNombrePlatillo();
 
             Platillo platillo = com.progra.restaurante.data.Model.instance().findPlatillo(nombrePlatillo);
-            
+
             response.setContentType("application/json; charset=UTF-8");
             PrintWriter out = response.getWriter();
             out.write(gson.toJson(platillo));

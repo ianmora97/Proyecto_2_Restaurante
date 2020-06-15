@@ -31,7 +31,7 @@
                         </div>
                         <div class="form-group" style="width: 45%;display: inline-block;margin-left: 21px;">
                             <label for="password-input">Precio</label>
-                            <input class="form-control" type="text" id="text-input-1" name="text-input">
+                            <input class="form-control" type="number" id="text-input-1" name="text-input">
                         </div>
                         <div class="form-group" style="width: 45%;display: inline-block;margin: 0;position: relative;top: -40px;">
                             <label for="textarea-input">Descripccion</label>
@@ -42,27 +42,6 @@
                             <select class="form-control" id="opcionesCategorias" style="width: 80%;">
                                                                
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="textarea-input">Adicionales</label>
-                            <div class="form-check" id="fillAdicionales">
-                                
-                            </div>
-                            <div class="form-check" style="margin-left: 17px;">
-                                <input class="form-check-input" type="checkbox" name="checkbox-input" id="formCheck-0">
-                                <label for="text-input">Otro</label>
-                                <input class="form-control" type="text" id="text-input"name="text-input" style="width: 30%;display: inline-block;margin-left: 15px;height: 30px;">
-                        
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="textarea-input">Opciones</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="checkbox-input" id="formCheck-5">
-                                <label class="form-check-label" for="formCheck-5">BBQ</label>
-                            </div>
-                            <label for="text-input">Otro</label>
-                            <input class="form-control" type="text" id="text-input" name="text-input" style="width: 30%;display: inline-block;margin-left: 15px;height: 30px;">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -76,16 +55,29 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">A&ntilde;adir Platillo</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Modificar</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body" id="editarBody">
-                        <div class="inputs">
-                            <span>t</span>
-                            <input type="text">
-                            <input type="text">
+                        <div class="form-group" style="width: 45%;display: inline-block;margin: 0;">
+                            <label for="text-input">Nombre del Plato</label>
+                            <input class="form-control" type="text" id="text-input-2" name="nombrePlato">
+                        </div>
+                        <div class="form-group" style="width: 45%;display: inline-block;margin-left: 21px;">
+                            <label for="password-input">Precio</label>
+                            <input class="form-control" type="number" id="text-input-1" name="precioPlato">
+                        </div>
+                        <div class="form-group" style="width: 45%;display: inline-block;margin: 0;position: relative;top: -20px;">
+                            <label for="textarea-input">Descripccion</label>
+                            <textarea class="form-control" id="textarea-input" name="descripcion"></textarea>
+                        </div>
+                        <div class="form-group" style="width: 45%;display: inline-block;margin: 0px 0 0 20px;">
+                            <label for="textarea-input">Categoria</label>
+                            <select class="form-control" id="opcionesCategoriasEdit" style="width: 80%;">
+                                                               
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -263,8 +255,10 @@
 
                             <div class="btn btn-primary" data-toggle="modal" data-target="#modalAdd">
                                 <i class="fa fa-plus"></i>New</div>
+                            
+                            <div class="btn btn-danger" data-toggle="modal"id="eliminarPlatos" data-target="#modalDelete">
+                                <i class="fa fa-trash-o"></i>Delete</div>
 
-                            <a class="btn btn-danger" data-attach-loading="" data-request="onDelete" data-request-form="#list-form" data-request-data="_method:&#039;DELETE&#039;" data-request-confirm="This cannot be undone! Are you sure you want to do this?" tabindex="0"><i class="fa fa-trash-o"></i> Delete</a>
                             <a class="btn btn-default btn-filter" data-toggle="list-filter" data-target=".list-filter" tabindex="0"><i class="fa fa-filter"></i></a>            </div>
                     </div>
                 </div>

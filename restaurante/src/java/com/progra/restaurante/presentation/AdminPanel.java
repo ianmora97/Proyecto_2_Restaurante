@@ -30,7 +30,9 @@ import javax.servlet.http.HttpSession;
     "/api/restaurante/platosAdmin", "/api/restaurante/addCategoria",
     "/api/restaurante/deleteCate",
     "/api/restaurante/editCate",
-    "/api/restaurante/fillAdicionalesAdmin"})
+    "/api/restaurante/fillAdicionalesAdmin",
+    "/api/restaurante/deletePlatos",
+    "/api/restaurante/findPlato"})
 public class AdminPanel extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -52,12 +54,50 @@ public class AdminPanel extends HttpServlet {
             case "/api/restaurante/deleteCate":
                 this.doDeleteCategoria(request, response);
                 break;
+            case "/api/restaurante/deletePlatos":
+                this.doDeletePlato(request, response);
+                break;
             case "/api/restaurante/editCate":
                 this.doEditCategoria(request, response);
                 break;
             case "/api/restaurante/fillAdicionalesAdmin":
                 this.dofillAdicionales(request, response);
                 break;
+            case "/api/restaurante/findPlato":
+                this.doFindPlato(request, response);
+                break;
+        }
+    }
+
+    protected void doFindPlato(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
+            Gson gson = new Gson();
+            PrintWriter out = response.getWriter();
+            BufferedReader reader = request.getReader();
+            String id = reader.readLine();
+            Platillo plato = com.progra.restaurante.data.DishesDao.findPlatillo(Integer.parseInt(id));
+            response.setContentType("application/json; charset=UTF-8");
+
+            out.write(gson.toJson(plato));
+
+            response.setStatus(200); // ok with content
+        } catch (Exception e) {
+            response.setStatus(status(e));
+        }
+    }
+    protected void doDeletePlato(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
+            Gson gson = new Gson();
+            BufferedReader reader = request.getReader();
+            ArrayList<String> platos = gson.fromJson(reader.readLine(), ArrayList.class);
+            for (String plato : platos) {
+                com.progra.restaurante.data.DishesDao.deletePlato(Integer.parseInt(plato));
+            }
+            response.setStatus(201);
+        } catch (Exception e) {
+            response.setStatus(status(e));
         }
     }
     protected void dofillAdicionales(HttpServletRequest request,
@@ -123,7 +163,7 @@ public class AdminPanel extends HttpServlet {
             Gson gson = new Gson();
             PrintWriter out = response.getWriter();
 
-            ArrayList<Platillo> platillos = Model.instance().getPlatillos();
+            ArrayList<Platillo> platillos = com.progra.restaurante.data.DishesDao.listarPlatillos();
             response.setContentType("application/json; charset=UTF-8");
 
             out.write(gson.toJson(platillos));
@@ -163,14 +203,19 @@ public class AdminPanel extends HttpServlet {
 
             HttpSession session = request.getSession(true);
             Usuario real = com.progra.restaurante.data.Model.instance().getUsuario(username, clave);
+            if(real.getRol() == 1){ //admin
+                session.setAttribute("usuario", real);
 
-            session.setAttribute("usuario", real);
+                response.setContentType("application/json; charset=UTF-8");
 
-            response.setContentType("application/json; charset=UTF-8");
+                out.write(gson.toJson(real));
 
-            out.write(gson.toJson(real));
-
-            response.setStatus(200);
+                response.setStatus(200);
+            }
+            else {
+                response.setStatus(404);
+            }
+            
 
         } catch (Exception e) {
             response.setStatus(status(e));

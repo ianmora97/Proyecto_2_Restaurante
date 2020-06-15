@@ -3,6 +3,32 @@ function loaded(event) {
     openAddPlatillo();
     fillCategorias();
     fillAdicionalesAdd();
+    deletePlatos();
+    editPlato();
+}
+function deletePlatos() {
+    $("#eliminarPlatos").click(function () {
+        var Options = $("[id*=checkbox-]");                  
+
+        var OpSelected = [];
+        for (let i = 0; i < Options.length; i++) {
+            if (Options[i].checked) {
+                OpSelected.push(Options[i].value);
+            }
+        }
+        $.ajax({
+            type: "POST",
+            url: "api/restaurante/deletePlatos",
+            data: JSON.stringify(OpSelected),
+            success: function () {
+                location.href ="platosAdmin.html";
+            },
+            error: function (status) {
+                alert(errorMessage(status));
+            }
+        });
+        
+    });
 }
 function fillAdicionalesAdd() {
     $(document).ready(function () {
@@ -53,7 +79,7 @@ function fillCate(cate) {
 
     $("#opcionesCategorias").append(
             '<option value="'+id+'">'+nombre+'</option>'
-        );
+    );
 }
 function openAddPlatillo(event) {
     $("#bntEdit").click(function () {
@@ -79,6 +105,59 @@ function showPlatos(platos) {
         fillPlatos(p);
     });
 }
+function editPlato(categoria){
+    $('#modalEdit').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var recipient = button.data('whatever');
+        var parameter = recipient + "\n";
+        var categoriaName;
+
+        $.ajax({ //consulta el plato
+            type: "POST",
+            url: "api/restaurante/findPlato",
+            data: parameter,
+            success: function (plato) {
+                console.log(plato.nombrePlatillo);
+                $('#modalEdit').find('.modal-title').text('Modificar ' + plato.nombrePlatillo);
+                $('#modalEdit').find('.modal-body input[name="nombrePlato"]').val(plato.nombrePlatillo);
+                $('#modalEdit').find('.modal-body input[name="precioPlato"]').val(plato.precio);
+                $('#modalEdit').find('.modal-body textarea[name="descripcion"]').val(plato.descripcion);
+                categoriaName = plato.idCategoria.nombre.replace(/ /g, "");
+            },
+            error: function (status) {
+                alert(errorMessage(status));
+            }
+        });
+        $("#opcionesCategoriasEdit").html(" ");
+        $(document).ready(function () { //consulta categorias
+            $.ajax({
+                type: "POST",
+                url: "api/restaurante/categoriasAdmin",
+                success: function (categoria) {
+                    categoria.forEach((cate) => {
+                        var nombre = cate.nombre.replace(/ /g, "");
+                        var id = cate.idCategoria;
+                        console.log(categoriaName + " - " + nombre);
+                        if(nombre === categoriaName){
+                            $("#opcionesCategoriasEdit").append(
+                                '<option selected value="'+id+'">'+nombre+'</option>'
+                            );
+                        }
+                        else{
+                            $("#opcionesCategoriasEdit").append(
+                                '<option value="'+id+'">'+nombre+'</option>'
+                            );
+                        }
+                    });
+                },
+                error: function (status) {
+                    alert(errorMessage(status));
+                }
+            });
+        });
+    })
+}
+
 function fillPlatos(plato) {
     var id = plato.idPlatillo;
     var categoria = plato.idCategoria.nombre.replace(/ /g, "");
@@ -94,12 +173,12 @@ function fillPlatos(plato) {
             '<div class="custom-control custom-checkbox">' +
             '<input type="checkbox" id="checkbox-' + id + '" class="custom-control-input" value="' + id + '" name="checked[]"/>' +
             '<label class="custom-control-label" for="checkbox-' + id + '">&nbsp;</label></div></td>' +
-            '<td class="list-col-index-2 list-col-name-table-name list-col-type-text ">' + id + '</td>' +
-            '<td class="list-col-index-3 list-col-name-min-capacity list-col-type-text ">' + categoria + '</td>' +
-            '<td class="list-col-index-4 list-col-name-min-capacity list-col-type-text ">' + nombre + '</td>' +
-            '<td class="list-col-index-5 list-col-name-min-capacity list-col-type-text ">' + descripcion + '</td>' +
-            '<td class="list-col-index-6 list-col-name-min-capacity list-col-type-text ">' + precio + '</td>' +
-            '<td class="list-setup">&nbsp;</td></tr>'
+            '<td data-toggle="modal" data-target="#modalEdit" data-whatever="'+id+'"  class="list-col-index-3 list-col-name-min-capacity list-col-type-text ">' + id + '</td>' +
+            '<td data-toggle="modal" data-target="#modalEdit" data-whatever="'+id+'"  class="list-col-index-4 list-col-name-min-capacity list-col-type-text ">' + categoria + '</td>' +
+            '<td data-toggle="modal" data-target="#modalEdit" data-whatever="'+id+'"  class="list-col-index-5 list-col-name-min-capacity list-col-type-text ">' + nombre + '</td>' +
+            '<td data-toggle="modal" data-target="#modalEdit" data-whatever="'+id+'"  class="list-col-index-6 list-col-name-min-capacity list-col-type-text ">' + descripcion + '</td>' +
+            '<td data-toggle="modal" data-target="#modalEdit" data-whatever="'+id+'"  class="list-col-index-2 list-col-name-table-name list-col-type-text ">' + precio + '</td>' +
+            '<td data-toggle="modal" data-target="#modalEdit" data-whatever="'+id+'"  class="list-setup">&nbsp;</td></tr>'
             );
     $("#" + idEvento).click(function () {
         editplato(plato);
