@@ -59,16 +59,21 @@ public class Cliente implements Serializable {
     private Usuario usuario;
 
     public Cliente() {
+        this.usuarioCorreo = "";
+        this.nombre = "";
+        this.apellidos = "";
+        this.telefono = "";
     }
 
     public Cliente(String usuarioCorreo) {
         this.usuarioCorreo = usuarioCorreo;
     }
 
-    public Cliente(String usuarioCorreo, String nombre, String apellidos) {
+    public Cliente(String usuarioCorreo, String nombre, String apellidos, String telefono) {
         this.usuarioCorreo = usuarioCorreo;
         this.nombre = nombre;
         this.apellidos = apellidos;
+        this.telefono = telefono;
     }
 
     public String getUsuarioCorreo() {
@@ -135,5 +140,5 @@ public class Cliente implements Serializable {
     public String toString() {
         return "com.progra.restaurante.logic.Cliente[ usuarioCorreo=" + usuarioCorreo + " ]";
     }
-    
+
 }

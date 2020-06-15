@@ -69,17 +69,30 @@ public class Usuario implements Serializable {
     private Collection<Orden> ordenCollection;
 
     public Usuario() {
+        this.usuarioCorreo = "";
+        this.username = "";
+        this.contrasena = "";
+        this.rol = 0;
+        this.cliente = new Cliente();
     }
 
     public Usuario(String usuarioCorreo) {
         this.usuarioCorreo = usuarioCorreo;
-    }
 
+    }
     public Usuario(String usuarioCorreo, String username, String contrasena, int rol) {
         this.usuarioCorreo = usuarioCorreo;
         this.username = username;
         this.contrasena = contrasena;
         this.rol = rol;
+    }
+    
+    public Usuario(String usuarioCorreo, String username, String contrasena, int rol, Cliente cliente) {
+        this.usuarioCorreo = usuarioCorreo;
+        this.username = username;
+        this.contrasena = contrasena;
+        this.rol = rol;
+        this.cliente = cliente;
     }
 
     public String getUsuarioCorreo() {
@@ -173,5 +186,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "com.progra.restaurante.logic.Usuario[ usuarioCorreo=" + usuarioCorreo + " ]";
     }
-    
+
 }

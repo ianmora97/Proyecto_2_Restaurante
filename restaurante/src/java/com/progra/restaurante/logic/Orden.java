@@ -7,7 +7,6 @@ package com.progra.restaurante.logic;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -82,15 +81,17 @@ public class Orden implements Serializable {
     @ManyToOne(optional = false)
     private Usuario usuarioCorreo;
 
+    private MetodosPago metodoPago;
+
     public Orden() {
         this.idOrden = 0;
         this.fechaEntrega = new Date();
-        this.estatus = "";
+        this.estatus = "En preparacion";
         this.tipoEntrega = 0;
         this.asap = 0;
         this.platilloseleccionadoCollection = new ArrayList<>();
         this.total = 0.0;
-
+        metodoPago = new MetodosPago();
     }
 
     public Orden(Integer idOrden) {
@@ -104,6 +105,7 @@ public class Orden implements Serializable {
         this.tipoEntrega = tipoEntrega;
         this.asap = asap;
         this.platilloseleccionadoCollection = new ArrayList<>();
+        metodoPago = new MetodosPago();
     }
 
     public Integer getIdOrden() {
@@ -152,6 +154,14 @@ public class Orden implements Serializable {
 
     public void setTotal(Double total) {
         this.total = total;
+    }
+
+    public MetodosPago getMetodoPago() {
+        return metodoPago;
+    }
+
+    public void setMetodoPago(MetodosPago metodoPago) {
+        this.metodoPago = metodoPago;
     }
 
     public void calculateTotal() {
