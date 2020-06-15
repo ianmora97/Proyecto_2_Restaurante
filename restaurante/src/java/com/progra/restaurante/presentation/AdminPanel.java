@@ -7,6 +7,7 @@ package com.progra.restaurante.presentation;
 
 import com.google.gson.Gson;
 import com.progra.restaurante.data.Model;
+import com.progra.restaurante.logic.Adicional;
 import com.progra.restaurante.logic.Categoria;
 import com.progra.restaurante.logic.Platillo;
 import com.progra.restaurante.logic.Usuario;
@@ -25,7 +26,11 @@ import javax.servlet.http.HttpSession;
  *
  * @author ianmo
  */
-@WebServlet(name = "AdminPanel", urlPatterns = {"/api/restaurante/ingresarAdmin","/api/restaurante/categoriasAdmin","/api/restaurante/platosAdmin","/api/restaurante/addCategoria"})
+@WebServlet(name = "AdminPanel", urlPatterns = {"/api/restaurante/ingresarAdmin", "/api/restaurante/categoriasAdmin",
+    "/api/restaurante/platosAdmin", "/api/restaurante/addCategoria",
+    "/api/restaurante/deleteCate",
+    "/api/restaurante/editCate",
+    "/api/restaurante/fillAdicionalesAdmin"})
 public class AdminPanel extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -44,21 +49,74 @@ public class AdminPanel extends HttpServlet {
             case "/api/restaurante/addCategoria":
                 this.doAddCategoria(request, response);
                 break;
-                
+            case "/api/restaurante/deleteCate":
+                this.doDeleteCategoria(request, response);
+                break;
+            case "/api/restaurante/editCate":
+                this.doEditCategoria(request, response);
+                break;
+            case "/api/restaurante/fillAdicionalesAdmin":
+                this.dofillAdicionales(request, response);
+                break;
         }
     }
-    protected void doAddCategoria(HttpServletRequest request,
+    protected void dofillAdicionales(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         try {
-            BufferedReader reader = request.getReader();       
-            String nombre = reader.readLine();         
-            com.progra.restaurante.data.CategoriesDao.registrarCategoria(new Categoria(0, nombre));
+            Gson gson = new Gson();
+            PrintWriter out = response.getWriter();
+
+            ArrayList<Adicional> adicionales = com.progra.restaurante.data.AditionalsDao.listarAdicional();
             response.setContentType("application/json; charset=UTF-8");
+
+            out.write(gson.toJson(adicionales));
+
             response.setStatus(200); // ok with content
         } catch (Exception e) {
             response.setStatus(status(e));
         }
     }
+    protected void doEditCategoria(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
+            Gson gson = new Gson();
+            BufferedReader reader = request.getReader();
+            String nombreO = reader.readLine();
+            String nombreN = reader.readLine();
+            com.progra.restaurante.data.CategoriesDao.editCategoria(nombreO, nombreN);
+            response.setStatus(201);
+        } catch (Exception e) {
+            response.setStatus(status(e));
+        }
+    }
+
+    protected void doDeleteCategoria(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
+            Gson gson = new Gson();
+            BufferedReader reader = request.getReader();
+            ArrayList<String> opciones = gson.fromJson(reader.readLine(), ArrayList.class);
+            for (String opcione : opciones) {
+                com.progra.restaurante.data.CategoriesDao.deleteCategoria(Integer.parseInt(opcione));
+            }
+            response.setStatus(201);
+        } catch (Exception e) {
+            response.setStatus(status(e));
+        }
+    }
+
+    protected void doAddCategoria(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
+            BufferedReader reader = request.getReader();
+            String nombre = reader.readLine();
+            com.progra.restaurante.data.CategoriesDao.registrarCategoria(new Categoria(0, nombre));
+            response.setStatus(201); // ok with content
+        } catch (Exception e) {
+            response.setStatus(status(e));
+        }
+    }
+
     protected void doPlatosGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -75,6 +133,7 @@ public class AdminPanel extends HttpServlet {
             response.setStatus(status(e));
         }
     }
+
     protected void doCategoriaGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -91,6 +150,7 @@ public class AdminPanel extends HttpServlet {
             response.setStatus(status(e));
         }
     }
+
     protected void doLoginAdmin(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -128,7 +188,7 @@ public class AdminPanel extends HttpServlet {
             response.setStatus(status(e));
         }
     }
-    
+
     protected int status(Exception e) {
         if (e.getMessage().startsWith("404")) {
             return 404;
