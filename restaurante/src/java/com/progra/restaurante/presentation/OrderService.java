@@ -69,6 +69,7 @@ public class OrderService extends HttpServlet {
         }
     }
 
+
     protected void doSaveOrder(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -88,11 +89,11 @@ public class OrderService extends HttpServlet {
             String tipo_entrega = reader.readLine();
             String fecha = reader.readLine();
             String postCode = reader.readLine();
-            
+
             Ubicacion ubicacion = com.progra.restaurante.data.Model.instance().getUbicion(Integer.parseInt(postCode));
             order.setIdUbicacion(ubicacion);
-            if(ubicacion == null){
-            throw new Exception("UBICACION NO ENCONTRADA");
+            if (ubicacion == null) {
+                throw new Exception("UBICACION NO ENCONTRADA");
             }
             Usuario real = com.progra.restaurante.data.Model.instance().getUsuarioByEmail(email);
             if (real == null) {
@@ -116,7 +117,7 @@ public class OrderService extends HttpServlet {
             order.setUsuarioCorreo(real);
             order.setMetodoPago(metodo);
             order.setTipoEntrega(Integer.parseInt(tipo_entrega));
-            
+
             if (fecha.equals("ASAP")) {
                 order.setAsap(1);
             } else {
@@ -127,7 +128,7 @@ public class OrderService extends HttpServlet {
                 cal.setTime(sameDate);
                 order.setFechaEntrega(sameDate);
             }
-            
+
             com.progra.restaurante.data.Model.instance().insertOrder(order);
             response.setStatus(201);
 

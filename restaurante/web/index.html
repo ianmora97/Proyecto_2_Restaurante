@@ -70,6 +70,11 @@ I Ciclo lectivo 2020
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div class="col-12">
+                            <div id="seletedItems" class="alert alert-danger text-center" role="alert" >
+                                <strong> <i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp;&nbsp;Please select the additional ones that are required</strong> 
+                            </div>
+                        </div>
                         <p class="text-muted text-center" id="descPlatilloModal"></p>
 
                     </div>
@@ -537,7 +542,7 @@ I Ciclo lectivo 2020
                         htmlOption = '<div class="row justify-content-between my-1">' +
                                 ' <div class="col-8">' +
                                 ' <div class="custom-control custom-radio">' +
-                                '<input type="radio" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '" name="' + adicionalSinEspacios + "Name" + '" value="customEx">' +
+                                '<input type="radio" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '" name="' + adicionalSinEspacios + "Name" + '" value="' + adicional.requerida + adicional.nombre + '">' +
                                 '<label class="custom-control-label" for="' + opcionesSinEspacios + "OpId" + '" id="' + opcionesSinEspacios + "OpIdLabel" + '">' + opcion.nombre + '</label>' +
                                 '</div>' +
                                 '</div>' +
@@ -549,7 +554,7 @@ I Ciclo lectivo 2020
                         htmlOption = '<div class="row justify-content-between my-1">' +
                                 '<div class="col-8">' +
                                 '<div class="custom-control custom-checkbox">' +
-                                '<input type="checkbox" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '">' +
+                                '<input type="checkbox" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '" value="' + adicional.requerida + '">' +
                                 '<label class="custom-control-label" for="' + opcionesSinEspacios + "OpId" + '" id="' + opcionesSinEspacios + "OpIdLabel" + '">' + opcion.nombre + '</label>' +
                                 ' </div>' +
                                 '</div>' +
@@ -586,6 +591,7 @@ I Ciclo lectivo 2020
                     }
                 }
                 );
+                $("#seletedItems").hide();
                 checkout();
                 getOrder();
                 logOut();
@@ -615,7 +621,6 @@ I Ciclo lectivo 2020
                             $("#loginAnchor").hide();
                             $("#logOutAnchor").show();
                             console.log(usuario);
-
                         } else {
                             console.log(usuario);
                             $("#registerAnchor").show();
@@ -628,6 +633,7 @@ I Ciclo lectivo 2020
                     }
                 });
             }
+
             function checkout() {
                 $("#checkoutBtn").click(function () {
 
@@ -681,11 +687,14 @@ I Ciclo lectivo 2020
                             $("#cart-totals").append(orden.total);
                         },
                         error: function (status) {
-                            alert(errorMessage(status));
+                            $("#seletedItems").fadeTo(2000, 500).slideUp(500, function () {
+                                $("#seletedItems").slideUp(500);
+                            });
                         }
                     });
                 });
             }
+
             function getOrder() {
                 $.ajax({
                     type: "POST",

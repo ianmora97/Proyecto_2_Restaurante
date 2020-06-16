@@ -26,6 +26,11 @@ insert into ubicacion (direccion,provincia,canton,codigo_postal) values('La Carp
 insert into ubicacion (direccion,provincia,canton,codigo_postal) values('Sagrada Familia','Barrios Bajos','San Jose',2);
 select * from ubicacion;
 -- ============================================ 
+-- UBICACION 
+-- ============================================
+insert into direccion_propia (id_ubicacion,usuario_correo) values(1,'david@gmail.com');
+select * from direccion_propia where usuario_correo = 'david@gmail.com';
+-- ============================================ 
 -- Metodos de Pago 
 -- ============================================
 insert into metodos_pago (nombre) values('Cash');
@@ -72,7 +77,8 @@ insert into platillo (nombre_platillo,id_categoria,descripcion,precio) values ('
 insert into platillo (nombre_platillo,id_categoria,descripcion,precio) values ('Arroz Chino',11,'Arroz directamente traido de China, con su pegocidad característica, acompañado de salsa Soya.',6000);
 
 select * from platillo;
-
+select * from platillo where nombre_platillo = 'Casado de chuleta';
+select * from platillo where nombre_platillo= 'Casado de chuleta';
 -- ============================================ 
 -- ADICIONAL 
 -- ============================================
@@ -115,14 +121,32 @@ select * from opcion where nombre = 'Salsa Ranch';
 -- ============================================ 
 -- ORDEN 
 -- ============================================
-insert into orden (usuario_correo,id_metodo_pago,id_ubicacion,fecha_entrega,estatus,tipo_entrega,asap,total) values ();
-delete from orden where id_orden= 6; 
-select max(id_orden) id_orden from orden;
-select * from platilloSeleccionado;
+select cli.nombre,orn.id_orden, orn.estatus, orn.tipo_entrega, orn.total,ub.codigo_postal, ub.direccion,pla.nombre_platillo,adi.nombre,op.nombre
+from orden orn, platilloSeleccionado p, adicional_seleccionada adS, opcionesSeleccionadas opS, platillo pla, adicional adi, opcion op,
+usuario u, cliente cli, ubicacion ub, metodos_pago met
+where orn.id_orden = p.id_orden and
+p.id_platilloSeleccionado = adS.id_platilloSeleccionado and
+adS.id_adicional_seleccionada = opS.id_adicional_seleccionada and
+p.id_platillo = pla.id_platillo and
+adS.id_adicional = adi.id_adicional and
+opS.id_opcion = op.id_opcion and
+u.usuario_correo = orn.usuario_correo and
+u.usuario_correo = cli.usuario_correo and
+orn.id_ubicacion= ub.id_ubicacion and
+orn.id_metodo_pago = met.id_metodo_pago and 
+orn.id_orden = 3;
+
+select * from orden;
+
+
 select id_platilloSeleccionado, a.nombre from adicional_seleccionada adS, adicional a
 where adS.id_adicional = a.id_adicional;
 
-select * from opcionesSeleccionadas;
+
+
+
+select  opS.id_opcion_seleccionada, opS.id_opcion, opS.id_adicional_seleccionada, o.nombre from opcionesSeleccionadas opS, opcion o
+where opS.id_opcion = o.id_opcion;
 
 -- ============================================ 
 -- DETALLE 

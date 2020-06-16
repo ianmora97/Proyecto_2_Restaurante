@@ -70,7 +70,11 @@ public class Model {
     }
 
     public ArrayList<Categoria> getCategories() throws Exception {
-        return categorias;
+        return com.progra.restaurante.data.CategoriesDao.listarCategoria();
+    }
+
+    public Platillo getPlatilloByName(String nombre) throws Exception {
+        return com.progra.restaurante.data.DishesDao.findPlatilloByName(nombre);
     }
 
     public ArrayList<Categoria> getCategoriesAdmin() throws Exception {
@@ -176,14 +180,21 @@ public class Model {
         }
     }
 
-    private void eliminarAdiSinOpciones(ArrayList<Adicional> adicionalesSelect) {
+    private void eliminarAdiSinOpciones(ArrayList<Adicional> adicionalesSelect) throws Exception {
 
         for (int i = 0; i < adicionalesSelect.size(); i++) {
+            if (adicionalesSelect.get(i).getOpcionCollection().isEmpty() && adicionalesSelect.get(i).getRequerida() == 1) {
+                throw new Exception("ERROR");
+            }
             if (adicionalesSelect.get(i).getOpcionCollection().isEmpty()) {
                 adicionalesSelect.remove(i);
                 i--;
             }
         }
+    }
+
+    public ArrayList<Ubicacion> getUbicionesUsario(Usuario usuario) throws Exception {
+        return com.progra.restaurante.data.UbicacionDao.getUbicionesUsuario(usuario);
     }
 
     public Ubicacion getUbicion(int postCode) throws Exception {
