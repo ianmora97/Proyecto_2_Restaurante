@@ -82,10 +82,45 @@ public class DishesDao {
 
                 lista.add(adicional);
             }
+            con.close();
+            resultado.close();
+            st.close();
             return lista;
 
         } catch (SQLException ex) {
             System.out.println(ex.toString());
+            return null;
+        }
+    }
+
+    public static Platillo findPlatilloByName(String nombre) throws Exception {
+        String SQL = "select * from platillo where nombre_platillo=?;";
+
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+            nombre = nombre.substring(1,nombre.length());
+            st.setString(1, nombre);
+            ResultSet resultado = st.executeQuery();
+            Platillo platillo = new Platillo();
+
+            if (resultado.next()) {
+                platillo.setIdPlatillo(resultado.getInt("id_platillo"));
+                platillo.setNombrePlatillo(resultado.getString("nombre_platillo"));
+                platillo.setDescripcion(resultado.getString("descripcion"));
+                platillo.setPrecio(resultado.getDouble("precio"));
+                Categoria categoria = Model.instance().findCategoria(resultado.getInt("id_categoria"));
+                platillo.setIdCategoria(categoria);
+                ArrayList<Adicional> adicionales = adicionalesPlatillo(resultado.getInt("id_platillo"));
+                platillo.setAdicionalCollection(adicionales);
+            }
+            con.close();
+            resultado.close();
+            st.close();
+            return platillo;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
             return null;
         }
     }

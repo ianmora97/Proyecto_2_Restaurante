@@ -10,10 +10,12 @@ package com.progra.restaurante.presentation;
 
 import com.google.gson.Gson;
 import com.progra.restaurante.logic.Cliente;
+import com.progra.restaurante.logic.Ubicacion;
 import com.progra.restaurante.logic.Usuario;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +28,7 @@ import javax.servlet.http.HttpSession;
  * @author david
  */
 @WebServlet(name = "loginSession", urlPatterns = {"/api/restaurante/login", "/api/restaurante/register",
-    "/api/restaurante/logOut", "/api/restaurante/getUser"})
+    "/api/restaurante/logOut", "/api/restaurante/getUser","/api/restaurante/getAddressBook"})
 
 public class loginSession extends HttpServlet {
 
@@ -54,9 +56,33 @@ public class loginSession extends HttpServlet {
             case "/api/restaurante/getUser":
                 this.doUserGet(request, response);
                 break;
+            case "/api/restaurante/getAddressBook":
+                this.doGetAddressBook(request, response);
+                break;
         }
     }
 
+    protected void doGetAddressBook(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
+
+            BufferedReader reader = request.getReader();
+            Gson gson = new Gson();
+            HttpSession session = request.getSession(true);
+            Usuario usuario = (Usuario) session.getAttribute("usuario");
+            ArrayList<Ubicacion> ubicaciones = com.progra.restaurante.data.Model.instance().getUbicionesUsario(usuario);
+           
+            //Salida de la aplicacion
+            response.setContentType("application/json; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.write(gson.toJson(ubicaciones));
+            response.setStatus(201); // ok with content
+
+        } catch (Exception e) {
+            response.setStatus(status(e));
+        }
+    }
+    
     protected void doRegisterAction(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         try {
