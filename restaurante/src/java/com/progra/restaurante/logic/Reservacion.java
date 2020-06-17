@@ -71,7 +71,14 @@ public class Reservacion implements Serializable {
         this.fecha = fecha;
         this.cantidadPersonas = cantidadPersonas;
     }
-
+    
+    public Reservacion(Integer idReservacion, Date fecha, int cantidadPersonas, Usuario usuario) {
+        this.idReservacion = idReservacion;
+        this.fecha = fecha;
+        this.cantidadPersonas = cantidadPersonas;
+        this.usuarioCorreo = usuario;
+    }
+    
     public Integer getIdReservacion() {
         return idReservacion;
     }

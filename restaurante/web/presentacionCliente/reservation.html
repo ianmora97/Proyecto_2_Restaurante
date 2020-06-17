@@ -43,7 +43,7 @@ I Ciclo lectivo 2020
                 <div class="collapse navbar-collapse justify-content-end" id="mainNav">
                     <div class="navbar-nav">
                         <a class="nav nav-link active "  href="/restaurante/index.html" > View Menu </a>
-                        <a class="nav-item nav-link"  href="#"> Reservation</a>
+                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/reservation.html"> Reservation</a>
                         <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/loginCliente.html" id="loginAnchor"> Login</a>
                         <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/register.html" id="registerAnchor"> Register</a>
                         <div class="dropdown">
@@ -63,9 +63,15 @@ I Ciclo lectivo 2020
 
 
         <div class="container">
+            <div id="noTables" class="alert alert-danger text-center" role="alert" >
+                <strong>There is no tables free for the amount of people that you are requesting for</strong>
+            </div>
+            <div id="success" class="alert alert-success text-center" role="alert" >
+                <strong>Your reservation has been successfully registered <i class="far fa-calendar-check"></i></strong>
+            </div>
             <div class="row py-4">
                 <div class="col col-sm-12 ">
-                    <div class="card mb-1 ">
+                    <div class="card mb-1 " id="registerNewUser">
                         <div class="card-body bg-white">
                             <div id="incorrect" class="alert alert-danger text-center" role="alert" >
                                 <strong>Something went wrong</strong> <br>make sure all fields are filled !
@@ -113,61 +119,58 @@ I Ciclo lectivo 2020
                             <div data-control="booking">
                                 <h1 class="h3">Reserve A Table</h1>
 
-                                <form method="GET" action="https://demo.tastyigniter.com/reservation" accept-charset="UTF-8" id="picker-form" role="form">
-                                    <input type="hidden" name="picker_form" value="1">
+                                <input type="hidden" name="picker_form" value="1">
 
-                                    <div class="form-row justify-between-center">
-                                        <div class="col-sm-3 mb-3 ">
-                                            <label class="sr-only" for="location">
-                                                Location        </label>
-                                            <select name="location" id="location" class="form-control">
-                                                <option value="1">TastyIgniter</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-2 mb-3">
-                                            <label class="sr-only" for="noOfGuests">
-                                                Number of guests        </label>
-                                            <select name="guest" id="noOfGuests" class="form-control">
-                                                <option value="1">1 person</option>
-                                                <option value="2">2 people</option>
-                                                <option value="3">3 people</option>
-                                                <option value="4">4 people</option>
-                                                <option value="5">5 people</option>
-                                                <option value="6">6 people</option>
-                                                <option value="7">7 people</option>
-                                                <option value="8">8 people</option>
-                                                <option value="9">9 people</option>
-                                                <option value="10">10 people</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-4 mb-6">
-                                            <label class="sr-only" for="date">
-                                                Date        </label>
+                                <div class="form-row justify-between-center">
+                                    <div class="col-sm-3 mb-3 ">
+                                        <label class="sr-only" for="location">
+                                            Location        </label>
+                                        <select name="location" id="location" class="form-control">
+                                            <option value="1">TastyIgniter</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2 mb-3">
+                                        <label class="sr-only" for="noOfGuests">
+                                            Number of guests        </label>
+                                        <select name="guest" id="noOfGuests" class="form-control">
+                                            <option value="1">1 person</option>
+                                            <option value="2">2 people</option>
+                                            <option value="3">3 people</option>
+                                            <option value="4">4 people</option>
+                                            <option value="5">5 people</option>
+                                            <option value="6">6 people</option>
+                                            <option value="7">7 people</option>
+                                            <option value="8">8 people</option>
+                                            <option value="9">9 people</option>
+                                            <option value="10">10 people</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4 mb-6">
+                                        <label class="sr-only" for="date">
+                                            Date        </label>
 
-                                            <div class="form-group">
-                                                <div class='input-group date' id='datetimepicker1'>
-                                                    <input type='text' class="form-control" id="dateText"/>
-                                                    <span class="input-group-addon">
-                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                    </span>
-                                                    <span class="input-group-text">
-                                                        <i class="fas fa-calendar-alt"></i>
-                                                    </span>
-                                                </div>
+                                        <div class="form-group">
+                                            <div class='input-group date' id='datetimepicker1'>
+                                                <input type='text' class="form-control" id="dateText"/>
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-calendar-alt"></i>
+                                                </span>
                                             </div>
+                                        </div>
 
 
-                                        </div>
-                                        <div class="col-sm-2 mb-3">
-                                            <button type="submit" class="btn btn-primary btn-block">Find Table</button>
-                                        </div>
                                     </div>
-                                    <div class="form-row">
-                                        <div class="col">
-                                        </div>
+                                    <div class="col-sm-2 mb-3">
+                                        <button class="btn orange btn-block" id="findTableBtn">Find Table</button>
                                     </div>
-
-                                </form>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -283,6 +286,15 @@ I Ciclo lectivo 2020
             function events() {
                 logOut();
                 getUserInSession();
+                $("#incorrect").hide();
+                $("#invalidEmail").hide();
+                $("#success").hide();
+                $("#noTables").hide();
+
+                $("#findTableBtn").click(function () {
+                    reservar();
+                });
+
             }
 
             function logOut() {
@@ -310,7 +322,7 @@ I Ciclo lectivo 2020
                             $("#dropdownMenuBtn").show();
                             $("#dropdownMenuBtn").html(" ");
                             $("#dropdownMenuBtn").append(usuario.cliente.nombre);
-
+                            fillUserFields(usuario);
                         } else {
                             $("#registerAnchor").show();
                             $("#loginAnchor").show();
@@ -322,6 +334,63 @@ I Ciclo lectivo 2020
                     }
                 });
             }
+            function fillUserFields(usuario) {
+                var cliente = usuario.cliente;
+                $("#first-name").val(cliente.nombre);
+                $("#last-name").val(cliente.apellidos);
+                $("#email").val(usuario.usuarioCorreo);
+                $("#telephone").val(cliente.telefono);
+                $("#email").attr("readonly", "readonly");
+            }
+            function reservar() {
+                var firstName = $("#first-name").val();
+                var lastName = $("#last-name").val();
+                var email = $("#email").val();
+                var telephone = $("#telephone").val();
+                var fecha = $("#dateText").val();
+                var cantidadPersonas = $("#noOfGuests").val();
+                if (!validacion(firstName, lastName, email, telephone, fecha)) {
+                    var sedData = firstName + "\n" + lastName + "\n" + email + "\n" + telephone + "\n" + fecha + "\n" + cantidadPersonas;
+                    $.ajax({
+                        type: "POST",
+                        url: "/restaurante/api/restaurante/reservation",
+                        data: sedData,
+                        success: function () {
+                            $("#success").fadeTo(2000, 500).slideUp(500, function () {
+                                $("#success").slideUp(500);
+                            });
+                        },
+                        error: function (status) {
+                            $("#noTables").fadeTo(2000, 500).slideUp(500, function () {
+                                $("#noTables").slideUp(500);
+                            });
+                        }
+                    });
+                }
+            }
+            function validacion(firstName, lastName, email, telephone, fecha) {
+
+                var error = false;
+                $("#invalidEmail").hide();
+                $("#password-confirm").removeClass("error");
+                $("#email").removeClass("error");
+
+                if (firstName.length <= 0 || lastName.length <= 0 || email.length <= 0 || telephone.length <= 0 || fecha <= 0) {
+                    var error = true;
+                    $("#incorrect").fadeTo(2000, 500).slideUp(500, function () {
+                        $("#incorrect").slideUp(500);
+                    });
+                }
+                if (!(email.includes("@gmail") || email.includes("@hotmail") || email.includes("@outlook"))) {
+                    $("#email").addClass("error");
+                    $("#invalidEmail").show();
+                    var error = true;
+                }
+
+                return error;
+            }
+
+
 
             function errorMessage(status) {
                 return "Ha ocurrido un error";

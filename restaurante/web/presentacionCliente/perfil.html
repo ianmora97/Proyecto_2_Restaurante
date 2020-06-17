@@ -15,6 +15,7 @@
         <title>Account</title>
     </head>
     <body background="#EEEDED" style="background-color: #EEEDED;">
+        <!--MODAL PARA MODIFICAR DIRECCIONES-->
         <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -50,6 +51,7 @@
                 </div>
             </div>
         </div>
+        <!--MODAL PARA REGISTRAR UNA NUEVA DIRECCION-->
         <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -85,6 +87,41 @@
                 </div>
             </div>
         </div>
+        <!--MODAL PARA LOS ADICIONALES-->
+        <div class="modal" tabindex="-1" role="dialog" id="modalOptions">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="nombrePlatilloModal"> </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-muted text-center" id="descPlatilloModal"></p>
+
+                    </div>
+
+                    <div class="modal-body " id="adtionalModal" >
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="row no-gutters w-100">
+                            <div class="col-sm-5 pb-3 pb-sm-0">
+                                <input type="number" value="1" min="1" max="30" step="1" id="quantityModal"/>
+                            </div>
+                            <div class="col-sm-7 pl-sm-2">
+                                <button type="submit" class="btn orange btn-block" data-attach-loading="" id="saveDish">
+                                    ADD TO ORDER              
+                                    <span class="pull-right" id="priceModal"> </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <header class="header">
             <nav class="navbar navbar-expand-sm bg-white  navbar-inverse">
                 <div class="container">
@@ -98,14 +135,20 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="mainNav">
                         <div class="navbar-nav">
-                            <a class="nav-item nav-link  "  href="/restaurante/index.html" > View Menu </a>
-                            <a class="nav-item nav-link "  href="#"> Reservation</a>
+                            <a class="nav nav-link active "  href="/restaurante/index.html" > View Menu </a>
+                            <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/reservation.html"> Reservation</a>
                             <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/loginCliente.html" id="loginAnchor"> Login</a>
-                            <a class="nav-item nav-link "  href="/restaurante/presentacionCliente/register.html" id="registerAnchor"> Register</a>
-                            
-                            <a class="nav-item nav-link "  href="#" id="LogOutAnchor"> LogOut</a>
-
-                        </div> 
+                            <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/register.html" id="registerAnchor"> Register</a>
+                            <div class="dropdown">
+                                <button class="btn  dropdown-toggle" type="button" id="dropdownMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #ED561A;">
+                                    User
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn">
+                                    <a class="dropdown-item" href="/restaurante/presentacionCliente/perfil.html" >My profile </a>
+                                    <a class="dropdown-item" href="#" id="logOutAnchor">Log Out</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -155,16 +198,28 @@
                                 <div class="card-group mb-1">
                                     <div class="card mr-sm-1">
                                         <div class="card-body bg-white" id="SelectAddress"  style="height: 340px;overflow-y: auto;">
-                                            
+
                                         </div>
                                     </div>
 
                                     <div class="card">
-                                        <div class="card-body text-center bg-white">
-                                            <p><i class="fa fa-shopping-basket fa-3x text-muted"></i></p>
-                                            <p>There are no menus added in your cart.</p>
-                                            <a class="btn btn-light" href="https://demo.tastyigniter.com/local/menus">
-                                                ORDER NOW                </a>
+
+                                        <div class="card-body text-center bg-white" id="cartOrder">
+                                            <p><i class="fa fa-shopping-basket fa-3x text-muted"></i></p> 
+                                            <div class="panel-body py-4 px-3 bg-white justify-content-center" style="overflow-y: auto;height: 250px; border-top: 1px #999 solid;">
+
+                                                <div id="cart-control" class="">
+                                                    <ul id="dishSelectedList" >
+
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div  style="width: 80%; margin: 0 auto; border-top: 1px solid #999; " >
+                                                <span class="text-muted "  style="float: left; ">Total:</span>
+                                                <span  style="float: right; font-weight: bold;" id="cart-totals"> </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -307,7 +362,7 @@
                                                     <div id="direccionesAd">
 
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
 
@@ -333,10 +388,21 @@
                             </div>
                             <div class="tab-pane fade" id="v-pills-reservaciones" role="tabpanel" aria-labelledby="v-pills-reservaciones-tab">
                                 <div class="card">
-                                    <div class="card-body">
-                                        <p>There are no reservation(s).</p>
+                                    <div class="card-body  ">
+                                        <table class="table table-hover bg-white">
+                                            <thead style="background-color: #ED561A; color: white;">
+                                                <tr>
+                                                    <th scope="col"><i class="fas fa-clipboard-list"></i>&nbsp;Reserva</th>
+                                                    <th scope="col"><i class="fas fa-utensils"></i>&nbsp; Mesa</th>
+                                                    <th scope="col"><i class="far fa-user"></i>&nbsp; A nombre de</th>
+                                                    <th scope="col"><i class="fas fa-users"></i>&nbsp; Personas</th>
+                                                    <th scope="col"><i class="fas fa-calendar-alt"></i>&nbsp;Fecha de reserva</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="reservationTable">
 
-
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -431,7 +497,7 @@
                 </div>    
             </div>
         </footer>
-        
+
         <!--JQUERY-->
         <script src="https://code.jquery.com/jquery-3.5.1.js"  crossorigin="anonymous"></script>
 
@@ -442,7 +508,8 @@
 
         <!--iconos de font awesome-->
         <script src="https://kit.fontawesome.com/39f4ebbbea.js" crossorigin="anonymous"></script>
-        
+
         <script charset="utf-8" type="text/javascript" src="/restaurante/js/perfil.js"></script>
+
     </body>
 </html>

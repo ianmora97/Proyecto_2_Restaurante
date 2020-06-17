@@ -7,6 +7,7 @@ package com.progra.restaurante.data;
 
 import com.progra.restaurante.logic.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -142,6 +143,18 @@ public class Model {
 
     public Adicional findAdicional(int id_adicional) throws Exception {
         return com.progra.restaurante.data.AditionalsDao.findAdicional(id_adicional);
+    }
+
+    public Mesa getMesaLibre(int cantPersonas) throws Exception {
+        return com.progra.restaurante.data.reservationDao.getMesaLibre(cantPersonas);
+    }
+
+    public boolean insertReservation(Usuario usuario, Mesa mesa, Date fecha, int cantidadPersonas) throws Exception {
+        return com.progra.restaurante.data.reservationDao.insertReservation(usuario, mesa, fecha, cantidadPersonas);
+    }
+
+    public ArrayList<Reservacion> getReservation(Usuario usuario) throws Exception {
+        return com.progra.restaurante.data.reservationDao.getReservaciones(usuario);
     }
 
     public Platillo getPlatilloToCart(ArrayList<String> opSeleccionadas, String nombrePlatillo, int Cantidad) throws Exception {

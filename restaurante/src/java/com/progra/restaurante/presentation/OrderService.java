@@ -332,7 +332,7 @@ public class OrderService extends HttpServlet {
             response.setContentType("application/json; charset=UTF-8");
             PrintWriter out = response.getWriter();
             out.write(gson.toJson(order));
-            response.setStatus(200); // ok with content
+            response.setStatus(200); // ok withcontent
 
         } catch (Exception e) {
             response.setStatus(status(e));

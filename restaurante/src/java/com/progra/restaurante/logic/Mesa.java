@@ -60,6 +60,10 @@ public class Mesa implements Serializable {
     private ArrayList<Reservacion> reservacionCollection;
 
     public Mesa() {
+        this.idMesa = -1;
+        this.capMax = 0;
+        this.capMin = 0;
+        this.estado = "L";
     }
 
     public Mesa(Integer idMesa) {
@@ -138,5 +142,5 @@ public class Mesa implements Serializable {
     public String toString() {
         return "com.progra.restaurante.logic.Mesa[ idMesa=" + idMesa + " ]";
     }
-    
+
 }

@@ -31,11 +31,20 @@ and open the template in the editor.
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="mainNav">
                     <div class="navbar-nav">
-                        <a class="nav-item nav-link  "  href="/restaurante/index.html" > View Menu </a>
-                        <a class="nav-item nav-link "  href="#"> Reservation</a>
-                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/loginCliente.html"> Login</a>
-                        <a class="nav-item nav-link  active"  href="/restaurante/presentacionCliente/register.html"> Register</a>
-                    </div> 
+                        <a class="nav nav-link active "  href="/restaurante/index.html" > View Menu </a>
+                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/reservation.html"> Reservation</a>
+                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/loginCliente.html" id="loginAnchor"> Login</a>
+                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/register.html" id="registerAnchor"> Register</a>
+                        <div class="dropdown">
+                            <button class="btn  dropdown-toggle" type="button" id="dropdownMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #ED561A;">
+                                User
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn">
+                                <a class="dropdown-item" href="/restaurante/presentacionCliente/perfil.html" >My profile </a>
+                                <a class="dropdown-item" href="#" id="logOutAnchor">Log Out</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -231,6 +240,30 @@ and open the template in the editor.
             }
             function events() {
                 ingresar();
+                getUserInSession();
+            }
+            function getUserInSession() {
+                $.ajax({
+                    type: "POST",
+                    url: "/restaurante/api/restaurante/getUser",
+                    success: function (usuario) {
+                        if (usuario !== null) {
+                            $("#registerAnchor").hide();
+                            $("#loginAnchor").hide();
+                            $("#dropdownMenuBtn").show();
+                            $("#dropdownMenuBtn").html(" ");
+                            $("#dropdownMenuBtn").append(usuario.cliente.nombre);
+
+                        } else {
+                            $("#registerAnchor").show();
+                            $("#loginAnchor").show();
+                            $("#dropdownMenuBtn").hide();
+                        }
+                    },
+                    error: function (status) {
+                        alert(errorMessage(status));
+                    }
+                });
             }
             function ingresar(status) {
                 $("#SendRegister").click(function () {
