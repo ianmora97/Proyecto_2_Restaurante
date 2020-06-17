@@ -48,24 +48,33 @@ public class Model {
     public Usuario getUsuario(String u, String c) throws Exception {
         return com.progra.restaurante.data.UsuarioDao.getUsuario(u, c);
     }
-    public Ubicacion getUbicacionById(int id)throws Exception{
+
+    public Ubicacion getUbicacionById(int id) throws Exception {
         return com.progra.restaurante.data.UbicacionDao.getUbicionById(id);
     }
-    public boolean updateDireccion(String p, String c, String codigo, String d, String id) throws Exception{
+
+    public boolean updateDireccion(String p, String c, String codigo, String d, String id) throws Exception {
         return com.progra.restaurante.data.UbicacionDao.editUbicacion(p, c, codigo, d, id);
     }
+
     public Usuario getUsuarioByEmail(String correo) throws Exception {
         return com.progra.restaurante.data.UsuarioDao.getUsuarioByEmail(correo);
     }
-    public boolean insertDireccion(Ubicacion u,Usuario usuario) throws Exception{
-        return com.progra.restaurante.data.UbicacionDao.insertUbicacion(u,usuario);
+
+    public boolean insertDireccion(Ubicacion u, Usuario usuario) throws Exception {
+        return com.progra.restaurante.data.UbicacionDao.insertUbicacion(u, usuario);
     }
+
     public boolean insertUser(Usuario usuario) throws Exception {
         return com.progra.restaurante.data.UsuarioDao.insertUser(usuario);
     }
 
     public boolean insertCliente(Cliente cliente) throws Exception {
         return com.progra.restaurante.data.ClienteDao.insertClient(cliente);
+    }
+
+    public Ubicacion getUbicionByAddress(String address) throws Exception {
+        return com.progra.restaurante.data.UbicacionDao.getUbicionByAddress(address);
     }
 
     public MetodosPago getMetodoPago(String nombre) throws Exception {

@@ -23,15 +23,15 @@ import java.util.ArrayList;
  */
 public class UbicacionDao {
 
-    public static Ubicacion getUbicion(int codigoPostal) throws Exception {
-        String SQL = "select * from ubicacion where codigo_postal = ?;";
+    public static Ubicacion getUbicion(int id_ubicacion) throws Exception {
+        String SQL = "select * from ubicacion where id_ubicacion = ?;";
         Ubicacion ubicacion = null;
 
         try {
             Connection con = Conn.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
 
-            st.setInt(1, codigoPostal);
+            st.setInt(1, id_ubicacion);
 
             ResultSet resultado = st.executeQuery();
 
@@ -52,7 +52,36 @@ public class UbicacionDao {
             System.out.println(ex);
             return null;
         }
+    }
+        public static Ubicacion getUbicionByAddress(String address) throws Exception {
+        String SQL = "select * from ubicacion where direccion = ?;";
+        Ubicacion ubicacion = null;
 
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+
+            st.setString(1, address);
+
+            ResultSet resultado = st.executeQuery();
+
+            while (resultado.next()) {
+                ubicacion = new Ubicacion();
+                ubicacion.setIdUbicacion(resultado.getInt("id_ubicacion"));
+                ubicacion.setCodigoPostal(resultado.getInt("codigo_postal"));
+                ubicacion.setCanton(resultado.getString("canton"));
+                ubicacion.setDireccion(resultado.getString("direccion"));
+                ubicacion.setProvincia(resultado.getString("provincia"));
+            }
+            con.close();
+            resultado.close();
+            st.close();
+
+            return ubicacion;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
     }
     public static boolean editUbicacion(String p, String c, String codigo, String d, String id) throws Exception {
         String SQL = "UPDATE ubicacion "

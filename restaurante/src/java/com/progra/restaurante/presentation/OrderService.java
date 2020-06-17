@@ -69,12 +69,12 @@ public class OrderService extends HttpServlet {
         }
     }
 
-
     protected void doSaveOrder(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         try {
             HttpSession session = request.getSession(true);
             Orden order = (Orden) session.getAttribute("order");
+            Gson gson = new Gson();
 
             if (order.getPlatilloseleccionadoCollection().size() <= 0) {
                 throw new Exception("Error");
@@ -88,13 +88,8 @@ public class OrderService extends HttpServlet {
 
             String tipo_entrega = reader.readLine();
             String fecha = reader.readLine();
-            String postCode = reader.readLine();
+            ArrayList<String> postCode = gson.fromJson(reader.readLine(), ArrayList.class);
 
-            Ubicacion ubicacion = com.progra.restaurante.data.Model.instance().getUbicion(Integer.parseInt(postCode));
-            order.setIdUbicacion(ubicacion);
-            if (ubicacion == null) {
-                throw new Exception("UBICACION NO ENCONTRADA");
-            }
             Usuario real = com.progra.restaurante.data.Model.instance().getUsuarioByEmail(email);
             if (real == null) {
                 real = new Usuario();
@@ -112,7 +107,18 @@ public class OrderService extends HttpServlet {
                     com.progra.restaurante.data.Model.instance().insertCliente(real.getCliente());
                 }
             }
-
+            Ubicacion ubicacion = null;
+            if (postCode.size() == 1) {
+                ubicacion = com.progra.restaurante.data.Model.instance().getUbicacionById(Integer.parseInt(postCode.get(0)));
+            } else {
+                ubicacion = new Ubicacion(1, postCode.get(0), postCode.get(1), postCode.get(2));
+                ubicacion.setCodigoPostal(Integer.parseInt(postCode.get(3)));
+                if (!com.progra.restaurante.data.Model.instance().insertDireccion(ubicacion, real)) {
+                    throw new Exception();
+                }
+                ubicacion = com.progra.restaurante.data.Model.instance().getUbicionByAddress(ubicacion.getDireccion());
+            }
+            order.setIdUbicacion(ubicacion);
             MetodosPago metodo = com.progra.restaurante.data.Model.instance().getMetodoPago(OpSelected);
             order.setUsuarioCorreo(real);
             order.setMetodoPago(metodo);
@@ -129,7 +135,11 @@ public class OrderService extends HttpServlet {
                 order.setFechaEntrega(sameDate);
             }
 
-            com.progra.restaurante.data.Model.instance().insertOrder(order);
+            if (com.progra.restaurante.data.Model.instance().insertOrder(order)) {
+                session.removeAttribute("order");
+            } else {
+                throw new Exception();
+            }
             response.setStatus(201);
 
         } catch (Exception e) {

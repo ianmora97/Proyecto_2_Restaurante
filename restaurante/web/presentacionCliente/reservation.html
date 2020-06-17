@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<!--
+UNIVERSIDAD NACIONAL DE COSTA RICA
+Proyecto de programaci�n 4 
+Integrantes:
+David Aguilar Rojas
+Ian Mora Rodriguez
+I Ciclo lectivo 2020 
+-->
+<html>
+    <head>
+        <title>Resrvation</title>
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" type="image/x-icon" href="/restaurante/images/logo.png" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--CSS DEL DATE-->
+        <link rel="stylesheet" href="/restaurante/css/bootstrap-datetimepicker.min.css">
+        <!--JQUERY-->
+        <script src="https://code.jquery.com/jquery-3.5.1.js"  crossorigin="anonymous"></script>
+
+        <!--bootstrap css-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"  crossorigin="anonymous">
+        <!--css local-->
+        <link rel="stylesheet" href="/restaurante/css/footer.css">
+        <link rel="stylesheet" href="/restaurante/css/order.css">
+        <link rel="stylesheet" href="/restaurante/css/general.css">
+    </head>
+    <body style="background-color: #EEEDED;">
+
+        <!--Barra de navegación principal superior-->
+        <nav class="navbar navbar-expand-sm bg-white  navbar-inverse">
+            <div class="container">
+                <div class="justify-content-start">
+                    <a href="#">
+                        <img src="/restaurante/images/logo.png" height="40"/>
+                    </a>
+                </div>
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#mainNav">
+                    <span class="fas fa-align-justify"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+                    <div class="navbar-nav">
+                        <a class="nav nav-link active "  href="/restaurante/index.html" > View Menu </a>
+                        <a class="nav-item nav-link"  href="#"> Reservation</a>
+                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/loginCliente.html" id="loginAnchor"> Login</a>
+                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/register.html" id="registerAnchor"> Register</a>
+                        <div class="dropdown">
+                            <button class="btn  dropdown-toggle" type="button" id="dropdownMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #ED561A;">
+                                User
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn">
+                                <a class="dropdown-item" href="/restaurante/presentacionCliente/perfil.html" >My profile </a>
+                                <a class="dropdown-item" href="#" id="logOutAnchor">Log Out</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="container">
+            <div class="row py-4">
+                <div class="col col-sm-12 ">
+                    <div class="card mb-1 ">
+                        <div class="card-body bg-white">
+                            <div id="incorrect" class="alert alert-danger text-center" role="alert" >
+                                <strong>Something went wrong</strong> <br>make sure all fields are filled !
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="first-name">First Name</label>
+                                        <input type="text" name="first_name" id="first-name" class="form-control" value="" data-kwimpalastatus="alive" data-kwimpalaid="1591929914302-2">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="last-name">Last Name</label>
+                                        <input type="text" name="last_name" id="last-name" class="form-control" value="" data-kwimpalastatus="alive" data-kwimpalaid="1591929914302-3">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row justify-between-center text-center">
+                                <div class="col-sm-12">
+                                    <span class="badge badge-danger" id="invalidEmail">The email must include @gmail, @hotmail or @outlook</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="text" name="email" id="email" class="form-control" value="" >
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="telephone">Telephone</label>
+                                        <input type="text" name="telephone" id="telephone" class="form-control" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-body bg-white">
+                            <div data-control="booking">
+                                <h1 class="h3">Reserve A Table</h1>
+
+                                <form method="GET" action="https://demo.tastyigniter.com/reservation" accept-charset="UTF-8" id="picker-form" role="form">
+                                    <input type="hidden" name="picker_form" value="1">
+
+                                    <div class="form-row justify-between-center">
+                                        <div class="col-sm-3 mb-3 ">
+                                            <label class="sr-only" for="location">
+                                                Location        </label>
+                                            <select name="location" id="location" class="form-control">
+                                                <option value="1">TastyIgniter</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2 mb-3">
+                                            <label class="sr-only" for="noOfGuests">
+                                                Number of guests        </label>
+                                            <select name="guest" id="noOfGuests" class="form-control">
+                                                <option value="1">1 person</option>
+                                                <option value="2">2 people</option>
+                                                <option value="3">3 people</option>
+                                                <option value="4">4 people</option>
+                                                <option value="5">5 people</option>
+                                                <option value="6">6 people</option>
+                                                <option value="7">7 people</option>
+                                                <option value="8">8 people</option>
+                                                <option value="9">9 people</option>
+                                                <option value="10">10 people</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4 mb-6">
+                                            <label class="sr-only" for="date">
+                                                Date        </label>
+
+                                            <div class="form-group">
+                                                <div class='input-group date' id='datetimepicker1'>
+                                                    <input type='text' class="form-control" id="dateText"/>
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                    <span class="input-group-text">
+                                                        <i class="fas fa-calendar-alt"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-sm-2 mb-3">
+                                            <button type="submit" class="btn btn-primary btn-block">Find Table</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col">
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <footer class="pt-5 my-5">
+            <div class="footer pt-5 pb-5">
+                <div class="container text-white">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="footer-links">
+                                <h6 class="footer-title d-none d-sm-block">Proyecto de Programacion 4</h6>
+                                <ul>
+                                    <li>
+                                        <a href="#">David Aguilar Rojas</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Ian Mora Rodriguez</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="footer-links">
+                                <h6 class="footer-title d-none d-sm-block">Information</h6>
+                                <ul>
+                                    <li>
+                                        <a href="#">Profesor: Jose Sanchez</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 mt-3 mt-sm-0">
+                            <div class="social-bottom">
+                                <h6 class="footer-title" style="display: inline-block;">Follow us on</h6>
+                                <ul class="social-icons list-inline" >
+                                    <li>
+                                        <a class="p-2 fab fa-facebook" target="_blank" title="Facebook" href="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="p-2 fab fa-twitter" target="_blank" title="Facebook" href="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="p-2 fab fa-github" target="_blank" title="Facebook" href="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="p-2 fab fa-youtube" target="_blank" title="Facebook" href="">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 mt-3 mt-sm-0">
+                            <div id="newsletter-box">
+                                <h5 class="mb-4">Subscribe to our newsletter</h5>
+                                <form id="subscribeForm" class="subscribe-form" method="POST" >
+                                    <div class="input-group subscribe-group">
+                                        <input type="text" class="form-control" name="subscribe_email" data-kwimpalastatus="alive" readonly>
+                                        <span class="input-group-append">
+                                            <button id="subscribeButton" class="btn btn-info"><i class="fa fa-paper-plane"></i></button>
+                                        </span>
+                                    </div>
+                                </form>                    
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <hr class="mb-3">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col p-2">
+                                © 2020 Proyecto Progra 4, Inspirado en: - <a target="_blank" href="http://tastyigniter.com">Powered by TastyIgniter</a>            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </footer>
+        <!--SCRIPTS--> 
+
+        <!--date picket src-->       
+        <script src="/restaurante/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="/restaurante/js/calendar.js"  ></script>
+
+        <!--BOOTSTRAP-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"  crossorigin="anonymous"></script>       
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+
+        <!--iconos de font awesome-->
+        <script src="https://kit.fontawesome.com/39f4ebbbea.js" crossorigin="anonymous"></script>
+
+        <script>
+            function loaded(event) {
+                events();
+            }
+            function events() {
+                logOut();
+                getUserInSession();
+            }
+
+            function logOut() {
+                $("#logOutAnchor").click(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "/restaurante/api/restaurante/logOut",
+                        success: function () {
+                            location.href = "/restaurante/index.html";
+                        },
+                        error: function (status) {
+                            alert(errorMessage(status));
+                        }
+                    });
+                });
+            }
+            function getUserInSession() {
+                $.ajax({
+                    type: "POST",
+                    url: "/restaurante/api/restaurante/getUser",
+                    success: function (usuario) {
+                        if (usuario !== null) {
+                            $("#registerAnchor").hide();
+                            $("#loginAnchor").hide();
+                            $("#dropdownMenuBtn").show();
+                            $("#dropdownMenuBtn").html(" ");
+                            $("#dropdownMenuBtn").append(usuario.cliente.nombre);
+
+                        } else {
+                            $("#registerAnchor").show();
+                            $("#loginAnchor").show();
+                            $("#dropdownMenuBtn").hide();
+                        }
+                    },
+                    error: function (status) {
+                        alert(errorMessage(status));
+                    }
+                });
+            }
+
+            function errorMessage(status) {
+                return "Ha ocurrido un error";
+            }
+
+            document.addEventListener("DOMContentLoaded", loaded);
+        </script>
+
+    </body>
+</html>

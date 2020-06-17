@@ -128,8 +128,8 @@ and open the template in the editor.
                 <div class="col col-sm-8">
                     <div id="local-box">
                         <div class="panel local-search">
-                            <div id="emptyPostCode" class="alert alert-danger text-center" role="alert" >
-                                <strong>Write a valid post code</strong> <br>
+                            <div id="emptyAddress" class="alert alert-danger text-center" role="alert" >
+                                <strong>Write or Choose a valid Address</strong> <br>
                             </div>
                             <div class="panel-body">
                                 <div class="row mb-1 mx-auto p-3" style="background: white;">
@@ -152,7 +152,7 @@ and open the template in the editor.
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fa fa-map-marker"></i></span>
                                             </div>
-                                            <input type="text" id="postCode" class="form-control text-center" name="search_query" placeholder="Enter your postcode to order" value="" data-kwimpalastatus="alive" data-kwimpalaid="1591929914302-1">
+                                            <input type="text" id="postCodeField" class="form-control text-center" name="search_query" placeholder="Enter your postcode to order" data-kwimpalastatus="alive" data-kwimpalaid="1591929914302-1">
                                             <div class="input-group-append">
                                                 <button type="button" class="btn btn-light ml-1" data-control="search-local" data-replace-loading="fa fa-spinner fa-spin" style="background: #EEEDED;"><i class="fa fa-check"></i></button>
                                             </div>
@@ -267,28 +267,25 @@ and open the template in the editor.
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Address</span>
                                     </div>
-                                    <textarea class="form-control" aria-label="Write your personal address"></textarea>
+                                    <textarea class="form-control" id="direccion" aria-label="Write your personal address"></textarea>
                                 </div>
                                 <div class="row my-4">
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="provincia">Province</label>
-                                            <input type="text" name="provincia" id="provincia" class="form-control" value="" data-kwimpalastatus="alive" data-kwimpalaid="1591929914302-5">
-                                            <span style="animation: initial; transition: initial; color: initial; color-scheme: initial; font: initial; font-feature-settings: initial; font-kerning: initial; font-optical-sizing: initial; font-variation-settings: initial; text-orientation: initial; text-rendering: initial; -webkit-font-smoothing: initial; -webkit-locale: initial; -webkit-text-orientation: initial; -webkit-writing-mode: initial; writing-mode: initial; zoom: initial; place-content: initial; place-items: initial; place-self: initial; alignment-baseline: initial; backdrop-filter: initial; backface-visibility: initial;  baseline-shift: initial; block-size: initial; border-block-end: initial; border-block-start: initial; border: none; border-radius: initial; border-collapse: initial; border-inline-end: initial; border-inline-start: initial; bottom: initial; box-shadow: initial; box-sizing: initial; break-after: initial; break-before: initial; break-inside: initial; buffered-rendering: initial; caption-side: initial; caret-color: initial; clear: initial; clip: initial; clip-path: initial; clip-rule: initial; color-interpolation: initial; color-interpolation-filters: initial; color-rendering: initial; columns: initial; column-fill: initial; gap: initial; column-rule: initial; column-span: initial; contain: initial; contain-intrinsic-size: initial; content: initial; counter-increment: initial; counter-reset: initial; cursor: initial; cx: initial; cy: initial; d: initial; display: inline; dominant-baseline: initial; empty-cells: initial; fill: initial; fill-opacity: initial; fill-rule: initial; filter: initial; flex: initial; flex-flow: initial; float: initial; flood-color: initial; flood-opacity: initial; grid: initial; grid-area: initial; height: 16px; hyphens: initial; image-orientation: initial; image-rendering: initial; inline-size: initial; isolation: initial; left: 323px; letter-spacing: initial; lighting-color: initial; line-break: initial; list-style: initial; margin-block-end: initial; margin-block-start: initial; margin: initial; margin-inline-end: initial; margin-inline-start: initial; marker: initial; mask: initial; mask-type: initial; max-block-size: initial; max-height: initial; max-inline-size: initial; max-width: initial; min-block-size: initial; min-height: initial; min-inline-size: initial; min-width: 16px; mix-blend-mode: initial; object-fit: initial; object-position: initial; offset: initial; opacity: 1; order: initial; origin-trial-test-property: initial; orphans: initial; outline: initial; outline-offset: initial; overflow-anchor: initial; overflow-wrap: initial; overflow: initial; overscroll-behavior-block: initial; overscroll-behavior-inline: initial; overscroll-behavior: initial; padding-block-end: initial; padding-block-start: initial; padding: initial; padding-inline-end: initial; padding-inline-start: initial; paint-order: initial; perspective: initial; perspective-origin: initial; pointer-events: initial; position: absolute; quotes: initial; r: initial; resize: initial; right: initial; rx: initial; ry: initial; scroll-behavior: initial; scroll-margin-block: initial; scroll-margin: initial; scroll-margin-inline: initial; scroll-padding-block: initial; scroll-padding: initial; scroll-padding-inline: initial; scroll-snap-align: initial; scroll-snap-stop: initial; scroll-snap-type: initial; shape-image-threshold: initial; shape-margin: initial; shape-outside: initial; shape-rendering: initial; size: initial; speak: initial; stop-color: initial; stop-opacity: initial; stroke: initial; stroke-dasharray: initial; stroke-dashoffset: initial; stroke-linecap: initial; stroke-linejoin: initial; stroke-miterlimit: initial; stroke-opacity: initial; stroke-width: initial; tab-size: initial; table-layout: initial; text-align: initial; text-align-last: initial; text-anchor: initial; text-combine-upright: initial; text-decoration: initial; text-decoration-skip-ink: initial; text-indent: initial; text-overflow: initial; text-shadow: initial; text-size-adjust: initial; text-transform: initial; text-underline-position: initial; top: 44.0637px; touch-action: initial; transform: initial; transform-box: initial; transform-origin: initial; transform-style: initial; user-select: initial; vector-effect: initial; vertical-align: initial; visibility: visible; -webkit-app-region: initial; -webkit-appearance: initial; border-spacing: initial; -webkit-border-image: initial; -webkit-box-align: initial; -webkit-box-decoration-break: initial; -webkit-box-direction: initial; -webkit-box-flex: initial; -webkit-box-ordinal-group: initial; -webkit-box-orient: initial; -webkit-box-pack: initial; -webkit-box-reflect: initial; -webkit-font-size-delta: initial; -webkit-highlight: initial; -webkit-hyphenate-character: initial; -webkit-line-break: initial; -webkit-line-clamp: initial; -webkit-mask-box-image: initial; -webkit-mask: initial; -webkit-mask-composite: initial; -webkit-perspective-origin-x: initial; -webkit-perspective-origin-y: initial; -webkit-print-color-adjust: initial; -webkit-rtl-ordering: initial; -webkit-ruby-position: initial; -webkit-tap-highlight-color: initial; -webkit-text-combine: initial; -webkit-text-decorations-in-effect: initial; -webkit-text-emphasis: initial; -webkit-text-emphasis-position: initial; -webkit-text-fill-color: initial; -webkit-text-security: initial; -webkit-text-stroke: initial; -webkit-transform-origin-x: initial; -webkit-transform-origin-y: initial; -webkit-transform-origin-z: initial; -webkit-user-drag: initial; -webkit-user-modify: initial; white-space: initial; widows: initial; width: 16px; will-change: initial; word-break: initial; word-spacing: initial; x: initial; y: initial; z-index: auto;"></span>
+                                            <input type="text" name="provincia" id="provincia" class="form-control"  data-kwimpalastatus="alive" data-kwimpalaid="1591929914302-5">
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="canton">Canton</label>
-                                            <input type="text" name="canton" id="canton" class="form-control" value="" data-kwimpalastatus="alive" data-kwimpalaid="1591929914302-5">
-                                            <span style="animation: initial; transition: initial; color: initial; color-scheme: initial; font: initial; font-feature-settings: initial; font-kerning: initial; font-optical-sizing: initial; font-variation-settings: initial; text-orientation: initial; text-rendering: initial; -webkit-font-smoothing: initial; -webkit-locale: initial; -webkit-text-orientation: initial; -webkit-writing-mode: initial; writing-mode: initial; zoom: initial; place-content: initial; place-items: initial; place-self: initial; alignment-baseline: initial; backdrop-filter: initial; backface-visibility: initial;  baseline-shift: initial; block-size: initial; border-block-end: initial; border-block-start: initial; border: none; border-radius: initial; border-collapse: initial; border-inline-end: initial; border-inline-start: initial; bottom: initial; box-shadow: initial; box-sizing: initial; break-after: initial; break-before: initial; break-inside: initial; buffered-rendering: initial; caption-side: initial; caret-color: initial; clear: initial; clip: initial; clip-path: initial; clip-rule: initial; color-interpolation: initial; color-interpolation-filters: initial; color-rendering: initial; columns: initial; column-fill: initial; gap: initial; column-rule: initial; column-span: initial; contain: initial; contain-intrinsic-size: initial; content: initial; counter-increment: initial; counter-reset: initial; cursor: initial; cx: initial; cy: initial; d: initial; display: inline; dominant-baseline: initial; empty-cells: initial; fill: initial; fill-opacity: initial; fill-rule: initial; filter: initial; flex: initial; flex-flow: initial; float: initial; flood-color: initial; flood-opacity: initial; grid: initial; grid-area: initial; height: 16px; hyphens: initial; image-orientation: initial; image-rendering: initial; inline-size: initial; isolation: initial; left: 323px; letter-spacing: initial; lighting-color: initial; line-break: initial; list-style: initial; margin-block-end: initial; margin-block-start: initial; margin: initial; margin-inline-end: initial; margin-inline-start: initial; marker: initial; mask: initial; mask-type: initial; max-block-size: initial; max-height: initial; max-inline-size: initial; max-width: initial; min-block-size: initial; min-height: initial; min-inline-size: initial; min-width: 16px; mix-blend-mode: initial; object-fit: initial; object-position: initial; offset: initial; opacity: 1; order: initial; origin-trial-test-property: initial; orphans: initial; outline: initial; outline-offset: initial; overflow-anchor: initial; overflow-wrap: initial; overflow: initial; overscroll-behavior-block: initial; overscroll-behavior-inline: initial; overscroll-behavior: initial; padding-block-end: initial; padding-block-start: initial; padding: initial; padding-inline-end: initial; padding-inline-start: initial; paint-order: initial; perspective: initial; perspective-origin: initial; pointer-events: initial; position: absolute; quotes: initial; r: initial; resize: initial; right: initial; rx: initial; ry: initial; scroll-behavior: initial; scroll-margin-block: initial; scroll-margin: initial; scroll-margin-inline: initial; scroll-padding-block: initial; scroll-padding: initial; scroll-padding-inline: initial; scroll-snap-align: initial; scroll-snap-stop: initial; scroll-snap-type: initial; shape-image-threshold: initial; shape-margin: initial; shape-outside: initial; shape-rendering: initial; size: initial; speak: initial; stop-color: initial; stop-opacity: initial; stroke: initial; stroke-dasharray: initial; stroke-dashoffset: initial; stroke-linecap: initial; stroke-linejoin: initial; stroke-miterlimit: initial; stroke-opacity: initial; stroke-width: initial; tab-size: initial; table-layout: initial; text-align: initial; text-align-last: initial; text-anchor: initial; text-combine-upright: initial; text-decoration: initial; text-decoration-skip-ink: initial; text-indent: initial; text-overflow: initial; text-shadow: initial; text-size-adjust: initial; text-transform: initial; text-underline-position: initial; top: 44.0637px; touch-action: initial; transform: initial; transform-box: initial; transform-origin: initial; transform-style: initial; user-select: initial; vector-effect: initial; vertical-align: initial; visibility: visible; -webkit-app-region: initial; -webkit-appearance: initial; border-spacing: initial; -webkit-border-image: initial; -webkit-box-align: initial; -webkit-box-decoration-break: initial; -webkit-box-direction: initial; -webkit-box-flex: initial; -webkit-box-ordinal-group: initial; -webkit-box-orient: initial; -webkit-box-pack: initial; -webkit-box-reflect: initial; -webkit-font-size-delta: initial; -webkit-highlight: initial; -webkit-hyphenate-character: initial; -webkit-line-break: initial; -webkit-line-clamp: initial; -webkit-mask-box-image: initial; -webkit-mask: initial; -webkit-mask-composite: initial; -webkit-perspective-origin-x: initial; -webkit-perspective-origin-y: initial; -webkit-print-color-adjust: initial; -webkit-rtl-ordering: initial; -webkit-ruby-position: initial; -webkit-tap-highlight-color: initial; -webkit-text-combine: initial; -webkit-text-decorations-in-effect: initial; -webkit-text-emphasis: initial; -webkit-text-emphasis-position: initial; -webkit-text-fill-color: initial; -webkit-text-security: initial; -webkit-text-stroke: initial; -webkit-transform-origin-x: initial; -webkit-transform-origin-y: initial; -webkit-transform-origin-z: initial; -webkit-user-drag: initial; -webkit-user-modify: initial; white-space: initial; widows: initial; width: 16px; will-change: initial; word-break: initial; word-spacing: initial; x: initial; y: initial; z-index: auto;"></span>
+                                            <input type="text" name="canton" id="canton" class="form-control"  data-kwimpalastatus="alive" data-kwimpalaid="1591929914302-5">
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="postCode">Post code</label>
-                                            <input type="text" name="postCode" id="provincia" class="form-control" value="" data-kwimpalastatus="alive" data-kwimpalaid="1591929914302-5">
-                                            <span style="animation: initial; transition: initial; color: initial; color-scheme: initial; font: initial; font-feature-settings: initial; font-kerning: initial; font-optical-sizing: initial; font-variation-settings: initial; text-orientation: initial; text-rendering: initial; -webkit-font-smoothing: initial; -webkit-locale: initial; -webkit-text-orientation: initial; -webkit-writing-mode: initial; writing-mode: initial; zoom: initial; place-content: initial; place-items: initial; place-self: initial; alignment-baseline: initial; backdrop-filter: initial; backface-visibility: initial;  baseline-shift: initial; block-size: initial; border-block-end: initial; border-block-start: initial; border: none; border-radius: initial; border-collapse: initial; border-inline-end: initial; border-inline-start: initial; bottom: initial; box-shadow: initial; box-sizing: initial; break-after: initial; break-before: initial; break-inside: initial; buffered-rendering: initial; caption-side: initial; caret-color: initial; clear: initial; clip: initial; clip-path: initial; clip-rule: initial; color-interpolation: initial; color-interpolation-filters: initial; color-rendering: initial; columns: initial; column-fill: initial; gap: initial; column-rule: initial; column-span: initial; contain: initial; contain-intrinsic-size: initial; content: initial; counter-increment: initial; counter-reset: initial; cursor: initial; cx: initial; cy: initial; d: initial; display: inline; dominant-baseline: initial; empty-cells: initial; fill: initial; fill-opacity: initial; fill-rule: initial; filter: initial; flex: initial; flex-flow: initial; float: initial; flood-color: initial; flood-opacity: initial; grid: initial; grid-area: initial; height: 16px; hyphens: initial; image-orientation: initial; image-rendering: initial; inline-size: initial; isolation: initial; left: 323px; letter-spacing: initial; lighting-color: initial; line-break: initial; list-style: initial; margin-block-end: initial; margin-block-start: initial; margin: initial; margin-inline-end: initial; margin-inline-start: initial; marker: initial; mask: initial; mask-type: initial; max-block-size: initial; max-height: initial; max-inline-size: initial; max-width: initial; min-block-size: initial; min-height: initial; min-inline-size: initial; min-width: 16px; mix-blend-mode: initial; object-fit: initial; object-position: initial; offset: initial; opacity: 1; order: initial; origin-trial-test-property: initial; orphans: initial; outline: initial; outline-offset: initial; overflow-anchor: initial; overflow-wrap: initial; overflow: initial; overscroll-behavior-block: initial; overscroll-behavior-inline: initial; overscroll-behavior: initial; padding-block-end: initial; padding-block-start: initial; padding: initial; padding-inline-end: initial; padding-inline-start: initial; paint-order: initial; perspective: initial; perspective-origin: initial; pointer-events: initial; position: absolute; quotes: initial; r: initial; resize: initial; right: initial; rx: initial; ry: initial; scroll-behavior: initial; scroll-margin-block: initial; scroll-margin: initial; scroll-margin-inline: initial; scroll-padding-block: initial; scroll-padding: initial; scroll-padding-inline: initial; scroll-snap-align: initial; scroll-snap-stop: initial; scroll-snap-type: initial; shape-image-threshold: initial; shape-margin: initial; shape-outside: initial; shape-rendering: initial; size: initial; speak: initial; stop-color: initial; stop-opacity: initial; stroke: initial; stroke-dasharray: initial; stroke-dashoffset: initial; stroke-linecap: initial; stroke-linejoin: initial; stroke-miterlimit: initial; stroke-opacity: initial; stroke-width: initial; tab-size: initial; table-layout: initial; text-align: initial; text-align-last: initial; text-anchor: initial; text-combine-upright: initial; text-decoration: initial; text-decoration-skip-ink: initial; text-indent: initial; text-overflow: initial; text-shadow: initial; text-size-adjust: initial; text-transform: initial; text-underline-position: initial; top: 44.0637px; touch-action: initial; transform: initial; transform-box: initial; transform-origin: initial; transform-style: initial; user-select: initial; vector-effect: initial; vertical-align: initial; visibility: visible; -webkit-app-region: initial; -webkit-appearance: initial; border-spacing: initial; -webkit-border-image: initial; -webkit-box-align: initial; -webkit-box-decoration-break: initial; -webkit-box-direction: initial; -webkit-box-flex: initial; -webkit-box-ordinal-group: initial; -webkit-box-orient: initial; -webkit-box-pack: initial; -webkit-box-reflect: initial; -webkit-font-size-delta: initial; -webkit-highlight: initial; -webkit-hyphenate-character: initial; -webkit-line-break: initial; -webkit-line-clamp: initial; -webkit-mask-box-image: initial; -webkit-mask: initial; -webkit-mask-composite: initial; -webkit-perspective-origin-x: initial; -webkit-perspective-origin-y: initial; -webkit-print-color-adjust: initial; -webkit-rtl-ordering: initial; -webkit-ruby-position: initial; -webkit-tap-highlight-color: initial; -webkit-text-combine: initial; -webkit-text-decorations-in-effect: initial; -webkit-text-emphasis: initial; -webkit-text-emphasis-position: initial; -webkit-text-fill-color: initial; -webkit-text-security: initial; -webkit-text-stroke: initial; -webkit-transform-origin-x: initial; -webkit-transform-origin-y: initial; -webkit-transform-origin-z: initial; -webkit-user-drag: initial; -webkit-user-modify: initial; white-space: initial; widows: initial; width: 16px; will-change: initial; word-break: initial; word-spacing: initial; x: initial; y: initial; z-index: auto;"></span>
+                                            <input type="text" name="postCode" id="postCode" class="form-control"  data-kwimpalastatus="alive" data-kwimpalaid="1591929914302-5">
                                         </div>
                                     </div>
                                 </div>
@@ -492,7 +489,7 @@ and open the template in the editor.
                 $("#paymentMehodError").hide();
                 $("#incorrect").hide();
                 $("#invalidEmail").hide();
-                $("#emptyPostCode").hide();
+                $("#emptyAddress").hide();
                 logOut();
                 getUserInSession();
                 getMetodosPago();
@@ -817,22 +814,36 @@ and open the template in the editor.
                     var email = $("#email").val();
                     var telephone = $("#telephone").val();
                     var payment = $("[id*=OpId]");
-                    var postCode = $("#postCode").val();
+                    var direccion = [];
+                    if ($("#SelectAddress").val() !== "0") {
+                        direccion.push($("#SelectAddress").val());
+
+                    } else {
+                        direccion = direccionValidacion();
+                    }
+                    if (direccion.length === 0) {
+                        $("#emptyAddress").fadeTo(2000, 500).slideUp(500, function () {
+                            $("#emptyAddress").slideUp(500);
+                        });
+                        return;
+                    }
+                    
                     var OpSelected = "";
                     for (let i = 0; i < payment.length; i++) {
                         if (payment[i].checked) {
                             OpSelected = payment[i].value;
                         }
                     }
-                    if (!validacion(firstName, lastName, email, telephone, OpSelected, postCode)) {
-                        var sendData = firstName + "\n" + lastName + "\n" + email + "\n" + telephone + "\n" + OpSelected + "\n" + seleccionada + "\n" + ASAP + "\n" + postCode;
+
+                    if (!validacion(firstName, lastName, email, telephone, OpSelected)) {
+                        var sendData = firstName + "\n" + lastName + "\n" + email + "\n" + telephone + "\n" + OpSelected + "\n" + seleccionada + "\n" + ASAP + "\n" + JSON.stringify(direccion);
                         console.log(sendData);
                         $.ajax({
                             type: "POST",
                             url: "/restaurante/api/restaurante/saveOrder",
                             data: sendData,
                             success: function () {
-                                location.href = "/restaurante/presentacionCliente/checkout.html";
+                                location.href = "/restaurante/index.html";
                             },
                             error: function (status) {
                                 $("#Error404").fadeTo(3000, 600).slideUp(600, function () {
@@ -843,6 +854,19 @@ and open the template in the editor.
                     }
                 });
             }
+            function direccionValidacion() {
+                var array = [];
+
+                if ($("#direccion").val().length !== 0 && $("#provincia").val().length !== 0 &&
+                        $("#canton").val().length !== 0 && $("#postCode").val().length !== 0) {
+                    array.push($("#direccion").val());
+                    array.push($("#provincia").val());
+                    array.push($("#canton").val());
+                    array.push($("#postCode").val());
+                }
+                return array;
+            }
+
             function fillAddressBook() {
                 $.ajax({
                     type: "POST",
@@ -861,7 +885,7 @@ and open the template in the editor.
 
 
             }
-            function validacion(firstName, lastName, email, telephone, OpSelected, postCode) {
+            function validacion(firstName, lastName, email, telephone, OpSelected) {
 
                 var error = false;
                 $("#invalidEmail").hide();
@@ -874,11 +898,7 @@ and open the template in the editor.
                         $("#incorrect").slideUp(500);
                     });
                 }
-                if (isNaN(postCode)) {
-                    $("#emptyPostCode").fadeTo(2000, 500).slideUp(500, function () {
-                        $("#emptyPostCode").slideUp(500);
-                    });
-                }
+
                 if (OpSelected === "") {
                     var error = true;
                     $("#paymentMehodError").fadeTo(2000, 500).slideUp(500, function () {
