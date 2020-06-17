@@ -66,9 +66,27 @@ public class AdminPanel extends HttpServlet {
             case "/api/restaurante/findPlato":
                 this.doFindPlato(request, response);
                 break;
+            case "/api/restaurante/sendEdit":
+                this.doEditPlatillo(request, response);
+                break;
         }
     }
-
+    protected void doEditPlatillo(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
+            Gson gson = new Gson();
+            BufferedReader reader = request.getReader();
+            String id = reader.readLine();
+            String nombre = reader.readLine();
+            String precio = reader.readLine();
+            String descripcion = reader.readLine();
+            String categoria = reader.readLine();
+            com.progra.restaurante.data.DishesDao.editPlatillo(id, nombre, precio, descripcion, categoria);
+            response.setStatus(201);
+        } catch (Exception e) {
+            response.setStatus(status(e));
+        }
+    }
     protected void doFindPlato(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         try {

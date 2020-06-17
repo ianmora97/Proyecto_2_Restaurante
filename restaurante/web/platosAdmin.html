@@ -27,15 +27,15 @@
                     <div class="modal-body" id="editarBody">
                         <div class="form-group" style="width: 45%;display: inline-block;margin: 0;">
                             <label for="text-input">Nombre del Plato</label>
-                            <input class="form-control" type="text" id="text-input-2" name="text-input">
+                            <input class="form-control" type="text" id="text-input-2" name="nombrePlatoI">
                         </div>
                         <div class="form-group" style="width: 45%;display: inline-block;margin-left: 21px;">
                             <label for="password-input">Precio</label>
-                            <input class="form-control" type="number" id="text-input-1" name="text-input">
+                            <input class="form-control" type="number" id="text-input-1" name="precioPlatoI">
                         </div>
                         <div class="form-group" style="width: 45%;display: inline-block;margin: 0;position: relative;top: -40px;">
                             <label for="textarea-input">Descripccion</label>
-                            <textarea class="form-control" id="textarea-input" name="textarea"></textarea>
+                            <textarea class="form-control" id="textarea-input" name="descripcionI"></textarea>
                         </div>
                         <div class="form-group" style="width: 45%;display: inline-block;margin: 0px 0 0 20px;">
                             <label for="textarea-input">Categoria</label>
@@ -46,7 +46,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="ingresarPlato">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -61,6 +61,7 @@
                         </button>
                     </div>
                     <div class="modal-body" id="editarBody">
+                        <span id="idInput" style="display: none;"></span>
                         <div class="form-group" style="width: 45%;display: inline-block;margin: 0;">
                             <label for="text-input">Nombre del Plato</label>
                             <input class="form-control" type="text" id="text-input-2" name="nombrePlato">
@@ -82,7 +83,45 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="sendChange">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalAdicional" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable"  role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">A&ntilde;adir Adicionales</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="editarBody">
+                        <span id="idInput" style="display: none;"></span>
+                        <div class="form-group">
+                            <div class="form-group" style="display: inline-block;margin-bottom: 0;">
+                                <label for="text-input" style="display: inline-block;">Adicionales</label>
+                                <input class="form-control" type="text" id="text-input" name="text-input" style="display: block;" /></div>
+                            <div class="form-check" style="display: inline-block;margin-left: 20px;">
+                                <input type="checkbox" class="form-check-input" name="checkbox-input" id="formCheck-5" /><label class="form-check-label" for="formCheck-5">Requerida</label></div>
+                            <div class="form-check" style="display: inline-block;margin-left: 20px;">
+                                <input type="checkbox" class="form-check-input" name="checkbox-input" id="formCheck-5" /><label class="form-check-label" for="formCheck-5">Multivalorada</label></div>
+                            <div class="btn btn-primary" id="openAdicional">
+                                <i class="fa fa-plus-square" ></i></div>
+                        </div>
+                        <div class="form-group" style="width: 45%;display: inline-block;margin: 0;">
+                            <label for="text-input">Nombre</label>
+                            <input class="form-control" type="text" id="text-input-2" name="nombrePlato">
+                        </div>
+                        <div class="form-group" style="width: 45%;display: inline-block;margin-left: 21px;">
+                            <label for="password-input">Precio</label>
+                            <input class="form-control" type="number" id="text-input-1" name="precioPlato">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="ingresarPlato">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -369,6 +408,17 @@
                                             data-request-form="#list-form"
                                             data-request-data="sort_by: 'min_capacity'">
                                             Descripccion                    <i class="fa fa-sort-ASC"></i>
+                                        </a>
+                                    </th>
+                                    <th
+                                        class="list-cell-name-min-capacity list-cell-type-text "
+                                        >
+                                        <a
+                                            class="sort-col"
+                                            data-request="list::onSort"
+                                            data-request-form="#list-form"
+                                            data-request-data="sort_by: 'min_capacity'">
+                                            Adicionales  <i class="fa fa-sort-ASC"></i>
                                         </a>
                                     </th>
                                     <th

@@ -30,11 +30,11 @@ public class DishesDao {
             st.setInt(2, platillo.getIdCategoria().getIdCategoria());
             st.setString(3, platillo.getDescripcion());
             st.setDouble(4, platillo.getPrecio());
-
+            int r = st.executeUpdate();
             con.close();
             st.close();
 
-            return st.executeUpdate() != 0;
+            return r != 0;
         } catch (SQLException ex) {
             System.out.println(ex);
             return false;
@@ -219,5 +219,27 @@ public class DishesDao {
         }
 
     }
+    public static boolean editPlatillo(String id, String nombre,
+            String precio, String descripcion, String categoria) throws Exception {
+        String SQL = "UPDATE platillo "
+                + "SET nombre_platillo = ? , precio = ? , descripcion = ? , id_categoria = ? "
+                + "WHERE id_platillo = ?;";
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
 
+            st.setString(1, nombre);
+            st.setDouble(2, Double.parseDouble(precio));
+            st.setString(3, descripcion);
+            st.setInt(4, Integer.parseInt(categoria));
+            st.setInt(5, Integer.parseInt(id));
+            int r = st.executeUpdate();
+            con.close();
+            st.close();
+            return r != 0;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return false;
+        }
+    }
 }
