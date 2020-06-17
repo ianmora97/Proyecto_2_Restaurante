@@ -28,7 +28,8 @@ import javax.servlet.http.HttpSession;
  * @author david
  */
 @WebServlet(name = "loginSession", urlPatterns = {"/api/restaurante/login", "/api/restaurante/register",
-    "/api/restaurante/logOut", "/api/restaurante/getUser","/api/restaurante/getAddressBook"})
+    "/api/restaurante/logOut", "/api/restaurante/getUser", "/api/restaurante/sendEditUbicacion",
+    "/api/restaurante/getAddressBook","/api/restaurante/getDireccion","/api/restaurante/ingresarDireccion"})
 
 public class loginSession extends HttpServlet {
 
@@ -59,9 +60,81 @@ public class loginSession extends HttpServlet {
             case "/api/restaurante/getAddressBook":
                 this.doGetAddressBook(request, response);
                 break;
+            case "/api/restaurante/getDireccion":
+                this.doGetDireccion(request, response);
+                break;
+            case "/api/restaurante/sendEditUbicacion":
+                this.doSendEditDireccion(request, response);
+                break;
+            case "/api/restaurante/ingresarDireccion":
+                this.doIngresarDireccion(request, response);
+                break;
         }
     }
+    protected void doIngresarDireccion(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
+            Gson gson = new Gson();
+            BufferedReader reader = request.getReader();
+            
+            String provincia = reader.readLine();
+            String canton = reader.readLine();
+            String codigo = reader.readLine();
+            String direccion = reader.readLine();
+            String id = reader.readLine();
 
+            Ubicacion u = new Ubicacion(0, direccion, provincia, canton);
+            u.setDireccion(direccion);
+            u.setCodigoPostal(Integer.parseInt(codigo));
+            HttpSession session = request.getSession(true);
+            com.progra.restaurante.data.Model.instance().insertDireccion(u,(Usuario)session.getAttribute("usuario"));
+            
+            response.setStatus(201);
+        } catch (Exception e) {
+            response.setStatus(status(e));
+        }
+    }
+    protected void doSendEditDireccion(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
+            BufferedReader reader = request.getReader();
+            
+            String provincia = reader.readLine();
+            String canton = reader.readLine();
+            String codigo = reader.readLine();
+            String direccion = reader.readLine();
+            String id = reader.readLine();
+            
+            if(!com.progra.restaurante.data.Model.instance().updateDireccion(provincia, canton, codigo, direccion, id)){
+                throw new Exception();
+            }
+            response.setContentType("application/json; charset=UTF-8");
+
+            response.setStatus(200);
+
+        } catch (Exception e) {
+            response.setStatus(status(e));
+        }
+    }
+    protected void doGetDireccion(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        try {
+
+            BufferedReader reader = request.getReader();
+            String id = reader.readLine();
+            Gson gson = new Gson();
+
+            Ubicacion u = com.progra.restaurante.data.Model.instance().getUbicacionById(Integer.parseInt(id));
+            
+            response.setContentType("application/json; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.write(gson.toJson(u));
+            response.setStatus(201); // ok with content
+
+        } catch (Exception e) {
+            response.setStatus(status(e));
+        }
+    }
     protected void doGetAddressBook(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         try {

@@ -29,7 +29,11 @@ select * from ubicacion;
 -- UBICACION 
 -- ============================================
 insert into direccion_propia (id_ubicacion,usuario_correo) values(1,'david@gmail.com');
-select * from direccion_propia where usuario_correo = 'david@gmail.com';
+
+select u.id_ubicacion from direccion_propia d inner join ubicacion u on d.id_ubicacion = u.id_ubicacion where u.direccion = 'Hatillo 5 detras de los multifamiliares casa #14' and usuario_correo= 'david@gmail.com';  
+select u.id_ubicacion,u.codigo_postal,u.canton,u.direccion,u.provincia from direccion_propia d inner join ubicacion u on d.id_ubicacion = u.id_ubicacion where usuario_correo= 'david@gmail.com';
+delete from direccion_propia where id_ubicacion = 1;
+
 -- ============================================ 
 -- Metodos de Pago 
 -- ============================================
@@ -150,4 +154,4 @@ where opS.id_opcion = o.id_opcion;
 
 -- ============================================ 
 -- DETALLE 
--- ============================================ 
+-- ============================================

@@ -54,7 +54,61 @@ public class UbicacionDao {
         }
 
     }
+    public static boolean editUbicacion(String p, String c, String codigo, String d, String id) throws Exception {
+        String SQL = "UPDATE ubicacion "
+                + "SET provincia = ?,canton = ?,codigo_postal=?,direccion=? "
+                + "WHERE id_ubicacion = ?;";
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
 
+            st.setString(1, p);
+            st.setString(2, c);
+            st.setInt(3, Integer.parseInt(codigo));
+            st.setString(4, d);
+            st.setInt(5, Integer.parseInt(id));
+            
+            int r = st.executeUpdate();
+            con.close();
+            st.close();
+            return r != 0;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return false;
+        }
+    }
+    public static Ubicacion getUbicionById(int id) throws Exception {
+        String SQL = "select u.id_ubicacion,u.codigo_postal,u.canton,u.direccion,u.provincia from direccion_propia d "
+                + "inner join ubicacion u on d.id_ubicacion = u.id_ubicacion where u.id_ubicacion = ?;";
+        Ubicacion ubicacion = null;
+
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+
+            st.setInt(1, id);
+
+            ResultSet resultado = st.executeQuery();
+
+            while (resultado.next()) {
+                ubicacion = new Ubicacion();
+                ubicacion.setIdUbicacion(resultado.getInt("id_ubicacion"));
+                ubicacion.setCodigoPostal(resultado.getInt("codigo_postal"));
+                ubicacion.setCanton(resultado.getString("canton"));
+                ubicacion.setDireccion(resultado.getString("direccion"));
+                ubicacion.setProvincia(resultado.getString("provincia"));
+            }
+            con.close();
+            resultado.close();
+            st.close();
+
+            return ubicacion;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+
+    }
     public static ArrayList<Ubicacion> getUbicionesUsuario(Usuario usuario) throws Exception {
         String SQL = "select u.id_ubicacion,u.codigo_postal,u.canton,u.direccion,u.provincia from direccion_propia d inner join ubicacion u on d.id_ubicacion = u.id_ubicacion where usuario_correo= ?;";
         Ubicacion ubicacion = null;
@@ -117,6 +171,47 @@ public class UbicacionDao {
                 st = con.prepareStatement(SQL);
                 st.setInt(1, id_ubicacion);
                 st.setString(2, usuario.getUsuarioCorreo());
+                resultado.close();
+            }
+            con.close();
+            st.close();
+
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return false;
+        }
+
+    }
+    public static boolean insertUbicacion(Ubicacion ubicacion, Usuario usuario) throws Exception {
+        String SQL = "insert into ubicacion (direccion,provincia,canton,codigo_postal) values(?,?,?,?);";
+
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+
+            st.setString(1, ubicacion.getDireccion());
+            st.setString(2, ubicacion.getProvincia());
+            st.setString(3, ubicacion.getCanton());
+            st.setInt(4, ubicacion.getCodigoPostal());
+
+            int update = st.executeUpdate();
+
+            if (update != 0) {
+                SQL = "select id_ubicacion from ubicacion where direccion =?;";
+                st = con.prepareStatement(SQL);
+                st.setString(1, ubicacion.getDireccion());
+
+                ResultSet resultado = st.executeQuery();
+                int id_ubicacion = -1;
+                if (resultado.next()) {
+                    id_ubicacion = resultado.getInt("id_ubicacion");
+                }
+                SQL = "insert into direccion_propia (id_ubicacion,usuario_correo) values(?,?);";
+                st = con.prepareStatement(SQL);
+                st.setInt(1, id_ubicacion);
+                st.setString(2, usuario.getUsuarioCorreo());
+                update = st.executeUpdate();
                 resultado.close();
             }
             con.close();

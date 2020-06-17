@@ -1,0 +1,448 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="Content-type" content="text/html; charset=utf-8" type="equiv">
+        <meta name="X-UA-Compatible" content="IE=edge" type="equiv">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" type="name">
+        <link rel="shortcut icon" type="image/x-icon" href="https://demo.tastyigniter.com/themes/tastyigniter-orange/assets/images/favicon.ico">
+        <!--bootstrap css-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"  crossorigin="anonymous">
+        <!--css local-->
+        <link rel="stylesheet" href="/restaurante/css/footer.css">
+        <link rel="stylesheet" href="/restaurante/css/order.css">
+        <link rel="stylesheet" href="/restaurante/css/general.css">
+        <title>Account</title>
+    </head>
+    <body background="#EEEDED" style="background-color: #EEEDED;">
+        <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">A&ntilde;adir Direccion</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="editarBody">
+                        <span id="idInput" style="display: none;"></span>
+                        <div class="form-group" style="width: 45%;display: inline-block;margin: 0;">
+                            <label for="text-input">Provincia</label>
+                            <input class="form-control" type="text" id="text-input-1" name="provincia">
+                        </div>
+                        <div class="form-group" style="width: 45%;display: inline-block;margin-left: 21px;">
+                            <label for="password-input">Canton</label>
+                            <input class="form-control" type="text" id="text-input-2" name="canton">
+                        </div>
+                        <div class="form-group" style="width: 45%;display: inline-block;margin: 0;position: relative;">
+                            <label for="textarea-input">Codigo Postal</label>
+                            <input class="form-control" type="text" id="text-input-3" name="codigo">
+                        </div>
+                        <div class="form-group" style="width: 45%;display: inline-block;margin: 0;position: relative;top:-40px;left: 20px;">
+                            <label for="textarea-input">Direccion</label>
+                            <textarea class="form-control" id="textarea-input-4" name="direccion"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="ingresarDireccion">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modificar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="editarBody">
+                        <span id="idInput" style="display: none;"></span>
+                        <div class="form-group" style="width: 45%;display: inline-block;margin: 0;">
+                            <label for="text-input">Provincia</label>
+                            <input class="form-control" type="text" id="text-input-1" name="provincia">
+                        </div>
+                        <div class="form-group" style="width: 45%;display: inline-block;margin-left: 21px;">
+                            <label for="password-input">Canton</label>
+                            <input class="form-control" type="text" id="text-input-2" name="canton">
+                        </div>
+                        <div class="form-group" style="width: 45%;display: inline-block;margin: 0;position: relative;">
+                            <label for="textarea-input">Codigo Postal</label>
+                            <input class="form-control" type="text" id="text-input-3" name="codigo">
+                        </div>
+                        <div class="form-group" style="width: 45%;display: inline-block;margin: 0;position: relative;top:-40px;left: 20px;">
+                            <label for="textarea-input">Direccion</label>
+                            <textarea class="form-control" id="textarea-input-4" name="direccion"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="sendChange">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <header class="header">
+            <nav class="navbar navbar-expand-sm bg-white  navbar-inverse">
+                <div class="container">
+                    <div class="justify-content-start">
+                        <a href="#">
+                            <img src="/restaurante/images/logo.png" height="40"/>
+                        </a>
+                    </div>
+                    <button class="navbar-toggler" data-toggle="collapse" data-target="#mainNav">
+                        <span class="fas fa-align-justify"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+                        <div class="navbar-nav">
+                            <a class="nav-item nav-link  "  href="/restaurante/index.html" > View Menu </a>
+                            <a class="nav-item nav-link "  href="#"> Reservation</a>
+                            <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/loginCliente.html" id="loginAnchor"> Login</a>
+                            <a class="nav-item nav-link "  href="/restaurante/presentacionCliente/register.html" id="registerAnchor"> Register</a>
+                            
+                            <a class="nav-item nav-link "  href="#" id="LogOutAnchor"> LogOut</a>
+
+                        </div> 
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main role="main">
+            <div id="notification">
+            </div>
+
+            <div id="page-wrapper">
+                <div class="container">
+                    <div class="row py-5">
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="">
+                                    <div class="nav flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                        <a class="nav-link active" id="v-pills-tab" data-toggle="pill" href="#v-pills-cuenta" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                                            <i class="fa fa-user mr-3"></i>Cuenta</a>
+                                        <a id="selected" class="nav-link" id="v-pills-tab" data-toggle="pill" href="#v-pills-direccion" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                                            <i class="fa fa-book mr-3"></i>Direcciones</a>
+                                        <a class="nav-link" id="v-pills-tab" data-toggle="pill" href="#v-pills-orden" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                                            <i class="fa fa-list-alt mr-3"></i>Ordenes</a>
+                                        <a class="nav-link" id="v-pills-tab" data-toggle="pill" href="#v-pills-reservaciones" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                                            <i class="fa fa-calendar mr-3"></i>Reservaciones</a>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab"></div>
+                                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab"></div>
+
+
+                            </div>
+
+                        </div>
+                        <div class="tab-content col-9" id="v-pills-tabContent">
+                            <div class="tab-pane fade show active" id="v-pills-cuenta" role="tabpanel" aria-labelledby="v-pills-cuenta-tab">
+
+                                <div class="card mb-1">
+                                    <div class="card-body bg-white">
+                                        <h5 class="mb-0" id="bienvenidoName"></h5>
+                                    </div>
+                                </div>
+
+                                <div class="card-group mb-1">
+                                    <div class="card mr-sm-1">
+                                        <div class="card-body bg-white" id="SelectAddress"  style="height: 340px;overflow-y: auto;">
+                                            
+                                        </div>
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body text-center bg-white">
+                                            <p><i class="fa fa-shopping-basket fa-3x text-muted"></i></p>
+                                            <p>There are no menus added in your cart.</p>
+                                            <a class="btn btn-light" href="https://demo.tastyigniter.com/local/menus">
+                                                ORDER NOW                </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body bg-white">
+                                        <h5 class="font-weight-normal mb-3">Edit My Details</h5>
+                                        <form
+                                            role="form"
+                                            method="POST"
+                                            accept-charset="utf-8"
+                                            action="https://demo.tastyigniter.com/account"
+                                            data-request="account::onUpdate"
+                                            >
+                                            <div class="form-row">
+                                                <div class="col col-sm-6">
+                                                    <div class="form-group">
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="nombre"
+                                                            value=""
+                                                            name="first_name"
+                                                            placeholder="First Name"
+                                                            >
+                                                    </div>
+                                                </div>
+                                                <div class="col col-sm-6">
+                                                    <div class="form-group">
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="apellido"
+                                                            value=""
+                                                            name="last_name"
+                                                            placeholder="Last Name"
+                                                            >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col col-sm-6">
+                                                    <div class="form-group">
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="telefono"
+                                                            value=""
+                                                            name="telephone"
+                                                            placeholder="Telephone"
+                                                            >
+                                                    </div>
+                                                </div>
+                                                <div class="col col-sm-6">
+                                                    <div class="form-group">
+                                                        <input
+                                                            type="email"
+                                                            class="form-control"
+                                                            id="correo"
+                                                            value=""
+                                                            name="email"
+                                                            placeholder="Email Address"
+                                                            disabled
+                                                            >
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input
+                                                        type="checkbox"
+                                                        name="newsletter"
+                                                        id="newsletter"
+                                                        class="custom-control-input"
+                                                        value="1"
+                                                        >
+                                                    <label for="newsletter" class="custom-control-label">
+                                                        Keep me up-to-date with offers by email.            </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="my-3">
+                                                <h5 class="font-weight-normal">Change Password</h5>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input
+                                                    type="password"
+                                                    name="old_password"
+                                                    class="form-control"
+                                                    value=""
+                                                    placeholder="Old Password"
+                                                    />
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="col col-sm-6">
+                                                    <div class="form-group">
+                                                        <input
+                                                            type="password"
+                                                            class="form-control"
+                                                            value=""
+                                                            name="new_password"
+                                                            placeholder="New Password"
+                                                            >
+                                                    </div>
+                                                </div>
+                                                <div class="col col-sm-6">
+                                                    <div class="form-group">
+                                                        <input
+                                                            type="password"
+                                                            class="form-control"
+                                                            name="confirm_new_password"
+                                                            value=""
+                                                            placeholder="New Password Confirm"
+                                                            >
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="buttons">
+                                                <button
+                                                    type="submit"
+                                                    class="btn orange"
+                                                    >Save Details</button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-direccion" role="tabpanel" aria-labelledby="v-pills-direccion-tab">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div id="address-book">
+                                            <div class="list-group list-group-flush">
+                                                <div class="list-group-item ">
+                                                    <div id="direccionesAd">
+
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+
+                                            <div class="pagination-bar text-right">
+                                                <div class="links"></div>
+                                            </div>
+
+                                            <div class="buttons"style="width: 155px;margin: 10px auto;">
+                                                <button class="btn orange" data-toggle="modal" data-target="#modalAdd" >Add New Address</button>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-orden" role="tabpanel" aria-labelledby="v-pills-orden-tab">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p>There are no order(s).</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-reservaciones" role="tabpanel" aria-labelledby="v-pills-reservaciones-tab">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p>There are no reservation(s).</p>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="pt-5 my-5">
+            <div class="footer pt-5 pb-5">
+                <div class="container text-white">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="footer-links">
+                                <h6 class="footer-title d-none d-sm-block">Proyecto de Programacion 4</h6>
+                                <ul>
+                                    <li>
+                                        <a href="#">David Aguilar Rojas</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Ian Mora Rodriguez</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="footer-links">
+                                <h6 class="footer-title d-none d-sm-block">Information</h6>
+                                <ul>
+                                    <li>
+                                        <a href="#">Profesor: Jose Sanchez</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 mt-3 mt-sm-0">
+                            <div class="social-bottom">
+                                <h6 class="footer-title" style="display: inline-block;">Follow us on</h6>
+                                <ul class="social-icons list-inline">
+                                    <li>
+                                        <a class="p-2 fab fa-facebook" target="_blank" title="Facebook" href="" aria-hidden="true">
+                                        </a><span class="sr-only">Facebook</span>
+                                    </li>
+                                    <li>
+                                        <a class="p-2 fab fa-twitter" target="_blank" title="Facebook" href="" aria-hidden="true">
+                                        </a><span class="sr-only">Facebook</span>
+                                    </li>
+                                    <li>
+                                        <a class="p-2 fab fa-github" target="_blank" title="Facebook" href="" aria-hidden="true">
+                                        </a><span class="sr-only">Facebook</span>
+                                    </li>
+                                    <li>
+                                        <a class="p-2 fab fa-youtube" target="_blank" title="Facebook" href="" aria-hidden="true">
+                                        </a><span class="sr-only">Facebook</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 mt-3 mt-sm-0">
+                            <div id="newsletter-box">
+                                <h5 class="mb-4">Subscribe to our newsletter</h5>
+                                <form id="subscribeForm" class="subscribe-form" method="POST">
+                                    <div class="input-group subscribe-group">
+                                        <input type="text" class="form-control" name="subscribe_email" data-kwimpalastatus="alive" readonly="">
+                                        <span class="input-group-append">
+                                            <button id="subscribeButton" class="btn btn-info"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                                        </span>
+                                    </div>
+                                </form>                    
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <hr class="mb-3">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col p-2">
+                                © 2020 Proyecto Progra 4, Inspirado en: - <a target="_blank" href="http://tastyigniter.com">Powered by TastyIgniter</a>            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </footer>
+        
+        <!--JQUERY-->
+        <script src="https://code.jquery.com/jquery-3.5.1.js"  crossorigin="anonymous"></script>
+
+        <!--BOOTSTRAP-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"  crossorigin="anonymous"></script>       
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+        <!--iconos de font awesome-->
+        <script src="https://kit.fontawesome.com/39f4ebbbea.js" crossorigin="anonymous"></script>
+        
+        <script charset="utf-8" type="text/javascript" src="/restaurante/js/perfil.js"></script>
+    </body>
+</html>
