@@ -19,14 +19,19 @@
                 <div class="login-container">
                     <div class="card">
                         <div class="card-body">
+                            <div id="Error404" class="alert alert-danger text-center" role="alert" >
+                                <strong> <i class="fas fa-exclamation-triangle"></i></strong>,
+                                <br>No tiene los permisos de Administrador<i class="fas fa-exclamation"></i> <br>
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
                             <div class="form-group">
                                 <label for="input-user"
-                                       class="control-label">Username: <b>demo</b></label>
+                                       class="control-label">Username</label>
                                 <input name="user" type="text" id="input-user" class="form-control"/>
                             </div>
                             <div class="form-group">
                                 <label for="input-password"
-                                       class="control-label">Password: <b>demoadmin</b></label>
+                                       class="control-label">Password</label>
                                 <input name="password" type="password" id="input-password" class="form-control"/>
                             </div>
                             <div class="form-group">
@@ -35,9 +40,9 @@
                                     class="btn btn-primary btn-lg pull-right"
                                     id="sendLogin"
                                     ><i class="fa fa-sign-in fa-fw"></i>&nbsp;&nbsp;&nbsp;Login</button>
-                                
+
                             </div>
-           
+
                         </div>
                     </div>
                 </div>
@@ -45,36 +50,52 @@
         </div>
 
         <script src="https://code.jquery.com/jquery-3.5.1.js"  crossorigin="anonymous"></script>
-       
+
         <script>
             function loaded(event) {
                 events();
             }
             function events() {
                 ingresar();
+                $("#Error404").hide();
             }
             function ingresar(status) {
                 $("#sendLogin").click(function () {
                     var username = $("#input-user").val();
                     var clave = $("#input-password").val();
-
-                    var sendData = username + "\n" + clave;
-                    $.ajax({
-                        type: "POST",
-                        url: "api/restaurante/ingresarAdmin",
-                        data: sendData,
-                        success: function (orden) {
-                            location.href ="dashboard.html";
-                        },
-                        error: function (status) {
-                            alert(errorMessage(status));
-                            location.href ="login.html";
-                        }
-                    });
+                    if (clave.length <= 0 || username.length <= 0) {
+                        $("#input-user").addClass("error");
+                        $("#input-password").addClass("error");
+                        $("#incorrect").fadeTo(2000, 300).slideUp(200, function () {
+                            $("#incorrect").slideUp(200);
+                        });
+                    } else {
+                        var sendData = {
+                            username: username,
+                            usuarioCorreo: username,
+                            contrasena: clave
+                        };
+                        $.ajax({
+                            type: "POST",
+                            url: "/restaurante_copy/api/login",
+                            data: JSON.stringify(sendData),
+                            contentType: "application/json"
+                        }).then((usuario) => {
+                            sessionStorage.setItem("usuario", JSON.stringify(usuario));
+                            console.log(JSON.parse(sessionStorage.getItem("usuario")));
+                            location.href="dashboard.html";
+                        }, (error) => {
+                            $("#input-user").addClass("error");
+                            $("#input-password").addClass("error");
+                            $("#incorrect").fadeTo(2000, 500).slideUp(500, function () {
+                                $("#incorrect").slideUp(500);
+                            });
+                        });
+                    }
                 });
             }
             document.addEventListener("DOMContentLoaded", loaded);
         </script>
-        
+
     </body>
 </html>

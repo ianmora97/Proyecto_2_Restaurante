@@ -9,7 +9,6 @@
 package com.progra.restaurante.data;
 
 import com.progra.restaurante.logic.Ubicacion;
-import static com.progra.restaurante.logic.Ubicacion_.codigoPostal;
 import com.progra.restaurante.logic.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -57,7 +57,9 @@ public class Model {
     public boolean updateDireccion(String p, String c, String codigo, String d, String id) throws Exception {
         return com.progra.restaurante.data.UbicacionDao.editUbicacion(p, c, codigo, d, id);
     }
-
+    public boolean updateCategoria(String o, String n) throws Exception{
+        return com.progra.restaurante.data.CategoriesDao.editCategoria(n, o);
+    }
     public Usuario getUsuarioByEmail(String correo) throws Exception {
         return com.progra.restaurante.data.UsuarioDao.getUsuarioByEmail(correo);
     }
@@ -121,7 +123,7 @@ public class Model {
     }
 
     public ArrayList<Platillo> getPlatillos() throws Exception {
-        return platillos;
+        return com.progra.restaurante.data.DishesDao.listarPlatillos();
     }
 
     public Platillo findPlatillo(String nombrePlatillo) throws Exception {

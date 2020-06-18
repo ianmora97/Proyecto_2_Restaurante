@@ -36,13 +36,13 @@ public class CategoriesDao {
         }
     }
 
-    public static boolean deleteCategoria(int id) throws Exception {
+    public static boolean deleteCategoria(String categoria) throws Exception {
         String SQL = "DELETE FROM categoria WHERE id_categoria = ?;";
         try {
             Connection con = Conn.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
 
-            st.setInt(1, id);
+            st.setInt(1, Integer.parseInt(categoria));
             int r = st.executeUpdate();
             con.close();
             st.close();
@@ -52,15 +52,44 @@ public class CategoriesDao {
             return false;
         }
     }
+    public static ArrayList<Categoria> findCategoriaByName(String nombre) throws Exception {
+        String SQL = "select * from categoria where nombre like '%%%s%%';";
+        SQL = String.format(SQL, nombre);
+        Categoria categoria = null;
 
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+
+            
+            ResultSet resultado = st.executeQuery();
+            
+            ArrayList<Categoria> lista = new ArrayList<>();
+
+            while (resultado.next()) {
+                categoria = new Categoria();
+                categoria.setIdCategoria(resultado.getInt("id_categoria"));
+                categoria.setNombre(resultado.getString("nombre"));
+                lista.add(categoria);
+            }
+            con.close();
+            resultado.close();
+            st.close();
+            return lista;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
     public static boolean editCategoria(String nombre, String nombren) throws Exception {
         String SQL = "UPDATE categoria SET nombre = ? WHERE nombre = ?;";
         try {
             Connection con = Conn.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
 
-            st.setString(1, nombren);
-            st.setString(2, nombre);
+            st.setString(1, nombre);
+            st.setString(2, nombren);
             int r = st.executeUpdate();
             con.close();
             st.close();

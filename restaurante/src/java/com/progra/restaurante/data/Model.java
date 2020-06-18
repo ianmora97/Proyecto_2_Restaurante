@@ -81,7 +81,9 @@ public class Model {
     public MetodosPago getMetodoPago(String nombre) throws Exception {
         return com.progra.restaurante.data.MetodosPagoDao.getMetodoPago(nombre);
     }
-
+    public ArrayList<Categoria> buscarCategorias(Categoria categoria) throws Exception{
+        return com.progra.restaurante.data.CategoriesDao.findCategoriaByName(categoria.getNombre());
+    }
     public ArrayList<MetodosPago> getMetodosPago() throws Exception {
         return com.progra.restaurante.data.MetodosPagoDao.getMetodosPago();
     }

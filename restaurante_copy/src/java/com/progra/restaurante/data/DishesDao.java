@@ -254,8 +254,7 @@ public class DishesDao {
         }
 
     }
-    public static boolean editPlatillo(String id, String nombre,
-            String precio, String descripcion, String categoria) throws Exception {
+    public static boolean editPlatillo(Platillo p) throws Exception {
         String SQL = "UPDATE platillo "
                 + "SET nombre_platillo = ? , precio = ? , descripcion = ? , id_categoria = ? "
                 + "WHERE id_platillo = ?;";
@@ -263,11 +262,11 @@ public class DishesDao {
             Connection con = Conn.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
 
-            st.setString(1, nombre);
-            st.setDouble(2, Double.parseDouble(precio));
-            st.setString(3, descripcion);
-            st.setInt(4, Integer.parseInt(categoria));
-            st.setInt(5, Integer.parseInt(id));
+            st.setString(1, p.getNombrePlatillo());
+            st.setDouble(2, p.getPrecio());
+            st.setString(3, p.getDescripcion());
+            st.setInt(4, p.getIdCategoria().getIdCategoria());
+            st.setInt(5, p.getIdPlatillo());
             int r = st.executeUpdate();
             con.close();
             st.close();
