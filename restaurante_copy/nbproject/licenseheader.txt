@@ -1,0 +1,12 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}UNIVERSIDAD NACIONAL DE COSTA RICA
+${licensePrefix}Proyecto de programación 4 
+${licensePrefix}Integrantes:
+${licensePrefix}David Aguilar Rojas
+${licensePrefix}Ian Mora Rodriguez
+${licensePrefix}I Ciclo lectivo 2020 
+<#if licenseLast??>
+${licenseLast}
+</#if>
