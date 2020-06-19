@@ -54,8 +54,8 @@ public class Model {
         return com.progra.restaurante.data.UbicacionDao.getUbicionById(id);
     }
 
-    public boolean updateDireccion(String p, String c, String codigo, String d, String id) throws Exception {
-        return com.progra.restaurante.data.UbicacionDao.editUbicacion(p, c, codigo, d, id);
+    public boolean updateDireccion(Ubicacion ubicacion) throws Exception {
+        return com.progra.restaurante.data.UbicacionDao.editUbicacion(ubicacion);
     }
 
     public Usuario getUsuarioByEmail(String correo) throws Exception {

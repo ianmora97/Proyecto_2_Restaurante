@@ -9,15 +9,15 @@ and open the template in the editor.
         <title>Checkout - Order</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="shortcut icon" type="image/x-icon" href="/restaurante/images/logo.png" />
+        <link rel="shortcut icon" type="image/x-icon" href="/restaurante_copy/images/logo.png" />
         <!--CSS DEL DATE-->
-        <link rel="stylesheet" href="/restaurante/css/bootstrap-datetimepicker.min.css">
+        <link rel="stylesheet" href="/restaurante_copy/css/bootstrap-datetimepicker.min.css">
         <!--bootstrap css-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"  crossorigin="anonymous">
         <!--css local-->
-        <link rel="stylesheet" href="/restaurante/css/footer.css">
-        <link rel="stylesheet" href="/restaurante/css/order.css">
-        <link rel="stylesheet" href="/restaurante/css/general.css">
+        <link rel="stylesheet" href="/restaurante_copy/css/footer.css">
+        <link rel="stylesheet" href="/restaurante_copy/css/order.css">
+        <link rel="stylesheet" href="/restaurante_copy/css/general.css">
     </head>
 
     <body style="background-color: #EEEDED;">
@@ -92,7 +92,7 @@ and open the template in the editor.
             <div class="container">
                 <div class="justify-content-start">
                     <a href="#">
-                        <img src="/restaurante/images/logo.png" height="40"/>
+                        <img src="/restaurante_copy/images/logo.png" height="40"/>
                     </a>
                 </div>
                 <button class="navbar-toggler" data-toggle="collapse" data-target="#mainNav">
@@ -100,16 +100,16 @@ and open the template in the editor.
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="mainNav">
                     <div class="navbar-nav">
-                        <a class="nav nav-link active "  href="/restaurante/index.html" > View Menu </a>
-                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/reservation.html"> Reservation</a>
-                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/loginCliente.html" id="loginAnchor"> Login</a>
-                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/register.html" id="registerAnchor"> Register</a>
+                        <a class="nav nav-link active "  href="/restaurante_copy/index.html" > View Menu </a>
+                        <a class="nav-item nav-link"  href="/restaurante_copy/presentacionCliente/reservation.html"> Reservation</a>
+                        <a class="nav-item nav-link"  href="/restaurante_copy/presentacionCliente/loginCliente.html" id="loginAnchor"> Login</a>
+                        <a class="nav-item nav-link"  href="/restaurante_copy/presentacionCliente/register.html" id="registerAnchor"> Register</a>
                         <div class="dropdown">
                             <button class="btn  dropdown-toggle" type="button" id="dropdownMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #ED561A;">
                                 User
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn">
-                                <a class="dropdown-item" href="/restaurante/presentacionCliente/perfil.html" >My profile </a>
+                                <a class="dropdown-item" href="/restaurante_copy/presentacionCliente/perfil.html" >My profile </a>
                                 <a class="dropdown-item" href="#" id="logOutAnchor">Log Out</a>
                             </div>
                         </div>
@@ -215,7 +215,7 @@ and open the template in the editor.
 
                     <div class="card my-1" >
                         <div class="card-body bg-white" id='user-Register'>
-                            Already have an account? <a href="/restaurante/presentacionCliente/loginCliente.hml">Login Here</a>
+                            Already have an account? <a href="/restaurante_copy/presentacionCliente/loginCliente.hml">Login Here</a>
                         </div>
                     </div>
                     <div class="card">
@@ -453,8 +453,8 @@ and open the template in the editor.
         <!--JQUERY-->
         <script src="https://code.jquery.com/jquery-3.5.1.js"  crossorigin="anonymous"></script>
         <!--date picket src-->       
-        <script src="/restaurante/js/bootstrap-datetimepicker.min.js"></script>
-        <script src="/restaurante/js/calendar.js"  ></script>
+        <script src="/restaurante_copy/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="/restaurante_copy/js/calendar.js"  ></script>
 
         <!--BOOTSTRAP-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"  crossorigin="anonymous"></script>       
@@ -474,9 +474,8 @@ and open the template in the editor.
         <script>
             var p_selected = [];
             function loaded(event) {
-                getOrder();
+                createOrden();
                 events();
-
             }
 
             function events() {
@@ -501,67 +500,55 @@ and open the template in the editor.
                 getUserInSession();
                 getMetodosPago();
                 checkout();
-
+                fillAddressBook();
             }
 
             function getMetodosPago() {
                 $.ajax({
                     type: "GET",
-                    url: "/restaurante/api/restaurante/getPaymentMethods",
-                    contentType: "application/json",
-                    success: function (metodosPago) {
-                        metodosPago.forEach((metodo) => {
-                            var sinEspacios = metodo.nombre.replace(/ /g, "");
-                            $("#paymentMehods").append(
-                                    ' <div class="list-group">' +
-                                    '<div class="list-group-item" >' +
-                                    '  <div class="custom-control custom-radio">' +
-                                    '   <input type="radio" id="' + sinEspacios + "OpId" + '" class="custom-control-input" name="payment" value="' + metodo.nombre + '" autocomplete="off">' +
-                                    '   <label class="custom-control-label d-block" for="' + sinEspacios + "OpId" + '" >' + metodo.nombre + '</label>' +
-                                    '   </div>' +
-                                    '   </div>' +
-                                    '   </div>'
-                                    );
-                        });
-                    },
-                    error: function (status) {
-                        alert(errorMessage(status));
-                    }
+                    url: "/restaurante_copy/api/chekOut/paymentMethods",
+                    contentType: "application/json"
+                }).then((metodosPago) => {
+                    metodosPago.forEach((metodo) => {
+                        var sinEspacios = metodo.nombre.replace(/ /g, "");
+                        $("#paymentMehods").append(
+                                ' <div class="list-group">' +
+                                '<div class="list-group-item" >' +
+                                '  <div class="custom-control custom-radio">' +
+                                '   <input type="radio" id="' + sinEspacios + "OpId" + '" class="custom-control-input" name="payment" value="' + metodo.nombre + '" autocomplete="off">' +
+                                '   <label class="custom-control-label d-block" for="' + sinEspacios + "OpId" + '" >' + metodo.nombre + '</label>' +
+                                '   </div>' +
+                                '   </div>' +
+                                '   </div>'
+                                );
+                    });
+                }, (error) => {
+                    alert(error.status);
                 });
-            }
+                ;
+            }//PROBAR
             function logOut() {
                 $("#logOutAnchor").click(function () {
-                    $.ajax({
-                        type: "POST",
-                        url: "/restaurante/api/restaurante/logOut",
-                        success: function () {
-                            location.href = "/restaurante/index.html";
-                        },
-                        error: function (status) {
-                            alert(errorMessage(status));
-                        }
-                    });
+                    sessionStorage.removeItem("usuario");
+                    location.href = "/restaurante_copy/index.html";
                 });
-            }
+            }//listo
             function getUserInSession() {
-                $.ajax({
-                    type: "POST",
-                    url: "/restaurante/api/restaurante/getUser",
-                    success: function (usuario) {
-                        if (usuario !== null) {
-                            fillUserFields(usuario);
-                            fillAddressBook();
-                        } else {
-                            $("#registerAnchor").show();
-                            $("#loginAnchor").show();
-                            $("#dropdownMenuBtn").hide();
-                        }
-                    },
-                    error: function (status) {
-                        alert(errorMessage(status));
-                    }
-                });
-            }
+                var usuario = JSON.parse(sessionStorage.getItem("usuario"));
+                if (usuario !== null && usuario !== undefined) {
+                    fillUserFields(usuario);
+                    $("#registerAnchor").hide();
+                    $("#loginAnchor").hide();
+                    $("#dropdownMenuBtn").show();
+                    $("#dropdownMenuBtn").html(" ");
+                    $("#dropdownMenuBtn").append(usuario.cliente.nombre);
+                } else {
+                    $("#registerAnchor").show();
+                    $("#loginAnchor").show();
+                    $("#dropdownMenuBtn").hide();
+                }
+            }//listo
+
             function fillUserFields(usuario) {
                 $("#user-Register").html(" ");
                 $("#user-Register").append(
@@ -579,7 +566,7 @@ and open the template in the editor.
                 $("#dropdownMenuBtn").show();
                 $("#dropdownMenuBtn").html(" ");
                 $("#dropdownMenuBtn").append(usuario.cliente.nombre);
-            }
+            }//listo
             function fillCart(platillos) {
                 $("#dishSelectedList").html(" ");
                 var cuenta = 0;
@@ -624,7 +611,8 @@ and open the template in the editor.
                     cuenta++;
                     //        CIERRA EL FOR DE PLATILLOS
                 });
-            }
+            }//listo
+
             function getAditional(platillo, platilloOrder) {
                 var Adicionales = platillo.adicionalCollection;
                 var AdicionalesOrden = null;
@@ -678,8 +666,9 @@ and open the template in the editor.
                 }
 
 
-            }
+            } //listo
             function fillOptions(adicional, adicionalOrder) {
+
                 var opciones = adicional.opcionCollection;
                 var opcionesOrden = null;
                 if (adicionalOrder !== null) {
@@ -695,7 +684,7 @@ and open the template in the editor.
                         htmlOption = '<div class="row justify-content-between my-1">' +
                                 ' <div class="col-8">' +
                                 ' <div class="custom-control custom-radio">' +
-                                '<input type="radio" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '" name="' + adicionalSinEspacios + "Name" + '" value="customEx">' +
+                                '<input type="radio" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '" name="' + adicionalSinEspacios + "Name" + '" value="' + adicional.requerida + adicional.nombre + '">' +
                                 '<label class="custom-control-label" for="' + opcionesSinEspacios + "OpId" + '" id="' + opcionesSinEspacios + "OpIdLabel" + '">' + opcion.nombre + '</label>' +
                                 '</div>' +
                                 '</div>' +
@@ -707,7 +696,7 @@ and open the template in the editor.
                         htmlOption = '<div class="row justify-content-between my-1">' +
                                 '<div class="col-8">' +
                                 '<div class="custom-control custom-checkbox">' +
-                                '<input type="checkbox" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '">' +
+                                '<input type="checkbox" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '" value="' + adicional.requerida + '">' +
                                 '<label class="custom-control-label" for="' + opcionesSinEspacios + "OpId" + '" id="' + opcionesSinEspacios + "OpIdLabel" + '">' + opcion.nombre + '</label>' +
                                 ' </div>' +
                                 '</div>' +
@@ -728,24 +717,27 @@ and open the template in the editor.
 
                     index++;
                 });
-            }
+            } //listo
             function decreseDish(platillo) {
+                var orden = sessionStorage.getItem("orden");
+                var array = [];
+                array.push(orden);
+                array.push(JSON.stringify(platillo));
                 $.ajax({
                     type: "POST",
-                    url: "/restaurante/api/restaurante/decreseQuant",
-                    data: JSON.stringify(platillo),
-                    contentType: "application/json",
-                    success: function (orden) {
-                        p_selected = orden.platilloseleccionadoCollection;
-                        fillCart(p_selected);
-                        $("#cart-totals").html(" ");
-                        $("#cart-totals").append(orden.total);
-                    },
-                    error: function (status) {
-                        alert(errorMessage(status));
-                    }
+                    url: "api/order/decreseQuant",
+                    data: JSON.stringify(array),
+                    contentType: "application/json"
+                }).then((orden) => {
+                    sessionStorage.setItem("orden", JSON.stringify(orden));
+                    p_selected = orden.platilloseleccionadoCollection;
+                    fillCart(p_selected);
+                    $("#cart-totals").html(" ");
+                    $("#cart-totals").append(orden.total);
+                }, (error) => {
+                    alert(error.status);
                 });
-            }
+            }//listo
             function keepDishInOrder(platilloInOrder) {
                 $("#saveDish").off();
                 $("#saveDish").click(function () {
@@ -760,53 +752,69 @@ and open the template in the editor.
                     var cantidad = $("#quantityModal").val();
                     var OptionsSelected = JSON.stringify(OpSelected);
                     var platilloOrder = JSON.stringify(platilloInOrder);
-                    var sendData = nombre + "\n" + cantidad + "\n" + OptionsSelected + "\n" + platilloOrder;
+                    var sendData = [];
+                    sendData.push(nombre);
+                    sendData.push(cantidad);
+                    sendData.push(OptionsSelected);
+                    sendData.push(platilloOrder);
+                    sendData.push(sessionStorage.getItem("orden"));
                     $.ajax({
                         type: "POST",
-                        url: "/restaurante/api/restaurante/AddToCart",
-                        data: sendData,
-                        success: function (orden) {
-                            p_selected = orden.platilloseleccionadoCollection;
-                            fillCart(p_selected);
-                            $("#cart-totals").html(" ");
-                            $("#cart-totals").append(orden.total);
-                        },
-                        error: function (status) {
-                            alert(errorMessage(status));
-                        }
-                    });
-                });
-            }
-            function getDishInOrder(platilloOrder) {
-                $.ajax({
-                    type: "POST",
-                    url: "/restaurante/api/restaurante/getDishInCart",
-                    data: JSON.stringify(platilloOrder),
-                    contentType: "application/json",
-                    success: function (platilloCompleto) {
-                        getAditional(platilloCompleto, platilloOrder);
-                        keepDishInOrder(platilloOrder);
-                    },
-                    error: function (status) {
-                        alert(errorMessage(status));
-                    }
-                });
-            }
-            function getOrder() {
-                $.ajax({
-                    type: "POST",
-                    url: "/restaurante/api/restaurante/GetCartSession",
-                    success: function (orden) {
+                        url: "api/order",
+                        data: JSON.stringify(sendData),
+                        contentType: "application/json"
+                    }).then((orden) => {
+                        sessionStorage.setItem("orden", JSON.stringify(orden));
                         p_selected = orden.platilloseleccionadoCollection;
                         fillCart(p_selected);
                         $("#cart-totals").html(" ");
-                        $("#cart-totals").append("$ " + orden.total);
-                    },
-                    error: function (status) {
-                        alert(errorMessage(status));
-                    }
+                        $("#cart-totals").append(orden.total);
+                    }, (error) => {
+                        $("#seletedItems").fadeTo(2000, 500).slideUp(500, function () {
+                            $("#seletedItems").slideUp(500);
+                        });
+                    });
                 });
-            }
+            } //listo
+            function getDishInOrder(platilloOrder) {
+                var array = [];
+                array.push(sessionStorage.getItem("orden"));
+                array.push(JSON.stringify(platilloOrder));
+                console.log(array);
+                $.ajax({
+                    type: "POST",
+                    url: "api/order/getPlatillo",
+                    data: JSON.stringify(array),
+                    contentType: "application/json"
+                }).then((platilloCompleto) => {
+                    getAditional(platilloCompleto, platilloOrder);
+                    keepDishInOrder(platilloOrder);
+                }, (error) => {
+                    alert(error.status);
+                });
+
+            }//listo
+            function createOrden() {
+                var orden = JSON.parse(sessionStorage.getItem("orden"));
+                if (orden === null) {
+                    $.ajax({
+                        type: "GET",
+                        url: "api/order/getOrder",
+                        contentType: "application/json"
+                    }).then((orden) => {
+                        sessionStorage.setItem("orden", JSON.stringify(orden));
+                        fillCart(orden.platilloseleccionadoCollection);
+                        $("#cart-totals").html(" ");
+                        $("#cart-totals").append("$ " + orden.total);
+                    }, (error) => {
+                        alert(error.status);
+                    });
+                } else {
+                    fillCart(orden.platilloseleccionadoCollection);
+                }
+
+            }//LISTO
+
 
             function checkout() {
                 $("#checkoutBtn").click(function () {
@@ -826,7 +834,6 @@ and open the template in the editor.
                     var direccion = [];
                     if ($("#SelectAddress").val() !== "0") {
                         direccion.push($("#SelectAddress").val());
-
                     } else {
                         direccion = direccionValidacion();
                     }
@@ -836,7 +843,6 @@ and open the template in the editor.
                         });
                         return;
                     }
-
                     var OpSelected = "";
                     for (let i = 0; i < payment.length; i++) {
                         if (payment[i].checked) {
@@ -845,24 +851,32 @@ and open the template in the editor.
                     }
 
                     if (!validacion(firstName, lastName, email, telephone, OpSelected)) {
-                        var sendData = firstName + "\n" + lastName + "\n" + email + "\n" + telephone + "\n" + OpSelected + "\n" + seleccionada + "\n" + ASAP + "\n" + JSON.stringify(direccion);
-                        console.log(sendData);
+                        var sendData = [];
+                        sendData.push(sessionStorage.getItem("orden"));//0
+                        sendData.push(firstName);//1
+                        sendData.push(lastName);//2
+                        sendData.push(email);//3
+                        sendData.push(telephone);//4
+                        sendData.push(OpSelected);//5
+                        sendData.push(seleccionada);//6
+                        sendData.push(ASAP);//7
+                        sendData.push(JSON.stringify(direccion));//8
                         $.ajax({
                             type: "POST",
-                            url: "/restaurante/api/restaurante/saveOrder",
-                            data: sendData,
-                            success: function () {
-                                location.href = "/restaurante/index.html";
-                            },
-                            error: function (status) {
-                                $("#Error404").fadeTo(3000, 600).slideUp(600, function () {
-                                    $("#Error404").slideUp(600);
-                                });
-                            }
+                            url: "/restaurante_copy/api/chekOut",
+                            data: JSON.stringify(sendData),
+                            contentType: "application/json"
+                        }).then(() => {
+                            sessionStorage.removeItem("orden");
+                            location.href = "/restaurante_copy/index.html";
+                        }, (error) => {
+                            $("#Error404").fadeTo(3000, 600).slideUp(600, function () {
+                                $("#Error404").slideUp(600);
+                            });
                         });
                     }
                 });
-            }
+            }//REVISION
             function direccionValidacion() {
                 var array = [];
 
@@ -875,24 +889,22 @@ and open the template in the editor.
                 }
                 return array;
             }
-
             function fillAddressBook() {
                 $.ajax({
                     type: "POST",
-                    url: "/restaurante/api/restaurante/getAddressBook",
-                    success: function (addressBook) {
-                        if (addressBook.length) {
-                            addressBook.forEach((address) => {
-                                $("#SelectAddress").append('<option value="' + address.idUbicacion + '" >' + address.direccion + '</option>');
-                            });
-                        }
-                    },
-                    error: function (status) {
-                        alert(errorMessage(status));
+                    url: "/restaurante_copy/api/chekOut/addressBook",
+                    data: sessionStorage.getItem("usuario"),
+                    contentType: "application/json"
+                }).then((addressBook) => {
+                    console.log(addressBook);
+                    if (addressBook.length !== 0) {
+                        addressBook.forEach((address) => {
+                            $("#SelectAddress").append('<option value="' + address.idUbicacion + '" >' + address.direccion + '</option>');
+                        });
                     }
+                }, (error) => {
+                    alert(error.status);
                 });
-
-
             }
             function validacion(firstName, lastName, email, telephone, OpSelected) {
 

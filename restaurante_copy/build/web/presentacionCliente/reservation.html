@@ -11,21 +11,21 @@ I Ciclo lectivo 2020
     <head>
         <title>Resrvation</title>
         <meta charset="UTF-8">
-        <link rel="shortcut icon" type="image/x-icon" href="/restaurante/images/logo.png" />
+        <link rel="shortcut icon" type="image/x-icon" href="/restaurante_copy/images/logo.png" />
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!--CSS DEL DATE-->
-        <link rel="stylesheet" href="/restaurante/css/bootstrap-datetimepicker.min.css">
+        <link rel="stylesheet" href="/restaurante_copy/css/bootstrap-datetimepicker.min.css">
         <!--JQUERY-->
         <script src="https://code.jquery.com/jquery-3.5.1.js"  crossorigin="anonymous"></script>
 
         <!--bootstrap css-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"  crossorigin="anonymous">
         <!--css local-->
-        <link rel="stylesheet" href="/restaurante/css/footer.css">
-        <link rel="stylesheet" href="/restaurante/css/order.css">
-        <link rel="stylesheet" href="/restaurante/css/general.css">
+        <link rel="stylesheet" href="/restaurante_copy/css/footer.css">
+        <link rel="stylesheet" href="/restaurante_copy/css/order.css">
+        <link rel="stylesheet" href="/restaurante_copy/css/general.css">
     </head>
     <body style="background-color: #EEEDED;">
 
@@ -34,7 +34,7 @@ I Ciclo lectivo 2020
             <div class="container">
                 <div class="justify-content-start">
                     <a href="#">
-                        <img src="/restaurante/images/logo.png" height="40"/>
+                        <img src="/restaurante_copy/images/logo.png" height="40"/>
                     </a>
                 </div>
                 <button class="navbar-toggler" data-toggle="collapse" data-target="#mainNav">
@@ -42,16 +42,16 @@ I Ciclo lectivo 2020
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="mainNav">
                     <div class="navbar-nav">
-                        <a class="nav nav-link active "  href="/restaurante/index.html" > View Menu </a>
-                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/reservation.html"> Reservation</a>
-                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/loginCliente.html" id="loginAnchor"> Login</a>
-                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/register.html" id="registerAnchor"> Register</a>
+                        <a class="nav nav-link active "  href="/restaurante_copy/index.html" > View Menu </a>
+                        <a class="nav-item nav-link"  href="/restaurante_copy/presentacionCliente/reservation.html"> Reservation</a>
+                        <a class="nav-item nav-link"  href="/restaurante_copy/presentacionCliente/loginCliente.html" id="loginAnchor"> Login</a>
+                        <a class="nav-item nav-link"  href="/restaurante_copy/presentacionCliente/register.html" id="registerAnchor"> Register</a>
                         <div class="dropdown">
                             <button class="btn  dropdown-toggle" type="button" id="dropdownMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #ED561A;">
                                 User
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn">
-                                <a class="dropdown-item" href="/restaurante/presentacionCliente/perfil.html" >My profile </a>
+                                <a class="dropdown-item" href="/restaurante_copy/presentacionCliente/perfil.html" >My profile </a>
                                 <a class="dropdown-item" href="#" id="logOutAnchor">Log Out</a>
                             </div>
                         </div>
@@ -267,8 +267,8 @@ I Ciclo lectivo 2020
         <!--SCRIPTS--> 
 
         <!--date picket src-->       
-        <script src="/restaurante/js/bootstrap-datetimepicker.min.js"></script>
-        <script src="/restaurante/js/calendar.js"  ></script>
+        <script src="/restaurante_copy/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="/restaurante_copy/js/calendar.js"  ></script>
 
         <!--BOOTSTRAP-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"  crossorigin="anonymous"></script>       
@@ -290,49 +290,32 @@ I Ciclo lectivo 2020
                 $("#invalidEmail").hide();
                 $("#success").hide();
                 $("#noTables").hide();
-
                 $("#findTableBtn").click(function () {
                     reservar();
                 });
-
             }
 
             function logOut() {
                 $("#logOutAnchor").click(function () {
-                    $.ajax({
-                        type: "POST",
-                        url: "/restaurante/api/restaurante/logOut",
-                        success: function () {
-                            location.href = "/restaurante/index.html";
-                        },
-                        error: function (status) {
-                            alert(errorMessage(status));
-                        }
-                    });
+                    sessionStorage.removeItem("usuario");
+                    location.href = "/restaurante_copy/index.html";
                 });
             }
+
             function getUserInSession() {
-                $.ajax({
-                    type: "POST",
-                    url: "/restaurante/api/restaurante/getUser",
-                    success: function (usuario) {
-                        if (usuario !== null) {
-                            $("#registerAnchor").hide();
-                            $("#loginAnchor").hide();
-                            $("#dropdownMenuBtn").show();
-                            $("#dropdownMenuBtn").html(" ");
-                            $("#dropdownMenuBtn").append(usuario.cliente.nombre);
-                            fillUserFields(usuario);
-                        } else {
-                            $("#registerAnchor").show();
-                            $("#loginAnchor").show();
-                            $("#dropdownMenuBtn").hide();
-                        }
-                    },
-                    error: function (status) {
-                        alert(errorMessage(status));
-                    }
-                });
+                var usuario = JSON.parse(sessionStorage.getItem("usuario"));
+                if (usuario !== null && usuario !== undefined) {
+                    $("#registerAnchor").hide();
+                    $("#loginAnchor").hide();
+                    $("#dropdownMenuBtn").show();
+                    $("#dropdownMenuBtn").html(" ");
+                    $("#dropdownMenuBtn").append(usuario.cliente.nombre);
+                    fillUserFields(usuario);
+                } else {
+                    $("#registerAnchor").show();
+                    $("#loginAnchor").show();
+                    $("#dropdownMenuBtn").hide();
+                }
             }
             function fillUserFields(usuario) {
                 var cliente = usuario.cliente;
@@ -350,24 +333,32 @@ I Ciclo lectivo 2020
                 var fecha = $("#dateText").val();
                 var cantidadPersonas = $("#noOfGuests").val();
                 if (!validacion(firstName, lastName, email, telephone, fecha)) {
-                    var sedData = firstName + "\n" + lastName + "\n" + email + "\n" + telephone + "\n" + fecha + "\n" + cantidadPersonas;
+                    var sedData = [];
+                    sedData.push(firstName);
+                    sedData.push(lastName);
+                    sedData.push(email);
+                    sedData.push(telephone);
+                    sedData.push(fecha);
+                    sedData.push(cantidadPersonas);
+
                     $.ajax({
                         type: "POST",
-                        url: "/restaurante/api/restaurante/reservation",
-                        data: sedData,
-                        success: function () {
-                            $("#success").fadeTo(2000, 500).slideUp(500, function () {
-                                $("#success").slideUp(500);
-                            });
-                        },
-                        error: function (status) {
-                            $("#noTables").fadeTo(2000, 500).slideUp(500, function () {
-                                $("#noTables").slideUp(500);
-                            });
-                        }
+                        url: "/restaurante_copy/api/reservation",
+                        data: JSON.stringify(sedData),
+                        contentType: "application/json"
+                    }).then(() => {
+                        $("#success").fadeTo(2000, 500).slideUp(500, function () {
+                            $("#success").slideUp(500);
+                        });
+                    }, (error) => {
+                        $("#noTables").fadeTo(2000, 500).slideUp(500, function () {
+                            $("#noTables").slideUp(500);
+                        });
                     });
+
                 }
             }
+            
             function validacion(firstName, lastName, email, telephone, fecha) {
 
                 var error = false;

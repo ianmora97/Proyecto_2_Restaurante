@@ -1,180 +1,164 @@
 function loaded(event) {
-    cargarDatos();
     fillAddressBook();
     editDireccion();
     editSend();
     insertarDireccion();
     getUserInSession();
-    getOrder();
+    createOrden();
     reservationTable();
     logOut();
 }
 
 function getUserInSession() {
-    $.ajax({
-        type: "POST",
-        url: "/restaurante/api/restaurante/getUser",
-        success: function (usuario) {
-            if (usuario !== null) {
-                $("#registerAnchor").hide();
-                $("#loginAnchor").hide();
-                $("#dropdownMenuBtn").show();
-                $("#dropdownMenuBtn").html(" ");
-                $("#dropdownMenuBtn").append(usuario.cliente.nombre);
-
-            } else {
-                $("#registerAnchor").show();
-                $("#loginAnchor").show();
-                $("#dropdownMenuBtn").hide();
-
-            }
-        },
-        error: function (status) {
-            alert(errorMessage(status));
-        }
-    });
-}
-function cargarDatos() {
-    $.ajax({
-        type: "POST",
-        url: "/restaurante/api/restaurante/getUser",
-        success: function (usuario) {
-            $("#bienvenidoName").text("Bienvenido " + usuario.cliente.nombre);
-            $("#nombre").val(usuario.cliente.nombre);
-            $("#apellido").val(usuario.cliente.apellidos);
-            $("#telefono").val(usuario.cliente.telefono);
-            $("#correo").val(usuario.cliente.usuarioCorreo);
-        },
-        error: function (status) {
-            $("#alertB").alert();
-        }
-    });
-}
+    var usuario = JSON.parse(sessionStorage.getItem("usuario"));
+    if (usuario !== null && usuario !== undefined) {
+        $("#registerAnchor").hide();
+        $("#loginAnchor").hide();
+        $("#dropdownMenuBtn").show();
+        $("#dropdownMenuBtn").html(" ");
+        $("#dropdownMenuBtn").append(usuario.cliente.nombre);
+        $("#bienvenidoName").text("Bienvenido " + usuario.cliente.nombre);
+        $("#nombre").val(usuario.cliente.nombre);
+        $("#apellido").val(usuario.cliente.apellidos);
+        $("#telefono").val(usuario.cliente.telefono);
+        $("#correo").val(usuario.cliente.usuarioCorreo);
+    } else {
+        $("#registerAnchor").show();
+        $("#loginAnchor").show();
+        $("#dropdownMenuBtn").hide();
+    }
+}//listo
 
 function fillAddressBook() {
     $.ajax({
         type: "POST",
-        url: "/restaurante/api/restaurante/getAddressBook",
-        success: function (addressBook) {
-            if (addressBook.length) {
-                addressBook.forEach((address) => {
-                    var res = address.direccion.replace(/ /g, "");
-                    $("#SelectAddress").append('<i class="fa fa-dot-circle-o" aria-hidden="true"></i>&nbsp;<span style="color:black;" value="' + address.idUbicacion + '" >' + address.direccion + '</span> <br /><br />');
-                    $("#SelectAddress").append('<address class="text-left">' + address.provincia + '<br>' + address.canton + '<br>' + address.direccion + '<br>' + address.codigoPostal + '</address>');
-                    $("#direccionesAd").append(
-                            '<div class="container"><div class="row"><div class="col-8"><i class="fa fa-dot-circle-o" aria-hidden="true"></i>&nbsp;<span style="color:black;" value="' + address.idUbicacion + '" >' + address.direccion + '</span><br />'
-                            + '<address class="text-left">' + address.provincia + '<br>' + address.canton + '<br>' + address.direccion + '<br>' + address.codigoPostal + '</address></div>'
-                            + '<div class="col-4"><div class="btn orange" data-toggle="modal" data-target="#modalEdit" data-whatever="' + address.idUbicacion + '" ><i class="fa fa-edit"></i>Editar</div></div></div></div>');
-                });
-            }
-            if (addressBook.length === 0) {
-                $("#SelectAddress").append('<p>Usted no tiene direcciones</p>');
-            }
-        },
-        error: function (status) {
-            alert(errorMessage(status));
+        url: "/restaurante_copy/api/chekOut/addressBook",
+        data: sessionStorage.getItem("usuario"),
+        contentType: "application/json"
+    }).then((addressBook) => {
+        if (addressBook.length !== 0) {
+            addressBook.forEach((address) => {
+                 $("#SelectAddress").html(" ");
+                 $("#direccionesAd").html(" ");
+                var res = address.direccion.replace(/ /g, "");
+                $("#SelectAddress").append('<i class="fa fa-dot-circle-o" aria-hidden="true"></i>&nbsp;<span style="color:black;" value="' + address.idUbicacion + '" >' + address.direccion + '</span> <br /><br />');
+                $("#SelectAddress").append('<address class="text-left">' + address.provincia + '<br>' + address.canton + '<br>' + address.direccion + '<br>' + address.codigoPostal + '</address>');
+                $("#direccionesAd").append(
+                        '<div class="container"><div class="row"><div class="col-8"><i class="fa fa-dot-circle-o" aria-hidden="true"></i>&nbsp;<span style="color:black;" value="' + address.idUbicacion + '" >' + address.direccion + '</span><br />'
+                        + '<address class="text-left">' + address.provincia + '<br>' + address.canton + '<br>' + address.direccion + '<br>' + address.codigoPostal + '</address></div>'
+                        + '<div class="col-4"><div class="btn orange" data-toggle="modal" data-target="#modalEdit" data-edit="' + address.idUbicacion + '" ><i class="fa fa-edit"></i>Editar</div></div></div></div>');
+            });
+        } else {
+            $("#SelectAddress").append('<p>Usted no tiene direcciones</p>');
         }
+    }, (error) => {
+        alert(error.status);
     });
-}
-function editDireccion(categoria) {
+}//LISTO
+function reservationTable() {
+    $("#reservationTable").html(" ");
+    $.ajax({
+        type: "POST",
+        url: "/restaurante_copy/api/reservation/list",
+        data: sessionStorage.getItem("usuario"),
+        contentType: "application/json"
+    }).then((reservaciones) => {
+        reservaciones.forEach((reservacion) => {
+            $("#reservationTable").append('<tr><th scope="row">' + reservacion.idReservacion + '</th>' +
+                    '<td>' + reservacion.mesaIdMesa.idMesa + '</td>' +
+                    '<td>' + reservacion.usuarioCorreo.cliente.nombre + "&nbsp;&nbsp;" + reservacion.usuarioCorreo.cliente.apellidos + '</td>' +
+                    '<td>' + reservacion.cantidadPersonas + '</td>' +
+                    '<td>' + reservacion.fecha + '</td>' +
+                    '</tr>');
+        });
+    }, (error) => {
+        alert(error.status);
+    });
+    ;
+}//LISTO
+
+function editDireccion() {
     $('#modalEdit').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
-        var recipient = button.data('whatever');
-        var parameter = recipient + "\n";
-        var categoriaName;
-
-        $.ajax({//consulta la direccion
+        var recipient = button.data('edit');
+        $.ajax({
             type: "POST",
-            url: "/restaurante/api/restaurante/getDireccion",
-            data: parameter,
-            success: function (direccion) {
-                $('#modalEdit').find('.modal-title').text('Modificar ' + direccion.direccion);
-                $('#modalEdit').find('.modal-body input[name="provincia"]').val(direccion.provincia);
-                $('#modalEdit').find('.modal-body input[name="canton"]').val(direccion.canton);
-                $('#modalEdit').find('.modal-body input[name="codigo"]').val(direccion.codigoPostal);
-                $('#modalEdit').find('.modal-body textarea[name="direccion"]').val(direccion.direccion);
-                $('#idInput').val(direccion.idUbicacion);
-            },
-            error: function (status) {
-                alert(errorMessage(status));
-            }
+            url: "/restaurante_copy/api/perfil/getDireccion",
+            data: JSON.stringify(recipient),
+            contentType: "application/json"
+        }).then((direccion) => {
+            $('#modalEdit').find('.modal-title').text('Modificar ' + direccion.direccion);
+            $('#modalEdit').find('.modal-body input[name="provincia"]').val(direccion.provincia);
+            $('#modalEdit').find('.modal-body input[name="canton"]').val(direccion.canton);
+            $('#modalEdit').find('.modal-body input[name="codigo"]').val(direccion.codigoPostal);
+            $('#modalEdit').find('.modal-body textarea[name="direccion"]').val(direccion.direccion);
+            $('#sendChange').data('edit',recipient);
+        }, (error) => {
+            alert(error.status);
         });
     });
 }
 function editSend() {
     $(document).ready(function () {
+
         $("#sendChange").click(function () {
-
-            var provincia = $('#text-input-1').val();
-            var canton = $('#text-input-2').val();
-            var codigo = $('#text-input-3').val();
-            var direccion = $('#textarea-input-4').val();
-            var id = $('#idInput').val();
-            var para = provincia + "\n" + canton + "\n" + codigo + "\n" + direccion + "\n" + id;
-
+            var ubicaion = {
+                provincia: $('#inputprovincia-edit').val(),
+                canton: $('#inputCanton-edit').val(),
+                codigoPostal: $('#inputCodigo-edit').val(),
+                direccion: $('#inputDireccion-edit').val(),
+                idUbicacion: $('#sendChange').data('edit')
+            };
             $.ajax({
                 type: "POST",
-                url: "/restaurante/api/restaurante/sendEditUbicacion",
-                data: para,
-                success: function () {
-                },
-                error: function (status) {
-                    $("#alertB").alert();
-                }
+                url: "/restaurante_copy/api/perfil/edidAddre",
+                data: JSON.stringify(ubicaion),
+                contentType: "application/json"
+            }).then(() => {
+                fillAddressBook();
+            }, (error) => {
+                alert(error.status);
             });
-
         });
-    });
+    }
+    );
 }
 function insertarDireccion() {
     $("#ingresarDireccion").click(function () {
-        var provincia = $('#text-input-1').val();
-        var canton = $('#text-input-2').val();
-        var codigo = $('#text-input-3').val();
-        var direccion = $('#textarea-input-4').val();
+        var ubicaion = {
+            provincia: $('#text-input-1').val(),
+            canton: $('#text-input-2').val(),
+            codigoPostal: $('#text-input-3').val(),
+            direccion: $('#textarea-input-4').val(),
+            idUbicacion: 0
+        };
+        var array = [];
+        array.push(sessionStorage.getItem("usuario"));
+        array.push(JSON.stringify(ubicaion));
 
-        var para = provincia + "\n" + canton + "\n" + codigo + "\n" + direccion;
         $.ajax({
             type: "POST",
-            url: "/restaurante/api/restaurante/ingresarDireccion",
-            data: para,
-            success: function () {
-
-            },
-            error: function (status) {
-                alert(errorMessage(status));
-            }
+            url: "/restaurante_copy/api/perfil/ingresarDireccion",
+            data: JSON.stringify(array),
+            contentType: "application/json"
+        }).then(() => {
+            fillAddressBook();
+        }, (error) => {
+            alert(error.status);
         });
-
+        ;
     });
 }
 
-function reservationTable() {
-    $("#reservationTable").html(" ");
-    $.ajax({
-        type: "POST",
-        url: "/restaurante/api/restaurante/reservation/list",
-        success: function (reservaciones) {
-            reservaciones.forEach((reservacion) => {
-                console.log(reservacion.fecha);
-                $("#reservationTable").append('<tr><th scope="row">' + reservacion.idReservacion + '</th>' +
-                        '<td>' + reservacion.mesaIdMesa.idMesa + '</td>' +
-                        '<td>' + reservacion.usuarioCorreo.cliente.nombre + "&nbsp;&nbsp;" + reservacion.usuarioCorreo.cliente.apellidos + '</td>' +
-                        '<td>' + reservacion.cantidadPersonas + '</td>' +
-                        '<td>' + reservacion.fecha + '</td>' +
-                        '</tr>');
-
-            });
-        },
-        error: function (status) {
-            alert(errorMessage(status));
-        }
+function logOut() {
+    $("#logOutAnchor").click(function () {
+        sessionStorage.removeItem("usuario");
+        location.href = "/restaurante_copy/index.html";
     });
+}//listo
 
-}
-//    TRAER EL CARRITO DE LA SESION
+//TRAER EL CARRITO DE LA SESION
 function fillCart(platillos) {
-
     $("#dishSelectedList").html(" ");
     var cuenta = 0;
     platillos.forEach((platillo) => {
@@ -218,41 +202,46 @@ function fillCart(platillos) {
         cuenta++;
         //        CIERRA EL FOR DE PLATILLOS
     });
-}
-function getOrder() {
-    $.ajax({
-        type: "POST",
-        url: "/restaurante/api/restaurante/GetCartSession",
-        success: function (orden) {
-
-            if (orden.platilloseleccionadoCollection.length === 0) {
-                $("#dishSelectedList").append('<p>There are no menus added in your cart.</p> <a class="btn orange" href="/restaurante/index.html"> ORDER NOW</a>');
-            } else {
-                fillCart(orden.platilloseleccionadoCollection);
-                $("#cart-totals").html(" ");
-                $("#cart-totals").append("$ " + orden.total);
-            }
-        },
-        error: function (status) {
-            alert(errorMessage(status));
-        }
-    });
-}
+}//listo
 function getDishInOrder(platilloOrder) {
+    var array = [];
+    array.push(sessionStorage.getItem("orden"));
+    array.push(JSON.stringify(platilloOrder));
+    console.log(array);
     $.ajax({
         type: "POST",
-        url: "/restaurante/api/restaurante/getDishInCart",
-        data: JSON.stringify(platilloOrder),
-        contentType: "application/json",
-        success: function (platilloCompleto) {
-            getAditional(platilloCompleto, platilloOrder);
-            keepDishInOrder(platilloOrder);
-        },
-        error: function (status) {
-            alert(errorMessage(status));
-        }
+        url: "/restaurante_copy/api/order/getPlatillo",
+        data: JSON.stringify(array),
+        contentType: "application/json"
+    }).then((platilloCompleto) => {
+        getAditional(platilloCompleto, platilloOrder);
+        keepDishInOrder(platilloOrder);
+    }, (error) => {
+        alert(error.status);
     });
-}
+
+}//listo
+
+function createOrden() {
+    var orden = JSON.parse(sessionStorage.getItem("orden"));
+    if (orden === null) {
+        $.ajax({
+            type: "GET",
+            url: "/restaurante_copy/api/order/getOrder",
+            contentType: "application/json"
+        }).then((orden) => {
+            sessionStorage.setItem("orden", JSON.stringify(orden));
+            fillCart(orden.platilloseleccionadoCollection);
+            $("#cart-totals").html(" ");
+            $("#cart-totals").append("$ " + orden.total);
+        }, (error) => {
+            alert(error.status);
+        });
+    } else {
+        fillCart(orden.platilloseleccionadoCollection);
+    }
+
+}//LISTO
 function keepDishInOrder(platilloInOrder) {
     $("#saveDish").off();
     $("#saveDish").click(function () {
@@ -267,41 +256,52 @@ function keepDishInOrder(platilloInOrder) {
         var cantidad = $("#quantityModal").val();
         var OptionsSelected = JSON.stringify(OpSelected);
         var platilloOrder = JSON.stringify(platilloInOrder);
-        var sendData = nombre + "\n" + cantidad + "\n" + OptionsSelected + "\n" + platilloOrder;
+        var sendData = [];
+        sendData.push(nombre);
+        sendData.push(cantidad);
+        sendData.push(OptionsSelected);
+        sendData.push(platilloOrder);
+        sendData.push(sessionStorage.getItem("orden"));
         $.ajax({
             type: "POST",
-            url: "/restaurante/api/restaurante/AddToCart",
-            data: sendData,
-            success: function (orden) {
-                p_selected = orden.platilloseleccionadoCollection;
-                fillCart(p_selected);
-                $("#cart-totals").html(" ");
-                $("#cart-totals").append(orden.total);
-            },
-            error: function (status) {
-                alert(errorMessage(status));
-            }
-        });
-    });
-}
-function decreseDish(platillo) {
-    $.ajax({
-        type: "POST",
-        url: "/restaurante/api/restaurante/decreseQuant",
-        data: JSON.stringify(platillo),
-        contentType: "application/json",
-        success: function (orden) {
+            url: "/restaurante_copy/api/order",
+            data: JSON.stringify(sendData),
+            contentType: "application/json"
+        }).then((orden) => {
+            sessionStorage.setItem("orden", JSON.stringify(orden));
             p_selected = orden.platilloseleccionadoCollection;
             fillCart(p_selected);
             $("#cart-totals").html(" ");
             $("#cart-totals").append(orden.total);
-        },
-        error: function (status) {
-            alert(errorMessage(status));
-        }
+        }, (error) => {
+            $("#seletedItems").fadeTo(2000, 500).slideUp(500, function () {
+                $("#seletedItems").slideUp(500);
+            });
+        });
     });
-}
+} //listo
+function decreseDish(platillo) {
+    var orden = sessionStorage.getItem("orden");
+    var array = [];
+    array.push(orden);
+    array.push(JSON.stringify(platillo));
+    $.ajax({
+        type: "POST",
+        url: "/restaurante_copy/api/order/decreseQuant",
+        data: JSON.stringify(array),
+        contentType: "application/json"
+    }).then((orden) => {
+        sessionStorage.setItem("orden", JSON.stringify(orden));
+        p_selected = orden.platilloseleccionadoCollection;
+        fillCart(p_selected);
+        $("#cart-totals").html(" ");
+        $("#cart-totals").append(orden.total);
+    }, (error) => {
+        alert(error.status);
+    });
+}//listo
 function fillOptions(adicional, adicionalOrder) {
+
     var opciones = adicional.opcionCollection;
     var opcionesOrden = null;
     if (adicionalOrder !== null) {
@@ -317,7 +317,7 @@ function fillOptions(adicional, adicionalOrder) {
             htmlOption = '<div class="row justify-content-between my-1">' +
                     ' <div class="col-8">' +
                     ' <div class="custom-control custom-radio">' +
-                    '<input type="radio" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '" name="' + adicionalSinEspacios + "Name" + '" value="customEx">' +
+                    '<input type="radio" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '" name="' + adicionalSinEspacios + "Name" + '" value="' + adicional.requerida + adicional.nombre + '">' +
                     '<label class="custom-control-label" for="' + opcionesSinEspacios + "OpId" + '" id="' + opcionesSinEspacios + "OpIdLabel" + '">' + opcion.nombre + '</label>' +
                     '</div>' +
                     '</div>' +
@@ -329,7 +329,7 @@ function fillOptions(adicional, adicionalOrder) {
             htmlOption = '<div class="row justify-content-between my-1">' +
                     '<div class="col-8">' +
                     '<div class="custom-control custom-checkbox">' +
-                    '<input type="checkbox" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '">' +
+                    '<input type="checkbox" class="custom-control-input" id="' + opcionesSinEspacios + "OpId" + '" value="' + adicional.requerida + '">' +
                     '<label class="custom-control-label" for="' + opcionesSinEspacios + "OpId" + '" id="' + opcionesSinEspacios + "OpIdLabel" + '">' + opcion.nombre + '</label>' +
                     ' </div>' +
                     '</div>' +
@@ -350,7 +350,7 @@ function fillOptions(adicional, adicionalOrder) {
 
         index++;
     });
-}
+} //listo
 function getAditional(platillo, platilloOrder) {
     var Adicionales = platillo.adicionalCollection;
     var AdicionalesOrden = null;
@@ -402,21 +402,9 @@ function getAditional(platillo, platilloOrder) {
             index++;
         });
     }
-}
-function logOut() {
-    $("#logOutAnchor").click(function () {
-        $.ajax({
-            type: "POST",
-            url: "/restaurante/api/restaurante/logOut",
-            success: function () {
-                location.href = "/restaurante/presentacionCliente/loginCliente.html";
-            },
-            error: function (status) {
-                alert(errorMessage(status));
-            }
-        });
-    });
-}
+
+
+} //listo
 
 
 document.addEventListener("DOMContentLoaded", loaded);

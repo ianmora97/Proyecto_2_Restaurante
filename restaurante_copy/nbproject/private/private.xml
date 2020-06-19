@@ -3,21 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/david/OneDrive/Escritorio/restaurante/web/presentacionCliente/perfil.html</file>
-            <file>file:/C:/Users/david/OneDrive/Escritorio/restaurante/src/java/com/progra/restaurante/data/Model.java</file>
-            <file>file:/C:/Users/david/OneDrive/Escritorio/restaurante/src/java/com/progra/restaurante/logic/Usuario.java</file>
-            <file>file:/C:/Users/david/OneDrive/Escritorio/restaurante/src/java/com/progra/restaurante/presentation/platillos.java</file>
-            <file>file:/C:/Users/david/OneDrive/Escritorio/restaurante/src/java/com/progra/restaurante/presentation/categorias.java</file>
-            <file>file:/C:/Users/david/OneDrive/Escritorio/restaurante/src/java/com/progra/restaurante/presentation/RegistroApplication.java</file>
-            <file>file:/C:/Users/david/OneDrive/Escritorio/restaurante/src/java/com/progra/restaurante/logic/Platillo.java</file>
-            <file>file:/C:/Users/david/OneDrive/Escritorio/restaurante/src/java/com/progra/restaurante/presentation/login.java</file>
-            <file>file:/C:/Users/david/OneDrive/Escritorio/restaurante/src/java/com/progra/restaurante/data/UsuarioDao.java</file>
-            <file>file:/C:/Users/david/OneDrive/Escritorio/restaurante/src/java/com/progra/restaurante/logic/Categoria.java</file>
-            <file>file:/C:/Users/david/OneDrive/Escritorio/restaurante/web/presentacionCliente/loginCliente.html</file>
-            <file>file:/C:/Users/david/OneDrive/Escritorio/restaurante/src/java/com/progra/restaurante/data/DishesDao.java</file>
-            <file>file:/C:/Users/david/OneDrive/Escritorio/restaurante/src/java/com/progra/restaurante/logic/Orden.java</file>
-            <file>file:/C:/Users/david/OneDrive/Escritorio/restaurante/src/java/com/progra/restaurante/data/CategoriesDao.java</file>
-            <file>file:/C:/Users/david/OneDrive/Escritorio/restaurante/web/index.html</file>
+            <file>file:/C:/Users/david/OneDrive/Documents/GitHub/Proyecto_2_Restaurante/restaurante_copy/src/java/com/progra/restaurante/presentation/categorias.java</file>
+            <file>file:/C:/Users/david/OneDrive/Documents/GitHub/Proyecto_2_Restaurante/restaurante_copy/src/java/com/progra/restaurante/logic/Cliente.java</file>
+            <file>file:/C:/Users/david/OneDrive/Documents/GitHub/Proyecto_2_Restaurante/restaurante_copy/src/java/com/progra/restaurante/data/reservationDao.java</file>
+            <file>file:/C:/Users/david/OneDrive/Documents/GitHub/Proyecto_2_Restaurante/restaurante_copy/src/java/com/progra/restaurante/presentation/orderRest.java</file>
+            <file>file:/C:/Users/david/OneDrive/Documents/GitHub/Proyecto_2_Restaurante/restaurante_copy/src/java/com/progra/restaurante/data/OrderDao.java</file>
+            <file>file:/C:/Users/david/OneDrive/Documents/GitHub/Proyecto_2_Restaurante/restaurante_copy/src/java/com/progra/restaurante/presentation/perfilRest.java</file>
+            <file>file:/C:/Users/david/OneDrive/Documents/GitHub/Proyecto_2_Restaurante/restaurante_copy/web/presentacionCliente/loginCliente.html</file>
+            <file>file:/C:/Users/david/OneDrive/Documents/GitHub/Proyecto_2_Restaurante/restaurante_copy/src/java/com/progra/restaurante/logic/Ubicacion.java</file>
+            <file>file:/C:/Users/david/OneDrive/Documents/GitHub/Proyecto_2_Restaurante/restaurante_copy/web/presentacionCliente/register.html</file>
+            <file>file:/C:/Users/david/OneDrive/Documents/GitHub/Proyecto_2_Restaurante/restaurante_copy/src/java/com/progra/restaurante/presentation/login.java</file>
+            <file>file:/C:/Users/david/OneDrive/Documents/GitHub/Proyecto_2_Restaurante/restaurante_copy/src/java/com/progra/restaurante/presentation/checkOut.java</file>
+            <file>file:/C:/Users/david/OneDrive/Documents/GitHub/Proyecto_2_Restaurante/restaurante_copy/src/java/com/progra/restaurante/logic/Orden.java</file>
+            <file>file:/C:/Users/david/OneDrive/Documents/GitHub/Proyecto_2_Restaurante/restaurante_copy/src/java/com/progra/restaurante/presentation/reservacionRest.java</file>
+            <file>file:/C:/Users/david/OneDrive/Documents/GitHub/Proyecto_2_Restaurante/restaurante_copy/src/java/com/progra/restaurante/data/Model.java</file>
+            <file>file:/C:/Users/david/OneDrive/Documents/GitHub/Proyecto_2_Restaurante/restaurante_copy/web/js/perfil.js</file>
+            <file>file:/C:/Users/david/OneDrive/Documents/GitHub/Proyecto_2_Restaurante/restaurante_copy/web/presentacionCliente/checkout.html</file>
+            <file>file:/C:/Users/david/OneDrive/Documents/GitHub/Proyecto_2_Restaurante/restaurante_copy/web/presentacionCliente/reservation.html</file>
+            <file>file:/C:/Users/david/OneDrive/Documents/GitHub/Proyecto_2_Restaurante/restaurante_copy/src/java/com/progra/restaurante/data/UbicacionDao.java</file>
+            <file>file:/C:/Users/david/OneDrive/Documents/GitHub/Proyecto_2_Restaurante/restaurante_copy/web/index.html</file>
+            <file>file:/C:/Users/david/OneDrive/Documents/GitHub/Proyecto_2_Restaurante/restaurante_copy/web/presentacionCliente/perfil.html</file>
         </group>
     </open-files>
 </project-private>

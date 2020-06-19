@@ -66,19 +66,24 @@ public class Ubicacion implements Serializable {
     @Column(name = "codigo_postal")
     private Integer codigoPostal;
 
-
     public Ubicacion() {
+        this.idUbicacion = 0;
+        this.direccion = "";
+        this.provincia = "";
+        this.canton = "";
+        this.codigoPostal = 0;
     }
 
     public Ubicacion(Integer idUbicacion) {
         this.idUbicacion = idUbicacion;
     }
 
-    public Ubicacion(Integer idUbicacion, String direccion, String provincia, String canton) {
+    public Ubicacion(Integer idUbicacion, String direccion, String provincia, String canton, int codigoPostal) {
         this.idUbicacion = idUbicacion;
         this.direccion = direccion;
         this.provincia = provincia;
         this.canton = canton;
+        this.codigoPostal = codigoPostal;
     }
 
     public Integer getIdUbicacion() {
@@ -145,5 +150,5 @@ public class Ubicacion implements Serializable {
     public String toString() {
         return "com.progra.restaurante.logic.Ubicacion[ idUbicacion=" + idUbicacion + " ]";
     }
-    
+
 }

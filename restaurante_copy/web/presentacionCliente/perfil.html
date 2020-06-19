@@ -9,9 +9,9 @@
         <!--bootstrap css-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"  crossorigin="anonymous">
         <!--css local-->
-        <link rel="stylesheet" href="/restaurante/css/footer.css">
-        <link rel="stylesheet" href="/restaurante/css/order.css">
-        <link rel="stylesheet" href="/restaurante/css/general.css">
+        <link rel="stylesheet" href="/restaurante_copy/css/footer.css">
+        <link rel="stylesheet" href="/restaurante_copy/css/order.css">
+        <link rel="stylesheet" href="/restaurante_copy/css/general.css">
         <title>Account</title>
     </head>
     <body background="#EEEDED" style="background-color: #EEEDED;">
@@ -25,7 +25,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body" id="editarBody">
+                    <div class="modal-body" id="addBody">
                         <span id="idInput" style="display: none;"></span>
                         <div class="form-group" style="width: 45%;display: inline-block;margin: 0;">
                             <label for="text-input">Provincia</label>
@@ -65,24 +65,24 @@
                         <span id="idInput" style="display: none;"></span>
                         <div class="form-group" style="width: 45%;display: inline-block;margin: 0;">
                             <label for="text-input">Provincia</label>
-                            <input class="form-control" type="text" id="text-input-1" name="provincia">
+                            <input class="form-control" type="text" id="inputprovincia-edit" name="provincia">
                         </div>
                         <div class="form-group" style="width: 45%;display: inline-block;margin-left: 21px;">
                             <label for="password-input">Canton</label>
-                            <input class="form-control" type="text" id="text-input-2" name="canton">
+                            <input class="form-control" type="text" id="inputCanton-edit" name="canton">
                         </div>
                         <div class="form-group" style="width: 45%;display: inline-block;margin: 0;position: relative;">
                             <label for="textarea-input">Codigo Postal</label>
-                            <input class="form-control" type="text" id="text-input-3" name="codigo">
+                            <input class="form-control" type="text" id="inputCodigo-edit" name="codigo">
                         </div>
                         <div class="form-group" style="width: 45%;display: inline-block;margin: 0;position: relative;top:-40px;left: 20px;">
                             <label for="textarea-input">Direccion</label>
-                            <textarea class="form-control" id="textarea-input-4" name="direccion"></textarea>
+                            <textarea class="form-control" id="inputDireccion-edit" name="direccion"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="sendChange">Save changes</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" data-editSent=""  id="sendChange">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -127,7 +127,7 @@
                 <div class="container">
                     <div class="justify-content-start">
                         <a href="#">
-                            <img src="/restaurante/images/logo.png" height="40"/>
+                            <img src="/restaurante_copy/images/logo.png" height="40"/>
                         </a>
                     </div>
                     <button class="navbar-toggler" data-toggle="collapse" data-target="#mainNav">
@@ -135,16 +135,16 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="mainNav">
                         <div class="navbar-nav">
-                            <a class="nav nav-link active "  href="/restaurante/index.html" > View Menu </a>
-                            <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/reservation.html"> Reservation</a>
-                            <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/loginCliente.html" id="loginAnchor"> Login</a>
-                            <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/register.html" id="registerAnchor"> Register</a>
+                            <a class="nav nav-link active "  href="/restaurante_copy/index.html" > View Menu </a>
+                            <a class="nav-item nav-link"  href="/restaurante_copy/presentacionCliente/reservation.html"> Reservation</a>
+                            <a class="nav-item nav-link"  href="/restaurante_copy/presentacionCliente/loginCliente.html" id="loginAnchor"> Login</a>
+                            <a class="nav-item nav-link"  href="/restaurante_copy/presentacionCliente/register.html" id="registerAnchor"> Register</a>
                             <div class="dropdown">
                                 <button class="btn  dropdown-toggle" type="button" id="dropdownMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #ED561A;">
                                     User
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn">
-                                    <a class="dropdown-item" href="/restaurante/presentacionCliente/perfil.html" >My profile </a>
+                                    <a class="dropdown-item" href="/restaurante_copy/presentacionCliente/perfil.html" >My profile </a>
                                     <a class="dropdown-item" href="#" id="logOutAnchor">Log Out</a>
                                 </div>
                             </div>
@@ -509,7 +509,7 @@
         <!--iconos de font awesome-->
         <script src="https://kit.fontawesome.com/39f4ebbbea.js" crossorigin="anonymous"></script>
 
-        <script charset="utf-8" type="text/javascript" src="/restaurante/js/perfil.js"></script>
+        <script charset="utf-8" type="text/javascript" src="/restaurante_copy/js/perfil.js"></script>
 
     </body>
 </html>

@@ -108,7 +108,7 @@ I Ciclo lectivo 2020
             <div class="container">
                 <div class="justify-content-start">
                     <a href="#">
-                        <img src="/restaurante/images/logo.png" height="40"/>
+                        <img src="/restaurante_copy/images/logo.png" height="40"/>
                     </a>
                 </div>
                 <button class="navbar-toggler" data-toggle="collapse" data-target="#mainNav">
@@ -116,16 +116,16 @@ I Ciclo lectivo 2020
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="mainNav">
                     <div class="navbar-nav">
-                        <a class="nav nav-link active "  href="/restaurante/index.html" > View Menu </a>
-                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/reservation.html"> Reservation</a>
-                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/loginCliente.html" id="loginAnchor"> Login</a>
-                        <a class="nav-item nav-link"  href="/restaurante/presentacionCliente/register.html" id="registerAnchor"> Register</a>
+                        <a class="nav nav-link active "  href="/restaurante_copy/index.html" > View Menu </a>
+                        <a class="nav-item nav-link"  href="/restaurante_copy/presentacionCliente/reservation.html"> Reservation</a>
+                        <a class="nav-item nav-link"  href="/restaurante_copy/presentacionCliente/loginCliente.html" id="loginAnchor"> Login</a>
+                        <a class="nav-item nav-link"  href="/restaurante_copy/presentacionCliente/register.html" id="registerAnchor"> Register</a>
                         <div class="dropdown">
                             <button class="btn  dropdown-toggle" type="button" id="dropdownMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #ED561A;">
                                 User
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn">
-                                <a class="dropdown-item" href="/restaurante/presentacionCliente/perfil.html" >My profile </a>
+                                <a class="dropdown-item" href="/restaurante_copy/presentacionCliente/perfil.html" >My profile </a>
                                 <a class="dropdown-item" href="#" id="logOutAnchor">Log Out</a>
                             </div>
                         </div>
@@ -403,7 +403,7 @@ I Ciclo lectivo 2020
             //         VARIABLE GLOBAL DE PLATILLOS EN LA ORDEN
             var p_selected = [];
             function loaded(event) {
-//                events();
+                events();
                 fillCategories();
             }
 
@@ -414,7 +414,6 @@ I Ciclo lectivo 2020
                         url: "api/categorias",
                         contentType: "application/json"
                     }).then((categorias) => {
-                        console.log(categorias);
                         showCategorias(categorias);
                     }, (error) => {
                         alert(errorMessage(error.status));
@@ -422,10 +421,6 @@ I Ciclo lectivo 2020
                 });
             }
             function showCategorias(categorias) {
-                var categoriasList = JSON.stringify(categorias);
-                console.log(categoriasList);
-                console.log(JSON.parse(categoriasList));
-
                 categorias.forEach((cat) => {
                     fillListCategories(cat);
                 });
@@ -591,7 +586,6 @@ I Ciclo lectivo 2020
 
             function events() {
                 $("#emptyCart").hide();
-                //                Evento de fecha y ASAP
                 $("#ASAP").click(function () {
                     $("#dropdownMenuFecha").html(" ");
                     $("#dropdownMenuFecha").append($("#ASAP").html());
@@ -604,203 +598,205 @@ I Ciclo lectivo 2020
                 }
                 );
                 $("#seletedItems").hide();
+                createOrden();
                 checkout();
-                getOrder();
                 logOut();
                 getUserInSession();
             }
-//            function logOut() {
-//                $("#logOutAnchor").click(function () {
-//                    $.ajax({
-//                        type: "POST",
-//                        url: "/restaurante/api/restaurante/logOut",
-//                        success: function () {
-//                            location.href = "/restaurante/index.html";
-//                        },
-//                        error: function (status) {
-//                            alert(errorMessage(status));
-//                        }
-//                    });
-//                });
-//            }
-//            function getUserInSession() {
-//                $.ajax({
-//                    type: "POST",
-//                    url: "/restaurante/api/restaurante/getUser",
-//                    success: function (usuario) {
-//                        if (usuario !== null) {
-//                            $("#registerAnchor").hide();
-//                            $("#loginAnchor").hide();
-//                            $("#dropdownMenuBtn").show();
-//                            $("#dropdownMenuBtn").html(" ");
-//                            $("#dropdownMenuBtn").append(usuario.cliente.nombre);
-//
-//                        } else {
-//                            $("#registerAnchor").show();
-//                            $("#loginAnchor").show();
-//                            $("#dropdownMenuBtn").hide();
-//                        }
-//                    },
-//                    error: function (status) {
-//                        alert(errorMessage(status));
-//                    }
-//                });
-//            }
+            function logOut() {
+                $("#logOutAnchor").click(function () {
+                    sessionStorage.removeItem("usuario");
+                    location.href = "/restaurante_copy/index.html";
+                });
+            }
+            function getUserInSession() {
+                var usuario = JSON.parse(sessionStorage.getItem("usuario"));
+                if (usuario !== null && usuario !== undefined) {
+                    $("#registerAnchor").hide();
+                    $("#loginAnchor").hide();
+                    $("#dropdownMenuBtn").show();
+                    $("#dropdownMenuBtn").html(" ");
+                    $("#dropdownMenuBtn").append(usuario.cliente.nombre);
+                } else {
+                    $("#registerAnchor").show();
+                    $("#loginAnchor").show();
+                    $("#dropdownMenuBtn").hide();
+                }
+            }
 
-//            function checkout() {
-//                $("#checkoutBtn").click(function () {
-//
-//                    var seleccionada = 2;
-//                    if ($("#delivery").prop("checked")) {
-//                        seleccionada = 1;
-//                    }
-//                    var ASAP = $("#dropdownMenuFecha").text();
-//                    if (ASAP.includes("ASAP")) {
-//                        ASAP = "ASAP";
-//                    }
-//                    var sendData = seleccionada + "\n" + ASAP;
-//                    $.ajax({
-//                        type: "POST",
-//                        url: "api/restaurante/updateCart",
-//                        data: sendData,
-//                        success: function () {
-//                            location.href = "/restaurante/presentacionCliente/checkout.html";
-//                        },
-//                        error: function (status) {
-//                            $("#emptyCart").fadeTo(2000, 500).slideUp(500, function () {
-//                                $("#emptyCart").slideUp(500);
-//                            });
-//                        }
-//                    });
-//                });
-//            }
-//            function keepDishInOrder(platilloInOrder) {
-//                $("#saveDish").off();
-//                $("#saveDish").click(function () {
-//                    var Options = $("[id*=OpId]");
-//                    var OpSelected = [];
-//                    for (let i = 0; i < Options.length; i++) {
-//                        if (Options[i].checked) {
-//                            OpSelected.push($("#" + Options[i].id + "Label").text());
-//                        }
-//                    }
-//                    var nombre = $("#nombrePlatilloModal").text();
-//                    var cantidad = $("#quantityModal").val();
-//                    var OptionsSelected = JSON.stringify(OpSelected);
-//                    var platilloOrder = JSON.stringify(platilloInOrder);
-//                    var sendData = nombre + "\n" + cantidad + "\n" + OptionsSelected + "\n" + platilloOrder;
-//                    $.ajax({
-//                        type: "POST",
-//                        url: "api/restaurante/AddToCart",
-//                        data: sendData,
-//                        success: function (orden) {
-//                            p_selected = orden.platilloseleccionadoCollection;
-//                            fillCart(p_selected);
-//                            $("#cart-totals").html(" ");
-//                            $("#cart-totals").append(orden.total);
-//                        },
-//                        error: function (status) {
-//                            $("#seletedItems").fadeTo(2000, 500).slideUp(500, function () {
-//                                $("#seletedItems").slideUp(500);
-//                            });
-//                        }
-//                    });
-//                });
-//            }
-//
-//            function getOrder() {
-//                $.ajax({
-//                    type: "POST",
-//                    url: "/restaurante/api/restaurante/GetCartSession",
-//                    success: function (orden) {
-//                        p_selected = orden.platilloseleccionadoCollection;
-//                        fillCart(p_selected);
-//                        $("#cart-totals").html(" ");
-//                        $("#cart-totals").append("$ " + orden.total);
-//                    },
-//                    error: function (status) {
-//                        alert(errorMessage(status));
-//                    }
-//                });
-//            }
-//            function fillCart(platillos) {
-//                $("#dishSelectedList").html(" ");
-//                var cuenta = 0;
-//                platillos.forEach((platillo) => {
-//                    var precio = 0;
-//                    var platilloSinEspacios = platillo.nombrePlatillo.replace(/ /g, "");
-//                    $("#dishSelectedList").append(
-//                            '<li>' +
-//                            '<button style="position: relative; top: -15px; " type="button" class="cart-btn btn btn-light btn-sm text-muted" id="' + platilloSinEspacios + 'Menos' + cuenta + '">' +
-//                            '<i class="fa fa-minus"></i>' +
-//                            '</button>' +
-//                            '<button style="width: 80%;background-color: white; border:none;" type="button" id="' + platilloSinEspacios + cuenta + '" class="btn btn-light btn-sm btn-cart " data-toggle="modal" data-target="#modalOptions">' +
-//                            '<span  style="float:left; font-size: 15px; font-weight: bold;"> ' + platillo.cantidad + 'x ' + platillo.nombrePlatillo + '</span> <span style="float:right;" id="' + platilloSinEspacios + 'PlatilloCartPrecio' + cuenta + '"></span>' +
-//                            '<br><br>' +
-//                            '<div id="' + platilloSinEspacios + 'PlatilloCart' + cuenta + '" class="text-muted" style="display: block;">' +
-//                            '</div>' +
-//                            '</button>' +
-//                            '</li>'
-//                            );
-//                    var adicionales = platillo.adicionalCollection;
-//                    adicionales.forEach((adi) => {
-//                        var adicionalSinEspacios = adi.nombre.replace(/ /g, "");
-//                        $('#' + platilloSinEspacios + 'PlatilloCart' + cuenta).append(
-//                                '<div id="' + adicionalSinEspacios + 'AdicionalCart' + cuenta + '" class="text-muted" style="display: block;">' +
-//                                '<span  style="float:left;">' + adi.nombre + '</span> <br>' +
-//                                '</div>'
-//                                );
-//                        adi.opcionCollection.forEach((op) => {
-//                            $('#' + adicionalSinEspacios + 'AdicionalCart' + cuenta).append('<span  style="float:left;">' + op.nombre + ' ' + op.precio + '</span><br>');
-//                            precio += op.precio;
-//                        });
-//                    });
-//                    precio += platillo.precio;
-//                    precio = precio * platillo.cantidad;
-//                    $("#" + platilloSinEspacios + 'PlatilloCartPrecio' + cuenta).append('$' + precio);
-//                    $("#" + platilloSinEspacios + 'Menos' + cuenta).click(function () {
-//                        decreseDish(platillo);
-//                    });
-//                    $("#" + platilloSinEspacios + cuenta).click(function () {
-//                        getDishInOrder(platillo);
-//                    });
-//                    cuenta++;
-//                    //        CIERRA EL FOR DE PLATILLOS
-//                });
-//            }
-//            function decreseDish(platillo) {
-//                $.ajax({
-//                    type: "POST",
-//                    url: "api/restaurante/decreseQuant",
-//                    data: JSON.stringify(platillo),
-//                    contentType: "application/json",
-//                    success: function (orden) {
-//                        p_selected = orden.platilloseleccionadoCollection;
-//                        fillCart(p_selected);
-//                        $("#cart-totals").html(" ");
-//                        $("#cart-totals").append(orden.total);
-//                    },
-//                    error: function (status) {
-//                        alert(errorMessage(status));
-//                    }
-//                });
-//            }
-//            function getDishInOrder(platilloOrder) {
-//                $.ajax({
-//                    type: "POST",
-//                    url: "api/restaurante/getDishInCart",
-//                    data: JSON.stringify(platilloOrder),
-//                    contentType: "application/json",
-//                    success: function (platilloCompleto) {
-//                        getAditional(platilloCompleto, platilloOrder);
-//                        keepDishInOrder(platilloOrder);
-//                    },
-//                    error: function (status) {
-//                        alert(errorMessage(status));
-//                    }
-//                });
-//            }
 
+            function keepDishInOrder(platilloInOrder) {
+                $("#saveDish").off();
+                $("#saveDish").click(function () {
+                    var Options = $("[id*=OpId]");
+                    var OpSelected = [];
+                    for (let i = 0; i < Options.length; i++) {
+                        if (Options[i].checked) {
+                            OpSelected.push($("#" + Options[i].id + "Label").text());
+                        }
+                    }
+                    var nombre = $("#nombrePlatilloModal").text();
+                    var cantidad = $("#quantityModal").val();
+                    var OptionsSelected = JSON.stringify(OpSelected);
+                    var platilloOrder = JSON.stringify(platilloInOrder);
+                    var sendData = [];
+                    sendData.push(nombre);
+                    sendData.push(cantidad);
+                    sendData.push(OptionsSelected);
+                    sendData.push(platilloOrder);
+                    sendData.push(sessionStorage.getItem("orden"));
+                    $.ajax({
+                        type: "POST",
+                        url: "api/order",
+                        data: JSON.stringify(sendData),
+                        contentType: "application/json"
+                    }).then((orden) => {
+                        sessionStorage.setItem("orden", JSON.stringify(orden));
+                        p_selected = orden.platilloseleccionadoCollection;
+                        fillCart(p_selected);
+                        $("#cart-totals").html(" ");
+                        $("#cart-totals").append(orden.total);
+                    }, (error) => {
+                        $("#seletedItems").fadeTo(2000, 500).slideUp(500, function () {
+                            $("#seletedItems").slideUp(500);
+                        });
+                    });
+                });
+            }
+            function createOrden() {
+                var orden = JSON.parse(sessionStorage.getItem("orden"));
+                if (orden === null) {
+                    $.ajax({
+                        type: "GET",
+                        url: "api/order/getOrder",
+                        contentType: "application/json"
+                    }).then((orden) => {
+                        sessionStorage.setItem("orden", JSON.stringify(orden));
+                        fillCart(orden.platilloseleccionadoCollection);
+                        $("#cart-totals").html(" ");
+                        $("#cart-totals").append("$ " + orden.total);
+                    }, (error) => {
+                        alert(error.status);
+                    });
+                } else {
+                    fillCart(orden.platilloseleccionadoCollection);
+                }
+
+            }
+
+            function fillCart(platillos) {
+                $("#dishSelectedList").html(" ");
+                var cuenta = 0;
+                platillos.forEach((platillo) => {
+                    var precio = 0;
+                    var platilloSinEspacios = platillo.nombrePlatillo.replace(/ /g, "");
+                    $("#dishSelectedList").append(
+                            '<li>' +
+                            '<button style="position: relative; top: -15px; " type="button" class="cart-btn btn btn-light btn-sm text-muted" id="' + platilloSinEspacios + 'Menos' + cuenta + '">' +
+                            '<i class="fa fa-minus"></i>' +
+                            '</button>' +
+                            '<button style="width: 80%;background-color: white; border:none;" type="button" id="' + platilloSinEspacios + cuenta + '" class="btn btn-light btn-sm btn-cart " data-toggle="modal" data-target="#modalOptions">' +
+                            '<span  style="float:left; font-size: 15px; font-weight: bold;"> ' + platillo.cantidad + 'x ' + platillo.nombrePlatillo + '</span> <span style="float:right;" id="' + platilloSinEspacios + 'PlatilloCartPrecio' + cuenta + '"></span>' +
+                            '<br><br>' +
+                            '<div id="' + platilloSinEspacios + 'PlatilloCart' + cuenta + '" class="text-muted" style="display: block;">' +
+                            '</div>' +
+                            '</button>' +
+                            '</li>'
+                            );
+                    var adicionales = platillo.adicionalCollection;
+                    adicionales.forEach((adi) => {
+                        var adicionalSinEspacios = adi.nombre.replace(/ /g, "");
+                        $('#' + platilloSinEspacios + 'PlatilloCart' + cuenta).append(
+                                '<div id="' + adicionalSinEspacios + 'AdicionalCart' + cuenta + '" class="text-muted" style="display: block;">' +
+                                '<span  style="float:left;">' + adi.nombre + '</span> <br>' +
+                                '</div>'
+                                );
+                        adi.opcionCollection.forEach((op) => {
+                            $('#' + adicionalSinEspacios + 'AdicionalCart' + cuenta).append('<span  style="float:left;">' + op.nombre + ' ' + op.precio + '</span><br>');
+                            precio += op.precio;
+                        });
+                    });
+                    precio += platillo.precio;
+                    precio = precio * platillo.cantidad;
+                    $("#" + platilloSinEspacios + 'PlatilloCartPrecio' + cuenta).append('$' + precio);
+                    $("#" + platilloSinEspacios + 'Menos' + cuenta).click(function () {
+                        decreseDish(platillo);
+                    });
+                    $("#" + platilloSinEspacios + cuenta).click(function () {
+                        getDishInOrder(platillo);
+                    });
+                    cuenta++;
+                    //        CIERRA EL FOR DE PLATILLOS
+                });
+            }
+            function decreseDish(platillo) {
+                var orden = sessionStorage.getItem("orden");
+                var array = [];
+                array.push(orden);
+                array.push(JSON.stringify(platillo));
+                $.ajax({
+                    type: "POST",
+                    url: "api/order/decreseQuant",
+                    data: JSON.stringify(array),
+                    contentType: "application/json"
+                }).then((orden) => {
+                    sessionStorage.setItem("orden", JSON.stringify(orden));
+                    p_selected = orden.platilloseleccionadoCollection;
+                    fillCart(p_selected);
+                    $("#cart-totals").html(" ");
+                    $("#cart-totals").append(orden.total);
+                }, (error) => {
+                    alert(error.status);
+                });
+            }
+            function getDishInOrder(platilloOrder) {
+                var array = [];
+                array.push(sessionStorage.getItem("orden"));
+                array.push(JSON.stringify(platilloOrder));
+                console.log(array);
+                $.ajax({
+                    type: "POST",
+                    url: "api/order/getPlatillo",
+                    data: JSON.stringify(array),
+                    contentType: "application/json"
+                }).then((platilloCompleto) => {
+                    getAditional(platilloCompleto, platilloOrder);
+                    keepDishInOrder(platilloOrder);
+                }, (error) => {
+                    alert(error.status);
+                });
+
+            }
+
+            function checkout() {
+                $("#checkoutBtn").click(function () {
+                    var seleccionada = 2;
+                    if ($("#delivery").prop("checked")) {
+                        seleccionada = 1;
+                    }
+                    var ASAP = $("#dropdownMenuFecha").text();
+                    if (ASAP.includes("ASAP")) {
+                        ASAP = "ASAP";
+                    }
+                    var sendData = [];
+                    sendData.push(sessionStorage.getItem("orden"));
+                    sendData.push(seleccionada);
+                    sendData.push(ASAP);
+                    $.ajax({
+                        type: "POST",
+                        url: "api/order/checkOut",
+                        data: JSON.stringify(sendData),
+                        contentType: "application/json"
+                    }).then((orden) => {
+                        sessionStorage.setItem("orden", JSON.stringify(orden));
+                        location.href = "/restaurante_copy/presentacionCliente/checkout.html";
+                    }, (error) => {
+                        $("#emptyCart").fadeTo(2000, 500).slideUp(500, function () {
+                            $("#emptyCart").slideUp(500);
+                        });
+                    });
+                });
+            }
             function errorMessage(status) {
                 return "Ha ocurrido un error";
             }
