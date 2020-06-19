@@ -70,7 +70,6 @@ public class CategoriesDao {
             return false;
         }
     }
-
     public static Categoria findCategoria(int id) throws Exception {
         String SQL = "select * from categoria where id_categoria=?;";
         Categoria categoria = new Categoria();
@@ -94,6 +93,35 @@ public class CategoriesDao {
         } catch (SQLException ex) {
             System.out.println(ex);
             return categoria;
+        }
+    }
+    public static ArrayList<Categoria> findCategoriaByName(String nombre) throws Exception {
+        String SQL = "select * from categoria where nombre=?;";
+        Categoria categoria = null;
+
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+
+            st.setString(1, nombre);
+            ResultSet resultado = st.executeQuery();
+            
+            ArrayList<Categoria> lista = new ArrayList<>();
+
+            while (resultado.next()) {
+                categoria = new Categoria();
+                categoria.setIdCategoria(resultado.getInt("id_categoria"));
+                categoria.setNombre(resultado.getString("nombre"));
+                lista.add(categoria);
+            }
+            con.close();
+            resultado.close();
+            st.close();
+            return lista;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
         }
     }
 
