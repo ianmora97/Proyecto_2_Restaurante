@@ -25,6 +25,8 @@ insert into ubicacion (direccion,provincia,canton,codigo_postal) values('Desampa
 insert into ubicacion (direccion,provincia,canton,codigo_postal) values('La Carpio','Barrios Bajos','San Jose',1);
 insert into ubicacion (direccion,provincia,canton,codigo_postal) values('Sagrada Familia','Barrios Bajos','San Jose',2);
 select * from ubicacion;
+delete from ubicacion  where id_ubicacion= 1;
+
 -- ============================================ 
 -- UBICACION 
 -- ============================================
@@ -32,7 +34,7 @@ insert into direccion_propia (id_ubicacion,usuario_correo) values(1,'david@gmail
 
 select u.id_ubicacion from direccion_propia d inner join ubicacion u on d.id_ubicacion = u.id_ubicacion where u.direccion = 'Hatillo 5 detras de los multifamiliares casa #14' and usuario_correo= 'david@gmail.com';  
 select u.id_ubicacion,u.codigo_postal,u.canton,u.direccion,u.provincia from direccion_propia d inner join ubicacion u on d.id_ubicacion = u.id_ubicacion where usuario_correo= 'david@gmail.com';
-delete from direccion_propia where id_ubicacion = 1;
+delete from direccion_propia  where usuario_correo= 'david@gmail.com';
 
 -- ============================================ 
 -- Metodos de Pago 
@@ -153,5 +155,21 @@ select  opS.id_opcion_seleccionada, opS.id_opcion, opS.id_adicional_seleccionada
 where opS.id_opcion = o.id_opcion;
 
 -- ============================================ 
--- DETALLE 
--- ============================================
+-- Mesas 
+-- ============================================ 
+insert into mesa (cap_max,cap_min,estado) values (2,1,'L');
+insert into mesa (cap_max,cap_min,estado) values (2,1,'L');
+insert into mesa (cap_max,cap_min,estado) values (4,2,'L');
+insert into mesa (cap_max,cap_min,estado) values (4,2,'L');
+insert into mesa (cap_max,cap_min,estado) values (3,1,'L');
+insert into mesa (cap_max,cap_min,estado) values (6,4,'L');
+insert into mesa (cap_max,cap_min,estado) values (6,4,'L');
+insert into mesa (cap_max,cap_min,estado) values (8,6,'L');
+insert into mesa (cap_max,cap_min,estado) values (10,8,'L');
+select *from mesa;
+select id_mesa, min(cap_max) cap_max,cap_min, estado from mesa where estado = 'L' and cap_min >= 9 ;
+select id_mesa, min(cap_max) cap_max,cap_min, estado from mesa where estado = 'L' and cap_min >= 10;
+
+insert into reservacion (usuario_correo,mesa_id_mesa,fecha,cantidad_personas) values ('david@gmail.com',1,CURDATE(),2);
+update mesa set estado = 'O' where id_mesa =1;
+select *from reservacion where usuario_correo= 'david@gmail.com';

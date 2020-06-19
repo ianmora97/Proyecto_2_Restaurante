@@ -84,6 +84,7 @@ public class Orden implements Serializable {
     private MetodosPago metodoPago;
 
     public Orden() {
+
         this.idOrden = 0;
         this.fechaEntrega = new Date();
         this.estatus = "En preparacion";
@@ -91,7 +92,9 @@ public class Orden implements Serializable {
         this.asap = 0;
         this.platilloseleccionadoCollection = new ArrayList<>();
         this.total = 0.0;
-        metodoPago = new MetodosPago();
+        this.metodoPago = new MetodosPago();
+        this.usuarioCorreo = new Usuario();
+        this.idUbicacion = new Ubicacion();
     }
 
     public Orden(Integer idOrden) {

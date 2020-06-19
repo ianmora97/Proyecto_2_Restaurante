@@ -82,7 +82,7 @@ public class UbicacionDao {
             return null;
         }
     }
-    public static boolean editUbicacion(String p, String c, String codigo, String d, String id) throws Exception {
+    public static boolean editUbicacion(Ubicacion ubicacion) throws Exception {
         String SQL = "UPDATE ubicacion "
                 + "SET provincia = ?,canton = ?,codigo_postal=?,direccion=? "
                 + "WHERE id_ubicacion = ?;";
@@ -90,11 +90,11 @@ public class UbicacionDao {
             Connection con = Conn.conectar();
             PreparedStatement st = con.prepareStatement(SQL);
 
-            st.setString(1, p);
-            st.setString(2, c);
-            st.setInt(3, Integer.parseInt(codigo));
-            st.setString(4, d);
-            st.setInt(5, Integer.parseInt(id));
+            st.setString(1, ubicacion.getProvincia());
+            st.setString(2, ubicacion.getCanton());
+            st.setInt(3, ubicacion.getCodigoPostal());
+            st.setString(4, ubicacion.getDireccion());
+            st.setInt(5, ubicacion.getIdUbicacion());
             
             int r = st.executeUpdate();
             con.close();
