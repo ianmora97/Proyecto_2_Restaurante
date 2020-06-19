@@ -19,25 +19,6 @@ function fillCategories() {
         });
     });
 }
-function ingresar(status) {
-    $("#sendAdd").click(function () {
-        var categoria = {
-            nombre: $("#nombreCategoria").val()
-        };
-        $.ajax({
-            type: "POST",
-            url: "api/categoriasAdmin",
-            data: JSON.stringify(categoria),
-            contentType: "application/json"
-        }).then(() => {
-            fillCategories();
-            $("#alertS").alert();
-        }, (error) => {
-            $("#alertB").alert();
-        });
-    }
-    );
-}
 function showCategorias(categorias) {
     $("#listaCategorias").html("");
     categorias.forEach((cat) => {
@@ -59,6 +40,26 @@ function fillCategorias(categoria) {
             '<td class="list-setup">&nbsp;</td></tr>'
             );
 }
+function ingresar(status) {
+    $("#sendAdd").click(function () {
+        var categoria = {
+            nombre: $("#nombreCategoria").val()
+        };
+        $.ajax({
+            type: "POST",
+            url: "api/categoriasAdmin",
+            data: JSON.stringify(categoria),
+            contentType: "application/json"
+        }).then(() => {
+            fillCategories();
+            $("#alertS").alert();
+        }, (error) => {
+            $("#alertB").alert();
+        });
+    }
+    );
+}
+
 function editCategoria(categoria) {
     $('#modalEdit').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);

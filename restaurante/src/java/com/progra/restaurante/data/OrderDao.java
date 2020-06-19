@@ -138,4 +138,35 @@ public class OrderDao {
             return false;
         }
     }
+    public static ArrayList<OrdenCliente> getOrdersNameId() throws Exception {
+        String SQL = "select c.nombre,c.apellidos, o.id_orden, o.estatus from orden o, cliente c where o.usuario_correo = c.usuario_correo";
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+            ResultSet resultado = st.executeQuery();
+
+            ArrayList<OrdenCliente> lista = new ArrayList<>();
+            OrdenCliente oc;
+
+            while (resultado.next()) {
+                oc = new OrdenCliente();
+                oc.setNombre(resultado.getString("nombre"));
+                oc.setApellidos(resultado.getString("apellido"));
+                oc.setId(resultado.getInt("id_orden"));
+                oc.setStatus(resultado.getString("estatus"));
+                lista.add(oc);
+            }
+
+            con.close();
+            resultado.close();
+            st.close();
+
+            return lista;
+
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+            return null;
+        }
+
+    }
 }

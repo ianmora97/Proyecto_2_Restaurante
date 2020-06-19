@@ -138,4 +138,101 @@ public class OrderDao {
             return false;
         }
     }
+    public static ArrayList<OrdenCliente> getOrdersNameId() throws Exception {
+        String SQL = "select c.nombre,c.apellidos, o.id_orden, o.estatus from orden o, cliente c where o.usuario_correo = c.usuario_correo";
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+            ResultSet resultado = st.executeQuery();
+
+            ArrayList<OrdenCliente> lista = new ArrayList<>();
+            OrdenCliente oc;
+
+            while (resultado.next()) {
+                oc = new OrdenCliente();
+                oc.setNombre(resultado.getString("nombre"));
+                oc.setApellidos(resultado.getString("apellidos"));
+                oc.setId(resultado.getInt("id_orden"));
+                oc.setStatus(resultado.getString("estatus"));
+                lista.add(oc);
+            }
+
+            con.close();
+            resultado.close();
+            st.close();
+
+            return lista;
+
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+            return null;
+        }
+
+    }
+    public static ArrayList<OrdenRecu> getOrders(int id) throws Exception {
+        String SQL = "select cli.nombre as nombre_cliente, orn.estatus, orn.tipo_entrega, ub.direccion,pla.nombre_platillo,"
+                + "adi.nombre as nombre_adicional ,op.nombre as nombre_opcion, orn.total " +
+            "from orden orn, platilloSeleccionado p, adicional_seleccionada adS, opcionesSeleccionadas opS, platillo pla, adicional adi, opcion op, " +
+            "usuario u, cliente cli, ubicacion ub, metodos_pago met " +
+            "where orn.id_orden = p.id_orden and " +
+            "p.id_platilloSeleccionado = adS.id_platilloSeleccionado and " +
+            "adS.id_adicional_seleccionada = opS.id_adicional_seleccionada and " +
+            "p.id_platillo = pla.id_platillo and " +
+            "adS.id_adicional = adi.id_adicional and " +
+            "opS.id_opcion = op.id_opcion and " +
+            "u.usuario_correo = orn.usuario_correo and " +
+            "u.usuario_correo = cli.usuario_correo and " +
+            "orn.id_ubicacion= ub.id_ubicacion and " +
+            "orn.id_metodo_pago = met.id_metodo_pago and orn.id_orden=?;";
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+            st.setInt(1, id);
+            ResultSet resultado = st.executeQuery();
+            
+            ArrayList<OrdenRecu> lista = new ArrayList<>();
+            OrdenRecu oc;
+
+            while (resultado.next()) {
+                oc = new OrdenRecu();
+                oc.setNombre(resultado.getString("nombre_cliente"));
+                oc.setEstatus(resultado.getString("estatus"));
+                oc.setTipoEntrega(resultado.getInt("tipo_entrega"));
+                oc.setDireccion(resultado.getString("direccion"));
+                oc.setNombrePlatillo(resultado.getString("nombre_platillo"));
+                oc.setNombreAdicional(resultado.getString("nombre_adicional"));
+                oc.setNombreOpcion(resultado.getString("nombre_opcion"));
+                oc.setTotal(resultado.getDouble("total"));
+                lista.add(oc);
+            }
+
+            con.close();
+            resultado.close();
+            st.close();
+
+            return lista;
+
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+            return null;
+        }
+
+    }
+    public static boolean setStatus(String s, int id) throws Exception {
+        String SQL = "update orden set estatus = ? where id_orden = ?;";
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+            st.setString(1, s);
+            st.setInt(2, id);
+            int r = st.executeUpdate();
+            con.close();
+            st.close();
+            return r != 0;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return false;
+        }
+
+    }
 }

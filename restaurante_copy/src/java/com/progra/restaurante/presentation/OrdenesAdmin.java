@@ -34,19 +34,20 @@ public class OrdenesAdmin {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public ArrayList<Categoria> get() {
+    public ArrayList<OrdenCliente> get() {
         try {
-            return Model.instance().getCategoriesAdmin();
+            return com.progra.restaurante.data.OrderDao.getOrdersNameId();
         } catch (Exception ex) {
             throw new NotAcceptableException();
         }
     }
 
     @POST
+    @Path("/add")
     @Consumes({MediaType.APPLICATION_JSON})
-    public void add(Categoria categoria) {
+    public void add(Orden o) {
         try {
-            com.progra.restaurante.data.CategoriesDao.registrarCategoria(categoria);
+            com.progra.restaurante.data.OrderDao.setStatus(o.getEstatus(), o.getIdOrden());
         } catch (Exception ex) {
             throw new NotAcceptableException();
         }
@@ -78,9 +79,9 @@ public class OrdenesAdmin {
     @Path("/buscar")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public ArrayList<Categoria> buscar(Categoria categoria) {
+    public ArrayList<OrdenRecu> buscar(String id) {
         try {
-            return com.progra.restaurante.data.CategoriesDao.findCategoriaByName(categoria.getNombre());
+            return com.progra.restaurante.data.OrderDao.getOrders(Integer.parseInt(id));
         } catch (Exception ex) {
             throw new NotAcceptableException();
         }
