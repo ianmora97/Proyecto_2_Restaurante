@@ -7,12 +7,14 @@ insert into usuario values ('david@gmail.com','pulplix','123',1);
 insert into usuario values ('ian@gmail.com','ianMora666','123',1);
 
 select *from usuario;
-delete from usuario where usuario_correo = 'asda@gmail.com';
+update usuario set username =?,contrasena =? where usuario_correo = ?;
 -- ============================================ 
 -- Cliente 
 -- ============================================ 
 insert into cliente values ('david@gmail.com','David','Aguilar','22546789');
 select *from cliente;
+update cliente set nombre ='David',apellidos ='Aguilar Rojas',telefono ='22546789' where usuario_correo = 'david@gmail.com';
+
 
 -- ============================================ 
 -- UBICACION 
@@ -25,12 +27,13 @@ insert into ubicacion (direccion,provincia,canton,codigo_postal) values('Desampa
 insert into ubicacion (direccion,provincia,canton,codigo_postal) values('La Carpio','Barrios Bajos','San Jose',1);
 insert into ubicacion (direccion,provincia,canton,codigo_postal) values('Sagrada Familia','Barrios Bajos','San Jose',2);
 select * from ubicacion;
-delete from ubicacion  where id_ubicacion= 1;
+delete from ubicacion  where id_ubicacion= 1 ;
 
 -- ============================================ 
 -- UBICACION 
 -- ============================================
 insert into direccion_propia (id_ubicacion,usuario_correo) values(1,'david@gmail.com');
+select *from direccion_propia;
 
 select u.id_ubicacion from direccion_propia d inner join ubicacion u on d.id_ubicacion = u.id_ubicacion where u.direccion = 'Hatillo 5 detras de los multifamiliares casa #14' and usuario_correo= 'david@gmail.com';  
 select u.id_ubicacion,u.codigo_postal,u.canton,u.direccion,u.provincia from direccion_propia d inner join ubicacion u on d.id_ubicacion = u.id_ubicacion where usuario_correo= 'david@gmail.com';

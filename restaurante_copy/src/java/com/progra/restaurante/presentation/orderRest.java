@@ -130,8 +130,8 @@ public class orderRest {
         try {
             Gson gson = new Gson();
             Orden order = gson.fromJson(array.get(0), Orden.class);
-            String seleccionada = gson.fromJson(array.get(1), String.class);
-            String fecha = gson.fromJson(array.get(2), String.class);
+            String seleccionada = array.get(1);
+            String fecha = array.get(2);
 
             if (order.getPlatilloseleccionadoCollection().size() <= 0) {
                 throw new Exception("Error");
@@ -147,6 +147,7 @@ public class orderRest {
                 cal.setTime(sameDate);
                 order.setFechaEntrega(sameDate);
             }
+            order.setTipoEntrega(Integer.parseInt(seleccionada));
             return gson.toJson(order);
         } catch (Exception ex) {
             throw new NotAcceptableException();

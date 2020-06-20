@@ -1,4 +1,7 @@
 function loaded(event) {
+    $("#PassMatch").hide();
+    $("#SuccessUpdate").hide();
+    $("#updateError").hide();
     fillAddressBook();
     editDireccion();
     editSend();
@@ -7,7 +10,14 @@ function loaded(event) {
     createOrden();
     reservationTable();
     logOut();
+    actualizarDatos();
 }
+function logOut() {
+    $("#logOutAnchor").click(function () {
+        sessionStorage.removeItem("usuario");
+        location.href = "/restaurante_copy/init.html";
+    });
+}//listo
 
 function getUserInSession() {
     var usuario = JSON.parse(sessionStorage.getItem("usuario"));
@@ -38,8 +48,8 @@ function fillAddressBook() {
     }).then((addressBook) => {
         if (addressBook.length !== 0) {
             addressBook.forEach((address) => {
-                 $("#SelectAddress").html(" ");
-                 $("#direccionesAd").html(" ");
+                $("#SelectAddress").html(" ");
+                $("#direccionesAd").html(" ");
                 var res = address.direccion.replace(/ /g, "");
                 $("#SelectAddress").append('<i class="fa fa-dot-circle-o" aria-hidden="true"></i>&nbsp;<span style="color:black;" value="' + address.idUbicacion + '" >' + address.direccion + '</span> <br /><br />');
                 $("#SelectAddress").append('<address class="text-left">' + address.provincia + '<br>' + address.canton + '<br>' + address.direccion + '<br>' + address.codigoPostal + '</address>');
@@ -92,7 +102,7 @@ function editDireccion() {
             $('#modalEdit').find('.modal-body input[name="canton"]').val(direccion.canton);
             $('#modalEdit').find('.modal-body input[name="codigo"]').val(direccion.codigoPostal);
             $('#modalEdit').find('.modal-body textarea[name="direccion"]').val(direccion.direccion);
-            $('#sendChange').data('edit',recipient);
+            $('#sendChange').data('edit', recipient);
         }, (error) => {
             alert(error.status);
         });
@@ -150,12 +160,88 @@ function insertarDireccion() {
     });
 }
 
-function logOut() {
-    $("#logOutAnchor").click(function () {
-        sessionStorage.removeItem("usuario");
-        location.href = "/restaurante_copy/index.html";
+//ACTUALIZACION DE LOS DATOS DEL CLIENTE 
+function actualizarDatos() {
+    $("#sedUpdate").click(function () {
+        var firstName = $("#nombre").val();
+        var lastName = $("#apellido").val();
+        var email = $("#correo").val();
+        var Oldpassword = $("#old_password").val();
+        var password = $("#new_password").val();
+        var confirmPass = $("#confirm_new_password").val();
+        var telephone = $("#telefono").val();
+        var usuario = JSON.parse(sessionStorage.getItem("usuario"));
+
+        if (validacion(firstName, lastName, email, Oldpassword, password, confirmPass, telephone) === false) {
+            var Cliente = {
+                usuarioCorreo: email,
+                nombre: firstName,
+                apellidos: lastName,
+                telefono: telephone
+            };
+            var usario = {
+                usuarioCorreo: email,
+                username: usuario.username,
+                contrasena: password,
+                rol: 1,
+                cliente: Cliente
+            };
+
+            $.ajax({
+                type: "PUT",
+                url: "/restaurante_copy/api/register",
+                data: JSON.stringify(usario),
+                contentType: "application/json"
+            }).then(() => {
+                $("#SuccessUpdate").fadeTo(2000, 500).slideUp(500, function () {
+                    $("#SuccessUpdate").slideUp(500);
+                });
+            }, (error) => {
+                $("#updateError").fadeTo(2000, 500).slideUp(500, function () {
+                    $("#updateError").slideUp(500);
+                });
+            });
+        }
     });
-}//listo
+
+}
+
+function validacion(firstName, lastName, email, Oldpassword, password, confirmPass, telephone) {
+
+    var error = false;
+    $("#old_password").removeClass("error");
+    $("#new_password").removeClass("error");
+    $("#confirm_new_password").removeClass("error");
+    $("#email").removeClass("error");
+
+
+    if (firstName.length <= 0 || lastName.length <= 0 || email.length <= 0 || Oldpassword.length <= 0 || password.length <= 0 || confirmPass.length <= 0 || telephone.length <= 0) {
+        var error = true;
+        $("#updateError").fadeTo(2000, 500).slideUp(500, function () {
+            $("#updateError").slideUp(500);
+        });
+    }
+    var usuario = JSON.parse(sessionStorage.getItem("usuario"));
+    if (usuario.contrasena !== Oldpassword) {
+        var error = true;
+        $("#old_password").addClass("error");
+        $("#PassMatch").fadeTo(2000, 500).slideUp(500, function () {
+            $("#PassMatch").slideUp(500);
+        });
+    }
+    if (password !== confirmPass) {
+        $("#PassMatch").fadeTo(2000, 500).slideUp(500, function () {
+            $("#PassMatch").slideUp(500);
+        });
+        $("#new_password").addClass("error");
+        $("#confirm_new_password").addClass("error");
+        var error = true;
+    }
+
+    return error;
+}
+
+
 
 //TRAER EL CARRITO DE LA SESION
 function fillCart(platillos) {
@@ -405,6 +491,5 @@ function getAditional(platillo, platilloOrder) {
 
 
 } //listo
-
 
 document.addEventListener("DOMContentLoaded", loaded);

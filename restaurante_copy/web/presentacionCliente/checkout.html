@@ -500,7 +500,6 @@ and open the template in the editor.
                 getUserInSession();
                 getMetodosPago();
                 checkout();
-                fillAddressBook();
             }
 
             function getMetodosPago() {
@@ -535,6 +534,7 @@ and open the template in the editor.
             }//listo
             function getUserInSession() {
                 var usuario = JSON.parse(sessionStorage.getItem("usuario"));
+                console.log(usuario);
                 if (usuario !== null && usuario !== undefined) {
                     fillUserFields(usuario);
                     $("#registerAnchor").hide();
@@ -542,6 +542,7 @@ and open the template in the editor.
                     $("#dropdownMenuBtn").show();
                     $("#dropdownMenuBtn").html(" ");
                     $("#dropdownMenuBtn").append(usuario.cliente.nombre);
+                    fillAddressBook();
                 } else {
                     $("#registerAnchor").show();
                     $("#loginAnchor").show();
@@ -725,7 +726,7 @@ and open the template in the editor.
                 array.push(JSON.stringify(platillo));
                 $.ajax({
                     type: "POST",
-                    url: "api/order/decreseQuant",
+                    url: "/restaurante_copy/api/order/decreseQuant",
                     data: JSON.stringify(array),
                     contentType: "application/json"
                 }).then((orden) => {
@@ -760,7 +761,7 @@ and open the template in the editor.
                     sendData.push(sessionStorage.getItem("orden"));
                     $.ajax({
                         type: "POST",
-                        url: "api/order",
+                        url: "/restaurante_copy/api/order",
                         data: JSON.stringify(sendData),
                         contentType: "application/json"
                     }).then((orden) => {
@@ -783,7 +784,7 @@ and open the template in the editor.
                 console.log(array);
                 $.ajax({
                     type: "POST",
-                    url: "api/order/getPlatillo",
+                    url: "/restaurante_copy/api/order/getPlatillo",
                     data: JSON.stringify(array),
                     contentType: "application/json"
                 }).then((platilloCompleto) => {
@@ -799,7 +800,7 @@ and open the template in the editor.
                 if (orden === null) {
                     $.ajax({
                         type: "GET",
-                        url: "api/order/getOrder",
+                        url: "/restaurante_copy/api/order/getOrder",
                         contentType: "application/json"
                     }).then((orden) => {
                         sessionStorage.setItem("orden", JSON.stringify(orden));

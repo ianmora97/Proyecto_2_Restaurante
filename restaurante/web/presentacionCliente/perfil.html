@@ -160,6 +160,12 @@
 
             <div id="page-wrapper">
                 <div class="container">
+                    <div id="registeredSuccess" class="alert alert-success text-center" role="alert" >
+                        <strong>You have successfully update your information </strong> 
+                    </div>
+                    <div id="registeredError" class="alert alert-danger text-center" role="alert" >
+                        <strong>Something went wrong </strong> 
+                    </div>
                     <div class="row py-5">
                         <div class="col-sm-3">
                             <div class="row">
@@ -225,6 +231,9 @@
                                 </div>
 
                                 <div class="card">
+                                    <div id="incorrect" class="alert alert-danger text-center" role="alert" >
+                                        <strong>Something went wrong</strong> <br>make sure all fields are filled !
+                                    </div>
                                     <div class="card-body bg-white">
                                         <h5 class="font-weight-normal mb-3">Edit My Details</h5>
                                         <form
@@ -370,7 +379,7 @@
                                                 <div class="links"></div>
                                             </div>
 
-                                            <div class="buttons"style="width: 155px;margin: 10px auto;">
+                                            <div class="buttons" style="width: 155px;margin: 10px auto;">
                                                 <button class="btn orange" data-toggle="modal" data-target="#modalAdd" >Add New Address</button>
                                             </div>
 

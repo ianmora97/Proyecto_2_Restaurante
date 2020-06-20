@@ -73,7 +73,29 @@ public class UsuarioDao {
             return false;
         }
     }
+    public static boolean updateUser(Usuario usuario) throws Exception {
+        String SQL = "update usuario set username =?,contrasena =? where usuario_correo = ?;";
 
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+
+            st.setString(1, usuario.getUsername());
+            st.setString(2, usuario.getContrasena());
+            st.setString(3, usuario.getUsuarioCorreo());
+
+            int resultado = st.executeUpdate();
+
+            con.close();
+            st.close();
+
+            return resultado != 0;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return false;
+        }
+    }
     public static Usuario getUsuarioByEmail(String correo) throws Exception {
         String SQL = "select *from usuario where usuario_correo = ?;";
         Usuario usuario = null;
