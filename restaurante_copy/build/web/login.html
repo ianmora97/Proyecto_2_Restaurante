@@ -18,11 +18,14 @@
             <div class="container-fluid">
                 <div class="login-container">
                     <div class="card">
+                        <div id="incorrect" class="alert alert-danger text-center" role="alert" >
+                            <strong> <i class="fas fa-exclamation-triangle"></i></strong>,
+                            <br>El usario o contrasena estan incorrectoscorrectos<br>
+                        </div>
                         <div class="card-body">
                             <div id="Error404" class="alert alert-danger text-center" role="alert" >
                                 <strong> <i class="fas fa-exclamation-triangle"></i></strong>,
-                                <br>No tiene los permisos de Administrador<i class="fas fa-exclamation"></i> <br>
-                                <i class="fas fa-shopping-cart"></i>
+                                <br>No tiene los permisos de Administrador <br>
                             </div>
                             <div class="form-group">
                                 <label for="input-user"
@@ -58,6 +61,7 @@
             function events() {
                 ingresar();
                 $("#Error404").hide();
+                $("#incorrect").hide();
             }
             function ingresar(status) {
                 $("#sendLogin").click(function () {
@@ -82,13 +86,20 @@
                             contentType: "application/json"
                         }).then((usuario) => {
                             sessionStorage.setItem("usuario", JSON.stringify(usuario));
-                            console.log(JSON.parse(sessionStorage.getItem("usuario")));
-                            location.href="dashboard.html";
+                            if (usuario.rol === 1) {
+                                location.href = "dashboard.html";
+                            } else {
+                                $("#input-user").addClass("error");
+                                $("#input-password").addClass("error");
+                                $("#Error404").fadeTo(2000, 500).slideUp(500, function () {
+                                    $("#Error404").slideUp(500);
+                                });
+                            }
                         }, (error) => {
                             $("#input-user").addClass("error");
                             $("#input-password").addClass("error");
-                            $("#incorrect").fadeTo(2000, 500).slideUp(500, function () {
-                                $("#incorrect").slideUp(500);
+                            $("#Error404").fadeTo(2000, 500).slideUp(500, function () {
+                                $("#Error404").slideUp(500);
                             });
                         });
                     }
