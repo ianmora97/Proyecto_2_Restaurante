@@ -7,6 +7,8 @@ package com.progra.restaurante.data;
 
 import com.progra.restaurante.logic.Opcion;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,7 +18,12 @@ public class pruebasIan {
 
 
     public static void main(String[] args) {
-        // TODO code application logic here
+        try {
+            // TODO code application logic here
+
+        } catch (Exception ex) {
+            Logger.getLogger(pruebasIan.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

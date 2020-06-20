@@ -6,10 +6,12 @@
 package com.progra.restaurante.data;
 
 import com.progra.restaurante.logic.Usuario;
+import com.progra.restaurante.logic.trio;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -124,6 +126,41 @@ public class UsuarioDao {
         } catch (SQLException ex) {
             System.out.println(ex);
             return usuario;
+        }
+    }
+    public static trio getStats() throws Exception {
+        String SQL = "select count(rol) as privilegiado from usuario where rol = 1;";
+        trio r = new trio();
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+            ResultSet result = st.executeQuery();
+            while (result.next()) {
+                r.setP(result.getInt("privilegiado"));
+            }
+            
+            SQL = "select count(rol) as no_privilegiado from usuario where rol = 0;";
+            st = con.prepareStatement(SQL);
+            result = st.executeQuery();
+            while (result.next()) {
+                r.setNop(result.getInt("no_privilegiado"));
+            }
+            
+            SQL = "select sum(total) as total from orden;";
+            st = con.prepareStatement(SQL);
+            result = st.executeQuery();
+            while (result.next()) {
+                r.setTotal(result.getInt("total"));
+            }
+            
+            result.close();
+            con.close();
+            st.close();
+            return r;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
         }
     }
 }

@@ -29,34 +29,26 @@ import javax.ws.rs.POST;
  *
  * @author ianmo
  */
-@Path("/ordenAdmin")
-public class OrdenesAdmin {
+@Path("/usuariosAdmin")
+public class usuariosRest {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public ArrayList<OrdenCliente> get() {
+    public ArrayList<Cliente> get() {
         try {
-            return com.progra.restaurante.data.OrderDao.getOrdersNameId();
+            return com.progra.restaurante.data.ClienteDao.getClientes();
         } catch (Exception ex) {
             throw new NotAcceptableException();
         }
     }
-    @GET
-    @Path("/getOrdenesChart")
-    @Produces({MediaType.APPLICATION_JSON})
-    public ArrayList<Orden> getOrdenes() {
-        try {
-            return com.progra.restaurante.data.OrderDao.getOrdenes();
-        } catch (Exception ex) {
-            throw new NotAcceptableException();
-        }
-    }
+
     @POST
     @Path("/add")
     @Consumes({MediaType.APPLICATION_JSON})
-    public void add(Orden o) {
+    public void add(Cliente c) {
         try {
-            com.progra.restaurante.data.OrderDao.setStatus(o.getEstatus(), o.getIdOrden());
+            com.progra.restaurante.data.UsuarioDao.insertUser(c.getUsuario());
+            com.progra.restaurante.data.ClienteDao.insertClient(c);
         } catch (Exception ex) {
             throw new NotAcceptableException();
         }
@@ -64,9 +56,9 @@ public class OrdenesAdmin {
 
     @PUT
     @Consumes({MediaType.APPLICATION_JSON})
-    public void update(ArrayList<String> categorias) {
+    public void update(Cliente cliente) {
         try {
-            Model.instance().updateCategoria(categorias.get(0), categorias.get(1));
+            com.progra.restaurante.data.ClienteDao.editCliente(cliente);
         } catch (Exception ex) {
             throw new NotAcceptableException();
         }
