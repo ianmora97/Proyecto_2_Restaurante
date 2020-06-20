@@ -135,11 +135,11 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="mainNav">
                         <div class="navbar-nav">
-                            <a class="nav nav-link active "  href="/restaurante_copy/index.html" > View Menu </a>
+                            <a class="nav nav-link "  href="/restaurante_copy/index.html" > View Menu </a>
                             <a class="nav-item nav-link"  href="/restaurante_copy/presentacionCliente/reservation.html"> Reservation</a>
                             <a class="nav-item nav-link"  href="/restaurante_copy/presentacionCliente/loginCliente.html" id="loginAnchor"> Login</a>
                             <a class="nav-item nav-link"  href="/restaurante_copy/presentacionCliente/register.html" id="registerAnchor"> Register</a>
-                            <div class="dropdown">
+                            <div class="dropdown active">
                                 <button class="btn  dropdown-toggle" type="button" id="dropdownMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #ED561A;">
                                     User
                                 </button>
@@ -227,6 +227,12 @@
                                 <div class="card">
                                     <div class="card-body bg-white">
                                         <h5 class="font-weight-normal mb-3">Edit My Details</h5>
+                                        <div id="SuccessUpdate" class="alert alert-success text-center" role="alert" >
+                                            <strong>You have update your information </strong> 
+                                        </div>
+                                        <div id="updateError" class="alert alert-danger text-center" role="alert" >
+                                            <strong>Something went wrong </strong> 
+                                        </div>
                                         <form
                                             role="form"
                                             method="POST"
@@ -237,66 +243,31 @@
                                             <div class="form-row">
                                                 <div class="col col-sm-6">
                                                     <div class="form-group">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control"
-                                                            id="nombre"
-                                                            value=""
-                                                            name="first_name"
-                                                            placeholder="First Name"
-                                                            >
+                                                        <input  type="text" class="form-control" id="nombre"  value=""  name="first_name"  placeholder="First Name" >
                                                     </div>
                                                 </div>
                                                 <div class="col col-sm-6">
                                                     <div class="form-group">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control"
-                                                            id="apellido"
-                                                            value=""
-                                                            name="last_name"
-                                                            placeholder="Last Name"
-                                                            >
+                                                        <input  type="text" class="form-control" id="apellido" value="" name="last_name"placeholder="Last Name" >
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="col col-sm-6">
                                                     <div class="form-group">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control"
-                                                            id="telefono"
-                                                            value=""
-                                                            name="telephone"
-                                                            placeholder="Telephone"
-                                                            >
+                                                        <input type="text" class="form-control" id="telefono"  value=""  name="telephone" placeholder="Telephone" >
                                                     </div>
                                                 </div>
                                                 <div class="col col-sm-6">
                                                     <div class="form-group">
-                                                        <input
-                                                            type="email"
-                                                            class="form-control"
-                                                            id="correo"
-                                                            value=""
-                                                            name="email"
-                                                            placeholder="Email Address"
-                                                            disabled
-                                                            >
+                                                        <input type="email" class="form-control" id="correo" value=""   name="email" placeholder="Email Address" disabled >
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <div class="custom-control custom-checkbox">
-                                                    <input
-                                                        type="checkbox"
-                                                        name="newsletter"
-                                                        id="newsletter"
-                                                        class="custom-control-input"
-                                                        value="1"
-                                                        >
+                                                    <input type="checkbox" name="newsletter" id="newsletter"class="custom-control-input" value="1">
                                                     <label for="newsletter" class="custom-control-label">
                                                         Keep me up-to-date with offers by email.            </label>
                                                 </div>
@@ -307,45 +278,27 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <input
-                                                    type="password"
-                                                    name="old_password"
-                                                    class="form-control"
-                                                    value=""
-                                                    placeholder="Old Password"
-                                                    />
+                                                <input  type="password"  id="old_password"  class="form-control" value=""  placeholder="Old Password" />
                                             </div>
 
                                             <div class="form-row">
+                                                <div class="col-sm-12">
+                                                    <span class="badge badge-danger" id="PassMatch">The password dosen't match</span>
+                                                </div>
                                                 <div class="col col-sm-6">
                                                     <div class="form-group">
-                                                        <input
-                                                            type="password"
-                                                            class="form-control"
-                                                            value=""
-                                                            name="new_password"
-                                                            placeholder="New Password"
-                                                            >
+                                                        <input type="password" class="form-control"  value="" id="new_password"  placeholder="New Password">
                                                     </div>
                                                 </div>
                                                 <div class="col col-sm-6">
                                                     <div class="form-group">
-                                                        <input
-                                                            type="password"
-                                                            class="form-control"
-                                                            name="confirm_new_password"
-                                                            value=""
-                                                            placeholder="New Password Confirm"
-                                                            >
+                                                        <input type="password"   class="form-control"   id="confirm_new_password"   value=""  placeholder="New Password Confirm"   >
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="buttons">
-                                                <button
-                                                    type="submit"
-                                                    class="btn orange"
-                                                    >Save Details</button>
+                                                <button type="button" id="sedUpdate" class="btn orange" >Save Details</button>
                                             </div>
                                         </form>
 
@@ -451,15 +404,15 @@
                                     </li>
                                     <li>
                                         <a class="p-2 fab fa-twitter" target="_blank" title="Facebook" href="" aria-hidden="true">
-                                        </a><span class="sr-only">Facebook</span>
+                                        </a><span class="sr-only">Twitter</span>
                                     </li>
                                     <li>
                                         <a class="p-2 fab fa-github" target="_blank" title="Facebook" href="" aria-hidden="true">
-                                        </a><span class="sr-only">Facebook</span>
+                                        </a><span class="sr-only">GitHub</span>
                                     </li>
                                     <li>
                                         <a class="p-2 fab fa-youtube" target="_blank" title="Facebook" href="" aria-hidden="true">
-                                        </a><span class="sr-only">Facebook</span>
+                                        </a><span class="sr-only">YouTube</span>
                                     </li>
                                 </ul>
                             </div>

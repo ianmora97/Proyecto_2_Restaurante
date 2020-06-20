@@ -38,7 +38,30 @@ public class ClienteDao {
             return false;
         }
     }
+     public static boolean updateClient(Cliente cliente) throws Exception {
+        String SQL = "update cliente set nombre =?,apellidos =?,telefono =? where usuario_correo = ?;";
 
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+
+            st.setString(1, cliente.getNombre());
+            st.setString(2, cliente.getApellidos());
+            st.setString(3, cliente.getTelefono());
+            st.setString(4, cliente.getUsuarioCorreo());
+
+            int resultado = st.executeUpdate();
+
+            con.close();
+            st.close();
+
+            return resultado != 0;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return false;
+        }
+    }
     public static Cliente createClient(String usuarioCorreo) throws Exception {
         String SQL = "select *from cliente where usuario_correo = ?;";
         Cliente cliente = new Cliente();

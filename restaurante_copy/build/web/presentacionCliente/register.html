@@ -31,19 +31,10 @@ and open the template in the editor.
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="mainNav">
                     <div class="navbar-nav">
-                        <a class="nav nav-link active "  href="/restaurante_copy/index.html" > View Menu </a>
+                        <a class="nav nav-link  "  href="/restaurante_copy/index.html" > View Menu </a>
                         <a class="nav-item nav-link"  href="/restaurante_copy/presentacionCliente/reservation.html"> Reservation</a>
                         <a class="nav-item nav-link"  href="/restaurante_copy/presentacionCliente/loginCliente.html" id="loginAnchor"> Login</a>
-                        <a class="nav-item nav-link"  href="/restaurante_copy/presentacionCliente/register.html" id="registerAnchor"> Register</a>
-                        <div class="dropdown">
-                            <button class="btn  dropdown-toggle" type="button" id="dropdownMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #ED561A;">
-                                User
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuBtn">
-                                <a class="dropdown-item" href="/restaurante_copy/presentacionCliente/perfil.html" >My profile </a>
-                                <a class="dropdown-item" href="#" id="logOutAnchor">Log Out</a>
-                            </div>
-                        </div>
+                        <a class="nav-item nav-link active"  href="/restaurante_copy/presentacionCliente/register.html" id="registerAnchor"> Register</a>
                     </div>
                 </div>
             </div>
@@ -51,7 +42,9 @@ and open the template in the editor.
         <div id="registeredSuccess" class="alert alert-success text-center" role="alert" >
             <strong>You have successfully registered </strong> 
         </div>
-
+        <div id="registeredError" class="alert alert-danger text-center" role="alert" >
+            <strong>Something went wrong </strong> 
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 mx-auto my-5">
@@ -239,41 +232,11 @@ and open the template in the editor.
                 events();
             }
             function events() {
-                $("#findTableBtn").click(function () {
-                    reservar();
-                });
-                logOut();
-                getUserInSession();
                 $("#incorrect").hide();
                 $("#invalidEmail").hide();
                 $("#success").hide();
-                $("#noTables").hide();
-                
+                $("#registeredError").hide();
                 ingresar();
-                getUserInSession();
-            }
-            function getUserInSession() {
-                $.ajax({
-                    type: "POST",
-                    url: "/restaurante_copy/api/restaurante/getUser",
-                    success: function (usuario) {
-                        if (usuario !== null) {
-                            $("#registerAnchor").hide();
-                            $("#loginAnchor").hide();
-                            $("#dropdownMenuBtn").show();
-                            $("#dropdownMenuBtn").html(" ");
-                            $("#dropdownMenuBtn").append(usuario.cliente.nombre);
-
-                        } else {
-                            $("#registerAnchor").show();
-                            $("#loginAnchor").show();
-                            $("#dropdownMenuBtn").hide();
-                        }
-                    },
-                    error: function (status) {
-                        alert(errorMessage(status));
-                    }
-                });
             }
             function ingresar(status) {
                 $("#SendRegister").click(function () {
@@ -285,19 +248,33 @@ and open the template in the editor.
                     var telephone = $("#telephone").val();
 
                     if (validacion(firstName, lastName, email, password, confirmPass, telephone) === false) {
-                        var sendData = firstName + "\n" + lastName + "\n" + email + "\n" + password + "\n" + confirmPass + "\n" + telephone;
+                        var Cliente = {
+                            usuarioCorreo: email,
+                            nombre: firstName,
+                            apellidos: lastName,
+                            telefono: telephone
+                        };
+                        var usario = {
+                            usuarioCorreo: email,
+                            username: firstName,
+                            contrasena: lastName,
+                            rol: 1,
+                            cliente: Cliente
+                        };
+
                         $.ajax({
                             type: "POST",
-                            url: "/restaurante_copy/api/restaurante/register",
-                            data: sendData,
-                            success: function () {
-                                $("#registeredSuccess").fadeTo(2000, 500).slideUp(500, function () {
-                                    $("#registeredSuccess").slideUp(500);
-                                });
-                            },
-                            error: function () {
-                                alert("Something goes Wrong");
-                            }
+                            url: "/restaurante_copy/api/register",
+                            data: JSON.stringify(usario),
+                            contentType: "application/json"
+                        }).then(() => {
+                            $("#registeredSuccess").fadeTo(2000, 500).slideUp(500, function () {
+                                $("#registeredSuccess").slideUp(500);
+                            });
+                        }, (error) => {
+                            $("#registeredError").fadeTo(2000, 500).slideUp(500, function () {
+                                $("#registeredError").slideUp(500);
+                            });
                         });
                     }
                 });

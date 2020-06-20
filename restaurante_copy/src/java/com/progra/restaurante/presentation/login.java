@@ -24,7 +24,11 @@ public class login {
     @Produces({MediaType.APPLICATION_JSON})
     public Usuario login(Usuario usuario) {
         try {
-         return  Model.instance().getUsuario(usuario.getUsername(), usuario.getContrasena());
+            Usuario base = Model.instance().getUsuario(usuario.getUsername(), usuario.getContrasena());
+            if (base == null) {
+                throw new Exception("Error");
+            }
+            return base;
         } catch (Exception ex) {
             throw new NotAcceptableException();
         }
