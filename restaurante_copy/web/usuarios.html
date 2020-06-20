@@ -17,138 +17,79 @@
             Categoria Ingresada Correctamente
         </div>
 
-        <div class="modal fade" id="modalChange" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm" role="document">
+        <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Cambiar Estado</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">A&ntilde;adir Usuario</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body" id="editarBody">
-                        Cambio hecho correctamente
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-                    </div>   
-                </div>
-            </div>
-        </div>
-        <div class="modal fade bd-example-modal-xl" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ver Ordenes</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" id="editarBody">
-                        <div class="list-table table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th
-                                            class="list-cell-name-table-name list-cell-type-text "
-                                            >
-                                            <a
-                                                class="sort-col"
-                                                data-request="list::onSort"
-                                                data-request-form="#list-form"
-                                                data-request-data="sort_by: 'table_name'">
-                                                Nombre Cliente                    <i class="fa fa-sort-ASC"></i>
-                                            </a>
-                                        </th>
-
-                                        <th
-                                            class="list-cell-name-min-capacity list-cell-type-text "
-                                            >
-                                            <a
-                                                class="sort-col"
-                                                data-request="list::onSort"
-                                                data-request-form="#list-form"
-                                                data-request-data="sort_by: 'min_capacity'">
-                                                Estatus                    <i class="fa fa-sort-ASC"></i>
-                                            </a>
-                                        </th>
-                                        <th
-                                            class="list-cell-name-min-capacity list-cell-type-text "
-                                            >
-                                            <a
-                                                class="sort-col"
-                                                data-request="list::onSort"
-                                                data-request-form="#list-form"
-                                                data-request-data="sort_by: 'min_capacity'">
-                                                Tipo Entrega                    <i class="fa fa-sort-ASC"></i>
-                                            </a>
-                                        </th>
-                                        <th
-                                            class="list-cell-name-min-capacity list-cell-type-text "
-                                            >
-                                            <a
-                                                class="sort-col"
-                                                data-request="list::onSort"
-                                                data-request-form="#list-form"
-                                                data-request-data="sort_by: 'min_capacity'">
-                                                Direccion                    <i class="fa fa-sort-ASC"></i>
-                                            </a>
-                                        </th>
-                                        <th
-                                            class="list-cell-name-min-capacity list-cell-type-text "
-                                            >
-                                            <a
-                                                class="sort-col"
-                                                data-request="list::onSort"
-                                                data-request-form="#list-form"
-                                                data-request-data="sort_by: 'min_capacity'">
-                                                Plato                    <i class="fa fa-sort-ASC"></i>
-                                            </a>
-                                        </th>
-                                        <th
-                                            class="list-cell-name-min-capacity list-cell-type-text "
-                                            >
-                                            <a
-                                                class="sort-col"
-                                                data-request="list::onSort"
-                                                data-request-form="#list-form"
-                                                data-request-data="sort_by: 'min_capacity'">
-                                                Adicional                    <i class="fa fa-sort-ASC"></i>
-                                            </a>
-                                        </th>
-                                        <th
-                                            class="list-cell-name-min-capacity list-cell-type-text "
-                                            >
-                                            <a
-                                                class="sort-col"
-                                                data-request="list::onSort"
-                                                data-request-form="#list-form"
-                                                data-request-data="sort_by: 'min_capacity'">
-                                                Opcion                    <i class="fa fa-sort-ASC"></i>
-                                            </a>
-                                        </th>
-                                        <th
-                                            class="list-cell-name-min-capacity list-cell-type-text "
-                                            >
-                                            <a
-                                                class="sort-col"
-                                                data-request="list::onSort"
-                                                data-request-form="#list-form"
-                                                data-request-data="sort_by: 'min_capacity'">
-                                                Total                    <i class="fa fa-sort-ASC"></i>
-                                            </a>
-                                        </th>
-                                    </tr>        
-                                </thead>
-                                <tbody id="listaOrdenes">
-
-                                </tbody>
-                            </table>
+                        <div class="form-group" style="width: 45%;display: inline-block;margin: 0;">
+                            <label for="nombre">Nombre</label>
+                            <input class="form-control" type="text" id="text-input-1" name="nombre">
+                        </div>
+                        <div class="form-group" style="width: 45%;display: inline-block;margin-left: 21px;">
+                            <label for="apellido-input">Apellido</label>
+                            <input class="form-control" type="text" id="text-input-2" name="apellido">
+                        </div>
+                        <div class="form-group" style="width: 45%;display: inline-block;margin: 0;">
+                            <label for="correo">Correo</label>
+                            <input class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" type="email" id="email" name="email">
+                        </div>
+                        <div class="form-group" style="width: 45%;display: inline-block;margin-left:21px;">
+                            <label for="telefono">Telefono</label>
+                            <input class="form-control" type="text" id="text-input-4" name="telefono">
+                        </div>
+                        <div class="form-group" style="width: 45%;margin-right: 20px;display: inline-block;">
+                            <label for="text-input">Contrase&ntilde;a</label>
+                            <input type="text" class="form-control" id="text-input-5" name="clave" />
+                        </div>
+                        <div class="form-group" style="display: inline-block;">
+                            <div class="form-check"><input type="checkbox" class="form-check-input" name="rol" id="rol" />
+                                <label class="form-check-label" for="formCheck-1">Usuario Privilegiado</label>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" id="sendAdd" data-dismiss="modal" class="btn btn-primary btn-lg pull-right">Agregar</button>
+                    </div>   
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="editarBody">
+                        <div class="form-group" style="width: 45%;display: inline-block;margin: 0;">
+                            <label for="nombre">Nombre</label>
+                            <input class="form-control" type="text" id="text-input-1" name="nombre">
+                        </div>
+                        <div class="form-group" style="width: 45%;display: inline-block;margin-left: 21px;">
+                            <label for="apellido-input">Apellido</label>
+                            <input class="form-control" type="text" id="text-input-2" name="apellido">
+                        </div>
+                        <div class="form-group" style="width: 45%;display: inline-block;margin: 0;">
+                            <label for="correo">Correo</label>
+                            <input class="form-control" type="text" id="text-input-3" name="correo" disabled>
+                        </div>
+                        <div class="form-group" style="width: 45%;display: inline-block;margin-left:21px;">
+                            <label for="telefono">Telefono</label>
+                            <input class="form-control" type="text" id="text-input-4" name="telefono">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" id="editModalButton" data-dismiss="modal" class="btn btn-primary btn-lg pull-right">Editar</button>
                     </div>   
                 </div>
             </div>
@@ -259,7 +200,7 @@
                             <li class="nav-item">
                                 <a
                                     class="nav-link orders"
-                                    href="#"
+                                    href="ordenesAdmin.html"
                                     aria-expanded="false"
                                     >
 
@@ -308,6 +249,11 @@
                     >
                     <div class="toolbar-action">
                         <div class="progress-indicator-container">
+
+                            <div class="btn btn-primary" data-toggle="modal" data-target="#modalAdd">
+                                <i class="fa fa-plus"></i>New</div>
+
+                            <!--<button class="btn btn-danger" data-attach-loading="" id="eliminarCat"><i class="fa fa-trash-o"></i> Delete</button>-->
 
                             <a class="btn btn-default btn-filter" data-toggle="list-filter" data-target=".list-filter" tabindex="0"><i class="fa fa-filter"></i></a></div>
                     </div>
@@ -380,7 +326,7 @@
                                             data-request="list::onSort"
                                             data-request-form="#list-form"
                                             data-request-data="sort_by: 'table_name'">
-                                            Nombre Cliente                    <i class="fa fa-sort-ASC"></i>
+                                            Nombre                    <i class="fa fa-sort-ASC"></i>
                                         </a>
                                     </th>
 
@@ -392,7 +338,7 @@
                                             data-request="list::onSort"
                                             data-request-form="#list-form"
                                             data-request-data="sort_by: 'min_capacity'">
-                                            Numero de la Orden                    <i class="fa fa-sort-ASC"></i>
+                                            Apellido                    <i class="fa fa-sort-ASC"></i>
                                         </a>
                                     </th>
                                     <th
@@ -403,10 +349,20 @@
                                             data-request="list::onSort"
                                             data-request-form="#list-form"
                                             data-request-data="sort_by: 'min_capacity'">
-                                            Status                    <i class="fa fa-sort-ASC"></i>
+                                            Correo                    <i class="fa fa-sort-ASC"></i>
                                         </a>
                                     </th>
-
+                                    <th
+                                        class="list-cell-name-min-capacity list-cell-type-text "
+                                        >
+                                        <a
+                                            class="sort-col"
+                                            data-request="list::onSort"
+                                            data-request-form="#list-form"
+                                            data-request-data="sort_by: 'min_capacity'">
+                                            Telefono                    <i class="fa fa-sort-ASC"></i>
+                                        </a>
+                                    </th>
                                     <th class="list-setup">
                                         <button
                                             type="button"
@@ -420,7 +376,7 @@
                                         </button>
                                     </th>
                                 </tr>        </thead>
-                            <tbody id="listaOrdenesCliente">
+                            <tbody id="listaClientes">
 
                             </tbody>
                         </table>
@@ -445,6 +401,6 @@
 
         <script charset="utf-8" type="text/javascript" src="https://demo.tastyigniter.com/app/admin/widgets/lists/assets/js/lists.js" name="lists-js"></script>
 
-        <script charset="utf-8" type="text/javascript" src="/restaurante_copy/js/ordenes-admin.js"></script>
+        <script charset="utf-8" type="text/javascript" src="/restaurante_copy/js/usuarios-admin.js"></script>
     </body>
 </html>

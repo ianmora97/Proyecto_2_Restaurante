@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -61,6 +62,54 @@ public class ClienteDao {
         } catch (SQLException ex) {
             System.out.println(ex);
             return null;
+        }
+    }
+    public static ArrayList<Cliente> getClientes() throws Exception {
+        String SQL = "select * from cliente ;";
+        Cliente cliente;
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+            ResultSet result = st.executeQuery();
+            ArrayList<Cliente> lista = new ArrayList<>();
+            
+            while (result.next()) {
+                cliente = new Cliente();
+                cliente.setUsuarioCorreo(result.getString("usuario_correo"));
+                cliente.setNombre(result.getString("nombre"));
+                cliente.setApellidos(result.getString("apellidos"));
+                cliente.setTelefono(result.getString("telefono"));
+                
+                lista.add(cliente);
+            }
+            result.close();
+            con.close();
+            st.close();
+            return lista;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+    public static boolean editCliente(Cliente cliente) throws Exception {
+        String SQL = "UPDATE cliente SET nombre = ?, apellidos = ?, telefono = ? "
+                + "WHERE usuario_correo = ?;";
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+
+            st.setString(1, cliente.getNombre());
+            st.setString(2, cliente.getApellidos());
+            st.setString(3, cliente.getTelefono());
+            st.setString(4, cliente.getUsuarioCorreo());
+            int r = st.executeUpdate();
+            con.close();
+            st.close();
+            return r != 0;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return false;
         }
     }
 }

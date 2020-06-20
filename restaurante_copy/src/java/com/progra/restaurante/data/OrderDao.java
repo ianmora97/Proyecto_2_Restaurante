@@ -235,4 +235,32 @@ public class OrderDao {
         }
 
     }
+    public static ArrayList<Orden> getOrdenes() throws Exception {
+        String SQL = "select total from orden;";
+        try {
+            Connection con = Conn.conectar();
+            PreparedStatement st = con.prepareStatement(SQL);
+            ResultSet resultado = st.executeQuery();
+
+            ArrayList<Orden> lista = new ArrayList<>();
+            Orden oc;
+
+            while (resultado.next()) {
+                oc = new Orden();
+                oc.setTotal(resultado.getDouble("total"));
+                lista.add(oc);
+            }
+
+            con.close();
+            resultado.close();
+            st.close();
+
+            return lista;
+
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+            return null;
+        }
+
+    }
 }

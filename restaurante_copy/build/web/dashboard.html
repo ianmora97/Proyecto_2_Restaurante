@@ -8,16 +8,12 @@
         <link rel="shortcut icon" type="image/x-icon" href="https://demo.tastyigniter.com/app/admin/assets/images/favicon.ico">
         <title>Dashboard</title>
         <link rel="stylesheet" type="text/css" href="https://demo.tastyigniter.com/app/system/assets/ui/flame.css" name="flame-css">
-
         <link rel="stylesheet" type="text/css" href="https://demo.tastyigniter.com/app/admin/assets/css/admin.css" name="admin-css">
-
-        <link rel="stylesheet" type="text/css" href="https://demo.tastyigniter.com/app/admin/widgets/dashboardcontainer/assets/css/dashboardcontainer.css">
 
         <link rel="stylesheet" type="text/css" href="https://demo.tastyigniter.com/app/admin/dashboardwidgets/statistics/assets/css/statistics.css" name="statistics-css">
 
-        <link rel="stylesheet" type="text/css" href="https://demo.tastyigniter.com/app/admin/dashboardwidgets/charts/assets/vendor/daterange/daterangepicker.css" name="daterangepicker-css">
 
-        <link rel="stylesheet" type="text/css" href="https://demo.tastyigniter.com/app/admin/dashboardwidgets/charts/assets/css/charts.css" name="charts-css">
+        <link rel="stylesheet" href="/restaurante/css/general.css">
 
     </head>
     <body class="page ">
@@ -166,18 +162,10 @@
                                 <a
                                     class="nav-link customers"
                                     aria-expanded="false"
+                                    href="usuarios.html"
                                     >
 
                                     Clientes                            </a>
-
-                            </li>
-                            <li class="nav-item">
-                                <a
-                                    class="nav-link staffs"
-                                    aria-expanded="false"
-                                    >
-
-                                    Empleados                            </a>
 
                             </li>
                         </ul>
@@ -190,30 +178,63 @@
 
         <div class="page-wrapper">
             <div class="row-fluid">
-                <div
-                    data-control="dashboard-container"
-                    data-alias="dashboardContainer"
-                    >
+                <div data-control="dashboard-container" data-alias="dashboardContainer">
+                    <div id="dashboardcontainer-container" class="dashboard-widgets"><div class="widget-container">
+                            <div id="dashboardcontainer-container-list" class="widget-list row " data-container-widget="">
+                                <div class="col col-sm-4 my-3">
+                                    <div class="widget-item card  p-3 shadow-sm">
+                                        <div id="dashboard_container_dashboard_1"><div class="card-counter customer">
+                                                <i class="stat-icon  bg-info text-white fa fa-users"></i>
+                                                <span class="stat-number" data-original-title="" id="totalClientes" title=""></span>
+                                                <span class="stat-text" data-original-title="" title="">Total de Clientes</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-sm-4 my-3">
+                                    <div class="widget-item card  p-3 shadow-sm">
+                                        <div id="dashboard_container_dashboard_2">
+                                            <div class="card-counter reserved_guest">
+                                                <i class="stat-icon  bg-primary text-white fa fa-table"></i>
+                                                <span class="stat-number" data-original-title="" id="totalEmpleados" title=""></span>
+                                                <span class="stat-text" data-original-title="" title="">Total de Empleados</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-sm-4 my-3">
+                                    <div class="widget-item card  p-3 shadow-sm">
+                                        <div id="dashboard_container_dashboard_3">
+                                            <div class="card-counter">
+                                                <i class="stat-icon  bg-success text-white fa fa-line-chart"></i>
+                                                <span class="stat-number" data-original-title="" id="totalVentas" title=""></span>
+                                                <span class="stat-text" data-original-title="" title="">Total Ventas</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-sm-12 my-3">
+                                    <div class="widget-item card  p-3 shadow-sm">
+                                        <div id="dashboard_container_dashboard_4"><div class="dashboard-widget widget-charts">
+                                                <h6 class="widget-title">Reports Chart</h6>
+                                                <div class="chart-container" data-control="chart" data-alias="charts" data-range-selector="#charts-daterange" data-range-parent-selector="#charts-daterange-parent" data-range-format="MMMM D, YYYY">
 
+                                                    <div class="chart-canvas"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                                                <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0">
+                                                                    
+                                                                </div>
+                                                                    
+                                                            </div>
+                                                            <div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
 
-                    <div id="dashboardcontainer-container-toolbar" class="toolbar dashboard-toolbar btn-toolbar"
-                         data-container-toolbar>
-                        <div class="modal slideInDown fade"
-                             id="newWidgetModal"
-                             tabindex="-1"
-                             role="dialog"
-                             aria-labelledby="newWidgetModalTitle"
-                             aria-hidden="true"
-                             >
-                            <div class="modal-dialog" role="document">
-                                <div id="dashboardcontainer-new-widget-modal-content" class="modal-content">
-                                    <div class="modal-body">
-
+                                                        <canvas id="charts" width="777" height="251" class="chartjs-render-monitor" style="display: block; width: 777px; height: 251px;"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="toolbar-action">
                         </div>
                     </div>
                 </div>
@@ -226,6 +247,7 @@
         <script charset="utf-8" type="text/javascript" src="https://demo.tastyigniter.com/app/admin/widgets/menu/assets/js/mainmenu.js" name="mainmenu-js"></script>
 
         <script charset="utf-8" type="text/javascript" src="https://demo.tastyigniter.com/app/admin/widgets/dashboardcontainer/assets/js/dashboardcontainer.js"></script>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+        <script charset="utf-8" type="text/javascript" src="/restaurante_copy/js/dashboard.js"></script>
     </body>
 </html>
