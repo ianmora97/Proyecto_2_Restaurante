@@ -25,7 +25,7 @@ import java.util.Date;
 public class reservationDao {
 
     public static Mesa getMesaLibre(int cantidadPersonas) throws Exception {
-        String SQL = "select id_mesa, min(cap_max) cap_max, cap_min, estado from mesa where estado = 'L' and cap_min >= ?;";
+        String SQL = "select id_mesa, min(cap_max) cap_max, cap_min, estado from mesa where estado = 'L' and cap_min <= ? and cap_max >= ?;";
         Mesa mesa = null;
 
         try {
@@ -33,6 +33,7 @@ public class reservationDao {
             PreparedStatement st = con.prepareStatement(SQL);
 
             st.setInt(1, cantidadPersonas);
+            st.setInt(2, cantidadPersonas);
 
             ResultSet resultado = st.executeQuery();
 

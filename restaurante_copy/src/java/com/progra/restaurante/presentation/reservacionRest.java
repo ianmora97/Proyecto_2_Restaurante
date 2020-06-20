@@ -63,7 +63,6 @@ public class reservacionRest {
                 usuario.getCliente().setApellidos(lastName);
                 usuario.getCliente().setTelefono(lastName);
                 usuario.setRol(1);
-
                 if (com.progra.restaurante.data.Model.instance().insertUser(usuario)) {
                     com.progra.restaurante.data.Model.instance().insertCliente(usuario.getCliente());
                 }
