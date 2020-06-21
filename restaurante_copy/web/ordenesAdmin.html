@@ -318,8 +318,10 @@
                     >
                     <div class="toolbar-action">
                         <div class="progress-indicator-container">
-
-                            <a class="btn btn-default btn-filter" data-toggle="list-filter" data-target=".list-filter" tabindex="0"><i class="fa fa-filter"></i></a></div>
+                            <a class="btn btn-default btn-filter" data-toggle="list-filter" data-target=".list-filter" tabindex="0">
+                                <i class="fa fa-filter"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -328,13 +330,14 @@
                     class="list-filter "
                     data-store-name="ti_displayListFilter"
                     style="display:none">
-
+                    
 
                     <div class="d-flex mt-3">
                         <div class="mr-3">
                             <button
                                 class="btn btn-outline-danger"
                                 type="button"
+                                id="clean"
                                 data-request="list_filter::onClear"
                                 data-attach-loading
                                 >

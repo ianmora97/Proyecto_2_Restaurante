@@ -169,6 +169,39 @@ public class OrderDao {
         }
 
     }
+    public static ArrayList<OrdenCliente> getOrdersNameId(int id) throws Exception {
+        String SQL = "select c.nombre,c.apellidos, o.id_orden, o.estatus from orden o, cliente c where o.usuario_correo = c.usuario_correo and o.id_orden like '%%%s%%'";
+        try {
+            Connection con = Conn.conectar();
+            SQL = String.format(SQL, id);
+            PreparedStatement st = con.prepareStatement(SQL);
+            
+            ResultSet resultado = st.executeQuery();
+
+            ArrayList<OrdenCliente> lista = new ArrayList<>();
+            OrdenCliente oc;
+
+            while (resultado.next()) {
+                oc = new OrdenCliente();
+                oc.setNombre(resultado.getString("nombre"));
+                oc.setApellidos(resultado.getString("apellidos"));
+                oc.setId(resultado.getInt("id_orden"));
+                oc.setStatus(resultado.getString("estatus"));
+                lista.add(oc);
+            }
+
+            con.close();
+            resultado.close();
+            st.close();
+
+            return lista;
+
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+            return null;
+        }
+
+    }
     public static ArrayList<OrdenRecu> getOrders(int id) throws Exception {
         String SQL = "select cli.nombre as nombre_cliente, orn.estatus, orn.tipo_entrega, ub.direccion,pla.nombre_platillo,"
                 + "adi.nombre as nombre_adicional ,op.nombre as nombre_opcion, orn.total " +

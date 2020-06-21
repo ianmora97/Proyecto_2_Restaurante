@@ -12,6 +12,21 @@ function loaded(event) {
     buscarOrdenes();
     openModalOrder();
     changeEditModel();
+    getOrdersClean();
+}
+function getOrdersClean() {
+    $("#clean").click(function () {
+        $.ajax({
+            type: "GET",
+            url: "api/ordenAdmin",
+            contentType: "application/json"
+        }).then((ordenes) => {
+            console.log(ordenes);
+            showOrdersClient(ordenes);
+        }, (error) => {
+            alert(errorMessage(error.status));
+        });
+    });
 }
 function getOrdersClient() {
     $(document).ready(function () {
@@ -45,27 +60,11 @@ function fillOrdersClient(orden) {
             '<label class="custom-control-label" for="checkbox-' + id + '">&nbsp;</label></div></td>' +
             '<td data-toggle="modal" data-target="#modalEdit" data-whatever="' + id + '"  class="list-col-index-2 list-col-name-table-name list-col-type-text id="' + id + 'selectid">' + nombre + '</td>' +
             '<td data-toggle="modal" data-target="#modalEdit" data-whatever="' + id + '"  class="list-col-index-3 list-col-name-min-capacity list-col-type-text ">' + id + '</td>' +
-            '<td class="list-col-index-3 list-col-name-min-capacity list-col-type-text "><div class="btn orange" data-toggle="modal" data-target="#modalChange" data-status="'+status+'" data-id="'+id+'"><i class="fa fa-edit"></i>' + status + '</div></td>' +
+            '<td class="list-col-index-3 list-col-name-min-capacity list-col-type-text "><div class="btn orange" data-toggle="modal" data-target="#modalChange" data-status="' + status + '" data-id="' + id + '"><i class="fa fa-edit"></i>' + status + '</div></td>' +
             '<td class="list-setup">&nbsp;</td></tr>'
             );
 }
-function buscarOrdenes() {
-    $("#buscarCat").click(function () {
-        var OpSelected = {nombre: $("#nombreBus").val()};
-        $.ajax({
-            type: "POST",
-            url: "api/ordenAdmin/buscar",
-            data: JSON.stringify(OpSelected),
-            contentType: "application/json"
-        }).then((categorias) => {
-            console.log(categorias);
-            showCategorias(categorias);
-        },(error) => {
-            alert(error.status);
-        });
 
-    });
-}
 function fillOrdenesRecu(orden) {
     var nombre = orden.nombre;
     var status = orden.estatus;
@@ -121,18 +120,18 @@ function changeEditModel(categoria) {
 
         var cambio;
         $('#modalChange').modal('hide');
-        if(estatus === "En preparacion"){
+        if (estatus === "En preparacion") {
             cambio = "Listo";
         }
-        if(estatus === "Listo"){
+        if (estatus === "Listo") {
             cambio = "Entregado";
         }
-        if(estatus === "Entregado"){
+        if (estatus === "Entregado") {
             cambio = "Entregado";
         }
         var orden = {
-            estatus:cambio,
-            idOrden:id
+            estatus: cambio,
+            idOrden: id
         };
         $(document).ready(function () {
             $.ajax({
@@ -147,6 +146,26 @@ function changeEditModel(categoria) {
                 alert(errorMessage(error.status));
             });
         });
+    });
+}
+function buscarOrdenes() {
+    $("#buscarCat").click(function () {
+        var OpSelected = $("#nombreBus").val() + "";
+        console.log(OpSelected);
+        $.ajax({
+            type: "POST",
+            url: "api/ordenAdmin/buscar",
+            data: JSON.stringify(OpSelected),
+            contentType: "application/json"
+        }).then((ordenes) => {
+            $("#listaOrdenesCliente").html("");
+            ordenes.forEach((or) => {
+                fillOrdersClient(or);
+            });
+        },(error) => {
+            alert(error.status);
+        });
+
     });
 }
 function errorMessage(status) {

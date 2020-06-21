@@ -8,6 +8,7 @@
  */
 package com.progra.restaurante.presentation;
 
+import com.google.gson.Gson;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -88,9 +89,12 @@ public class OrdenesAdmin {
     @Path("/buscar")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public ArrayList<OrdenRecu> buscar(String id) {
+    public ArrayList<OrdenCliente> buscar(String id) {
         try {
-            return com.progra.restaurante.data.OrderDao.getOrders(Integer.parseInt(id));
+           
+            Gson g = new Gson();
+            int p = g.fromJson(id,int.class);
+            return com.progra.restaurante.data.OrderDao.getOrdersNameId(p);
         } catch (Exception ex) {
             throw new NotAcceptableException();
         }
