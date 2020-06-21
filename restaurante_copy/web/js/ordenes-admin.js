@@ -54,12 +54,12 @@ function buscarOrdenes() {
         var OpSelected = {nombre: $("#nombreBus").val()};
         $.ajax({
             type: "POST",
-            url: "api/ordenAdmin/buscar",
+            url: "/restaurante_copy/api/ordenAdmin/buscar",
             data: JSON.stringify(OpSelected),
             contentType: "application/json"
-        }).then((categorias) => {
-            console.log(categorias);
-            showCategorias(categorias);
+        }).then((Ordenes) => {
+            console.log(Ordenes);
+            showOrdersClient(Ordenes);
         },(error) => {
             alert(error.status);
         });
