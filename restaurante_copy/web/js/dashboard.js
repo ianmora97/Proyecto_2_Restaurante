@@ -9,6 +9,7 @@
 
 function loaded(event) {
     getStatNumbers();
+    cuadro();
 }
 function cuadro() {
     var datos = [];
@@ -76,7 +77,7 @@ function getStatNumbers() {
             $("#totalClientes").text(trio.nop);
             $("#totalEmpleados").text(trio.p);
             $("#totalVentas").text(trio.total);
-            cuadro();
+            
         }, (error) => {
             alert(errorMessage(error.status));
         });

@@ -38,7 +38,7 @@ public class reservacionRest {
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
-    public void doGetPaymentMethods(ArrayList<String> array) {
+    public void reservation(ArrayList<String> array) {
         try {
             String firstName = array.get(0);
             String lastName = array.get(1);
@@ -61,7 +61,7 @@ public class reservacionRest {
                 usuario.getCliente().setUsuarioCorreo(email);
                 usuario.getCliente().setNombre(firstName);
                 usuario.getCliente().setApellidos(lastName);
-                usuario.getCliente().setTelefono(lastName);
+                usuario.getCliente().setTelefono(telephone);
                 usuario.setRol(1);
                 if (com.progra.restaurante.data.Model.instance().insertUser(usuario)) {
                     com.progra.restaurante.data.Model.instance().insertCliente(usuario.getCliente());
@@ -85,6 +85,28 @@ public class reservacionRest {
     public ArrayList<Reservacion> listReservacion(Usuario usuario) {
         try {
             return Model.instance().getReservation(usuario);
+        } catch (Exception ex) {
+            throw new NotAcceptableException();
+        }
+    }
+    
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public ArrayList<Reservacion> listReservaciones() {
+        try {
+            return com.progra.restaurante.data.reservationDao.getReservacionesAll();
+        } catch (Exception ex) {
+            throw new NotAcceptableException();
+        }
+    }
+    @POST
+    @Path("/delete")
+    @Consumes({MediaType.APPLICATION_JSON})
+    public void delete(ArrayList<String> reser) {
+        try {
+            for (String r : reser) {
+                com.progra.restaurante.data.reservationDao.deleteReservacion(Integer.parseInt(r));
+            }
         } catch (Exception ex) {
             throw new NotAcceptableException();
         }
