@@ -91,7 +91,7 @@ and open the template in the editor.
         <nav class="navbar navbar-expand-sm bg-white  navbar-inverse">
             <div class="container">
                 <div class="justify-content-start">
-                    <a href="#">
+                    <a href="/restaurante_copy/init.html">
                         <img src="/restaurante_copy/images/logo.png" height="40"/>
                     </a>
                 </div>
@@ -869,7 +869,7 @@ and open the template in the editor.
                             contentType: "application/json"
                         }).then(() => {
                             sessionStorage.removeItem("orden");
-                            location.href = "/restaurante_copy/index.html";
+                            location.href = "/restaurante_copy/init.html";
                         }, (error) => {
                             $("#Error404").fadeTo(3000, 600).slideUp(600, function () {
                                 $("#Error404").slideUp(600);
